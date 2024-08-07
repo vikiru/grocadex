@@ -29,6 +29,9 @@
         "plugins": ["expo-router"],
         "experiments": {
             "typedRoutes": true
+        },
+        "expo": {
+            "userInterfaceStyle": "automatic"
         }
     }
 }
