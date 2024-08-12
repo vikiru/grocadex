@@ -7,26 +7,29 @@ module.exports = {
         './navigation/**/*.{js,jsx,ts,tsx}',
     ],
     theme: {
-        screens: {},
-        colors: {
-            text: '#E0E0E0',
-            background: '#121212',
-            primary: '#81C784',
-            secondary: '#FFB74D',
-            accent: '#64B5F6',
-            'text-dark': '#212121',
-            'background-dark': '#E8F5E9',
-            'primary-dark': '#4CAF50',
-            'secondary-dark': '#FF9800',
-            'accent-dark': '#03A9F4',
+        extend: {
+            screens: {},
+            colors: {
+                text: '#212121',
+                background: '#E8F5E9',
+                primary: '#4CAF50',
+                secondary: '#FF9800',
+                accent: '#03A9F4',
+
+                'text-dark': '#E0E0E0',
+                'background-dark': '#121212',
+                'primary-dark': '#81C784',
+                'secondary-dark': '#FFB74D',
+                'accent-dark': '#64B5F6',
+            },
+            fontFamily: {
+                logo: [],
+                heading: ['Baloo 2', 'sans-serif'],
+                subheading: ['Lora', 'serif'],
+                body: ['Open Sans', 'sans-serif'],
+            },
         },
-        fontFamily: {
-            logo: [],
-            heading: ['Baloo 2', 'sans-serif'],
-            subheading: ['Nunito', 'sans-serif'],
-            body: ['Open Sans', 'sans-serif'],
-        },
-        extend: {},
     },
+
     plugins: [],
 };
