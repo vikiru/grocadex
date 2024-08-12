@@ -1,6 +1,8 @@
+import { mdiCashMultiple, mdiClockOutline, mdiLeaf } from '@mdi/js';
 import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
 import { Text, View } from 'react-native';
 
+import Icon from '@mdi/react';
 import { Button } from 'react-native-paper';
 
 NativeWindStyleSheet.setOutput({
@@ -9,67 +11,93 @@ NativeWindStyleSheet.setOutput({
 
 export default function Index() {
     return (
-        <StyledComponent component={View} className="bg-green-400 min-h-[100%] min-w-[100%]">
-            <StyledComponent component={View} className="flex-row mx-auto mt-10">
-                <StyledComponent component={Text} className="text-white text-5xl font-bold">
+        <StyledComponent component={View} className="bg-background min-h-full min-w-full flex">
+            <StyledComponent component={View} className="flex-row mx-auto mt-5">
+                <StyledComponent component={Text} className="text-primary text-5xl font-bold font-heading">
                     Grocery
                 </StyledComponent>
-                <StyledComponent component={Text} className="text-black text-5xl font-bold">
+                <StyledComponent component={Text} className="text-secondary text-5xl font-bold font-heading">
                     Tracker
                 </StyledComponent>
             </StyledComponent>
-            <StyledComponent component={View} className="flex-row mx-auto mt-2">
-                <StyledComponent component={Text} className="text-white text-xl italic">
+
+            <StyledComponent component={View} className="flex-row mx-auto my-2">
+                <StyledComponent component={Text} className="text-text text-xl italic font-body">
                     A grocery expiry and expense tracker.
                 </StyledComponent>
             </StyledComponent>
 
-            <StyledComponent component={View} className="ml-6 mt-5 lg:mx-auto">
-                <StyledComponent component={Text} className="text-black font-semibold text-left text-2xl">
-                    Track Your Groceries
+            <StyledComponent component={View} className="ml-6 mt-2 lg:mx-auto flex flex-row items-start">
+                <StyledComponent component={View} className=" flex items-center justify-center h-16 w-16">
+                    <Icon path={mdiClockOutline} size={1} />
                 </StyledComponent>
-                <StyledComponent component={Text} className="text-white text-xl">
-                    Never lose track of your grocery expiry dates again!
-                </StyledComponent>
-            </StyledComponent>
-
-            <StyledComponent component={View} className="ml-6 mt-5 lg:mx-auto">
-                <StyledComponent component={Text} className="text-black font-semibold text-left text-2xl">
-                    Save Money
-                </StyledComponent>
-                <StyledComponent component={Text} className="text-white text-xl  max-w-sm">
-                    Monitor your monthly expenses with ease and stay on-top of your budgeting goals!
-                </StyledComponent>
-            </StyledComponent>
-
-            <StyledComponent component={View} className="ml-6 mt-5 lg:mx-auto">
-                <StyledComponent component={Text} className="text-black font-semibold text-left text-2xl">
-                    Reduce Waste
-                </StyledComponent>
-                <StyledComponent component={Text} className="text-white text-xl">
-                    Keep your kitchen waste-free!
+                <StyledComponent component={View} className="ml-4 flex flex-col max-w-[300px]">
+                    <StyledComponent component={Text} className="text-text font-semibold text-left text-xl">
+                        Track & Organize Groceries
+                    </StyledComponent>
+                    <StyledComponent
+                        component={Text}
+                        className="text-text text-lg text-left font-body mt-1 break-words"
+                    >
+                        Manage your grocery items and never miss an expiry date again!
+                    </StyledComponent>
                 </StyledComponent>
             </StyledComponent>
 
-            <StyledComponent component={View} className='mt-4'></StyledComponent>
-            <StyledComponent
-                component={Button}
-                icon="account-plus"
-                mode="elevated"
-                className="max-w-md mt-4 mb-2 mx-4"
-                textColor="black"
-                onPress={() => console.log('Pressed')}
-            >
-                Sign Up
+            <StyledComponent component={View} className="ml-6 mt-2 lg:mx-auto flex flex-row items-start">
+                <StyledComponent component={View} className="flex items-center justify-center h-16 w-16">
+                    <Icon path={mdiCashMultiple} size={1} />
+                </StyledComponent>
+                <StyledComponent component={View} className="ml-4 flex flex-col max-w-[300px]">
+                    <StyledComponent component={Text} className="text-text font-semibold text-left text-xl">
+                        Save Money
+                    </StyledComponent>
+                    <StyledComponent
+                        component={Text}
+                        className="text-text text-left text-lg font-body mt-1 break-words"
+                    >
+                        Monitor your monthly expenses with ease and stay on top of your budgeting goals!
+                    </StyledComponent>
+                </StyledComponent>
             </StyledComponent>
-            <StyledComponent
-                component={Button}
-                icon="login"
-                mode="elevated"
-                className="max-w-md my-4 mx-4 bg-black text-red-600"
-                textColor="white"
-            >
-                Login
+
+            <StyledComponent component={View} className="ml-6 mt-2 lg:mx-auto flex flex-row items-start">
+                <StyledComponent component={View} className="flex items-center justify-center h-16 w-16 max-w-[20%]">
+                    <Icon path={mdiLeaf} size={1} />
+                </StyledComponent>
+                <StyledComponent component={View} className="ml-4 flex flex-col max-w-[300px]">
+                    <StyledComponent component={Text} className="text-text font-semibold text-left text-xl">
+                        Reduce Waste
+                    </StyledComponent>
+                    <StyledComponent
+                        component={Text}
+                        className="text-text text-left text-lg font-body mt-1 break-words"
+                    >
+                        Never waste unused food again due to missed expiry dates. Keep your kitchen waste-free!
+                    </StyledComponent>
+                </StyledComponent>
+            </StyledComponent>
+
+            <StyledComponent component={View} className="mt-2 lg:mx-auto">
+                <StyledComponent
+                    component={Button}
+                    icon="account-plus"
+                    mode="elevated"
+                    className="max-w-md lg:max-w-full mt-4 mb-2 mx-4 bg-primary"
+                    textColor="white"
+                    onPress={() => console.log('Pressed')}
+                >
+                    Sign Up
+                </StyledComponent>
+                <StyledComponent
+                    component={Button}
+                    icon="login"
+                    mode="elevated"
+                    className="max-w-md my-4 mx-4 bg-secondary"
+                    textColor="white"
+                >
+                    Login
+                </StyledComponent>
             </StyledComponent>
         </StyledComponent>
     );
