@@ -18,6 +18,8 @@
   "dependencies": {
     "@devinikhiya/react-native-tesseractocr": "^0.1.10",
     "@expo/vector-icons": "^14.0.2",
+    "@mdi/js": "^7.4.47",
+    "@mdi/react": "^1.6.1",
     "@react-navigation/native": "^6.0.2",
     "@sequelize/postgres": "^7.0.0-alpha.41",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
