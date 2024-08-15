@@ -1,5 +1,5 @@
-import { Card, DataTable } from 'react-native-paper';
 import { ScrollView, Text, View } from 'react-native';
+import { Card, DataTable } from 'react-native-paper';
 
 import { StyledComponent } from 'nativewind';
 
