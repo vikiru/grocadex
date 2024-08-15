@@ -1,5 +1,5 @@
-import { ScrollView, Text, View } from 'react-native';
 import { Card, DataTable } from 'react-native-paper';
+import { ScrollView, Text, View } from 'react-native';
 
 import { StyledComponent } from 'nativewind';
 
@@ -45,7 +45,7 @@ export default function Dashboard() {
     return (
         <StyledComponent component={View} className="bg-background min-h-full min-w-full flex">
             <StyledComponent component={View} className="bg-background">
-                <StyledComponent component={Text} className="text-white text-center bg-accent p-2 text-lg">
+                <StyledComponent component={Text} className="text-white text-center bg-primary p-2 text-lg">
                     Expiring Groceries
                 </StyledComponent>
                 <StyledComponent
@@ -58,7 +58,7 @@ export default function Dashboard() {
                         <StyledComponent
                             component={Card}
                             key={index}
-                            className="m-2 w-50 p-2 rounded-full shadow-md border-2 border-accent"
+                            className="m-2 w-50 p-2 rounded-full shadow-md border-2 border-primary"
                         >
                             <StyledComponent
                                 component={Card.Title}
@@ -75,13 +75,13 @@ export default function Dashboard() {
                     ))}
                 </StyledComponent>
 
-                <StyledComponent component={Text} className="text-white text-center bg-accent p-2 text-lg">
+                <StyledComponent component={Text} className="text-white text-center bg-primary p-2 text-lg">
                     Current Monthly Expenses
                 </StyledComponent>
 
                 <StyledComponent
                     component={Text}
-                    className="font-body text-center mt-4 pb-4 p-2 text-lg w-1/2 mx-auto text-white  bg-accent rounded-full"
+                    className="font-body text-center mt-4 pb-4 p-2 text-lg w-1/2 mx-auto text-white  bg-primary rounded-full"
                 >
                     $ 400.00
                 </StyledComponent>
