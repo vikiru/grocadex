@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { Button, TextInput } from 'react-native-paper';
 import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
 import { Text, View } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 
 NativeWindStyleSheet.setOutput({
     default: 'native',
