@@ -1,5 +1,5 @@
-import { Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import { Text, View } from 'react-native';
 
 import Logo from '@/components/Logo';
 import { StyledComponent } from 'nativewind';
@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 export default function Login() {
     const [userDetails, setUserDetails] = useState('');
+    const [displayPassword, setDisplayPassword] = useState(true);
     const [password, setPassword] = useState('');
 
     return (
@@ -31,9 +32,15 @@ export default function Login() {
                 component={TextInput}
                 label="Password"
                 value={password}
-                secureTextEntry
+                secureTextEntry={displayPassword}
                 placeholder="Enter your password"
                 onChangeText={(text) => setPassword(text)}
+                right={
+                    <TextInput.Icon
+                        icon={displayPassword ? 'eye-off' : 'eye'}
+                        onPress={() => setDisplayPassword(!displayPassword)}
+                    />
+                }
                 className="my-2 mx-4"
             />
 
