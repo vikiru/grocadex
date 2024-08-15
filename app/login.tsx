@@ -1,5 +1,5 @@
-import { Button, TextInput } from 'react-native-paper';
 import { Text, View } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 
 import Logo from '@/components/Logo';
 import { StyledComponent } from 'nativewind';
