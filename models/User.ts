@@ -1,19 +1,34 @@
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import { CreationOptional, DataTypes, Model } from 'sequelize';
 
 import sequelize from '@/data';
-import { ReceiptModel } from './Receipt';
+import { hashPassword } from '@/utils/hashPassword';
+import { compare } from 'bcrypt';
+import ReceiptModel from './Receipt';
 
-interface User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-    id: CreationOptional<number>;
-    firstName: string;
-    lastName: string;
-    email: string;
-    userName: string;
-    password: string;
+class UserModel extends Model {
+    id!: CreationOptional<number>;
+    firstName!: string;
+    lastName!: string;
+    email!: string;
+    userName!: string;
+    password!: string;
+
+    static async isUserTaken(username: string): Promise<boolean> {
+        const user = await this.findOne({ where: { userName: username } });
+        return user !== null;
+    }
+
+    static async isEmailTaken(email: string): Promise<boolean> {
+        const user = await this.findOne({ where: { email } });
+        return user !== null;
+    }
+
+    async validatePassword(password: string): Promise<boolean> {
+        return await compare(password, this.password);
+    }
 }
 
-export const UserModel = sequelize.define<User>(
-    'User',
+UserModel.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -45,8 +60,17 @@ export const UserModel = sequelize.define<User>(
         },
     },
     {
+        sequelize,
+        modelName: 'User',
         underscored: true,
         timestamps: true,
+        hooks: {
+            beforeCreate: async (user: UserModel) => {
+                if (user.password) {
+                    user.password = await hashPassword(user.password);
+                }
+            },
+        },
     },
 );
 
@@ -54,3 +78,5 @@ UserModel.hasMany(ReceiptModel, {
     foreignKey: 'userId',
     as: 'receipts',
 });
+
+export default UserModel;

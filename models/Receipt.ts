@@ -1,19 +1,18 @@
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import { CreationOptional, DataTypes, Model } from 'sequelize';
 
 import sequelize from '@/data';
-import { GroceryItemModel } from './GroceryItem';
-import { UserModel } from './User';
+import GroceryItemModel from './GroceryItem';
+import UserModel from './User';
 
-interface Receipt extends Model<InferAttributes<Receipt>, InferCreationAttributes<Receipt>> {
-    id: CreationOptional<number>;
-    userId: number;
-    store: string;
-    purchaseDate: string;
-    total: number;
+class Receipt extends Model {
+    id!: CreationOptional<number>;
+    userId!: number;
+    store!: string;
+    purchaseDate!: string;
+    total!: number;
 }
 
-export const ReceiptModel = sequelize.define<Receipt>(
-    'Receipt',
+Receipt.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -27,6 +26,7 @@ export const ReceiptModel = sequelize.define<Receipt>(
                 model: UserModel,
                 key: 'id',
             },
+            allowNull: false,
         },
         store: {
             type: DataTypes.STRING,
@@ -42,17 +42,21 @@ export const ReceiptModel = sequelize.define<Receipt>(
         },
     },
     {
+        sequelize,
+        modelName: 'Receipt',
         underscored: true,
         timestamps: true,
     },
 );
 
-ReceiptModel.belongsTo(UserModel, {
+Receipt.belongsTo(UserModel, {
     foreignKey: 'userId',
     as: 'user',
 });
 
-ReceiptModel.hasMany(GroceryItemModel, {
+Receipt.hasMany(GroceryItemModel, {
     foreignKey: 'receiptId',
     as: 'groceryItems',
 });
+
+export default Receipt;

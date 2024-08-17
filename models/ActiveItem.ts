@@ -1,20 +1,19 @@
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import { CreationOptional, DataTypes, Model } from 'sequelize';
 
 import sequelize from '@/data';
-import { GroceryItemModel } from './GroceryItem';
-import { ReceiptModel } from './Receipt';
-import { UserModel } from './User';
+import GroceryItem from './GroceryItem';
+import Receipt from './Receipt';
+import User from './User';
 
-interface ActiveItem extends Model<InferAttributes<ActiveItem>, InferCreationAttributes<ActiveItem>> {
-    id: CreationOptional<number>;
-    userId: number;
-    receiptId: number;
-    groceryItemId: number;
-    expiryDate: Date;
+class ActiveItem extends Model {
+    id!: CreationOptional<number>;
+    userId!: number;
+    receiptId!: number;
+    groceryItemId!: number;
+    expiryDate!: Date;
 }
 
-export const ActiveItemModel = sequelize.define<ActiveItem>(
-    'ActiveItem',
+ActiveItem.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -40,22 +39,26 @@ export const ActiveItemModel = sequelize.define<ActiveItem>(
         },
     },
     {
+        sequelize,
+        modelName: 'ActiveItem',
         underscored: true,
         timestamps: true,
     },
 );
 
-ActiveItemModel.belongsTo(UserModel, {
+ActiveItem.belongsTo(User, {
     foreignKey: 'userId',
     as: 'user',
 });
 
-ActiveItemModel.belongsTo(ReceiptModel, {
+ActiveItem.belongsTo(Receipt, {
     foreignKey: 'receiptId',
     as: 'receipt',
 });
 
-ActiveItemModel.belongsTo(GroceryItemModel, {
+ActiveItem.belongsTo(GroceryItem, {
     foreignKey: 'groceryItemId',
     as: 'groceryItem',
 });
+
+export default ActiveItem;

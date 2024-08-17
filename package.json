@@ -63,6 +63,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.20.0",
+        "@types/bcrypt": "^5.0.2",
         "@types/jest": "^29.5.12",
         "@types/node": "^20.14.9",
         "@types/pg": "^8.11.6",
