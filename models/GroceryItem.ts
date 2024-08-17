@@ -1,12 +1,15 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from 'sequelize';
 
+import { ReceiptModel } from './Receipt';
+
 const sequelize = new Sequelize('sqlite::memory:');
 
 interface GroceryItem extends Model<InferAttributes<GroceryItem>, InferCreationAttributes<GroceryItem>> {
     id: CreationOptional<number>;
+    receiptId: number;
     name: string;
-    unitPrice: number;
     quantity: number;
+    unitPrice: number;
     totalPrice: number;
     purchaseDate: string;
     expiryDate: string;
@@ -20,6 +23,13 @@ export const GroceryItemModel = sequelize.define<GroceryItem>(
             primaryKey: true,
             allowNull: false,
             autoIncrement: true,
+        },
+        receiptId: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: ReceiptModel,
+                key: 'id',
+            },
         },
         name: {
             type: DataTypes.STRING,
