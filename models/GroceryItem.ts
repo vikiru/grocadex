@@ -2,7 +2,7 @@ import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, 
 
 const sequelize = new Sequelize('sqlite::memory:');
 
-interface GroceryItemModel extends Model<InferAttributes<GroceryItemModel>, InferCreationAttributes<GroceryItemModel>> {
+interface GroceryItem extends Model<InferAttributes<GroceryItem>, InferCreationAttributes<GroceryItem>> {
     id: CreationOptional<number>;
     name: string;
     unitPrice: number;
@@ -12,7 +12,7 @@ interface GroceryItemModel extends Model<InferAttributes<GroceryItemModel>, Infe
     expiryDate: string;
 }
 
-export const GroceryItemModel = sequelize.define<GroceryItemModel>(
+export const GroceryItemModel = sequelize.define<GroceryItem>(
     'GroceryItem',
     {
         id: {
