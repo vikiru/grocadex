@@ -2,7 +2,7 @@ import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, 
 
 const sequelize = new Sequelize('sqlite::memory:');
 
-interface UserModel extends Model<InferAttributes<UserModel>, InferCreationAttributes<UserModel>> {
+interface User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     id: CreationOptional<number>;
     firstName: string;
     lastName: string;
@@ -11,7 +11,7 @@ interface UserModel extends Model<InferAttributes<UserModel>, InferCreationAttri
     password: string;
 }
 
-export const UserModel = sequelize.define<UserModel>(
+export const UserModel = sequelize.define<User>(
     'User',
     {
         id: {
