@@ -1,8 +1,7 @@
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from 'sequelize';
+import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 
+import sequelize from '@/data';
 import { ReceiptModel } from './Receipt';
-
-const sequelize = new Sequelize('sqlite::memory:');
 
 interface GroceryItem extends Model<InferAttributes<GroceryItem>, InferCreationAttributes<GroceryItem>> {
     id: CreationOptional<number>;
