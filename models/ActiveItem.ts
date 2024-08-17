@@ -1,5 +1,9 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from 'sequelize';
 
+import { GroceryItemModel } from './GroceryItem';
+import { ReceiptModel } from './Receipt';
+import { UserModel } from './User';
+
 const sequelize = new Sequelize('sqlite::memory:');
 
 interface ActiveItem extends Model<InferAttributes<ActiveItem>, InferCreationAttributes<ActiveItem>> {
@@ -41,3 +45,18 @@ export const ActiveItemModel = sequelize.define<ActiveItem>(
         timestamps: true,
     },
 );
+
+ActiveItemModel.belongsTo(UserModel, {
+    foreignKey: 'userId',
+    as: 'user',
+});
+
+ActiveItemModel.belongsTo(ReceiptModel, {
+    foreignKey: 'receiptId',
+    as: 'receipt',
+});
+
+ActiveItemModel.belongsTo(GroceryItemModel, {
+    foreignKey: 'groceryItemId',
+    as: 'groceryItem',
+});

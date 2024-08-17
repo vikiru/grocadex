@@ -61,3 +61,8 @@ export const GroceryItemModel = sequelize.define<GroceryItem>(
         timestamps: true,
     },
 );
+
+GroceryItemModel.belongsTo(ReceiptModel, {
+    foreignKey: 'receiptId',
+    as: 'receipt',
+});

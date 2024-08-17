@@ -1,5 +1,7 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from 'sequelize';
 
+import { ReceiptModel } from './Receipt';
+
 const sequelize = new Sequelize('sqlite::memory:');
 
 interface User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -48,3 +50,8 @@ export const UserModel = sequelize.define<User>(
         timestamps: true,
     },
 );
+
+UserModel.hasMany(ReceiptModel, {
+    foreignKey: 'userId',
+    as: 'receipts',
+});

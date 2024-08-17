@@ -1,5 +1,6 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from 'sequelize';
 
+import { GroceryItemModel } from './GroceryItem';
 import { UserModel } from './User';
 
 const sequelize = new Sequelize('sqlite::memory:');
@@ -46,3 +47,13 @@ export const ReceiptModel = sequelize.define<Receipt>(
         timestamps: true,
     },
 );
+
+ReceiptModel.belongsTo(UserModel, {
+    foreignKey: 'userId',
+    as: 'user',
+});
+
+ReceiptModel.hasMany(GroceryItemModel, {
+    foreignKey: 'receiptId',
+    as: 'groceryItems',
+});
