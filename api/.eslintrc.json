@@ -4,12 +4,10 @@
         "mocha": true,
         "node": true
     },
-    "extends": [
-    ],
+    "extends": [],
     "parserOptions": {
         "ecmaVersion": 12
     },
     "plugins": [],
-    "rules": {
-    }
+    "rules": {}
 }
