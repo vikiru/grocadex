@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import Logo from '@/components/Logo';
+import Logo from '@/app/components/Logo';
 import { StyledComponent } from 'nativewind';
 import { useState } from 'react';
 

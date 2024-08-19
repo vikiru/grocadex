@@ -1,8 +1,8 @@
 import { CreationOptional, DataTypes, Model } from 'sequelize';
 
-import sequelize from '@/data';
-import { hashPassword } from '@/utils/hashPassword';
 import { compare } from 'bcrypt';
+import sequelize from './../data/index';
+import { hashPassword } from './../utils/hashPassword';
 import ReceiptModel from './Receipt';
 
 class UserModel extends Model {

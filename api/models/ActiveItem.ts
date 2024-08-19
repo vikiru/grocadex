@@ -1,18 +1,19 @@
 import { CreationOptional, DataTypes, Model } from 'sequelize';
 
-import sequelize from '@/data';
-import GroceryItemModel from './GroceryItem';
-import UserModel from './User';
+import sequelize from './../data/index';
+import GroceryItem from './GroceryItem';
+import Receipt from './Receipt';
+import User from './User';
 
-class Receipt extends Model {
+class ActiveItem extends Model {
     id!: CreationOptional<number>;
     userId!: number;
-    store!: string;
-    purchaseDate!: string;
-    total!: number;
+    receiptId!: number;
+    groceryItemId!: number;
+    expiryDate!: Date;
 }
 
-Receipt.init(
+ActiveItem.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -22,41 +23,42 @@ Receipt.init(
         },
         userId: {
             type: DataTypes.INTEGER,
-            references: {
-                model: UserModel,
-                key: 'id',
-            },
             allowNull: false,
         },
-        store: {
-            type: DataTypes.STRING,
+        receiptId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
-        purchaseDate: {
+        groceryItemId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        expiryDate: {
             type: DataTypes.DATE,
-            allowNull: false,
-        },
-        total: {
-            type: DataTypes.FLOAT,
             allowNull: false,
         },
     },
     {
         sequelize,
-        modelName: 'Receipt',
+        modelName: 'ActiveItem',
         underscored: true,
         timestamps: true,
     },
 );
 
-Receipt.belongsTo(UserModel, {
+ActiveItem.belongsTo(User, {
     foreignKey: 'userId',
     as: 'user',
 });
 
-Receipt.hasMany(GroceryItemModel, {
+ActiveItem.belongsTo(Receipt, {
     foreignKey: 'receiptId',
-    as: 'groceryItems',
+    as: 'receipt',
 });
 
-export default Receipt;
+ActiveItem.belongsTo(GroceryItem, {
+    foreignKey: 'groceryItemId',
+    as: 'groceryItem',
+});
+
+export default ActiveItem;

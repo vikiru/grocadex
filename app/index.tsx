@@ -2,7 +2,7 @@ import { mdiCashMultiple, mdiClockOutline, mdiLeaf } from '@mdi/js';
 import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
 import { Text, View } from 'react-native';
 
-import Logo from '@/components/Logo';
+import Logo from '@/app/components/Logo';
 import Icon from '@mdi/react';
 import { Button } from 'react-native-paper';
 

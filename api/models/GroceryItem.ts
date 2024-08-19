@@ -1,6 +1,6 @@
 import { CreationOptional, DataTypes, Model } from 'sequelize';
 
-import sequelize from '@/data';
+import sequelize from './../data/index';
 import Receipt from './Receipt';
 
 class GroceryItem extends Model {
