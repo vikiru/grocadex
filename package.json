@@ -1,7 +1,16 @@
 {
     "name": "grocery-tracker",
-    "main": "expo-router/entry",
     "version": "1.0.0",
+    "description": "",
+    "private": true,
+    "author": "Visakan Kirubakaran",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/viskakirubakaran/grocery-tracker"
+    },
+    "keywords": [],
+    "main": "expo-router/entry",
     "scripts": {
         "start": "expo start",
         "reset-project": "node ./scripts/reset-project.js",
@@ -96,5 +105,11 @@
             "npm run prettier"
         ]
     },
-    "private": true
+    "ignorePatterns": [
+		"./node_modules/**",
+		"./.github/**"
+	],
+	"engines": {
+		"node": ">=16.9"
+	}
 }
