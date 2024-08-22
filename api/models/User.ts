@@ -5,7 +5,16 @@ import sequelize from './../data/index';
 import { hashPassword } from './../utils/hashPassword';
 import ReceiptModel from './Receipt';
 
-class UserModel extends Model {
+type UserCreationAttributes = {
+    id: CreationOptional<number>;
+    firstName: string;
+    lastName: string;
+    email: string;
+    userName: string;
+    password: string;
+};
+
+class User extends Model {
     id!: CreationOptional<number>;
     firstName!: string;
     lastName!: string;
@@ -26,9 +35,21 @@ class UserModel extends Model {
     async validatePassword(password: string): Promise<boolean> {
         return await compare(password, this.password);
     }
+
+    static async findUserById(id: number): Promise<User> {
+        return await this.findOne({ where: { id } });
+    }
+
+    static async addUser(user: UserCreationAttributes): Promise<User> {
+        return await this.create(user);
+    }
+
+    static async findAllUsers(): Promise<User[]> {
+        return await this.findAll();
+    }
 }
 
-UserModel.init(
+User.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -65,7 +86,7 @@ UserModel.init(
         underscored: true,
         timestamps: true,
         hooks: {
-            beforeCreate: async (user: UserModel) => {
+            beforeCreate: async (user: User) => {
                 if (user.password) {
                     user.password = await hashPassword(user.password);
                 }
@@ -74,9 +95,9 @@ UserModel.init(
     },
 );
 
-UserModel.hasMany(ReceiptModel, {
+User.hasMany(ReceiptModel, {
     foreignKey: 'userId',
     as: 'receipts',
 });
 
-export default UserModel;
+export default User;

@@ -2,7 +2,15 @@ import { CreationOptional, DataTypes, Model } from 'sequelize';
 
 import sequelize from './../data/index';
 import GroceryItemModel from './GroceryItem';
-import UserModel from './User';
+import User from './User';
+
+type ReceiptCreationAttributes = {
+    id: CreationOptional<number>;
+    userId: number;
+    store: number;
+    purchaseDate: string;
+    total: number;
+};
 
 class Receipt extends Model {
     id!: CreationOptional<number>;
@@ -10,6 +18,22 @@ class Receipt extends Model {
     store!: string;
     purchaseDate!: string;
     total!: number;
+
+    static async findAllReceipts(userId: number): Promise<Receipt[]> {
+        return await this.findAll({ where: { userId } });
+    }
+
+    static async findReceiptById(id: number): Promise<Receipt> {
+        return await this.findOne({ where: { id } });
+    }
+
+    static async removeReceiptById(id: number): Promise<void> {
+        await this.destroy({ where: { id } });
+    }
+
+    static async updateReceiptById(id: number, receipt: ReceiptCreationAttributes): Promise<void> {
+        await this.update(receipt, { where: { id } });
+    }
 }
 
 Receipt.init(
@@ -23,7 +47,7 @@ Receipt.init(
         userId: {
             type: DataTypes.INTEGER,
             references: {
-                model: UserModel,
+                model: User,
                 key: 'id',
             },
             allowNull: false,
@@ -49,7 +73,7 @@ Receipt.init(
     },
 );
 
-Receipt.belongsTo(UserModel, {
+Receipt.belongsTo(User, {
     foreignKey: 'userId',
     as: 'user',
 });

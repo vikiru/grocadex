@@ -5,12 +5,40 @@ import GroceryItem from './GroceryItem';
 import Receipt from './Receipt';
 import User from './User';
 
+type ActiveItemCreationAttributes = {
+    id: CreationOptional<number>;
+    userId: number;
+    receiptId: number;
+    groceryItemId: number;
+    expiryDate: Date;
+};
+
 class ActiveItem extends Model {
     id!: CreationOptional<number>;
     userId!: number;
     receiptId!: number;
     groceryItemId!: number;
     expiryDate!: Date;
+
+    static async addActiveItem(activeItem: ActiveItemCreationAttributes): Promise<ActiveItem> {
+        return await this.create(activeItem);
+    }
+
+    static async findAllActiveItems(): Promise<ActiveItem[]> {
+        return await this.findAll();
+    }
+
+    static async findActiveItemById(id: number): Promise<ActiveItem> {
+        return await this.findOne({ where: { id } });
+    }
+
+    static async removeActiveItemById(id: number): Promise<void> {
+        await this.destroy({ where: { id } });
+    }
+
+    static async updateActiveItemById(id: number, activeItem: ActiveItemCreationAttributes): Promise<void> {
+        await this.update(activeItem, { where: { id } });
+    }
 }
 
 ActiveItem.init(
