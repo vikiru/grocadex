@@ -1,4 +1,4 @@
-import User, { UserCreationAttributes } from '../models/User';
+import { User, UserCreationAttributes } from '../models/User';
 
 export async function saveUser(user: UserCreationAttributes): Promise<void> {
     try {

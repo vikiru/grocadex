@@ -3,9 +3,8 @@ import { CreationOptional, DataTypes, Model } from 'sequelize';
 import { compare } from 'bcrypt';
 import sequelize from './../data/index';
 import { hashPassword } from './../utils/hashPassword';
-import ReceiptModel from './Receipt';
 
-export type UserCreationAttributes = {
+type UserCreationAttributes = {
     id: CreationOptional<number>;
     firstName: string;
     lastName: string;
@@ -95,9 +94,4 @@ User.init(
     },
 );
 
-User.hasMany(ReceiptModel, {
-    foreignKey: 'userId',
-    as: 'receipts',
-});
-
-export default User;
+export { User, UserCreationAttributes };

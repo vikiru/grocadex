@@ -1,4 +1,4 @@
-import ActiveItem, { ActiveItemCreationAttributes } from '../models/ActiveItem';
+import { ActiveItem, ActiveItemCreationAttributes } from '../models/ActiveItem';
 
 export async function saveActiveItem(activeItem: ActiveItemCreationAttributes): Promise<void> {
     try {

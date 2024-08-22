@@ -1,11 +1,8 @@
 import { CreationOptional, DataTypes, Model } from 'sequelize';
 
 import sequelize from './../data/index';
-import GroceryItem from './GroceryItem';
-import Receipt from './Receipt';
-import User from './User';
 
-export type ActiveItemCreationAttributes = {
+type ActiveItemCreationAttributes = {
     id: CreationOptional<number>;
     userId: number;
     receiptId: number;
@@ -74,19 +71,4 @@ ActiveItem.init(
     },
 );
 
-ActiveItem.belongsTo(User, {
-    foreignKey: 'userId',
-    as: 'user',
-});
-
-ActiveItem.belongsTo(Receipt, {
-    foreignKey: 'receiptId',
-    as: 'receipt',
-});
-
-ActiveItem.belongsTo(GroceryItem, {
-    foreignKey: 'groceryItemId',
-    as: 'groceryItem',
-});
-
-export default ActiveItem;
+export { ActiveItem, ActiveItemCreationAttributes };

@@ -1,4 +1,4 @@
-import GroceryItem, { GroceryItemCreationAttributes } from '../models/GroceryItem';
+import { GroceryItem, GroceryItemCreationAttributes } from '../models/GroceryItem';
 
 export async function saveGroceryItem(groceryItem: GroceryItemCreationAttributes): Promise<void> {
     try {

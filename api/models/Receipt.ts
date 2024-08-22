@@ -1,10 +1,9 @@
 import { CreationOptional, DataTypes, Model } from 'sequelize';
 
 import sequelize from './../data/index';
-import GroceryItemModel from './GroceryItem';
-import User from './User';
+import { User } from './User';
 
-export type ReceiptCreationAttributes = {
+type ReceiptCreationAttributes = {
     id: CreationOptional<number>;
     userId: number;
     store: number;
@@ -77,14 +76,4 @@ Receipt.init(
     },
 );
 
-Receipt.belongsTo(User, {
-    foreignKey: 'userId',
-    as: 'user',
-});
-
-Receipt.hasMany(GroceryItemModel, {
-    foreignKey: 'receiptId',
-    as: 'groceryItems',
-});
-
-export default Receipt;
+export { Receipt, ReceiptCreationAttributes };

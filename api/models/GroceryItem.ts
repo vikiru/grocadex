@@ -1,9 +1,9 @@
 import { CreationOptional, DataTypes, Model } from 'sequelize';
 
 import sequelize from './../data/index';
-import Receipt from './Receipt';
+import { Receipt } from './Receipt';
 
-export type GroceryItemCreationAttributes = {
+type GroceryItemCreationAttributes = {
     id: CreationOptional<number>;
     receiptId: number;
     name: string;
@@ -94,9 +94,4 @@ GroceryItem.init(
     },
 );
 
-GroceryItem.belongsTo(Receipt, {
-    foreignKey: 'receiptId',
-    as: 'receipt',
-});
-
-export default GroceryItem;
+export { GroceryItem, GroceryItemCreationAttributes };

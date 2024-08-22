@@ -1,4 +1,4 @@
-import Receipt, { ReceiptCreationAttributes } from '../models/Receipt';
+import { Receipt, ReceiptCreationAttributes } from '../models/Receipt';
 
 export async function saveReceipt(receipt: ReceiptCreationAttributes): Promise<void> {
     try {
