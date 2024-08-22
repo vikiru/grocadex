@@ -5,7 +5,7 @@ import GroceryItem from './GroceryItem';
 import Receipt from './Receipt';
 import User from './User';
 
-type ActiveItemCreationAttributes = {
+export type ActiveItemCreationAttributes = {
     id: CreationOptional<number>;
     userId: number;
     receiptId: number;
@@ -20,8 +20,8 @@ class ActiveItem extends Model {
     groceryItemId!: number;
     expiryDate!: Date;
 
-    static async addActiveItem(activeItem: ActiveItemCreationAttributes): Promise<ActiveItem> {
-        return await this.create(activeItem);
+    static async addActiveItem(activeItem: ActiveItemCreationAttributes): Promise<void> {
+        await this.create(activeItem);
     }
 
     static async findAllActiveItems(): Promise<ActiveItem[]> {

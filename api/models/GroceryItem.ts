@@ -3,7 +3,7 @@ import { CreationOptional, DataTypes, Model } from 'sequelize';
 import sequelize from './../data/index';
 import Receipt from './Receipt';
 
-type GroceryItemCreationAttributes = {
+export type GroceryItemCreationAttributes = {
     id: CreationOptional<number>;
     receiptId: number;
     name: string;
@@ -24,12 +24,12 @@ class GroceryItem extends Model {
     purchaseDate!: string;
     expiryDate!: string;
 
-    static async findAllGroceryItems(receiptId: number): Promise<GroceryItem[]> {
-        return await this.findAll({ where: { receiptId } });
+    static async addGroceryItem(groceryItem: GroceryItemCreationAttributes): Promise<void> {
+        await this.create({ groceryItem });
     }
 
-    static async addGroceryItem(groceryItem: GroceryItemCreationAttributes): Promise<GroceryItem> {
-        return await this.create({ groceryItem });
+    static async findAllGroceryItems(receiptId: number): Promise<GroceryItem[]> {
+        return await this.findAll({ where: { receiptId } });
     }
 
     static async findGroceryItemById(id: number): Promise<GroceryItem> {

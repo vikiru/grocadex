@@ -4,7 +4,7 @@ import sequelize from './../data/index';
 import GroceryItemModel from './GroceryItem';
 import User from './User';
 
-type ReceiptCreationAttributes = {
+export type ReceiptCreationAttributes = {
     id: CreationOptional<number>;
     userId: number;
     store: number;
@@ -18,6 +18,10 @@ class Receipt extends Model {
     store!: string;
     purchaseDate!: string;
     total!: number;
+
+    static async addReceipt(receipt: ReceiptCreationAttributes): Promise<void> {
+        await this.create(receipt);
+    }
 
     static async findAllReceipts(userId: number): Promise<Receipt[]> {
         return await this.findAll({ where: { userId } });

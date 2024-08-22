@@ -5,7 +5,7 @@ import sequelize from './../data/index';
 import { hashPassword } from './../utils/hashPassword';
 import ReceiptModel from './Receipt';
 
-type UserCreationAttributes = {
+export type UserCreationAttributes = {
     id: CreationOptional<number>;
     firstName: string;
     lastName: string;
@@ -40,8 +40,8 @@ class User extends Model {
         return await this.findOne({ where: { id } });
     }
 
-    static async addUser(user: UserCreationAttributes): Promise<User> {
-        return await this.create(user);
+    static async addUser(user: UserCreationAttributes): Promise<void> {
+        await this.create(user);
     }
 
     static async findAllUsers(): Promise<User[]> {
