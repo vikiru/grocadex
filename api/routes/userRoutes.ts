@@ -1,8 +1,11 @@
 import express = require('express');
-const router = express.Router();
 
-router.get('/users');
-router.post('/users');
-router.get('/users/:id');
+import { UserController } from '../controllers';
 
-export { router };
+const UserRouter = express.Router();
+
+UserRouter.get('/users', UserController.getAllUsers);
+UserRouter.post('/users', UserController.createUser);
+UserRouter.get('/users/:id', UserController.getUserById);
+
+export { UserRouter };

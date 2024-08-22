@@ -1,10 +1,13 @@
 import express = require('express');
-const router = express.Router();
 
-router.get('/users/:userId/receipts');
-router.post('/users/:userId/receipts');
-router.get('/users/:userId/receipts/:id');
-router.put('/users/:userId/receipts/:id');
-router.delete('/users/:userId/receipts/:id');
+import { ReceiptController } from '../controllers';
 
-export { router };
+const ReceiptRouter = express.Router();
+
+ReceiptRouter.get('/users/:userId/receipts', ReceiptController.getReceiptsByUserId);
+ReceiptRouter.post('/users/:userId/receipts', ReceiptController.createReceipt);
+ReceiptRouter.get('/users/:userId/receipts/:id', ReceiptController.getReceiptById);
+ReceiptRouter.put('/users/:userId/receipts/:id', ReceiptController.updateReceipt);
+ReceiptRouter.delete('/users/:userId/receipts/:id', ReceiptController.deleteReceiptById);
+
+export { ReceiptRouter };
