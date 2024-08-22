@@ -1,8 +1,7 @@
-import * as ReceiptService from '../services/receiptService';
-
 import { Request, Response } from 'express';
 
 import { ReceiptCreationAttributes } from '../models/Receipt';
+import { ReceiptService } from '../services';
 
 export async function createReceipt(req: Request, res: Response): Promise<void> {
     const receipt: ReceiptCreationAttributes = req.body;

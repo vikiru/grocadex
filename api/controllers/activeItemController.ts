@@ -1,8 +1,7 @@
-import * as ActiveItemService from '../services/activeItemService';
-
 import { Request, Response } from 'express';
 
 import { ActiveItemCreationAttributes } from '../models/ActiveItem';
+import { ActiveItemService } from '../services';
 
 export async function createActiveItem(req: Request, res: Response): Promise<void> {
     const activeItem: ActiveItemCreationAttributes = req.body;

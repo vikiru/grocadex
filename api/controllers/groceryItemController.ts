@@ -1,8 +1,7 @@
-import * as GroceryItemService from '../services/groceryItemService';
-
 import { Request, Response } from 'express';
 
 import { GroceryItemCreationAttributes } from '../models/GroceryItem';
+import { GroceryItemService } from '../services';
 
 export async function createGroceryItem(req: Request, res: Response): Promise<void> {
     const groceryItem: GroceryItemCreationAttributes = req.body;
