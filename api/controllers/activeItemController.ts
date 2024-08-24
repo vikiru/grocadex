@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { ActiveItemService } from '@/services';
+import { ActiveItemService } from '../services';
 
 export async function createActiveItem(req: Request, res: Response): Promise<void> {
     const { userId, receiptIds } = req.body;

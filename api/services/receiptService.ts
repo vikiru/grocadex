@@ -1,5 +1,5 @@
-import { prisma } from '@/data';
 import { Receipt } from '@prisma/client';
+import { prisma } from '../data';
 
 export async function saveReceipt(receipt: Omit<Receipt, 'id'>): Promise<void> {
     try {

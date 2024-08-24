@@ -1,6 +1,6 @@
-import { prisma } from '@/data';
-import { hashPassword } from '@/utils/hashPassword';
 import { User } from '@prisma/client';
+import { prisma } from '../data';
+import { hashPassword } from '../utils/hashPassword';
 
 export async function saveUser(user: Omit<User, 'id'>): Promise<void> {
     try {

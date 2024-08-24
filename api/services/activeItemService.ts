@@ -1,5 +1,5 @@
-import { prisma } from '@/data';
 import { GroceryItem } from '@prisma/client';
+import { prisma } from '../data';
 
 export async function saveActiveItems(userId: number, receiptIds: number[]): Promise<void> {
     try {
