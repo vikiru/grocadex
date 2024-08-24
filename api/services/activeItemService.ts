@@ -1,52 +1,75 @@
-import { ActiveItem, ActiveItemCreationAttributes } from '../models/ActiveItem';
+import { prisma } from '@/data';
+import { GroceryItem } from '@prisma/client';
 
-export async function saveActiveItem(activeItem: ActiveItemCreationAttributes): Promise<void> {
+export async function saveActiveItems(userId: number, receiptIds: number[]): Promise<void> {
     try {
-        await ActiveItem.addActiveItem(activeItem);
-        console.log('Successfully saved active item to database.');
+        const newItems = await prisma.groceryItem.findMany({
+            where: {
+                receiptId: {
+                    in: receiptIds,
+                },
+            },
+        });
+
+        await prisma.user.update({
+            where: { id: userId },
+            data: {
+                activeItems: {
+                    connect: newItems.map((item) => ({ id: item.id })),
+                },
+            },
+        });
+
+        console.log('Successfully updated active items for the user.');
     } catch (error) {
-        console.error(`Error saving active item to database: ${error}`);
+        console.error(`Error updating active items for user: ${error}`);
     }
 }
 
-export async function retrieveActiveItems(): Promise<ActiveItem[]> {
+export async function retrieveActiveItems(userId: number): Promise<GroceryItem[]> {
     try {
-        const activeItems = await ActiveItem.findAllActiveItems();
-        console.log('Successfully retrieved active items from database.');
-        return activeItems;
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            include: { activeItems: true },
+        });
+
+        return user.activeItems;
     } catch (error) {
-        console.error(`Error retrieving active items from database: ${error}`);
+        console.error(`Error retrieving active items for user with id ${userId}: ${error}`);
+        throw error;
     }
 }
 
-export async function retrieveActiveItemById(id: number): Promise<ActiveItem | null> {
+export async function retrieveActiveItemById(userId: number, activeItemId: number): Promise<GroceryItem | null> {
     try {
-        const activeItem = await ActiveItem.findActiveItemById(id);
-        if (!activeItem) {
-            console.warn(`Active item with id ${id} not found.`);
-        } else {
-            console.log('Successfully retrieved active item from database.');
-        }
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            include: { activeItems: true },
+        });
+        const activeItem = user.activeItems.find((item) => item.id === activeItemId);
         return activeItem;
     } catch (error) {
-        console.error(`Error retrieving active item with id ${id}: ${error}`);
+        console.error(`Error retrieving active item with id ${activeItemId}: ${error}`);
+        throw error;
     }
 }
 
-export async function updateActiveItemById(id: number, updatedFields: ActiveItemCreationAttributes): Promise<void> {
+export async function removeActiveItems(userId: number, groceryItemIds: number | number[]): Promise<void> {
     try {
-        await ActiveItem.updateActiveItemById(id, updatedFields);
-        console.log('Successfully updated active item in the database.');
-    } catch (error) {
-        console.error(`Error updating active item with id ${id}: ${error}`);
-    }
-}
+        const ids = Array.isArray(groceryItemIds) ? groceryItemIds : [groceryItemIds];
 
-export async function removeActiveItemById(id: number): Promise<void> {
-    try {
-        await ActiveItem.removeActiveItemById(id);
-        console.log('Successfully removed active item from the database.');
+        await prisma.user.update({
+            where: { id: userId },
+            data: {
+                activeItems: {
+                    disconnect: ids.map((id) => ({ id })),
+                },
+            },
+        });
+
+        console.log(`Successfully removed ${ids.length} grocery item(s) from user ${userId}'s active items.`);
     } catch (error) {
-        console.error(`Error removing active item with id ${id}: ${error}`);
+        console.error(`Error removing active items from user ${userId}: ${error}`);
+        throw error;
     }
 }

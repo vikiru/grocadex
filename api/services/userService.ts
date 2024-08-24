@@ -1,69 +1,67 @@
-import { User, UserCreationAttributes } from '../models/User';
+import { prisma } from '@/data';
+import { hashPassword } from '@/utils/hashPassword';
+import { User } from '@prisma/client';
 
-export async function saveUser(user: UserCreationAttributes): Promise<void> {
+export async function saveUser(user: Omit<User, 'id'>): Promise<void> {
     try {
-        await User.addUser(user);
-        console.log('Successfully saved user to database.');
-    } catch (error) {
-        console.error(`Error saving user to database: ${error}`);
-        throw error;
-    }
-}
+        const hashedPassword = await hashPassword(user.password);
 
-export async function retrieveUserById(id: number): Promise<User | null> {
-    try {
-        const user = await User.findUserById(id);
-        if (!user) {
-            console.warn(`User with id ${id} not found.`);
-        } else {
-            console.log('Successfully retrieved user from database.');
-        }
-        return user;
-    } catch (error) {
-        console.error(`Error retrieving user with id ${id}: ${error}`);
-        throw error;
-    }
-}
+        await prisma.user.create({
+            data: {
+                ...user,
+                password: hashedPassword,
+            },
+        });
 
-export async function checkIfUserExists(username: string): Promise<boolean> {
-    try {
-        const exists = await User.isUserTaken(username);
-        console.log(`User existence check for username '${username}': ${exists}`);
-        return exists;
+        console.log('Successfully saved user to the database.');
     } catch (error) {
-        console.error(`Error checking if user exists for username '${username}': ${error}`);
-        throw error;
-    }
-}
-
-export async function checkIfEmailExists(email: string): Promise<boolean> {
-    try {
-        const exists = await User.isEmailTaken(email);
-        console.log(`Email existence check for email '${email}': ${exists}`);
-        return exists;
-    } catch (error) {
-        console.error(`Error checking if email exists for email '${email}': ${error}`);
-        throw error;
-    }
-}
-
-export async function validateUserPassword(user: User, password: string): Promise<boolean> {
-    try {
-        const isValid = await user.validatePassword(password);
-        return isValid;
-    } catch (error) {
-        console.error(`Error validating password for user with id ${user.id}: ${error}`);
+        console.error(`Error saving user to the database: ${error}`);
         throw error;
     }
 }
 
 export async function retrieveAllUsers(): Promise<User[]> {
     try {
-        const users = await User.findAllUsers();
-        console.log('Successfully retrieved all users from database.');
+        const users = await prisma.user.findMany({});
+        console.log('Successfully retrieved all users from the database.');
         return users;
     } catch (error) {
-        console.error(`Error retrieving all users from database: ${error}`);
+        console.error(`Error retrieving all users from the database: ${error}`);
+        throw error;
+    }
+}
+
+export async function retrieveUserById(userId: number): Promise<User | null> {
+    try {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (user) {
+            console.log(`Successfully retrieved user with id ${userId} from the database.`);
+        } else {
+            console.warn(`User with id ${userId} not found.`);
+        }
+        return user;
+    } catch (error) {
+        console.error(`Error retrieving user with id ${userId} from the database: ${error}`);
+        throw error;
+    }
+}
+
+export async function checkIfUserExists(username: string): Promise<boolean> {
+    try {
+        const user = await prisma.user.findUnique({ where: { username } });
+        return user !== null;
+    } catch (error) {
+        console.error(`Error checking if user exists: ${error}`);
+        throw error;
+    }
+}
+
+export async function checkIfEmailExists(email: string): Promise<boolean> {
+    try {
+        const user = await prisma.user.findUnique({ where: { email } });
+        return user !== null;
+    } catch (error) {
+        console.error(`Error checking if email exists: ${error}`);
         throw error;
     }
 }

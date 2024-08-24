@@ -1,17 +1,28 @@
 import { Request, Response } from 'express';
 
-import { GroceryItemCreationAttributes } from '../models/GroceryItem';
 import { GroceryItemService } from '../services';
 
 export async function createGroceryItem(req: Request, res: Response): Promise<void> {
-    const groceryItem: GroceryItemCreationAttributes = req.body;
+    const groceryItem = req.body;
 
     try {
         await GroceryItemService.saveGroceryItem(groceryItem);
         res.status(201).json({ message: 'Grocery item created successfully' });
     } catch (error) {
-        console.error(`Error saving grocery item: ${error.message}`);
-        res.status(500).json({ error: error.message });
+        console.error(`Error saving grocery item: ${error}`);
+        res.status(500).json({ error });
+    }
+}
+
+export async function createMultipleGroceryItems(req: Request, res: Response): Promise<void> {
+    const groceryItems = req.body;
+
+    try {
+        await GroceryItemService.saveMultipleGroceryItems(groceryItems);
+        res.status(201).json({ message: 'Multiple grocery items created successfully' });
+    } catch (error) {
+        console.error(`Error saving multiple grocery items: ${error}`);
+        res.status(500).json({ error });
     }
 }
 
@@ -27,8 +38,8 @@ export async function getGroceryItemsByReceiptId(req: Request, res: Response): P
             res.status(404).json({ error: 'No grocery items found for this receipt' });
         }
     } catch (error) {
-        console.error(`Error retrieving grocery items: ${error.message}`);
-        res.status(500).json({ error: error.message });
+        console.error(`Error retrieving grocery items: ${error}`);
+        res.status(500).json({ error });
     }
 }
 
@@ -44,21 +55,21 @@ export async function getGroceryItemById(req: Request, res: Response): Promise<v
             res.status(404).json({ error: 'Grocery item not found' });
         }
     } catch (error) {
-        console.error(`Error retrieving grocery item with id ${id}: ${error.message}`);
-        res.status(500).json({ error: error.message });
+        console.error(`Error retrieving grocery item with id ${id}: ${error}`);
+        res.status(500).json({ error });
     }
 }
 
 export async function updateGroceryItem(req: Request, res: Response): Promise<void> {
     const id = parseInt(req.params.id, 10);
-    const updatedFields: GroceryItemCreationAttributes = req.body;
+    const updatedFields = req.body;
 
     try {
         await GroceryItemService.updateGroceryItemById(id, updatedFields);
         res.status(200).json({ message: 'Grocery item updated successfully' });
     } catch (error) {
-        console.error(`Error updating grocery item with id ${id}: ${error.message}`);
-        res.status(500).json({ error: error.message });
+        console.error(`Error updating grocery item with id ${id}: ${error}`);
+        res.status(500).json({ error });
     }
 }
 
@@ -69,7 +80,7 @@ export async function deleteGroceryItem(req: Request, res: Response): Promise<vo
         await GroceryItemService.removeGroceryItemById(id);
         res.status(200).json({ message: 'Grocery item deleted successfully' });
     } catch (error) {
-        console.error(`Error deleting grocery item with id ${id}: ${error.message}`);
-        res.status(500).json({ error: error.message });
+        console.error(`Error deleting grocery item with id ${id}: ${error}`);
+        res.status(500).json({ error });
     }
 }

@@ -1,8 +1,9 @@
-import { Receipt, ReceiptCreationAttributes } from '../models/Receipt';
+import { prisma } from '@/data';
+import { Receipt } from '@prisma/client';
 
-export async function saveReceipt(receipt: ReceiptCreationAttributes): Promise<void> {
+export async function saveReceipt(receipt: Omit<Receipt, 'id'>): Promise<void> {
     try {
-        await Receipt.addReceipt(receipt);
+        await prisma.receipt.create({ data: receipt });
         console.log('Successfully saved receipt to database.');
     } catch (error) {
         console.error(`Error saving receipt to database: ${error}`);
@@ -12,7 +13,7 @@ export async function saveReceipt(receipt: ReceiptCreationAttributes): Promise<v
 
 export async function retrieveReceipts(userId: number): Promise<Receipt[]> {
     try {
-        const receipts = await Receipt.findAllReceipts(userId);
+        const receipts = await prisma.receipt.findMany({ where: { userId } });
         console.log('Successfully retrieved receipts from database.');
         return receipts;
     } catch (error) {
@@ -23,7 +24,7 @@ export async function retrieveReceipts(userId: number): Promise<Receipt[]> {
 
 export async function retrieveReceiptById(id: number): Promise<Receipt | null> {
     try {
-        const receipt = await Receipt.findReceiptById(id);
+        const receipt = await prisma.receipt.findUnique({ where: { id } });
         if (!receipt) {
             console.warn(`Receipt with id ${id} not found.`);
         } else {
@@ -36,9 +37,9 @@ export async function retrieveReceiptById(id: number): Promise<Receipt | null> {
     }
 }
 
-export async function updateReceiptById(id: number, updatedFields: ReceiptCreationAttributes): Promise<void> {
+export async function updateReceiptById(id: number, updatedFields: Partial<Omit<Receipt, 'id'>>): Promise<void> {
     try {
-        await Receipt.updateReceiptById(id, updatedFields);
+        await prisma.receipt.update({ where: { id }, data: updatedFields });
         console.log('Successfully updated receipt in the database.');
     } catch (error) {
         console.error(`Error updating receipt with id ${id}: ${error}`);
@@ -48,7 +49,7 @@ export async function updateReceiptById(id: number, updatedFields: ReceiptCreati
 
 export async function removeReceiptById(id: number): Promise<void> {
     try {
-        await Receipt.removeReceiptById(id);
+        await prisma.receipt.delete({ where: { id } });
         console.log('Successfully removed receipt from the database.');
     } catch (error) {
         console.error(`Error removing receipt with id ${id}: ${error}`);

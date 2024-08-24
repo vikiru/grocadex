@@ -1,11 +1,5 @@
-import { Sequelize } from 'sequelize';
-import { config } from '../config';
+import { PrismaClient } from '@prisma/client';
 
-const sequelize = new Sequelize(config.database.name, config.database.user, config.database.password, {
-    host: config.database.host,
-    port: config.database.port,
-    dialect: 'postgres',
-    logging: true,
-});
+const prisma = new PrismaClient();
 
-export default sequelize;
+export { prisma };

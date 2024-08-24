@@ -1,23 +1,24 @@
 import { Request, Response } from 'express';
 
-import { ActiveItemCreationAttributes } from '../models/ActiveItem';
-import { ActiveItemService } from '../services';
+import { ActiveItemService } from '@/services';
 
 export async function createActiveItem(req: Request, res: Response): Promise<void> {
-    const activeItem: ActiveItemCreationAttributes = req.body;
+    const { userId, receiptIds } = req.body;
 
     try {
-        await ActiveItemService.saveActiveItem(activeItem);
-        res.status(201).json({ message: 'Active item created successfully' });
+        await ActiveItemService.saveActiveItems(userId, receiptIds);
+        res.status(201).json({ message: 'Active items created successfully' });
     } catch (error) {
-        console.error(`Error saving active item: ${error.message}`);
-        res.status(500).json({ error: error.message });
+        console.error(`Error saving active items: ${error}`);
+        res.status(500).json({ error });
     }
 }
 
 export async function getActiveItems(req: Request, res: Response): Promise<void> {
+    const userId = parseInt(req.params.userId, 10);
+
     try {
-        const activeItems = await ActiveItemService.retrieveActiveItems();
+        const activeItems = await ActiveItemService.retrieveActiveItems(userId);
 
         if (activeItems.length > 0) {
             res.status(200).json({ data: activeItems });
@@ -25,16 +26,17 @@ export async function getActiveItems(req: Request, res: Response): Promise<void>
             res.status(404).json({ error: 'No active items found' });
         }
     } catch (error) {
-        console.error(`Error retrieving active items: ${error.message}`);
-        res.status(500).json({ error: error.message });
+        console.error(`Error retrieving active items for user with id ${userId}: ${error}`);
+        res.status(500).json({ error });
     }
 }
 
 export async function getActiveItemById(req: Request, res: Response): Promise<void> {
-    const id = parseInt(req.params.id, 10);
+    const userId = parseInt(req.params.userId, 10);
+    const groceryItemId = parseInt(req.params.id, 10);
 
     try {
-        const activeItem = await ActiveItemService.retrieveActiveItemById(id);
+        const activeItem = await ActiveItemService.retrieveActiveItemById(userId, groceryItemId);
 
         if (activeItem) {
             res.status(200).json({ data: activeItem });
@@ -42,32 +44,20 @@ export async function getActiveItemById(req: Request, res: Response): Promise<vo
             res.status(404).json({ error: 'Active item not found' });
         }
     } catch (error) {
-        console.error(`Error retrieving active item with id ${id}: ${error.message}`);
+        console.error(`Error retrieving active item with id ${groceryItemId}: ${error}`);
         res.status(500).json({ error: error.message });
     }
 }
 
-export async function updateActiveItem(req: Request, res: Response): Promise<void> {
-    const id = parseInt(req.params.id, 10);
-    const updatedFields: ActiveItemCreationAttributes = req.body;
+export async function deleteActiveItems(req: Request, res: Response): Promise<void> {
+    const userId = parseInt(req.params.userId, 10);
+    const groceryItemIds = req.body.groceryItemIds;
 
     try {
-        await ActiveItemService.updateActiveItemById(id, updatedFields);
-        res.status(200).json({ message: 'Active item updated successfully' });
+        await ActiveItemService.removeActiveItems(userId, groceryItemIds);
+        res.status(200).json({ message: 'Active items removed successfully' });
     } catch (error) {
-        console.error(`Error updating active item with id ${id}: ${error.message}`);
-        res.status(500).json({ error: error.message });
-    }
-}
-
-export async function deleteActiveItem(req: Request, res: Response): Promise<void> {
-    const id = parseInt(req.params.id, 10);
-
-    try {
-        await ActiveItemService.removeActiveItemById(id);
-        res.status(200).json({ message: 'Active item deleted successfully' });
-    } catch (error) {
-        console.error(`Error deleting active item with id ${id}: ${error.message}`);
-        res.status(500).json({ error: error.message });
+        console.error(`Error removing active items from user ${userId}: ${error}`);
+        res.status(500).json({ error });
     }
 }
