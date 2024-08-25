@@ -6,7 +6,23 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const favicon = require('serve-favicon');
 
-const validator = [
+const { env } = require('../config/index');
+const { logger } = require('../config/logger');
+
+const morganStream = {
+    write: (message) => logger.http(message),
+};
+
+const skip = () => {
+    return env !== 'development';
+};
+
+const morganMiddleware = morgan('dev', {
+    stream: morganStream,
+    skip,
+});
+
+const validationMiddleware = [
     body('*').trim().escape(),
     (req, res, next) => {
         const errors = validationResult(req);
@@ -17,4 +33,13 @@ const validator = [
     },
 ];
 
-export { body, bodyParser, compression, cors, favicon, helmet, morgan, validator };
+export {
+    body,
+    bodyParser,
+    compression,
+    cors,
+    favicon,
+    helmet,
+    morganMiddleware as morgan,
+    validationMiddleware as validator,
+};
