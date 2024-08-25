@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { logger } from '../config/logger';
 import { ReceiptService } from '../services';
 
 export async function createReceipt(req: Request, res: Response): Promise<void> {
@@ -9,7 +10,7 @@ export async function createReceipt(req: Request, res: Response): Promise<void> 
         await ReceiptService.saveReceipt(receipt);
         res.status(201).json({ message: 'Receipt created successfully' });
     } catch (error) {
-        console.error(`Error saving receipt: ${error}`);
+        logger.error(`Error saving receipt: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -26,7 +27,7 @@ export async function getReceiptsByUserId(req: Request, res: Response): Promise<
             res.status(404).json({ error: 'No receipts found for this user' });
         }
     } catch (error) {
-        console.error(`Error retrieving receipts: ${error}`);
+        logger.error(`Error retrieving receipts: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -43,7 +44,7 @@ export async function getReceiptById(req: Request, res: Response): Promise<void>
             res.status(404).json({ error: 'Receipt not found' });
         }
     } catch (error) {
-        console.error(`Error retrieving receipt with id ${id}: ${error}`);
+        logger.error(`Error retrieving receipt with id ${id}: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -56,7 +57,7 @@ export async function updateReceipt(req: Request, res: Response): Promise<void> 
         await ReceiptService.updateReceiptById(id, updatedFields);
         res.status(200).json({ message: 'Receipt updated successfully' });
     } catch (error) {
-        console.error(`Error updating receipt with id ${id}: ${error}`);
+        logger.error(`Error updating receipt with id ${id}: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -68,7 +69,7 @@ export async function deleteReceiptById(req: Request, res: Response): Promise<vo
         await ReceiptService.removeReceiptById(id);
         res.status(200).json({ message: 'Receipt deleted successfully' });
     } catch (error) {
-        console.error(`Error deleting receipt with id ${id}: ${error}`);
+        logger.error(`Error deleting receipt with id ${id}: ${error}`);
         res.status(500).json({ error });
     }
 }

@@ -1,6 +1,6 @@
 import * as middlewares from './middlewares/index';
 
-import { router } from './routes';
+import { ActiveItemRouter, GroceryItemRouter, ReceiptRouter, UserRouter } from './routes';
 
 import express = require('express');
 
@@ -14,6 +14,14 @@ app.use(middlewares.validator);
 app.use(middlewares.compression());
 app.use(middlewares.morgan);
 
-app.use('/api/v1', router);
+app.use(ActiveItemRouter);
+app.use(GroceryItemRouter);
+app.use(ReceiptRouter);
+app.use(UserRouter);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`API listening on port ${PORT}`);
+});
 
 export { app };

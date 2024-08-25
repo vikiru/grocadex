@@ -1,4 +1,5 @@
 import { GroceryItem } from '@prisma/client';
+import { logger } from '../config/logger';
 import { prisma } from '../data';
 
 export async function saveActiveItems(userId: number, receiptIds: number[]): Promise<void> {
@@ -20,9 +21,9 @@ export async function saveActiveItems(userId: number, receiptIds: number[]): Pro
             },
         });
 
-        console.log('Successfully updated active items for the user.');
+        logger.info('Successfully updated active items for the user.');
     } catch (error) {
-        console.error(`Error updating active items for user: ${error}`);
+        logger.error(`Error updating active items for user: ${error}`);
     }
 }
 
@@ -35,7 +36,7 @@ export async function retrieveActiveItems(userId: number): Promise<GroceryItem[]
 
         return user.activeItems;
     } catch (error) {
-        console.error(`Error retrieving active items for user with id ${userId}: ${error}`);
+        logger.error(`Error retrieving active items for user with id ${userId}: ${error}`);
         throw error;
     }
 }
@@ -49,7 +50,7 @@ export async function retrieveActiveItemById(userId: number, activeItemId: numbe
         const activeItem = user.activeItems.find((item) => item.id === activeItemId);
         return activeItem;
     } catch (error) {
-        console.error(`Error retrieving active item with id ${activeItemId}: ${error}`);
+        logger.error(`Error retrieving active item with id ${activeItemId}: ${error}`);
         throw error;
     }
 }
@@ -67,9 +68,9 @@ export async function removeActiveItems(userId: number, groceryItemIds: number |
             },
         });
 
-        console.log(`Successfully removed ${ids.length} grocery item(s) from user ${userId}'s active items.`);
+        logger.info(`Successfully removed ${ids.length} grocery item(s) from user ${userId}'s active items.`);
     } catch (error) {
-        console.error(`Error removing active items from user ${userId}: ${error}`);
+        logger.error(`Error removing active items from user ${userId}: ${error}`);
         throw error;
     }
 }

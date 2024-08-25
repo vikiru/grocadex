@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { logger } from '../config/logger';
 import { GroceryItemService } from '../services';
 
 export async function createGroceryItem(req: Request, res: Response): Promise<void> {
@@ -9,7 +10,7 @@ export async function createGroceryItem(req: Request, res: Response): Promise<vo
         await GroceryItemService.saveGroceryItem(groceryItem);
         res.status(201).json({ message: 'Grocery item created successfully' });
     } catch (error) {
-        console.error(`Error saving grocery item: ${error}`);
+        logger.error(`Error saving grocery item: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -21,7 +22,7 @@ export async function createMultipleGroceryItems(req: Request, res: Response): P
         await GroceryItemService.saveMultipleGroceryItems(groceryItems);
         res.status(201).json({ message: 'Multiple grocery items created successfully' });
     } catch (error) {
-        console.error(`Error saving multiple grocery items: ${error}`);
+        logger.error(`Error saving multiple grocery items: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -38,7 +39,7 @@ export async function getGroceryItemsByReceiptId(req: Request, res: Response): P
             res.status(404).json({ error: 'No grocery items found for this receipt' });
         }
     } catch (error) {
-        console.error(`Error retrieving grocery items: ${error}`);
+        logger.error(`Error retrieving grocery items: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -55,7 +56,7 @@ export async function getGroceryItemById(req: Request, res: Response): Promise<v
             res.status(404).json({ error: 'Grocery item not found' });
         }
     } catch (error) {
-        console.error(`Error retrieving grocery item with id ${id}: ${error}`);
+        logger.error(`Error retrieving grocery item with id ${id}: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -68,7 +69,7 @@ export async function updateGroceryItem(req: Request, res: Response): Promise<vo
         await GroceryItemService.updateGroceryItemById(id, updatedFields);
         res.status(200).json({ message: 'Grocery item updated successfully' });
     } catch (error) {
-        console.error(`Error updating grocery item with id ${id}: ${error}`);
+        logger.error(`Error updating grocery item with id ${id}: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -80,7 +81,7 @@ export async function deleteGroceryItem(req: Request, res: Response): Promise<vo
         await GroceryItemService.removeGroceryItemById(id);
         res.status(200).json({ message: 'Grocery item deleted successfully' });
     } catch (error) {
-        console.error(`Error deleting grocery item with id ${id}: ${error}`);
+        logger.error(`Error deleting grocery item with id ${id}: ${error}`);
         res.status(500).json({ error });
     }
 }

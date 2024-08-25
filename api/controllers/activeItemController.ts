@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 
+import { logger } from '../config/logger';
 import { ActiveItemService } from '../services';
 
 export async function createActiveItem(req: Request, res: Response): Promise<void> {
@@ -9,7 +10,7 @@ export async function createActiveItem(req: Request, res: Response): Promise<voi
         await ActiveItemService.saveActiveItems(userId, receiptIds);
         res.status(201).json({ message: 'Active items created successfully' });
     } catch (error) {
-        console.error(`Error saving active items: ${error}`);
+        logger.error(`Error saving active items: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -26,7 +27,7 @@ export async function getActiveItems(req: Request, res: Response): Promise<void>
             res.status(404).json({ error: 'No active items found' });
         }
     } catch (error) {
-        console.error(`Error retrieving active items for user with id ${userId}: ${error}`);
+        logger.error(`Error retrieving active items for user with id ${userId}: ${error}`);
         res.status(500).json({ error });
     }
 }
@@ -44,7 +45,7 @@ export async function getActiveItemById(req: Request, res: Response): Promise<vo
             res.status(404).json({ error: 'Active item not found' });
         }
     } catch (error) {
-        console.error(`Error retrieving active item with id ${groceryItemId}: ${error}`);
+        logger.error(`Error retrieving active item with id ${groceryItemId}: ${error}`);
         res.status(500).json({ error: error.message });
     }
 }
@@ -57,7 +58,7 @@ export async function deleteActiveItems(req: Request, res: Response): Promise<vo
         await ActiveItemService.removeActiveItems(userId, groceryItemIds);
         res.status(200).json({ message: 'Active items removed successfully' });
     } catch (error) {
-        console.error(`Error removing active items from user ${userId}: ${error}`);
+        logger.error(`Error removing active items from user ${userId}: ${error}`);
         res.status(500).json({ error });
     }
 }
