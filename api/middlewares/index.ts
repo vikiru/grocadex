@@ -1,13 +1,16 @@
-const bodyParser = require('body-parser');
-const compression = require('compression');
-const cors = require('cors');
-const { body, validationResult } = require('express-validator');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const favicon = require('serve-favicon');
+import { NextFunction, Request, Response } from 'express';
+import { body, validationResult } from 'express-validator';
 
-const { env } = require('../config/index');
-const { logger } = require('../config/logger');
+import bodyParser from 'body-parser';
+import compression from 'compression';
+import cors from 'cors';
+import crypto from 'crypto';
+import session from 'express-session';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import favicon from 'serve-favicon';
+import { env } from '../config';
+import { logger } from '../config/logger';
 
 const morganStream = {
     write: (message) => logger.http(message),
@@ -33,6 +36,22 @@ const validationMiddleware = [
     },
 ];
 
+const secret = crypto.randomBytes(32).toString('hex');
+
+const sessionMiddleware = session({
+    secret: secret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: env === 'production' },
+});
+
+export function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.status(401).json({ error: 'User is not authenticated' });
+}
+
 export {
     body,
     bodyParser,
@@ -41,5 +60,6 @@ export {
     favicon,
     helmet,
     morganMiddleware as morgan,
+    sessionMiddleware as session,
     validationMiddleware as validator,
 };

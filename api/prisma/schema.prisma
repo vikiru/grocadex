@@ -25,17 +25,17 @@ model User {
 }
 
 model GroceryItem {
-    id           Int     @id @default(autoincrement())
-    user         User    @relation(fields: [userId], references: [id])
+    id           Int      @id @default(autoincrement())
+    user         User     @relation(fields: [userId], references: [id])
     userId       Int
-    receipt      Receipt @relation(fields: [receiptId], references: [id])
+    receipt      Receipt  @relation(fields: [receiptId], references: [id])
     receiptId    Int
     name         String
     quantity     Int
-    unitPrice    Decimal @db.Decimal(10, 2)
-    totalPrice   Decimal @db.Decimal(10, 2)
-    purchaseDate String
-    expiryDate   String
+    unitPrice    Decimal  @db.Decimal(10, 2)
+    totalPrice   Decimal  @db.Decimal(10, 2)
+    purchaseDate DateTime
+    expiryDate   DateTime
 }
 
 model Receipt {
@@ -43,7 +43,7 @@ model Receipt {
     user         User          @relation(fields: [userId], references: [id])
     userId       Int
     store        String
-    purchaseDate String
+    purchaseDate DateTime
     total        Decimal       @db.Decimal(10, 2)
     groceryItems GroceryItem[]
 }

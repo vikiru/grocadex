@@ -1,13 +1,31 @@
-import express = require('express');
-
+import express from 'express';
+import { apiVersionString } from '../config';
 import { GroceryItemController } from '../controllers';
+import { ensureAuthenticated } from '../middlewares';
 
 const GroceryItemRouter = express.Router();
+const baseUrl = `/${apiVersionString}/receipts`;
 
-GroceryItemRouter.get('/receipts/:receiptId/groceries', GroceryItemController.getGroceryItemsByReceiptId);
-GroceryItemRouter.post('/receipts/:receiptId/groceries', GroceryItemController.createGroceryItem);
-GroceryItemRouter.get('/receipts/:receiptId/groceries/:id', GroceryItemController.getGroceryItemById);
-GroceryItemRouter.put('/receipts/:receiptId/groceries/:id', GroceryItemController.updateGroceryItem);
-GroceryItemRouter.delete('/receipts/:receiptId/groceries/:id', GroceryItemController.deleteGroceryItem);
+GroceryItemRouter.get(
+    `${baseUrl}/:receiptId/groceries`,
+    ensureAuthenticated,
+    GroceryItemController.getGroceryItemsByReceiptId,
+);
+GroceryItemRouter.post(`${baseUrl}/:receiptId/groceries`, ensureAuthenticated, GroceryItemController.createGroceryItem);
+GroceryItemRouter.get(
+    `${baseUrl}/:receiptId/groceries/:groceryItemId`,
+    ensureAuthenticated,
+    GroceryItemController.getGroceryItemById,
+);
+GroceryItemRouter.put(
+    `${baseUrl}/:receiptId/groceries/:groceryItemId`,
+    ensureAuthenticated,
+    GroceryItemController.updateGroceryItem,
+);
+GroceryItemRouter.delete(
+    `${baseUrl}/:receiptId/groceries/:groceryItemId`,
+    ensureAuthenticated,
+    GroceryItemController.deleteGroceryItem,
+);
 
 export { GroceryItemRouter };

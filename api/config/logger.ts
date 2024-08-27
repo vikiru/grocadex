@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import winston from 'winston';
 
-const { env } = process.env;
+const { env } = require('../config/index');
 
 const logDir = path.join(__dirname, '../logs');
 

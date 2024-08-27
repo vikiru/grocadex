@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 export const databaseUrl = process.env.DATABASE_URL;
-export const baseUrl = process.env.BASE_URL || 'api/v1';
-export const port = process.env.EXPRESS_PORT;
+export const apiVersion = 'v1';
+export const apiVersionString = `api/${apiVersion}`;
+export const port = process.env.EXPRESS_PORT || 3000;
 export const env = process.env.NODE_ENV || 'development';

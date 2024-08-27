@@ -23,37 +23,82 @@ export async function retrieveReceipts(userId: number): Promise<Receipt[]> {
     }
 }
 
-export async function retrieveReceiptById(id: number): Promise<Receipt | null> {
+export async function retrieveReceiptByReceiptId(userId: number, receiptId: number): Promise<Receipt | null> {
     try {
-        const receipt = await prisma.receipt.findUnique({ where: { id } });
+        const receipt = await prisma.receipt.findUnique({ where: { userId, id: receiptId } });
         if (!receipt) {
-            console.warn(`Receipt with id ${id} not found.`);
+            logger.error(`Receipt with id ${receiptId} not found.`);
         } else {
             logger.info('Successfully retrieved receipt from database.');
         }
         return receipt;
     } catch (error) {
-        logger.error(`Error retrieving receipt with id ${id}: ${error}`);
+        logger.error(`Error retrieving receipt with id ${receiptId}: ${error}`);
         throw error;
     }
 }
 
-export async function updateReceiptById(id: number, updatedFields: Partial<Omit<Receipt, 'id'>>): Promise<void> {
+export async function updateReceiptById(
+    userId: number,
+    receiptId: number,
+    updatedFields: Partial<Omit<Receipt, 'id'>>,
+): Promise<void> {
     try {
-        await prisma.receipt.update({ where: { id }, data: updatedFields });
+        await prisma.receipt.update({ where: { userId, id: receiptId }, data: updatedFields });
         logger.info('Successfully updated receipt in the database.');
     } catch (error) {
-        logger.error(`Error updating receipt with id ${id}: ${error}`);
+        logger.error(`Error updating receipt with id ${receiptId}: ${error}`);
         throw error;
     }
 }
 
-export async function removeReceiptById(id: number): Promise<void> {
+export async function removeReceiptById(userId: number, receiptId: number): Promise<void> {
     try {
-        await prisma.receipt.delete({ where: { id } });
+        await prisma.receipt.delete({ where: { userId, id: receiptId } });
         logger.info('Successfully removed receipt from the database.');
     } catch (error) {
-        logger.error(`Error removing receipt with id ${id}: ${error}`);
+        logger.error(`Error removing receipt with id ${receiptId}: ${error}`);
         throw error;
+    }
+}
+
+export async function retrieveReceiptsByMonth(startDate: string, endDate: string, userId: number): Promise<Receipt[]> {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    try {
+        const receipts = await prisma.receipt.findMany({
+            where: {
+                userId,
+                purchaseDate: {
+                    gte: start,
+                    lte: end,
+                },
+            },
+        });
+        logger.info(
+            `Successfully retrieved ${receipts.length} receipts from ${startDate} - ${endDate} for user ${userId}.`,
+        );
+        return receipts;
+    } catch (error) {
+        logger.error(`Error retrieving monthly receipts from ${startDate} to ${endDate} for ${userId}: ${error}`);
+    }
+}
+
+export async function retrieveReceiptsByYear(year: number, userId: number): Promise<Receipt[]> {
+    try {
+        const receipts = await prisma.receipt.findMany({
+            where: {
+                userId,
+                purchaseDate: {
+                    gte: new Date(year, 0, 1),
+                    lte: new Date(year, 11, 31),
+                },
+            },
+        });
+        logger.info(`Successfully retrieved ${receipts.length} receipts for the year ${year} for ${userId}.`);
+        return receipts;
+    } catch (error) {
+        logger.error(`Error retrieving yearly receipts for the year ${year} for ${userId}: ${error}`);
     }
 }

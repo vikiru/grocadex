@@ -3,8 +3,8 @@
  * https://docs.expo.dev/guides/color-schemes/
  */
 
-import { Colors } from '@/app/constants/Colors';
 import { useColorScheme } from 'react-native';
+import { Colors } from '../app/constants/Colors';
 
 export function useThemeColor(
     props: { light?: string; dark?: string },
