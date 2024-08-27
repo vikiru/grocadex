@@ -1,9 +1,9 @@
 import { Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import Logo from '@/components/Logo';
 import { StyledComponent } from 'nativewind';
 import { useState } from 'react';
+import Logo from '../app/components/Logo';
 
 export default function Login() {
     const [userDetails, setUserDetails] = useState('');

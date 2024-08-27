@@ -1,27 +1,52 @@
 {
+    "env": {
+        "es6": true,
+        "node": true,
+        "mocha": true
+    },
     "extends": [
-        "expo",
-        "prettier",
+        "eslint:recommended",
+        "plugin:import/recommended",
+        "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
         "plugin:react-native/all",
         "plugin:tailwindcss/recommended",
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "prettier"
     ],
-    "plugins": ["prettier", "react", "react-native", "tailwindcss", "@typescript-eslint"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "import",
+        "unused-imports",
+        "node",
+        "@typescript-eslint",
+        "prettier",
+        "react",
+        "react-native",
+        "tailwindcss"
+    ],
     "rules": {
+        "import/no-unresolved": "off",
+        "@typescript-eslint/no-explicit-any": "warn",
         "prettier/prettier": "warn",
+        "unused-imports/no-unused-imports": "error",
+        "@typescript-eslint/no-require-imports": "off",
+        "node/no-unsupported-features/es-syntax": "off",
         "react/react-in-jsx-scope": "off",
         "react/prop-types": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-var-requires": "off",
-        "@typescript-eslint/no-explicit-any": "warn",
         "react-native/no-raw-text": "off",
-        "tailwindcss/no-custom-classname": "off"
+        "tailwindcss/no-custom-classname": "off",
+        "import/namespace": "off"
     },
     "settings": {
         "react": {
             "version": "detect"
         }
-    }
+    },
+    "ignorePatterns": ["node_modules/"]
 }
