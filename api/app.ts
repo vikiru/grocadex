@@ -33,5 +33,3 @@ app.use(ReceiptRouter);
 app.use(UserRouter);
 
 export { app };
-
-// TODO: cleanup api layer logic, add any missing routes and relevant layers, cleanup error messages, test with postman
