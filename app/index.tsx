@@ -3,6 +3,7 @@ import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
 import { Text, View } from 'react-native';
 
 import Icon from '@mdi/react';
+import { router } from 'expo-router';
 import { Button } from 'react-native-paper';
 import Logo from '../app/components/Logo';
 
@@ -10,9 +11,15 @@ NativeWindStyleSheet.setOutput({
     default: 'native',
 });
 
-// TODO: cleanup frontend directory, ensure configs/dependencies work after dir organization changes
-
 export default function Index() {
+    const moveToRegistration = async () => {
+        router.push('/registration');
+    };
+
+    const moveToLogin = async () => {
+        router.push('/login');
+    };
+
     return (
         <StyledComponent component={View} className="bg-background min-h-full min-w-full flex">
             <Logo />
@@ -47,7 +54,7 @@ export default function Index() {
                     mode="elevated"
                     className="max-w-md lg:max-w-full mt-4 mb-2 mx-4 bg-primary"
                     textColor="white"
-                    onPress={() => console.log('Pressed')}
+                    onPress={() => moveToRegistration()}
                 >
                     Sign Up
                 </StyledComponent>
@@ -57,6 +64,7 @@ export default function Index() {
                     mode="elevated"
                     className="max-w-md my-4 mx-4 bg-secondary"
                     textColor="white"
+                    onPress={() => moveToLogin()}
                 >
                     Login
                 </StyledComponent>
