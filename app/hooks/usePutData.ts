@@ -2,8 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { RequestPayload } from '../types/RequestPayload';
 
-export function usePutData(url: string) {
-    const [data, setData] = React.useState({});
+export function usePutData() {
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState<Error | null>(null);
 
@@ -12,8 +11,8 @@ export function usePutData(url: string) {
         setError(null);
 
         try {
-            const response = await axios.put(url, payload.data);
-            setData(response);
+            const response = await axios.put(payload.url, payload.data);
+            return response;
         } catch (error: any) {
             setError(error);
         } finally {
@@ -21,7 +20,7 @@ export function usePutData(url: string) {
         }
     };
 
-    return { putData, isLoading, error, data };
+    return { putData, isLoading, error };
 }
 
 export default usePutData;

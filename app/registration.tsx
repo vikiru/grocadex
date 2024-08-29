@@ -4,11 +4,13 @@ import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
 import { Text, View } from 'react-native';
 import { Button, HelperText, TextInput } from 'react-native-paper';
 
-import axios from 'axios';
+import { API_URL } from '@env';
 import { router } from 'expo-router';
 import { Formik } from 'formik';
 import React from 'react';
-import { apiUrl } from './config';
+import usePostData from './hooks/usePostData';
+import { RequestPayload } from './types/RequestPayload';
+import { User } from './types/User';
 
 NativeWindStyleSheet.setOutput({
     default: 'native',
@@ -22,22 +24,17 @@ const validationSchema = Yup.object({
     password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
 });
 
-// TODO: cleanup validation logic and post-submit hook. Add routing on successful signup, toast notification, etc.
+export default function SignUp() {
+    const { postData } = usePostData();
 
-const SignUp = () => {
-    const handleSignUp = async (values: {
-        firstName: string;
-        lastName: string;
-        username: string;
-        email: string;
-        password: string;
-    }) => {
-        try {
-            const response = await axios.post(`${apiUrl}/users`, values);
-            console.log('User created successfully:', response);
-            router.push('/login');
-        } catch (error) {
-            console.error('Error creating user:', error);
+    const handleSignUp = async (values: User) => {
+        const payload: RequestPayload = {
+            url: `${API_URL}/users`,
+            data: values,
+        };
+        const data = await postData(payload);
+        if (data?.status === 201) {
+            router.push('/');
         }
     };
 
@@ -158,6 +155,4 @@ const SignUp = () => {
             )}
         </Formik>
     );
-};
-
-export default SignUp;
+}

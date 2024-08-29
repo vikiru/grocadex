@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { Button, HelperText, TextInput as PaperTextInput } from 'react-native-paper';
 
-import axios from 'axios';
+import { API_URL } from '@env';
 import { router } from 'expo-router';
 import { Formik } from 'formik';
 import { StyledComponent } from 'nativewind';
 import Logo from '../app/components/Logo';
+import usePostData from './hooks/usePostData';
+import { RequestPayload } from './types/RequestPayload';
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),
@@ -17,18 +19,16 @@ const validationSchema = Yup.object().shape({
 
 export default function Login() {
     const [displayPassword, setDisplayPassword] = useState(true);
+    const { postData } = usePostData();
 
     const handleLogin = async (values: { username: string; password: string }) => {
-        try {
-            const response = await axios.post(`http://localhost:3000/api/v1/auth/login`, {
-                username: values.username,
-                password: values.password,
-            });
-            const data = response.data;
-            console.log(data);
+        const payload: RequestPayload = {
+            url: `${API_URL}/auth/login`,
+            data: values,
+        };
+        const data = await postData(payload);
+        if (data?.status === 200) {
             router.push('/dashboard');
-        } catch (error) {
-            console.error(`Error logging in: ${error}`);
         }
     };
 

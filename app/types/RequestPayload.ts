@@ -5,5 +5,5 @@ import { User } from './User';
 export interface RequestPayload {
     url: string;
     id?: number;
-    data?: User | GroceryItem | Receipt | GroceryItem[] | Receipt[];
+    data?: User | GroceryItem | Receipt | GroceryItem[] | Receipt[] | Partial<User>;
 }

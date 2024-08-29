@@ -2,8 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { RequestPayload } from '../types/RequestPayload';
 
-export function useDeleteData(url: string, payload = {}) {
-    const [data, setData] = React.useState(payload);
+export function useDeleteData() {
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState<Error | null>(null);
 
@@ -12,8 +11,8 @@ export function useDeleteData(url: string, payload = {}) {
         setError(null);
 
         try {
-            const response = await axios.delete(`${url}/${payload.id}`);
-            setData(response);
+            const response = await axios.delete(`${payload.url}/${payload.id}`);
+            return response;
         } catch (error: any) {
             setError(error);
         } finally {
@@ -21,7 +20,7 @@ export function useDeleteData(url: string, payload = {}) {
         }
     };
 
-    return { deleteData, isLoading, error, data };
+    return { deleteData, isLoading, error };
 }
 
 export default useDeleteData;
