@@ -24,7 +24,8 @@ export default function Login() {
                 username: values.username,
                 password: values.password,
             });
-            console.log(response);
+            const data = response.data;
+            console.log(data);
             router.push('/dashboard');
         } catch (error) {
             console.error(`Error logging in: ${error}`);
