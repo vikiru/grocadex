@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 import Icon from '@mdi/react';
 import { router } from 'expo-router';
 import { Button } from 'react-native-paper';
-import Logo from '../app/components/Logo';
+import Logo from '../components/Logo';
 
 NativeWindStyleSheet.setOutput({
     default: 'native',

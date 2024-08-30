@@ -7,8 +7,8 @@
         "paths": {
             "@/*": ["./*"]
         },
-        "typeRoots": ["./node_modules/@types", "./app/types", "../api/types/"]
+        "typeRoots": ["../node_modules/@types", "../types/**", "../api/types/"]
     },
 
-    "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+    "include": ["../.expo/types/**.ts", "../types/**.ts", "../expo-env.d.ts"]
 }

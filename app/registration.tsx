@@ -8,9 +8,9 @@ import { API_URL } from '@env';
 import { router } from 'expo-router';
 import { Formik } from 'formik';
 import React from 'react';
-import usePostData from './hooks/usePostData';
-import { RequestPayload } from './types/RequestPayload';
-import { User } from './types/User';
+import usePostData from '../hooks/usePostData';
+import { RequestPayload } from '../types/RequestPayload';
+import { User } from '../types/User';
 
 NativeWindStyleSheet.setOutput({
     default: 'native',
