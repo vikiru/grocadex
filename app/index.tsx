@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 
 import Icon from '@mdi/react';
 import { router } from 'expo-router';
+import React from 'react';
 import { Button } from 'react-native-paper';
 import Logo from '../components/Logo';
 

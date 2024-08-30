@@ -30,7 +30,6 @@
     ],
     "rules": {
         "import/no-unresolved": "off",
-        "@typescript-eslint/no-explicit-any": "warn",
         "prettier/prettier": "warn",
         "unused-imports/no-unused-imports": "error",
         "@typescript-eslint/no-require-imports": "off",
@@ -41,7 +40,8 @@
         "@typescript-eslint/no-var-requires": "off",
         "react-native/no-raw-text": "off",
         "tailwindcss/no-custom-classname": "off",
-        "import/namespace": "off"
+        "import/namespace": "off",
+        "@typescript-eslint/no-explicit-any": "off"
     },
     "settings": {
         "react": {
