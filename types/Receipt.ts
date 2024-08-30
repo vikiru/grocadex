@@ -1,3 +1,4 @@
+import { GroceryItem } from './GroceryItem';
 import { User } from './User';
 
 export interface Receipt {

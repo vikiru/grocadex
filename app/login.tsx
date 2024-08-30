@@ -8,9 +8,9 @@ import { API_URL } from '@env';
 import { router } from 'expo-router';
 import { Formik } from 'formik';
 import { StyledComponent } from 'nativewind';
-import Logo from '../app/components/Logo';
-import usePostData from './hooks/usePostData';
-import { RequestPayload } from './types/RequestPayload';
+import Logo from '../components/Logo';
+import usePostData from '../hooks/usePostData';
+import { RequestPayload } from '../types/RequestPayload';
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),

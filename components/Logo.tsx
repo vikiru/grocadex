@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 
 import { StyledComponent } from 'nativewind';
+import React from 'react';
 
 export default function Logo() {
     return (
