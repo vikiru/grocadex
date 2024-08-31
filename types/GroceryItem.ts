@@ -10,4 +10,7 @@ export interface GroceryItem {
     name: string;
     quantity: number;
     unitPrice: number;
+    totalPrice: number;
+    purchaseDate: Date;
+    expiryDate: Date;
 }

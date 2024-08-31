@@ -8,7 +8,7 @@ import { API_URL } from '@env';
 import { router } from 'expo-router';
 import { Formik } from 'formik';
 import { StyledComponent } from 'nativewind';
-import Logo from '../components/Logo';
+import Logo from '../components/Logo/Logo';
 import usePostData from '../hooks/usePostData';
 import { RequestPayload } from '../types/RequestPayload';
 
