@@ -1,12 +1,18 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
+import { StyledComponent } from 'nativewind';
 import React from 'react';
 
 export default function TabsLayout() {
     return (
-        <Tabs
+        <StyledComponent
+            component={Tabs}
+            className="bg-red-500"
             screenOptions={{
                 tabBarLabelPosition: 'below-icon',
+                tabBarStyle: { backgroundColor: '#E8F5E9' },
+                tabBarActiveTintColor: '#4CAF50',
+                tabBarInactiveTintColor: '#9E9E9E',
             }}
         >
             <Tabs.Screen
@@ -34,7 +40,6 @@ export default function TabsLayout() {
                 options={{
                     headerTitle: 'Home',
                     headerTitleAlign: 'center',
-                    headerStyle: { backgroundColor: '#000' },
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="home" size={size} color={color} />,
                 }}
@@ -50,6 +55,6 @@ export default function TabsLayout() {
                     ),
                 }}
             />
-        </Tabs>
+        </StyledComponent>
     );
 }
