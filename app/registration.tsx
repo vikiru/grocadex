@@ -4,7 +4,6 @@ import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
 import { Text, View } from 'react-native';
 import { Button, HelperText, TextInput } from 'react-native-paper';
 
-import { API_URL } from '@env';
 import { router } from 'expo-router';
 import { Formik } from 'formik';
 import React from 'react';
@@ -29,7 +28,7 @@ export default function SignUp() {
 
     const handleSignUp = async (values: User) => {
         const payload: RequestPayload = {
-            url: `${API_URL}/users`,
+            url: `${process.env.API_URL}/users`,
             data: values,
         };
         const data = await postData(payload);
