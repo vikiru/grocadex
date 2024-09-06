@@ -5,7 +5,7 @@ import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { Receipt } from '../../types/Receipt';
 
-function formatDate(date: Date | undefined): string {
+export function formatDate(date: Date | undefined): string {
     if (!date) return 'N/A';
     return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 }
