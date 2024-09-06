@@ -18,12 +18,12 @@ export default function ReceiptCard({ receipt }: { receipt: Receipt | Partial<Re
                     <StyledComponent component={Text} className="text-lg font-semibold">
                         {receipt.store}
                     </StyledComponent>
-                    <StyledComponent component={Text} className="text-lg text-text font-heading mx-10 mb-2">
+                    <StyledComponent component={Text} className="text-lg text-text font-heading md:mx-10 mb-2">
                         ${receipt.total?.toFixed(2)}
                     </StyledComponent>
                 </StyledComponent>
-                <StyledComponent component={View} className="flex flex-row justify-between">
-                    <StyledComponent component={Text} className="mt-1 mb-2">
+                <StyledComponent component={View} className="flex md:flex-row md:justify-between">
+                    <StyledComponent component={Text} className="mt-1 mb-2 max-w-sm pr-2 text-text text-base">
                         Purchased {receipt.groceryItems?.length} items on {formatDate(receipt.purchaseDate)}.
                     </StyledComponent>
                     <StyledComponent
