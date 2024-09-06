@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { Button, HelperText, TextInput as PaperTextInput } from 'react-native-paper';
 
-import { API_URL } from '@env';
 import { router } from 'expo-router';
 import { Formik } from 'formik';
 import { StyledComponent } from 'nativewind';
@@ -23,9 +22,11 @@ export default function Login() {
 
     const handleLogin = async (values: { username: string; password: string }) => {
         const payload: RequestPayload = {
-            url: `${API_URL}/auth/login`,
+            url: `${process.env.EXPO_PUBLIC_API_URL}/auth/login`,
             data: values,
         };
+
+        console.log(payload);
         const data = await postData(payload);
         if (data?.status === 200) {
             router.push('/dashboard');

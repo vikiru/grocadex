@@ -92,8 +92,8 @@ export function IntroDetails(props: IntroDetailsProps) {
     );
 }
 
-type IntroDetailsProps = {
+interface IntroDetailsProps {
     heading: string;
     subtext: string;
     icon: string;
-};
+}

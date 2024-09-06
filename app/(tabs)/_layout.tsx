@@ -19,7 +19,7 @@ export default function TabsLayout() {
                 name="expense"
                 options={{
                     headerTitle: 'Expenses',
-                    headerShown: false,
+                    headerShown: true,
                     tabBarLabel: 'Expenses',
                     tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="cash" size={size} color={color} />,
                 }}
@@ -28,7 +28,7 @@ export default function TabsLayout() {
                 name="receipt"
                 options={{
                     headerTitle: 'Receipts',
-                    headerShown: false,
+                    headerShown: true,
                     tabBarLabel: 'Receipts',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="receipt" size={size} color={color} />
@@ -48,7 +48,7 @@ export default function TabsLayout() {
                 name="expiry"
                 options={{
                     headerTitle: 'Expiry',
-                    headerShown: false,
+                    headerShown: true,
                     tabBarLabel: 'Expiry',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="calendar-clock" size={size} color={color} />

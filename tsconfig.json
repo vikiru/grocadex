@@ -1,5 +1,13 @@
 {
-    "compilerOptions": {},
     "extends": "expo/tsconfig.base",
-    "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+    "compilerOptions": {
+        "target": "ES6",
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "paths": {
+            "@/*": ["./*"]
+        },
+        "typeRoots": ["./node_modules/@types", "./types/**", "./api/types/"]
+    },
+    "include": ["./.expo/types/**.ts", "./types/*.ts", "./expo-env.d.ts", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

@@ -4,11 +4,11 @@
         "slug": "grocery-tracker",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./app/assets/images/icon.png",
+        "icon": "./assets/images/icon.png",
         "scheme": "myapp",
         "userInterfaceStyle": "automatic",
         "splash": {
-            "image": "./app/assets/images/splash.png",
+            "image": "./assets/images/splash.png",
             "resizeMode": "contain",
             "backgroundColor": "#ffffff"
         },
@@ -17,7 +17,7 @@
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./app/assets/images/adaptive-icon.png",
+                "foregroundImage": "./assets/images/adaptive-icon.png",
                 "backgroundColor": "#ffffff"
             }
         },
