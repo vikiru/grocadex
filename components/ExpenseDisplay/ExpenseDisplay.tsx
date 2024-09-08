@@ -9,9 +9,12 @@ interface ExpenseDisplayProps {
 
 export default function ExpenseDisplay({ monthlyExpense }: ExpenseDisplayProps) {
     return (
-        <StyledComponent component={View} className="border-primary border-2 mx-auto rounded-xl mt-2 p-4 w-44">
+        <StyledComponent
+            component={View}
+            className="border-primary border-2 mx-auto rounded-lg mt-2 p-4 w-44 shadow-md bg-background"
+        >
             <StyledComponent component={View} className="flex-row items-center justify-center">
-                <StyledComponent component={Text} className="text-text text-lg lg:text-2xl font-semibold">
+                <StyledComponent component={Text} className="text-text text-xl lg:text-2xl font-semibold font-heading">
                     $ {monthlyExpense.toLocaleString()}
                 </StyledComponent>
             </StyledComponent>

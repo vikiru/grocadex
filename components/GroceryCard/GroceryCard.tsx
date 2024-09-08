@@ -15,27 +15,27 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
     };
 
     return (
-        <StyledComponent component={Card} className="my-1 mx-2 bg-white shadow-md rounded-lg">
+        <StyledComponent component={Card} className="my-1 mx-2 bg-white shadow-md rounded-lg border-2 border-primary">
             <Card.Content>
                 <StyledComponent component={View} className="flex-row justify-between items-start mb-2">
                     <StyledComponent
                         component={Text}
-                        className="text-center text-base font-bold text-primary flex-1 mr-2"
+                        className="text-center text-base font-bold text-primary flex-1 mr-2 font-heading"
                     >
                         {item.name}
                     </StyledComponent>
                 </StyledComponent>
 
                 <StyledComponent component={View} className="flex-row justify-between items-end space-x-2">
-                    <StyledComponent component={Text} className="text-sm text-gray-600">
+                    <StyledComponent component={Text} className="text-sm text-gray-600 font-heading">
                         Quantity: {item.quantity || 'N/A'}
                     </StyledComponent>
 
-                    <StyledComponent component={Text} className="text-md py-1 text-gray-600">
+                    <StyledComponent component={Text} className="text-md py-1 text-gray-600 font-heading">
                         |
                     </StyledComponent>
 
-                    <StyledComponent component={Text} className="text-sm text-gray-600">
+                    <StyledComponent component={Text} className="text-sm text-gray-600 font-heading">
                         Total: {formatPrice(item.totalPrice)}
                     </StyledComponent>
                 </StyledComponent>
@@ -44,19 +44,19 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
 
                 <StyledComponent component={View} className="mt-2">
                     <StyledComponent component={View} className="mb-1">
-                        <StyledComponent component={Text} className="text-xs text-gray-500">
+                        <StyledComponent component={Text} className="text-sm text-gray-500 font-subheading">
                             Purchased
                         </StyledComponent>
-                        <StyledComponent component={Text} className="text-sm text-gray-700">
+                        <StyledComponent component={Text} className="text-sm text-gray-700 font-body">
                             {formatDate(item.purchaseDate)}
                         </StyledComponent>
                     </StyledComponent>
 
                     <StyledComponent component={View}>
-                        <StyledComponent component={Text} className="text-xs text-gray-500">
+                        <StyledComponent component={Text} className="text-sm text-gray-500 font-subheading">
                             Expires
                         </StyledComponent>
-                        <StyledComponent component={Text} className="text-sm font-semibold text-red-400">
+                        <StyledComponent component={Text} className="text-sm font-semibold text-red-400 font-body">
                             {formatDate(item.expiryDate)}
                         </StyledComponent>
                     </StyledComponent>

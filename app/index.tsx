@@ -1,6 +1,6 @@
 import { mdiCashMultiple, mdiClockOutline, mdiLeaf } from '@mdi/js';
 import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
-import { Text, View } from 'react-native';
+import { StatusBar, Text, View } from 'react-native';
 
 import Icon from '@mdi/react';
 import { router } from 'expo-router';
@@ -22,7 +22,8 @@ export default function Index() {
     };
 
     return (
-        <StyledComponent component={View} className="bg-background min-h-full min-w-full flex">
+        <StyledComponent component={View} className="bg-background min-h-full min-w-full flex mt-10">
+            <StatusBar />
             <Logo />
             <StyledComponent component={View} className="flex-row mx-auto my-2">
                 <StyledComponent component={Text} className="text-text text-xl italic font-body">
@@ -53,7 +54,7 @@ export default function Index() {
                     component={Button}
                     icon="account-plus"
                     mode="elevated"
-                    className="max-w-md lg:max-w-full mt-4 mb-2 mx-4 bg-primary"
+                    className="max-w-md my-4 w-96 bg-primary mx-auto"
                     textColor="white"
                     onPress={() => moveToRegistration()}
                 >
@@ -63,7 +64,7 @@ export default function Index() {
                     component={Button}
                     icon="login"
                     mode="elevated"
-                    className="max-w-md my-4 mx-4 bg-secondary"
+                    className="max-w-md my-4 w-96 bg-secondary mx-auto"
                     textColor="white"
                     onPress={() => moveToLogin()}
                 >
@@ -76,15 +77,18 @@ export default function Index() {
 
 export function IntroDetails(props: IntroDetailsProps) {
     return (
-        <StyledComponent component={View} className="ml-6 mt-2 lg:mx-auto flex flex-row items-start">
+        <StyledComponent component={View} className="ml-6 mt-2 mx-auto flex flex-row items-start">
             <StyledComponent component={View} className="flex items-center justify-center h-16 w-16 max-w-[20%]">
                 <Icon path={props.icon} size={1} />
             </StyledComponent>
             <StyledComponent component={View} className="ml-4 flex flex-col max-w-[300px]">
-                <StyledComponent component={Text} className="text-text font-semibold text-left text-xl">
+                <StyledComponent
+                    component={Text}
+                    className="text-text font-semibold text-left text-xl font-merriweather"
+                >
                     {props.heading}
                 </StyledComponent>
-                <StyledComponent component={Text} className="text-text text-left text-lg font-body mt-1 break-words">
+                <StyledComponent component={Text} className="text-text text-left text-lg mt-1 font-body break-words">
                     {props.subtext}
                 </StyledComponent>
             </StyledComponent>

@@ -48,7 +48,7 @@ export default function SignUp() {
             onSubmit={handleSignUp}
         >
             {({ handleChange, handleSubmit, handleBlur, values, errors, touched }) => (
-                <StyledComponent component={View} className="bg-background min-h-full min-w-full flex">
+                <StyledComponent component={View} className="bg-background min-h-full min-w-full flex mt-10">
                     <StyledComponent component={View} className="flex-row mx-auto mt-5">
                         <StyledComponent component={Text} className="text-text text-4xl font-semibold font-heading">
                             Sign Up
@@ -56,7 +56,7 @@ export default function SignUp() {
                     </StyledComponent>
 
                     <StyledComponent component={View} className="my-2">
-                        <StyledComponent component={Text} className="text-center text-text text-lg font-body">
+                        <StyledComponent component={Text} className="text-center text-gray-600 text-lg font-body">
                             Start your journey to saving money and reducing food waste!
                         </StyledComponent>
                     </StyledComponent>
@@ -68,7 +68,7 @@ export default function SignUp() {
                         placeholder="Enter your first name"
                         onChangeText={handleChange('firstName')}
                         onBlur={handleBlur('firstName')}
-                        className="my-2 mx-4"
+                        className="my-2 mx-4 font-body bg-white border-2 border-primary"
                     />
                     <HelperText type="error" visible={touched.firstName && !!errors.firstName}>
                         {errors.firstName}
@@ -81,7 +81,7 @@ export default function SignUp() {
                         placeholder="Enter your last name"
                         onChangeText={handleChange('lastName')}
                         onBlur={handleBlur('lastName')}
-                        className="my-2 mx-4"
+                        className="my-2 mx-4 font-body bg-white border-2 border-primary"
                     />
                     <HelperText type="error" visible={touched.lastName && !!errors.lastName}>
                         {errors.lastName}
@@ -94,7 +94,7 @@ export default function SignUp() {
                         placeholder="Enter your username"
                         onChangeText={handleChange('username')}
                         onBlur={handleBlur('username')}
-                        className="my-2 mx-4"
+                        className="my-2 mx-4 font-body bg-white border-2 border-primary"
                     />
                     <HelperText type="error" visible={touched.username && !!errors.username}>
                         {errors.username}
@@ -107,7 +107,7 @@ export default function SignUp() {
                         placeholder="Enter your email address"
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
-                        className="my-2 mx-4"
+                        className="my-2 mx-4 font-body bg-white border-2 border-primary"
                     />
                     <HelperText type="error" visible={touched.email && !!errors.email}>
                         {errors.email}
@@ -121,7 +121,7 @@ export default function SignUp() {
                         secureTextEntry
                         onChangeText={handleChange('password')}
                         onBlur={handleBlur('password')}
-                        className="my-2 mx-4"
+                        className="my-2 mx-4 font-body bg-white border-2 border-primary"
                     />
                     <HelperText type="error" visible={touched.password && !!errors.password}>
                         {errors.password}
@@ -132,8 +132,8 @@ export default function SignUp() {
                             component={Button}
                             icon="check-circle"
                             mode="elevated"
-                            className="max-w-md lg:max-w-full my-2 mx-4 bg-primary"
-                            textColor="black"
+                            className="max-w-md my-2 mx-auto bg-primary font-body w-96"
+                            textColor="white"
                             onPress={() => handleSubmit()}
                         >
                             Confirm Details
@@ -143,7 +143,7 @@ export default function SignUp() {
                             component={Button}
                             icon="cancel"
                             mode="elevated"
-                            className="max-w-md my-2 mx-4 bg-secondary"
+                            className="max-w-md my-2 mx-auto bg-secondary font-body w-96"
                             textColor="white"
                             onPress={() => handleCancel()}
                         >

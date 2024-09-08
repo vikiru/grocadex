@@ -41,7 +41,8 @@
         "react-native/no-raw-text": "off",
         "tailwindcss/no-custom-classname": "off",
         "import/namespace": "off",
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "react-native/no-inline-styles": "off"
     },
     "settings": {
         "react": {

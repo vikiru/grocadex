@@ -166,7 +166,10 @@ export default function Dashboard() {
     return (
         <StyledComponent component={ScrollView} horizontal={false} className="bg-background min-h-full min-w-full flex">
             <StyledComponent component={View} className="bg-background">
-                <StyledComponent component={Text} className="text-white text-center bg-primary p-2 text-lg">
+                <StyledComponent
+                    component={Text}
+                    className="text-white lg:text-center xs:text-left p-2 pl-4 bg-primary text-2xl font-heading"
+                >
                     Expiring Groceries
                 </StyledComponent>
                 <StyledComponent
@@ -180,13 +183,19 @@ export default function Dashboard() {
                     ))}
                 </StyledComponent>
 
-                <StyledComponent component={Text} className="text-white text-center bg-primary p-2 text-lg">
+                <StyledComponent
+                    component={Text}
+                    className="text-white lg:text-center xs:text-left p-2 pl-4 bg-primary text-2xl font-heading"
+                >
                     Current Monthly Expenses
                 </StyledComponent>
 
                 <ExpenseDisplay monthlyExpense={testReceipts.reduce((total, receipt) => total + receipt.total, 0)} />
 
-                <StyledComponent component={View}>
+                <StyledComponent
+                    component={View}
+                    className="bg-background m-2 rounded-lg shadow-md border-2 border-primary"
+                >
                     <ReceiptTable receipts={testReceipts} />
                 </StyledComponent>
             </StyledComponent>

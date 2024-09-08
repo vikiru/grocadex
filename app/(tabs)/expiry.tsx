@@ -102,7 +102,7 @@ export default function expiry() {
     return (
         <StyledComponent component={ScrollView} horizontal={false} className="bg-background min-h-full min-w-full">
             <SearchBar placeholder="Search items..." />
-            <StyledComponent component={View} className="grid grid-cols-3">
+            <StyledComponent component={View} className="flex flex-col">
                 {testData.map((item) => (
                     <StyledComponent component={GroceryItemCard} item={item} key={item.id} />
                 ))}
