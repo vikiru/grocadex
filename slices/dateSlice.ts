@@ -1,13 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../store/store';
+
+interface DateState {
+    date: Date;
+    currentDay: number;
+    currentMonth: number;
+    currentYear: number;
+}
+
+const initialState: DateState = {
+    date: new Date(),
+    currentDay: new Date().getDate(),
+    currentMonth: new Date().getMonth(),
+    currentYear: new Date().getFullYear(),
+};
 
 const dateSlice = createSlice({
     name: 'date',
-    initialState: {
-        date: new Date(),
-        currentDay: new Date().getDate(),
-        currentMonth: new Date().getMonth(),
-        currentYear: new Date().getFullYear(),
-    },
+    initialState,
     reducers: {
         setDate: (state, action) => {
             state.date = action.payload;
@@ -54,5 +64,10 @@ export const {
     incrementYear,
     decrementYear,
 } = dateSlice.actions;
+
+export const selectDate = (state: RootState) => state.date.date;
+export const selectCurrentDay = (state: RootState) => state.date.currentDay;
+export const selectCurrentMonth = (state: RootState) => state.date.currentMonth;
+export const selectCurrentYear = (state: RootState) => state.date.currentYear;
 
 export default dateSlice.reducer;

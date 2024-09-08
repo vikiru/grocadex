@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../store/store';
 import { GroceryItem } from './../types/GroceryItem';
 
 interface ActiveItemState {
-    activeItems: (GroceryItem | Partial<GroceryItem>)[];
+    activeItems: GroceryItem[] | Partial<GroceryItem>[];
 }
 
 const initialState: ActiveItemState = {
@@ -29,5 +30,7 @@ const activeItemSlice = createSlice({
 });
 
 export const { setActiveItems, resetActiveItems, addActiveItem, removeActiveItem } = activeItemSlice.actions;
+
+export const selectActiveItems = (state: RootState) => state.activeItem.activeItems;
 
 export default activeItemSlice.reducer;

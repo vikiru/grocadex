@@ -1,12 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../store/store';
+import { Expense } from './../types/Expense';
+
+interface ExpenseState {
+    expenses: Expense[] | Partial<Expense>[];
+    monthlyExpenses: number;
+    yearlyExpenses: number;
+}
+
+const initialState: ExpenseState = {
+    expenses: [],
+    monthlyExpenses: 0,
+    yearlyExpenses: 0,
+};
 
 export const expenseSlice = createSlice({
     name: 'expense',
-    initialState: {
-        expenses: [],
-        monthlyExpenses: 0,
-        yearlyExpenses: 0,
-    },
+    initialState,
     reducers: {
         setExpenses: (state, action) => {
             state.expenses = action.payload;
@@ -39,5 +49,9 @@ export const {
     incrementYearlyExpenses,
     resetExpenses,
 } = expenseSlice.actions;
+
+export const selectExpenses = (state: RootState) => state.expense.expenses;
+export const selectMonthlyExpenses = (state: RootState) => state.expense.monthlyExpenses;
+export const selectYearlyExpenses = (state: RootState) => state.expense.yearlyExpenses;
 
 export default expenseSlice.reducer;

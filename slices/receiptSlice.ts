@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../store/store';
 import { Receipt } from '../types/Receipt';
 
 interface ReceiptState {
-    receipts: Receipt[];
+    receipts: Receipt[] | Partial<Receipt>[];
 }
 
 const initialState: ReceiptState = {
@@ -29,4 +30,7 @@ const receiptSlice = createSlice({
 });
 
 export const { setReceipts, resetReceipts, addReceipt, removeReceipt } = receiptSlice.actions;
+
+export const selectReceipts = (state: RootState) => state.receipt.receipts;
+
 export default receiptSlice.reducer;

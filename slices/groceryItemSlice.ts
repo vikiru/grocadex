@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../store/store';
 import { GroceryItem } from '../types/GroceryItem';
 
 interface GroceryItemState {
@@ -29,5 +30,7 @@ const groceryItemSlice = createSlice({
 });
 
 export const { setGroceryItems, resetGroceryItems, addGroceryItem, removeGroceryItem } = groceryItemSlice.actions;
+
+export const selectGroceryItems = (state: RootState) => state.grocery.groceryItems;
 
 export default groceryItemSlice.reducer;
