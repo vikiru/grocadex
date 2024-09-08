@@ -6,7 +6,9 @@ import Icon from '@mdi/react';
 import { router } from 'expo-router';
 import React from 'react';
 import { Button } from 'react-native-paper';
+import { Provider } from 'react-redux';
 import Logo from '../components/Logo/Logo';
+import { store } from '../store/store';
 
 NativeWindStyleSheet.setOutput({
     default: 'native',
@@ -22,56 +24,58 @@ export default function Index() {
     };
 
     return (
-        <StyledComponent component={View} className="bg-background min-h-full min-w-full flex mt-10">
-            <StatusBar />
-            <Logo />
-            <StyledComponent component={View} className="flex-row mx-auto my-2">
-                <StyledComponent component={Text} className="text-text text-xl italic font-body">
-                    A grocery expiry and expense tracker.
+        <Provider store={store}>
+            <StyledComponent component={View} className="bg-background min-h-full min-w-full flex mt-10">
+                <StatusBar />
+                <Logo />
+                <StyledComponent component={View} className="flex-row mx-auto my-2">
+                    <StyledComponent component={Text} className="text-text text-xl italic font-body">
+                        A grocery expiry and expense tracker.
+                    </StyledComponent>
+                </StyledComponent>
+
+                <IntroDetails
+                    icon={mdiClockOutline}
+                    heading="Track & Organize Groceries"
+                    subtext="Manage your grocery items and never miss an expiry date again!"
+                />
+
+                <IntroDetails
+                    icon={mdiCashMultiple}
+                    heading="Save Money"
+                    subtext="Monitor your monthly expenses with ease and stay on top of your budgeting goals!"
+                />
+
+                <IntroDetails
+                    icon={mdiLeaf}
+                    heading="Reduce Waste"
+                    subtext="Never waste unused food again due to missed expiry dates. Keep your kitchen waste-free!"
+                />
+
+                <StyledComponent component={View} className="mt-2 lg:mx-auto">
+                    <StyledComponent
+                        component={Button}
+                        icon="account-plus"
+                        mode="elevated"
+                        className="max-w-md my-4 w-96 bg-primary mx-auto"
+                        textColor="white"
+                        onPress={() => moveToRegistration()}
+                    >
+                        Sign Up
+                    </StyledComponent>
+                    <StyledComponent
+                        component={Button}
+                        icon="login"
+                        mode="elevated"
+                        className="max-w-md my-4 w-96 bg-secondary mx-auto"
+                        textColor="white"
+                        onPress={() => moveToLogin()}
+                    >
+                        Login
+                    </StyledComponent>
                 </StyledComponent>
             </StyledComponent>
-
-            <IntroDetails
-                icon={mdiClockOutline}
-                heading="Track & Organize Groceries"
-                subtext="Manage your grocery items and never miss an expiry date again!"
-            />
-
-            <IntroDetails
-                icon={mdiCashMultiple}
-                heading="Save Money"
-                subtext="Monitor your monthly expenses with ease and stay on top of your budgeting goals!"
-            />
-
-            <IntroDetails
-                icon={mdiLeaf}
-                heading="Reduce Waste"
-                subtext="Never waste unused food again due to missed expiry dates. Keep your kitchen waste-free!"
-            />
-
-            <StyledComponent component={View} className="mt-2 lg:mx-auto">
-                <StyledComponent
-                    component={Button}
-                    icon="account-plus"
-                    mode="elevated"
-                    className="max-w-md my-4 w-96 bg-primary mx-auto"
-                    textColor="white"
-                    onPress={() => moveToRegistration()}
-                >
-                    Sign Up
-                </StyledComponent>
-                <StyledComponent
-                    component={Button}
-                    icon="login"
-                    mode="elevated"
-                    className="max-w-md my-4 w-96 bg-secondary mx-auto"
-                    textColor="white"
-                    onPress={() => moveToLogin()}
-                >
-                    Login
-                </StyledComponent>
-            </StyledComponent>
-        </StyledComponent>
+        </Provider>
     );
 }
 

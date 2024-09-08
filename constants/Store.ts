@@ -1,4 +1,4 @@
-export const STORES = [
+export const Stores = [
     'Amazon Fresh',
     'Costco',
     'Dollarama',
