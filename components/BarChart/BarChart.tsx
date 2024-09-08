@@ -14,14 +14,20 @@ export default function BarChart({ data, title }: { data: any; title: string }) 
                 domainPadding={{ x: 5 }}
                 animate={{ duration: 2000, easing: 'bounce' }}
             >
-                <VictoryLabel text={title} x={235} y={20} textAnchor="middle" />
+                <VictoryLabel
+                    text={title}
+                    x={235}
+                    y={20}
+                    textAnchor="middle"
+                    style={{ fontFamily: 'Baloo 2', fontSize: 16 }}
+                />
                 <VictoryBar
                     data={data}
                     x="month"
                     y="value"
                     alignment="start"
                     style={{
-                        data: { fill: '#c43a31' },
+                        data: { fill: '#4CAF50' },
                     }}
                 />
                 <VictoryAxis
@@ -31,7 +37,7 @@ export default function BarChart({ data, title }: { data: any; title: string }) 
                         ticks: { stroke: 'grey', size: 5 },
                         tickLabels: {
                             fontSize: 10,
-                            padding: 5,
+                            fontFamily: 'Open Sans',
                         },
                         grid: { stroke: 'transparent' },
                     }}
@@ -44,8 +50,8 @@ export default function BarChart({ data, title }: { data: any; title: string }) 
                         ticks: { stroke: 'grey', size: 5 },
                         tickLabels: {
                             fontSize: 10,
-                            padding: 5,
                             textAnchor: 'end',
+                            fontFamily: 'Open Sans',
                         },
                         grid: { stroke: 'transparent' },
                     }}

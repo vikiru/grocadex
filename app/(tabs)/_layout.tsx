@@ -16,30 +16,10 @@ export default function TabsLayout() {
             }}
         >
             <Tabs.Screen
-                name="expense"
-                options={{
-                    headerTitle: 'Expenses',
-                    headerShown: true,
-                    tabBarLabel: 'Expenses',
-                    tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="cash" size={size} color={color} />,
-                }}
-            />
-            <Tabs.Screen
-                name="receipt"
-                options={{
-                    headerTitle: 'Receipts',
-                    headerShown: true,
-                    tabBarLabel: 'Receipts',
-                    tabBarIcon: ({ color, size }) => (
-                        <MaterialCommunityIcons name="receipt" size={size} color={color} />
-                    ),
-                }}
-            />
-            <Tabs.Screen
                 name="dashboard"
                 options={{
                     headerTitle: 'Home',
-                    headerTitleAlign: 'center',
+                    headerShown: false,
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="home" size={size} color={color} />,
                 }}
@@ -48,10 +28,30 @@ export default function TabsLayout() {
                 name="expiry"
                 options={{
                     headerTitle: 'Expiry',
-                    headerShown: true,
+                    headerShown: false,
                     tabBarLabel: 'Expiry',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="calendar-clock" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="expense"
+                options={{
+                    headerTitle: 'Expenses',
+                    headerShown: false,
+                    tabBarLabel: 'Expenses',
+                    tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="cash" size={size} color={color} />,
+                }}
+            />
+            <Tabs.Screen
+                name="receipt"
+                options={{
+                    headerTitle: 'Receipts',
+                    headerShown: false,
+                    tabBarLabel: 'Receipts',
+                    tabBarIcon: ({ color, size }) => (
+                        <MaterialCommunityIcons name="receipt" size={size} color={color} />
                     ),
                 }}
             />

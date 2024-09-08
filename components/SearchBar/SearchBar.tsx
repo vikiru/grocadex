@@ -14,7 +14,8 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
             placeholder={placeholder}
             onChangeText={onChangeSearch}
             value={searchQuery}
-            className="m-2"
+            className="m-2 bg-white shadow-md border-primary border-2"
+            style={{ fontFamily: 'Open Sans' }}
         />
     );
 }

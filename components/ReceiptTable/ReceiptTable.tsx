@@ -20,17 +20,17 @@ export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Parti
             <StyledComponent component={DataTable} className="w-full">
                 <DataTable.Header>
                     <DataTable.Title>
-                        <StyledComponent component={Text} className="font-semibold text-lg text-text">
+                        <StyledComponent component={Text} className="font-semibold text-xl text-text font-heading">
                             Purchase Date
                         </StyledComponent>
                     </DataTable.Title>
                     <DataTable.Title>
-                        <StyledComponent component={Text} className="font-semibold text-lg text-text">
+                        <StyledComponent component={Text} className="font-semibold text-xl text-text font-heading">
                             Store
                         </StyledComponent>
                     </DataTable.Title>
                     <DataTable.Title numeric>
-                        <StyledComponent component={Text} className="font-semibold text-lg text-text">
+                        <StyledComponent component={Text} className="font-semibold text-xl text-text font-heading">
                             Total ($)
                         </StyledComponent>
                     </DataTable.Title>
@@ -39,17 +39,17 @@ export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Parti
                 {receipts.slice(from, to).map((receipt: Receipt | Partial<Receipt>) => (
                     <DataTable.Row key={receipt.id}>
                         <DataTable.Cell>
-                            <StyledComponent component={Text} className="text-text text-base font-body">
+                            <StyledComponent component={Text} className="text-text text-lg font-body">
                                 {receipt.purchaseDate?.toLocaleDateString()}
                             </StyledComponent>
                         </DataTable.Cell>
                         <DataTable.Cell>
-                            <StyledComponent component={Text} className="text-text text-base">
+                            <StyledComponent component={Text} className="text-text text-lg font-body">
                                 {receipt.store}
                             </StyledComponent>
                         </DataTable.Cell>
                         <DataTable.Cell numeric>
-                            <StyledComponent component={Text} className="text-text text-base font-body">
+                            <StyledComponent component={Text} className="text-text text-lg font-body">
                                 ${receipt.total?.toFixed(2)}
                             </StyledComponent>
                         </DataTable.Cell>

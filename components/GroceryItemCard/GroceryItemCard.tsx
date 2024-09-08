@@ -9,17 +9,17 @@ import { formatDate } from '../ReceiptCard/ReceiptCard';
 
 export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<GroceryItem> }) {
     return (
-        <StyledComponent component={Card} className="bg-white shadow-md rounded-lg p-4 m-2">
+        <StyledComponent component={Card} className="border-2 border-primary bg-white shadow-md rounded-lg p-4 m-2">
             <Card.Content>
                 <StyledComponent component={View} className="flex flex-row justify-between">
-                    <StyledComponent component={Text} className="text-lg font-heading font-semibold">
+                    <StyledComponent component={Text} className="text-xl font-heading font-semibold">
                         {item.name} ({item.quantity})
                     </StyledComponent>
-                    <StyledComponent component={Text} className="text-lg font-heading font-semibold">
+                    <StyledComponent component={Text} className="text-xl font-heading text-text">
                         ${item.totalPrice}
                     </StyledComponent>
                 </StyledComponent>
-                <StyledComponent component={Text} className="text-base text-red-500">
+                <StyledComponent component={Text} className="text-lg mt-2 text-red-400 font-subheading">
                     Expiring on {formatDate(item.expiryDate)}
                 </StyledComponent>
             </Card.Content>

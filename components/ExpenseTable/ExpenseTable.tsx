@@ -15,16 +15,16 @@ export default function ExpenseTable({ data }: { data: any }) {
     }, [numberOfItemsPerPage]);
 
     return (
-        <StyledComponent component={View} className="rounded-lg shadow-md p-4">
+        <StyledComponent component={View} className="rounded-lg shadow-md p-4 border-2 border-primary m-2">
             <StyledComponent component={DataTable} className="w-full rounded-lg">
                 <DataTable.Header>
                     <DataTable.Title>
-                        <StyledComponent component={Text} className="font-semibold text-lg text-text">
+                        <StyledComponent component={Text} className="font-semibold text-xl text-text font-heading">
                             Purchase Date
                         </StyledComponent>
                     </DataTable.Title>
                     <DataTable.Title numeric>
-                        <StyledComponent component={Text} className="font-semibold text-lg text-text">
+                        <StyledComponent component={Text} className="font-semibold text-xl text-text font-heading">
                             Total ($)
                         </StyledComponent>
                     </DataTable.Title>
