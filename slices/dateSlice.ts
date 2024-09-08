@@ -20,50 +20,23 @@ const dateSlice = createSlice({
     initialState,
     reducers: {
         setDate: (state, action) => {
-            state.date = action.payload;
+            const newDate = action.payload;
+            state.date = newDate;
+            state.currentDay = newDate.getDate();
+            state.currentMonth = newDate.getMonth();
+            state.currentYear = newDate.getFullYear();
         },
-        setCurrentDay: (state) => {
-            state.currentDay = new Date().getDate();
-        },
-        setCurrentMonth: (state) => {
-            state.currentMonth = new Date().getMonth();
-        },
-        setCurrentYear: (state) => {
-            state.currentYear = new Date().getFullYear();
-        },
-        incrementDate: (state) => {
-            state.date.setDate(state.date.getDate() + 1);
-        },
-        decrementDate: (state) => {
-            state.date.setDate(state.date.getDate() - 1);
-        },
-        incrementMonth: (state) => {
-            state.date.setMonth(state.date.getMonth() + 1);
-        },
-        decrementMonth: (state) => {
-            state.date.setMonth(state.date.getMonth() - 1);
-        },
-        incrementYear: (state) => {
-            state.date.setFullYear(state.date.getFullYear() + 1);
-        },
-        decrementYear: (state) => {
-            state.date.setFullYear(state.date.getFullYear() - 1);
+        updateDate: (state) => {
+            const now = new Date();
+            state.date = now;
+            state.currentDay = now.getDate();
+            state.currentMonth = now.getMonth();
+            state.currentYear = now.getFullYear();
         },
     },
 });
 
-export const {
-    setDate,
-    setCurrentDay,
-    setCurrentMonth,
-    setCurrentYear,
-    incrementDate,
-    decrementDate,
-    incrementMonth,
-    decrementMonth,
-    incrementYear,
-    decrementYear,
-} = dateSlice.actions;
+export const { setDate, updateDate } = dateSlice.actions;
 
 export const selectDate = (state: RootState) => state.date.date;
 export const selectCurrentDay = (state: RootState) => state.date.currentDay;
