@@ -25,6 +25,7 @@ export const Stores = [
     'Super C',
     'T&T Supermarket',
     'Target',
+    "Trader Joe's",
     'Uber Eats',
     'Walmart',
     'Your Independent Grocer',

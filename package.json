@@ -13,14 +13,15 @@
     "main": "expo-router/entry",
     "scripts": {
         "start": "expo start",
+        "dev": "concurrently \"npm start\" \"cd api && npm run dev\"",
+        "lint": "eslint . --ext ts,tsx,js,jsx --fix-dry-run",
+        "prettier": "eslint --ext ts,tsx,js,jsx --fix && prettier --write .",
+        "prepare": "husky",
         "reset-project": "node ./scripts/reset-project.js",
         "android": "expo start --android",
         "ios": "expo start --ios",
         "web": "expo start --web",
-        "test": "jest --watchAll",
-        "lint": "eslint . --ext ts,tsx,js,jsx --fix-dry-run",
-        "prettier": "eslint --ext ts,tsx,js,jsx --fix && prettier --write .",
-        "prepare": "husky"
+        "test": "jest --watchAll"
     },
     "jest": {
         "preset": "jest-expo"
@@ -82,6 +83,7 @@
         "@types/react-native": "^0.72.8",
         "@types/react-redux": "^7.1.33",
         "@types/react-test-renderer": "^18.0.7",
+        "concurrently": "^9.0.0",
         "eslint-config-expo": "^7.1.2",
         "eslint-config-prettier": "^9.1.0",
         "eslint-config-universe": "^13.0.0",

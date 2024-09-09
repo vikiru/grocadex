@@ -1,7 +1,7 @@
 export interface Expense {
     date: Date;
     amount: number;
-    store: string;
-    month: string;
-    year: string;
+    stores?: string[];
+    month: number;
+    year: number;
 }
