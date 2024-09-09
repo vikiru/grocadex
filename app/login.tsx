@@ -26,8 +26,8 @@ export default function Login() {
             data: values,
         };
 
-        console.log(payload);
         const data = await postData(payload);
+        console.log(data);
         if (data?.status === 200) {
             router.push('/dashboard');
         }
@@ -58,8 +58,8 @@ export default function Login() {
                             label="Username"
                             value={values.username}
                             placeholder="Enter your username"
-                            onChangeText={handleChange('firstName')}
-                            onBlur={handleBlur('firstName')}
+                            onChangeText={handleChange('username')}
+                            onBlur={handleBlur('username')}
                             className="my-2 mx-4 font-body bg-white border-2 border-primary"
                         />
                         <StyledComponent
