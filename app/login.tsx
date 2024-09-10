@@ -22,9 +22,12 @@ export default function Login() {
 
     const handleLogin = async (values: { username: string; password: string }) => {
         const payload: RequestPayload = {
-            url: `${process.env.EXPO_PUBLIC_API_URL}/auth/login`,
+            // TODO: change this to ipv4 for mobile to desktop local testing
+            url: `http://10.0.0.166:3000/api/v1/auth/login`,
             data: values,
         };
+
+        console.log(payload);
 
         const data = await postData(payload);
         console.log(data);

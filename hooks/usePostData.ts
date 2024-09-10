@@ -12,6 +12,7 @@ export function usePostData() {
 
         try {
             const response = await axios.post(payload.url, payload.data);
+            console.log(response);
             return response;
         } catch (error: any) {
             setError(error);

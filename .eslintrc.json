@@ -15,7 +15,7 @@
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 2021,
+        "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "plugins": [
@@ -42,7 +42,8 @@
         "tailwindcss/no-custom-classname": "off",
         "import/namespace": "off",
         "@typescript-eslint/no-explicit-any": "off",
-        "react-native/no-inline-styles": "off"
+        "react-native/no-inline-styles": "off",
+        "tailwindcss/migration-from-tailwind-2": "off"
     },
     "settings": {
         "react": {

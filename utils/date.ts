@@ -1,8 +1,13 @@
 import { DateTime } from 'luxon';
 import { GroceryItem } from '../types/GroceryItem';
 
-export const formatDate = (date: string, format: string) => {
-    return DateTime.fromISO(date).toFormat(format);
+export const formatDate = (date: Date, format: string) => {
+    return DateTime.fromJSDate(date).toFormat(format);
+};
+
+export const createDateFromTimestamp = (timestamp: number): Date => {
+    const date = DateTime.fromMillis(timestamp, { zone: 'utc' }).toJSDate();
+    return date;
 };
 
 export const constructExpiryString = (date: Date): string => {
@@ -19,7 +24,7 @@ export const constructExpiryString = (date: Date): string => {
     }
 };
 
-export const sortActiveItems = (items: GroceryItem[]) => {
+export const sortActiveItems = (items: GroceryItem[]): GroceryItem[] => {
     return items.sort((a, b) => {
         const firstDate = DateTime.fromJSDate(a.expiryDate);
         const secondDate = DateTime.fromJSDate(b.expiryDate);

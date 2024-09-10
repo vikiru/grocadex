@@ -48,7 +48,7 @@ export default function TabsLayout() {
                 name="receipt"
                 options={{
                     headerTitle: 'Receipts',
-                    headerShown: false,
+                    headerShown: true,
                     tabBarLabel: 'Receipts',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="receipt" size={size} color={color} />
