@@ -23,7 +23,7 @@ export default function ReceiptForm() {
     const [purchaseString, setPurchaseString] = useState('');
     const [showDatePicker, setShowDatePicker] = useState(false);
 
-    const [groceryItems, setGroceryItems] = useState<GroceryItem | Partial<GroceryItem>[]>([]);
+    const [groceryItems, setGroceryItems] = useState<GroceryItem[] | Partial<GroceryItem>[]>([]);
     const [showGroceryModal, setShowGroceryModal] = useState(false);
     const handleSubmit = (values: any) => {
         console.log(values);
@@ -136,7 +136,7 @@ export default function ReceiptForm() {
                     </StyledComponent>
 
                     <StyledComponent component={View} className="flex flex-1 m-4 border-2 border-primary">
-                        {groceryItems.map((item: GroceryItem) => (
+                        {groceryItems.map((item: GroceryItem | Partial<GroceryItem>) => (
                             <StyledComponent
                                 key={item.id}
                                 component={View}
