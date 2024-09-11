@@ -10,15 +10,15 @@ interface ExpenseDisplayProps {
 
 export default function ExpenseDisplay({ monthlyExpense }: ExpenseDisplayProps) {
     return (
-        <StyledComponent component={Card} className="mx-auto mt-4 w-64 bg-gray-300 shadow-sm">
+        <StyledComponent component={Card} className="mx-auto w-64 bg-background shadow-none">
             <Card.Content>
                 <StyledComponent component={View} className="flex-row items-center justify-center">
-                    <StyledComponent component={Text} className="text-gray-600 text-lg font-semibold">
-                        Monthly Expense
+                    <StyledComponent component={Text} className="text-gray-600 text-lg uppercase font-semibold">
+                        Monthly Expenses
                     </StyledComponent>
                 </StyledComponent>
                 <StyledComponent component={View} className="flex-row items-center justify-center mt-2">
-                    <StyledComponent component={Text} className="text-white text-3xl font-bold">
+                    <StyledComponent component={Text} className="text-text text-3xl font-bold">
                         ${monthlyExpense.toLocaleString()}
                     </StyledComponent>
                 </StyledComponent>

@@ -1,12 +1,15 @@
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryLabel, VictoryTheme } from 'victory';
+import { Text, View } from 'react-native';
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from 'victory';
 
 import { StyledComponent } from 'nativewind';
 import React from 'react';
-import { View } from 'react-native';
 
 export default function BarChart({ data, title }: { data: any; title: string }) {
     return (
         <StyledComponent component={View} className="rounded-lg mt-2">
+            <StyledComponent component={Text} className="text-center text-text text-lg font-heading">
+                {title}
+            </StyledComponent>
             <VictoryChart
                 height={300}
                 width={450}
@@ -14,13 +17,6 @@ export default function BarChart({ data, title }: { data: any; title: string }) 
                 domainPadding={{ x: 5 }}
                 animate={{ duration: 2000, easing: 'bounce' }}
             >
-                <VictoryLabel
-                    text={title}
-                    x={235}
-                    y={20}
-                    textAnchor="middle"
-                    style={{ fontFamily: 'Baloo 2', fontSize: 16 }}
-                />
                 <VictoryBar
                     data={data}
                     x="month"
