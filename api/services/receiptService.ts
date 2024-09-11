@@ -2,10 +2,15 @@ import { Receipt } from '@prisma/client';
 import { logger } from '../config/logger';
 import { prisma } from '../data';
 
-export async function saveReceipt(receipt: Omit<Receipt, 'id'>): Promise<void> {
+export async function saveReceipt(receipt: Omit<Receipt, 'id'>): Promise<Receipt> {
     try {
-        await prisma.receipt.create({ data: receipt });
+        const savedReceipt = await prisma.receipt.create({
+            data: {
+                ...receipt,
+            },
+        });
         logger.info('Successfully saved receipt to database.');
+        return savedReceipt;
     } catch (error) {
         logger.error(`Error saving receipt to database: ${error}`);
         throw error;
