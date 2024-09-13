@@ -2,17 +2,21 @@ import { GroceryItem } from '@prisma/client';
 import { logger } from '../config/logger';
 import { prisma } from '../data';
 
-export async function saveGroceryItem(groceryItem: GroceryItem | GroceryItem[]): Promise<void> {
+export async function saveGroceryItem(
+    groceryItem: GroceryItem | GroceryItem[],
+    receiptId: number,
+    userId: number,
+): Promise<void> {
     try {
         if (Array.isArray(groceryItem)) {
             await prisma.groceryItem.createMany({
-                data: groceryItem,
+                data: groceryItem.map((item) => ({ ...item, receiptId, userId })),
                 skipDuplicates: true,
             });
             logger.info('Successfully saved multiple grocery items to the database.');
         } else {
             await prisma.groceryItem.create({
-                data: groceryItem,
+                data: { ...groceryItem, receiptId },
             });
             logger.info('Successfully saved grocery item to the database.');
         }

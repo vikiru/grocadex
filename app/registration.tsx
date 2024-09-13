@@ -1,8 +1,8 @@
 import * as Yup from 'yup';
 
 import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
-import { Text, View } from 'react-native';
-import { Button, HelperText, TextInput } from 'react-native-paper';
+import { ScrollView, Text, View } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 
 import { router } from 'expo-router';
 import { Formik } from 'formik';
@@ -47,10 +47,13 @@ export default function SignUp() {
             validationSchema={validationSchema}
             onSubmit={handleSignUp}
         >
-            {({ handleChange, handleSubmit, handleBlur, values, errors, touched }) => (
-                <StyledComponent component={View} className="bg-background min-h-full min-w-full flex mt-10">
-                    <StyledComponent component={View} className="flex-row mx-auto mt-5">
-                        <StyledComponent component={Text} className="text-text text-4xl font-semibold font-heading">
+            {({ handleChange, handleSubmit, handleBlur, values }) => (
+                <StyledComponent
+                    component={ScrollView}
+                    className="bg-background min-h-full min-w-full flex pt-10 flex-1"
+                >
+                    <StyledComponent component={View} className="flex-row mx-auto">
+                        <StyledComponent component={Text} className="text-text text-3xl font-semibold font-heading">
                             Sign Up
                         </StyledComponent>
                     </StyledComponent>
@@ -68,11 +71,8 @@ export default function SignUp() {
                         placeholder="Enter your first name"
                         onChangeText={handleChange('firstName')}
                         onBlur={handleBlur('firstName')}
-                        className="my-2 mx-4 font-body bg-white border-2 border-primary"
+                        className="my-1 mx-4 font-body bg-white border-2 border-primary"
                     />
-                    <HelperText type="error" visible={touched.firstName && !!errors.firstName}>
-                        {errors.firstName}
-                    </HelperText>
 
                     <StyledComponent
                         component={TextInput}
@@ -81,11 +81,8 @@ export default function SignUp() {
                         placeholder="Enter your last name"
                         onChangeText={handleChange('lastName')}
                         onBlur={handleBlur('lastName')}
-                        className="my-2 mx-4 font-body bg-white border-2 border-primary"
+                        className="my-1 mx-4 font-body bg-white border-2 border-primary"
                     />
-                    <HelperText type="error" visible={touched.lastName && !!errors.lastName}>
-                        {errors.lastName}
-                    </HelperText>
 
                     <StyledComponent
                         component={TextInput}
@@ -94,11 +91,8 @@ export default function SignUp() {
                         placeholder="Enter your username"
                         onChangeText={handleChange('username')}
                         onBlur={handleBlur('username')}
-                        className="my-2 mx-4 font-body bg-white border-2 border-primary"
+                        className="my-1 mx-4 font-body bg-white border-2 border-primary"
                     />
-                    <HelperText type="error" visible={touched.username && !!errors.username}>
-                        {errors.username}
-                    </HelperText>
 
                     <StyledComponent
                         component={TextInput}
@@ -107,11 +101,8 @@ export default function SignUp() {
                         placeholder="Enter your email address"
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
-                        className="my-2 mx-4 font-body bg-white border-2 border-primary"
+                        className="my-1 mx-4 font-body bg-white border-2 border-primary"
                     />
-                    <HelperText type="error" visible={touched.email && !!errors.email}>
-                        {errors.email}
-                    </HelperText>
 
                     <StyledComponent
                         component={TextInput}
@@ -121,18 +112,15 @@ export default function SignUp() {
                         secureTextEntry
                         onChangeText={handleChange('password')}
                         onBlur={handleBlur('password')}
-                        className="my-2 mx-4 font-body bg-white border-2 border-primary"
+                        className="my-1 mx-4 font-body bg-white border-2 border-primary"
                     />
-                    <HelperText type="error" visible={touched.password && !!errors.password}>
-                        {errors.password}
-                    </HelperText>
 
                     <StyledComponent component={View} className="lg:mx-auto">
                         <StyledComponent
                             component={Button}
                             icon="check-circle"
                             mode="elevated"
-                            className="max-w-md my-2 mx-auto bg-primary font-body w-96"
+                            className="max-w-md my-1 mx-auto bg-primary font-body w-60"
                             textColor="white"
                             onPress={() => handleSubmit()}
                         >
@@ -143,7 +131,7 @@ export default function SignUp() {
                             component={Button}
                             icon="cancel"
                             mode="elevated"
-                            className="max-w-md my-2 mx-auto bg-secondary font-body w-96"
+                            className="max-w-md my-1 mx-auto bg-secondary font-body w-60"
                             textColor="white"
                             onPress={() => handleCancel()}
                         >

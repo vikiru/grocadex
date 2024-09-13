@@ -5,7 +5,9 @@ import { Button, Card } from 'react-native-paper';
 
 import { StyledComponent } from 'nativewind';
 import { GroceryItem } from '../../types/GroceryItem';
-import { formatDate } from '../ReceiptCard/ReceiptCard';
+import { constructExpiryString } from '../../utils/date';
+
+// TODO: combine all grocery card vairants/refactor into single file, separate fns with one handler and reduce to two.
 
 export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<GroceryItem> }) {
     return (
@@ -20,7 +22,7 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                     </StyledComponent>
                 </StyledComponent>
                 <StyledComponent component={Text} className="text-lg mt-2 text-red-400 font-subheading">
-                    Expiring on {formatDate(item.expiryDate)}
+                    {constructExpiryString(item.expiryDate!)}
                 </StyledComponent>
             </Card.Content>
             <StyledComponent component={Card.Actions} className="flex flex-row justify-between m-1">

@@ -5,10 +5,11 @@ import { GroceryItemService } from '../services';
 import { UserRequest } from '../types/express';
 
 export async function createGroceryItem(req: UserRequest, res: Response): Promise<void> {
+    const user = req.user;
     const groceryItem: GroceryItem = req.body;
 
     try {
-        await GroceryItemService.saveGroceryItem(groceryItem);
+        await GroceryItemService.saveGroceryItem(groceryItem, groceryItem.receiptId, user);
         res.status(201).json({ message: 'Grocery item created successfully' });
     } catch (error) {
         logger.error(`Error saving grocery item: ${error}`);

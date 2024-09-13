@@ -1,15 +1,17 @@
-import { Receipt } from '@prisma/client';
+import { GroceryItemService, ReceiptService } from '../services';
+
 import { Response } from 'express';
 import { logger } from '../config/logger';
-import { ReceiptService } from '../services';
 import { UserRequest } from '../types/express';
 
 export async function createReceipt(req: UserRequest, res: Response): Promise<void> {
-    const receipt: Receipt = req.body;
+    const data = req.body;
+    const { groceryItems, ...receiptData } = data;
 
     try {
-        await ReceiptService.saveReceipt(receipt);
-        res.status(201).json({ message: 'Receipt created successfully' });
+        const receipt = await ReceiptService.saveReceipt(receiptData);
+        await GroceryItemService.saveGroceryItem(groceryItems, receipt.id, receipt.userId);
+        res.status(201).json({ message: 'Receipt created successfully', data: receipt });
     } catch (error) {
         logger.error(`Error saving receipt: ${error}`);
         res.status(500).json({ error: 'Internal server error.' });

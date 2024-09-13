@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { Button, HelperText, TextInput } from 'react-native-paper';
+import { Button, TextInput } from 'react-native-paper';
 
 import { router } from 'expo-router';
 import { Formik } from 'formik';
@@ -22,9 +22,12 @@ export default function Login() {
 
     const handleLogin = async (values: { username: string; password: string }) => {
         const payload: RequestPayload = {
-            url: `${process.env.EXPO_PUBLIC_API_URL}/auth/login`,
+            // TODO: change this to ipv4 for mobile to desktop local testing
+            url: `http://10.0.0.94:3000/api/v1/auth/login`,
             data: values,
         };
+
+        console.log(payload);
 
         const data = await postData(payload);
         console.log(data);
@@ -51,7 +54,7 @@ export default function Login() {
                 validationSchema={validationSchema}
                 onSubmit={handleLogin}
             >
-                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                {({ handleChange, handleBlur, handleSubmit, values }) => (
                     <>
                         <StyledComponent
                             component={TextInput}
@@ -60,15 +63,8 @@ export default function Login() {
                             placeholder="Enter your username"
                             onChangeText={handleChange('username')}
                             onBlur={handleBlur('username')}
-                            className="my-2 mx-4 font-body bg-white border-2 border-primary"
+                            className="my-1 mx-4 font-body bg-white border-2 border-primary"
                         />
-                        <StyledComponent
-                            component={HelperText}
-                            type="error"
-                            visible={touched.username && !!errors.username}
-                        >
-                            {errors.username}
-                        </StyledComponent>
 
                         <StyledComponent
                             component={TextInput}
@@ -84,22 +80,15 @@ export default function Login() {
                                     onPress={() => setDisplayPassword(!displayPassword)}
                                 />
                             }
-                            className="my-2 mx-4 font-body bg-white border-2 border-primary"
+                            className="my-1 mx-4 font-body bg-white border-2 border-primary"
                         />
-                        <StyledComponent
-                            component={HelperText}
-                            type="error"
-                            visible={touched.password && !!errors.password}
-                        >
-                            {errors.password}
-                        </StyledComponent>
 
-                        <StyledComponent component={View} className="lg:mx-auto">
+                        <StyledComponent component={View} className="lg:mx-auto mt-2">
                             <StyledComponent
                                 component={Button}
                                 icon="account-circle"
                                 mode="elevated"
-                                className="max-w-md my-2 mx-auto bg-primary font-body w-96"
+                                className="max-w-md my-2 mx-auto bg-primary w-60"
                                 textColor="white"
                                 onPress={() => handleSubmit()}
                             >
@@ -110,7 +99,7 @@ export default function Login() {
                                 component={Button}
                                 icon="cancel"
                                 mode="elevated"
-                                className="max-w-md my-2 mx-auto bg-secondary font-body w-96"
+                                className="max-w-md my-2 w-60 bg-secondary mx-auto"
                                 textColor="white"
                                 onPress={() => handleCancel()}
                             >

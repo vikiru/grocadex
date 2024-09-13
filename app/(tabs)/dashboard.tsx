@@ -1,7 +1,8 @@
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { StyledComponent } from 'nativewind';
 import React from 'react';
+import { Divider } from 'react-native-paper';
 import ExpenseDisplay from '../../components/ExpenseDisplay/ExpenseDisplay';
 import GroceryCard from '../../components/GroceryCard/GroceryCard';
 import ReceiptTable from '../../components/ReceiptTable/ReceiptTable';
@@ -167,12 +168,6 @@ export default function Dashboard() {
         <StyledComponent component={ScrollView} horizontal={false} className="bg-background min-h-full min-w-full flex">
             <StyledComponent component={View} className="bg-background">
                 <StyledComponent
-                    component={Text}
-                    className="text-white lg:text-center xs:text-left p-2 pl-4 bg-primary text-2xl font-heading"
-                >
-                    Expiring Groceries
-                </StyledComponent>
-                <StyledComponent
                     component={ScrollView}
                     className="flex flex-row space-x-2 m-2 pb-2"
                     horizontal
@@ -183,13 +178,7 @@ export default function Dashboard() {
                     ))}
                 </StyledComponent>
 
-                <StyledComponent
-                    component={Text}
-                    className="text-white lg:text-center xs:text-left p-2 pl-4 bg-primary text-2xl font-heading"
-                >
-                    Current Monthly Expenses
-                </StyledComponent>
-
+                <Divider />
                 <ExpenseDisplay monthlyExpense={testReceipts.reduce((total, receipt) => total + receipt.total, 0)} />
 
                 <StyledComponent

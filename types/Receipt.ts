@@ -8,5 +8,5 @@ export interface Receipt {
     store: string;
     purchaseDate: Date;
     total: number;
-    groceryItems: GroceryItem[];
+    groceryItems: Partial<GroceryItem>[] | GroceryItem[];
 }

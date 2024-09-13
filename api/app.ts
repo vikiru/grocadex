@@ -16,9 +16,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(middlewares.helmet());
 app.use(middlewares.cors({ methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
-app.use(middlewares.bodyParser.json());
-app.use(middlewares.bodyParser.urlencoded({ extended: true }));
-app.use(middlewares.validator);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(middlewares.compression());
 app.use(middlewares.morgan);
 

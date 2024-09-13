@@ -1,11 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import { body, validationResult } from 'express-validator';
 
-import bodyParser from 'body-parser';
 import compression from 'compression';
 import cors from 'cors';
 import crypto from 'crypto';
 import session from 'express-session';
+import { body } from 'express-validator';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import favicon from 'serve-favicon';
@@ -25,17 +24,6 @@ const morganMiddleware = morgan('dev', {
     skip,
 });
 
-const validationMiddleware = [
-    body('*').trim().escape(),
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errors.array() });
-        }
-        next();
-    },
-];
-
 const secret = crypto.randomBytes(32).toString('hex');
 
 const sessionMiddleware = session({
@@ -52,14 +40,4 @@ export function ensureAuthenticated(req: Request, res: Response, next: NextFunct
     res.status(401).json({ error: 'User is not authenticated' });
 }
 
-export {
-    body,
-    bodyParser,
-    compression,
-    cors,
-    favicon,
-    helmet,
-    morganMiddleware as morgan,
-    sessionMiddleware as session,
-    validationMiddleware as validator,
-};
+export { body, compression, cors, favicon, helmet, morganMiddleware as morgan, sessionMiddleware as session };

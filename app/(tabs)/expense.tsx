@@ -1,7 +1,6 @@
 import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { ScrollView } from 'react-native';
-import BarChart from '../../components/BarChart/BarChart';
 import ExpenseTable from '../../components/ExpenseTable/ExpenseTable';
 
 const data = [
@@ -22,7 +21,6 @@ const data = [
 export default function Expenses() {
     return (
         <StyledComponent component={ScrollView} horizontal={false} className="bg-background min-h-full min-w-full">
-            <BarChart data={data} title="Yearly Expenses for 2024" />
             <ExpenseTable data={data} />
         </StyledComponent>
     );
