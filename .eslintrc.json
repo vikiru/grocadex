@@ -43,7 +43,18 @@
         "import/namespace": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "react-native/no-inline-styles": "off",
-        "tailwindcss/migration-from-tailwind-2": "off"
+        "tailwindcss/migration-from-tailwind-2": "off",
+        "import/named": "off",
+        "import/no-named-as-default": "off",
+        "react/jsx-sort-props": [
+            "off",
+            {
+                "callbacksLast": true,
+                "shorthandFirst": true,
+                "ignoreCase": true
+            }
+        ],
+        "react/jsx-no-comment-textnodes": "off"
     },
     "settings": {
         "react": {

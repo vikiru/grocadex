@@ -293,14 +293,15 @@ export default function ReceiptView({ receipt }: { receipt: Receipt | Partial<Re
 
             <StyledComponent component={ScrollView} className="mx-2 max-h-64 pb-2">
                 {testReceipt.groceryItems?.map((item: GroceryItem | Partial<GroceryItem>, index: number) => (
-                    <StyledComponent component={View} key={item.id} className="mx-2 mt-1 flex flex-row justify-between">
-                        <StyledComponent component={Text} className="font-body text-base">
-                            {index + 1}. {item.name} ({item.quantity})
+                    <StyledComponent component={View} key={item.id} className="mx-2 mt-1">
+                        <StyledComponent component={View} className="flex flex-row justify-between">
+                            <StyledComponent component={Text} className="font-body text-base">
+                                {index + 1}. {item.name} ({item.quantity})
+                            </StyledComponent>
+                            <StyledComponent component={Text} className="font-subheading text-base">
+                                ${item.totalPrice?.toFixed(2)}
+                            </StyledComponent>
                         </StyledComponent>
-                        <StyledComponent component={Text} className="font-subheading text-base">
-                            ${item.totalPrice?.toFixed(2)}
-                        </StyledComponent>
-                        <Divider />
                     </StyledComponent>
                 ))}
             </StyledComponent>

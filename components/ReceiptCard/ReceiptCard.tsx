@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 
+import { router } from 'expo-router';
 import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { Receipt } from '../../types/Receipt';
@@ -30,7 +31,9 @@ export default function ReceiptCard({ receipt }: { receipt: Receipt | Partial<Re
                         className="shadow-sm"
                         icon="eye"
                         mode="outlined"
-                        onPress={() => console.log('View Receipt')}
+                        onPress={() => {
+                            router.push(`/receipt/${receipt.id}`);
+                        }}
                     >
                         View Receipt
                     </StyledComponent>

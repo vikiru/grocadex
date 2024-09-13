@@ -10,9 +10,8 @@ export async function createReceipt(req: UserRequest, res: Response): Promise<vo
 
     try {
         const receipt = await ReceiptService.saveReceipt(receiptData);
-        console.log(receipt);
         await GroceryItemService.saveGroceryItem(groceryItems, receipt.id, receipt.userId);
-        res.status(201).json({ message: 'Receipt created successfully' });
+        res.status(201).json({ message: 'Receipt created successfully', data: receipt });
     } catch (error) {
         logger.error(`Error saving receipt: ${error}`);
         res.status(500).json({ error: 'Internal server error.' });

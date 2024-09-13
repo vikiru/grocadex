@@ -28,8 +28,8 @@ export default function Index() {
                 <StyledComponent component={View} className="bg-background min-h-full min-w-full flex mt-10">
                     <StatusBar />
                     <Logo />
-                    <StyledComponent component={View} className="flex-row mx-auto mt-2 mb-5">
-                        <StyledComponent component={Text} className="text-text text-md italic font-body">
+                    <StyledComponent component={View} className="flex-row mx-auto mt-1 mb-3">
+                        <StyledComponent component={Text} className="text-text text-lg italic font-body">
                             A grocery expiry and expense tracker.
                         </StyledComponent>
                     </StyledComponent>
@@ -57,7 +57,7 @@ export default function Index() {
                             component={Button}
                             icon="account-plus"
                             mode="elevated"
-                            className="max-w-md my-4 w-60 bg-primary mx-auto"
+                            className="max-w-md my-2 w-60 bg-primary mx-auto"
                             textColor="white"
                             onPress={() => moveToRegistration()}
                         >
@@ -67,7 +67,7 @@ export default function Index() {
                             component={Button}
                             icon="login"
                             mode="elevated"
-                            className="max-w-md my-4 w-60 bg-secondary mx-auto"
+                            className="max-w-md my-2 w-60 bg-secondary mx-auto"
                             textColor="white"
                             onPress={() => moveToLogin()}
                         >
@@ -99,8 +99,10 @@ export function IntroDetails(props: IntroDetailsProps) {
                 >
                     {props.heading}
                 </StyledComponent>
-                <StyledComponent component={Text} className="text-text text-left text-md mt-1 font-body mr-2">
-                    {props.subtext}
+                <StyledComponent component={View} className="mr-5 flex">
+                    <StyledComponent component={Text} className="text-text text-left text-md mt-1 font-body mr-2">
+                        {props.subtext}
+                    </StyledComponent>
                 </StyledComponent>
             </StyledComponent>
         </StyledComponent>

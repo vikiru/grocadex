@@ -7,7 +7,7 @@ import { Formik } from 'formik';
 import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { GroceryItem } from '../../types/GroceryItem';
-import DatePicker from '../DatePicker/DatePicker';
+import DateSelector from '../DateSelector/DateSelector';
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -41,6 +41,8 @@ export default function GroceryModal({ visible, onDismiss, onSubmit }: GroceryMo
                         initialValues={initialValues}
                         validationSchema={validationSchema}
                         onSubmit={(values: GroceryItem | Partial<GroceryItem>, { resetForm }) => {
+                            values.totalPrice = parseFloat(values.totalPrice!.toString());
+                            values.unitPrice = parseFloat((values.totalPrice / values.quantity!).toFixed(2));
                             onSubmit(values);
                             resetForm();
                             onDismiss();
@@ -72,17 +74,18 @@ export default function GroceryModal({ visible, onDismiss, onSubmit }: GroceryMo
                                     component={TextInput}
                                     label="Total Price"
                                     value={values.totalPrice?.toString()}
-                                    onChangeText={(totalPrice) => setFieldValue('totalPrice', Number(totalPrice))}
+                                    onChangeText={(totalPrice) => {
+                                        setFieldValue('totalPrice', totalPrice);
+                                    }}
                                     keyboardType="numeric"
                                     mode="outlined"
                                     className="bg-white my-1"
                                 />
 
-                                <DatePicker
+                                <DateSelector
                                     setFieldValue={setFieldValue}
                                     fieldName="expiryDate"
                                     label="Expiry Date"
-                                    date={values.expiryDate!}
                                 />
 
                                 <StyledComponent component={View} className="flex-row mt-2 justify-end space-x-2">

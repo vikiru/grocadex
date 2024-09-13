@@ -9,7 +9,7 @@ import GroceryModal from '../GroceryModal/GroceryModal';
 
 interface GroceryAdderProps {
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<Values>>;
-    groceryItems: GroceryItem[];
+    groceryItems: Partial<GroceryItem>[] | GroceryItem[];
     purchaseDate: Date;
 }
 

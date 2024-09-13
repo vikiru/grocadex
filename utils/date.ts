@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { GroceryItem } from '../types/GroceryItem';
 
-export const formatDate = (date: Date, format: string) => {
+export const formatDate = (date: Date, format: string): string => {
     return DateTime.fromJSDate(date).toFormat(format);
 };
 

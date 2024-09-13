@@ -7,6 +7,8 @@ import { StyledComponent } from 'nativewind';
 import { GroceryItem } from '../../types/GroceryItem';
 import { constructExpiryString } from '../../utils/date';
 
+// TODO: combine all grocery card vairants/refactor into single file, separate fns with one handler and reduce to two.
+
 export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<GroceryItem> }) {
     return (
         <StyledComponent component={Card} className="border-2 border-primary bg-white shadow-md rounded-lg p-4 m-2">
