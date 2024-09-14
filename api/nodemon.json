@@ -1,7 +1,0 @@
-{
-    "watch": ["."],
-    "ext": "ts",
-    "exec": "ts-node app.ts",
-    "ignore": ["app/**/*.ts", "node_modules", "dist"],
-    "restartable": "rs"
-}
