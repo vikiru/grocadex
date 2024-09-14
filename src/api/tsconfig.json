@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "checkJs": true,
+        "allowJs": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": ".",
+        "paths": {
+            "*": ["node_modules/*"],
+            "~config/*": ["./config/*"],
+            "~controllers/*": ["./controllers/index.ts"],
+            "~data/*": ["./data/index.ts"],
+            "~middlewares/*": ["./middlewares/index.ts"],
+            "~prisma/*": ["./prisma/*"],
+            "~routes/*": ["./routes/index.ts"],
+            "~services/*": ["./services/index.ts"],
+            "~types/*": ["./types/*"],
+            "~utils/*": ["./utils/*"]
+        },
+        "typeRoots": ["node_modules/@types", "api/types"]
+    }
+}
