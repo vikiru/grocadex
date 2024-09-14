@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addReceipt, removeReceipt, resetReceipts, selectReceipts, setReceipts } from '../slices/receiptSlice';
+import { addReceipt, removeReceipt, resetReceipts, selectReceipts, setReceipts } from '~slices/receiptSlice';
 
-import { Receipt } from '../types/Receipt';
+import { Receipt } from '~types/Receipt';
 
 export const useReceipt = () => {
     const receipts = useSelector(selectReceipts);

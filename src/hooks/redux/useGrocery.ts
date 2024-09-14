@@ -5,9 +5,9 @@ import {
     resetGroceryItems,
     selectGroceryItems,
     setGroceryItems,
-} from '../slices/groceryItemSlice';
+} from '~slices/groceryItemSlice';
 
-import { GroceryItem } from '../types/GroceryItem';
+import { GroceryItem } from '~types/GroceryItem';
 
 export const useGrocery = () => {
     const groceryItems = useSelector(selectGroceryItems);

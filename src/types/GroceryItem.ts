@@ -1,5 +1,5 @@
-import { Receipt } from './Receipt';
-import { User } from './User';
+import { Receipt } from '~types/Receipt';
+import { User } from '~types/User';
 
 export interface GroceryItem {
     id: number;

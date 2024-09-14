@@ -1,6 +1,6 @@
-import { GroceryItem } from './GroceryItem';
-import { Receipt } from './Receipt';
-import { User } from './User';
+import { GroceryItem } from '~types/GroceryItem';
+import { Receipt } from '~types/Receipt';
+import { User } from '~types/User';
 
 export interface RequestPayload {
     url: string;

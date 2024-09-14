@@ -5,9 +5,9 @@ import {
     resetActiveItems,
     selectActiveItems,
     setActiveItems,
-} from '../slices/activeItemSlice';
+} from '~slices/activeItemSlice';
 
-import { GroceryItem } from './../types/GroceryItem';
+import { GroceryItem } from '~types/GroceryItem';
 
 export const useActiveItem = () => {
     const activeItems = useSelector(selectActiveItems);

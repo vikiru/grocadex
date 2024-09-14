@@ -7,14 +7,14 @@ import { router } from 'expo-router';
 import { Formik } from 'formik';
 import { StyledComponent } from 'nativewind';
 import React from 'react';
-import { DateFormat } from '../../constants/Dates';
-import { GroceryItem } from '../../types/GroceryItem';
-import { Receipt } from '../../types/Receipt';
-import { RequestPayload } from '../../types/RequestPayload';
-import { formatDate } from '../../utils/date';
-import DateSelector from '../DateSelector/DateSelector';
-import GroceryAdder from '../GroceryAdder/GroceryAdder';
-import { usePostData } from './../../hooks/usePostData';
+import DateSelector from '~components/DateSelector/DateSelector';
+import GroceryAdder from '~components/GroceryAdder/GroceryAdder';
+import { DateFormat } from '~constants/Dates';
+import { usePostData } from '~hooks/api/usePostData';
+import { GroceryItem } from '~types/GroceryItem';
+import { Receipt } from '~types/Receipt';
+import { RequestPayload } from '~types/RequestPayload';
+import { formatDate } from '~utils/date';
 
 const validationSchema = Yup.object({
     store: Yup.string().required('Must provide a store name'),

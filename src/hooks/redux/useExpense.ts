@@ -7,9 +7,9 @@ import {
     setExpenses,
     setMonthlyExpenses,
     setYearlyExpenses,
-} from '../slices/expenseSlice';
+} from '~slices/expenseSlice';
 
-import { Expense } from '../types/Expense';
+import { Expense } from '~types/Expense';
 
 export const useExpense = () => {
     const expenses = useSelector(selectExpenses);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { RequestPayload } from '../types/RequestPayload';
+import { RequestPayload } from '~types/RequestPayload';
 
 export function useGetData() {
     const [loading, setLoading] = React.useState(false);

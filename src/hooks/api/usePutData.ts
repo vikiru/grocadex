@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { RequestPayload } from '../types/RequestPayload';
+import { RequestPayload } from '~types/RequestPayload';
 
 export function usePutData() {
     const [isLoading, setIsLoading] = React.useState(false);

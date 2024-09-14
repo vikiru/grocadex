@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectDate, setDate, updateDate } from '../slices/dateSlice';
+import { selectDate, setDate, updateDate } from '~slices/dateSlice';
 
 export const useDate = () => {
     const date = useSelector(selectDate);
