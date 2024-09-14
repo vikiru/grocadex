@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "target": "ESNext",
+        "lib": ["DOM", "ESNext"],
         "checkJs": true,
         "allowJs": true,
         "esModuleInterop": true,
@@ -15,6 +17,7 @@
             "~prisma/*": ["./prisma/*"],
             "~routes/*": ["./routes/index.ts"],
             "~services/*": ["./services/index.ts"],
+            "~strategies/*": ["./strategies/*"],
             "~types/*": ["./types/*"],
             "~utils/*": ["./utils/*"]
         },
