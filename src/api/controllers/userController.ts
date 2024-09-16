@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
-import { AuthService, UserService } from '~services/';
+import { AuthService, GroceryItemService, ReceiptService, UserService } from '~services/';
 
 import { User } from '@prisma/client';
 import { logger } from '~config/logger';
-import { UserRequest } from '~types/express';
 
 export async function createUser(req: Request, res: Response): Promise<void> {
     const user: User = req.body;
@@ -27,7 +26,7 @@ export async function createUser(req: Request, res: Response): Promise<void> {
     }
 }
 
-export async function getUserById(req: UserRequest, res: Response): Promise<void> {
+export async function getUserById(req: Request, res: Response): Promise<void> {
     const userId = req.user;
 
     try {
@@ -41,6 +40,25 @@ export async function getUserById(req: UserRequest, res: Response): Promise<void
         }
     } catch (error) {
         logger.error(`Error retrieving user with id ${userId}: ${error}`);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+}
+
+export async function getUserData(req: Request, res: Response): Promise<void> {
+    const userId = req.user;
+    try {
+        const groceryItems = await GroceryItemService.retrieveGroceryItemsByUser(userId);
+        const receipts = await ReceiptService.retrieveReceipts(userId);
+
+        console.log(groceryItems);
+        console.log(receipts);
+
+        res.status(200).json({
+            data: { groceryItems, receipts },
+            message: 'Successfully retrieved receipts and grocery items for user.',
+        });
+    } catch (error) {
+        logger.error(`Error retrieving user data for user id ${userId}: ${error}`);
         res.status(500).json({ error: 'Internal server error.' });
     }
 }

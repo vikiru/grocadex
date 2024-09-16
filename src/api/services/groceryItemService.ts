@@ -25,7 +25,19 @@ export async function saveGroceryItem(
     }
 }
 
-export async function retrieveGroceryItems(userId: number, receiptId: number): Promise<GroceryItem[]> {
+export async function retrieveGroceryItemsByUser(userId: number): Promise<GroceryItem[]> {
+    try {
+        const groceryItems = await prisma.groceryItem.findMany({ where: { userId } });
+        if (groceryItems.length > 0) {
+            logger.info(`Successfully retrieved grocery items belonging to receipt ${userId}.`);
+        }
+        return groceryItems;
+    } catch (error) {
+        logger.error(`Error retrieving grocery items from database: ${error}`);
+    }
+}
+
+export async function retrieveGroceryItemsByReceiptId(userId: number, receiptId: number): Promise<GroceryItem[]> {
     try {
         const groceryItems = await prisma.groceryItem.findMany({ where: { userId, receiptId } });
 

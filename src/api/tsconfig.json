@@ -6,6 +6,8 @@
         "allowJs": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "forceConsistentCasingInFileNames": true,
         "baseUrl": ".",
         "paths": {
@@ -21,6 +23,6 @@
             "~types/*": ["./types/*"],
             "~utils/*": ["./utils/*"]
         },
-        "typeRoots": ["node_modules/@types", "api/types"]
+        "typeRoots": ["./node_modules/@types", "types"]
     }
 }

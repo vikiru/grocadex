@@ -1,10 +1,9 @@
+import { Request, Response } from 'express';
 import { GroceryItemService, ReceiptService } from '~services/';
 
-import { Response } from 'express';
 import { logger } from '~config/logger';
-import { UserRequest } from '~types/express';
 
-export async function createReceipt(req: UserRequest, res: Response): Promise<void> {
+export async function createReceipt(req: Request, res: Response): Promise<void> {
     const data = req.body;
     const { groceryItems, ...receiptData } = data;
 
@@ -18,7 +17,7 @@ export async function createReceipt(req: UserRequest, res: Response): Promise<vo
     }
 }
 
-export async function getReceiptsByUserId(req: UserRequest, res: Response): Promise<void> {
+export async function getReceiptsByUserId(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     try {
         const receipts = await ReceiptService.retrieveReceipts(userId);
@@ -34,7 +33,7 @@ export async function getReceiptsByUserId(req: UserRequest, res: Response): Prom
     }
 }
 
-export async function getReceiptById(req: UserRequest, res: Response): Promise<void> {
+export async function getReceiptById(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const receiptId = parseInt(req.params.id, 10);
 
@@ -52,7 +51,7 @@ export async function getReceiptById(req: UserRequest, res: Response): Promise<v
     }
 }
 
-export async function updateReceipt(req: UserRequest, res: Response): Promise<void> {
+export async function updateReceipt(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const receiptId = parseInt(req.params.id, 10);
     const updatedFields = req.body;
@@ -66,7 +65,7 @@ export async function updateReceipt(req: UserRequest, res: Response): Promise<vo
     }
 }
 
-export async function deleteReceiptById(req: UserRequest, res: Response): Promise<void> {
+export async function deleteReceiptById(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const receiptId = parseInt(req.params.id, 10);
 
@@ -79,7 +78,7 @@ export async function deleteReceiptById(req: UserRequest, res: Response): Promis
     }
 }
 
-export async function getReceiptsByMonth(req: UserRequest, res: Response): Promise<void> {
+export async function getReceiptsByMonth(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const { startMonth, endMonth } = req.params;
 
@@ -99,7 +98,7 @@ export async function getReceiptsByMonth(req: UserRequest, res: Response): Promi
     }
 }
 
-export async function getReceiptsByYear(req: UserRequest, res: Response): Promise<void> {
+export async function getReceiptsByYear(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const { year } = req.params;
     try {

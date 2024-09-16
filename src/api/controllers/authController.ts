@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 
 import passport from 'passport';
 import { logger } from '~config/logger';
-import { UserRequest } from '~types/express';
 
 export async function loginUser(req: Request, res: Response, next: NextFunction): Promise<void> {
     passport.authenticate('local', (err, user) => {
@@ -20,13 +19,13 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
                 logger.error(`An error occurred while logging in: ${err}`);
                 return res.status(500).json({ error: 'Internal Server Error' });
             }
-
-            res.status(200).json({ message: 'User successfully logged in' });
+            const { password, ...userData } = user;
+            res.status(200).json({ data: userData, message: 'User successfully logged in' });
         });
     })(req, res, next);
 }
 
-export async function logoutUser(req: UserRequest, res: Response): Promise<void> {
+export async function logoutUser(req: Request, res: Response): Promise<void> {
     try {
         req.logout((err) => {
             if (err) {
