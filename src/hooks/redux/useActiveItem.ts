@@ -8,12 +8,14 @@ import {
 } from '~slices/activeItemSlice';
 
 import { GroceryItem } from '~types/GroceryItem';
+import { sortActiveItems } from '~utils/date';
 
 export const useActiveItem = () => {
     const activeItems = useSelector(selectActiveItems);
     const dispatch = useDispatch();
 
     const updateActiveItem = (items: GroceryItem[]) => {
+        sortActiveItems(items);
         dispatch(setActiveItems(items));
     };
 

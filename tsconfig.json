@@ -7,6 +7,7 @@
         "baseUrl": ".",
         "paths": {
             "~assets/*": ["./src/assets/*"],
+            "~fonts/*": ["./src/assets/fonts/*"],
             "~utils/*": ["./src/utils/*"],
             "~types/*": ["./src/types/*"],
             "~components/*": ["./src/components/*"],
@@ -18,5 +19,13 @@
         },
         "typeRoots": ["./node_modules/@types", "./types", "./api/types"]
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "src/app/**/*.ts", "api/**/*.ts", ".expo/types/**/*.ts", "expo-env.d.ts"]
+    "include": [
+        "src/**/*",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/app/**/*.ts",
+        "api/**/*.ts",
+        ".expo/types/**/*.ts",
+        "expo-env.d.ts"
+    ]
 }
