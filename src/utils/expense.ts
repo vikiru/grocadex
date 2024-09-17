@@ -1,14 +1,16 @@
-import { Expense } from '../types/Expense';
-import { Receipt } from '../types/Receipt';
-import { filterReceiptsByMonthYear } from './receipt';
+import { Months } from '~constants/Dates';
+import { Expense } from '~types/Expense';
+import { Receipt } from '~types/Receipt';
+import { convertDatetoDateTime } from '~utils/date';
+import { filterReceiptsByMonthYear } from '~utils/receipt';
 
 export const constructExpenses = (receipts: Receipt[]): Expense[] => {
     const expenseMap: Map<string, { total: number; stores: Set<string> }> = new Map();
 
     receipts.forEach((receipt) => {
-        const date = new Date(receipt.purchaseDate);
-        const year = date.getFullYear();
-        const month = date.getMonth();
+        const date = convertDatetoDateTime(receipt.purchaseDate);
+        const year = date.year;
+        const month = date.month;
         const key = `${year}-${month}`;
 
         if (!expenseMap.has(key)) {
@@ -17,7 +19,7 @@ export const constructExpenses = (receipts: Receipt[]): Expense[] => {
 
         const entry = expenseMap.get(key);
         if (entry) {
-            entry.total += receipt.total;
+            entry.total += Number(receipt.total);
             entry.stores.add(receipt.store);
         }
     });
@@ -25,7 +27,7 @@ export const constructExpenses = (receipts: Receipt[]): Expense[] => {
     return Array.from(expenseMap.entries()).map(([key, { total, stores }]) => {
         const [year, month] = key.split('-').map(Number);
         return {
-            date: new Date(year, month, 1),
+            date: new Date(year, month, 1).toISOString(),
             month,
             year,
             amount: total,
@@ -54,8 +56,25 @@ export const calculateMonthlyStoreBreakdown = (
     return breakdown;
 };
 
-export const calculateYearlyExpenses = (expenses: Expense[]): number => {
+export const calculateExpenses = (expenses: Expense[]): number => {
     return expenses.reduce((total, expense) => {
         return total + expense.amount;
     }, 0);
+};
+
+export const constructGraphData = (expenses: Expense[] | Partial<Expense>[]) => {
+    const expenseMap = new Map<number, number>();
+    expenses.forEach((expense) => {
+        if (expense.month && expense.amount !== undefined) {
+            expenseMap.set(expense.month, expense.amount);
+        }
+    });
+
+    return Months.map((month, index) => {
+        const monthNumber = index + 1;
+        return {
+            label: month,
+            amount: expenseMap.get(monthNumber) || 0,
+        };
+    });
 };

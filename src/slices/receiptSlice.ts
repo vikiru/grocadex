@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store/store';
-import { Receipt } from '../types/Receipt';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { RootState } from '~store/store';
+import { Receipt } from '~types/Receipt';
 
 interface ReceiptState {
     receipts: Receipt[] | Partial<Receipt>[];
@@ -14,7 +15,7 @@ const receiptSlice = createSlice({
     name: 'receipt',
     initialState,
     reducers: {
-        setReceipts: (state, action) => {
+        setReceipts: (state, action: PayloadAction<Receipt[] | Partial<Receipt>[]>) => {
             state.receipts = action.payload;
         },
         resetReceipts: (state) => {
@@ -23,7 +24,7 @@ const receiptSlice = createSlice({
         addReceipt: (state, action) => {
             state.receipts.push(action.payload);
         },
-        removeReceipt: (state, action) => {
+        removeReceipt: (state, action: PayloadAction<number>) => {
             state.receipts = state.receipts.filter((receipt) => receipt.id !== action.payload);
         },
     },

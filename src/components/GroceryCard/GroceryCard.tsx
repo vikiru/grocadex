@@ -3,15 +3,13 @@ import { Button, Card, Divider, Text } from 'react-native-paper';
 import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { View } from 'react-native';
+import { DateFormat } from '~constants/Dates';
+import { formatDate } from '~utils/date';
 import { GroceryItem } from '../../types/GroceryItem';
 
 export default function GroceryCard({ item }: { item: Partial<GroceryItem> | GroceryItem }) {
-    const formatDate = (date: Date | undefined) => {
-        return date ? date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A';
-    };
-
     const formatPrice = (price: number | undefined) => {
-        return price ? `$${price.toFixed(2)}` : 'N/A';
+        return price ? `$${Number(price).toFixed(2)}` : 'N/A';
     };
 
     return (
@@ -48,7 +46,7 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
                             Purchased
                         </StyledComponent>
                         <StyledComponent component={Text} className="text-sm text-gray-700 font-body">
-                            {formatDate(item.purchaseDate)}
+                            {formatDate(item.purchaseDate!, DateFormat)}
                         </StyledComponent>
                     </StyledComponent>
 
@@ -57,7 +55,7 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
                             Expires
                         </StyledComponent>
                         <StyledComponent component={Text} className="text-sm font-semibold text-red-400 font-body">
-                            {formatDate(item.expiryDate)}
+                            {formatDate(item.expiryDate!, DateFormat)}
                         </StyledComponent>
                     </StyledComponent>
                 </StyledComponent>

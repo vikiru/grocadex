@@ -7,7 +7,6 @@ export default function TabsLayout() {
     return (
         <StyledComponent
             component={Tabs}
-            className="bg-red-500"
             screenOptions={{
                 tabBarLabelPosition: 'below-icon',
                 tabBarStyle: { backgroundColor: '#E8F5E9' },
@@ -18,8 +17,8 @@ export default function TabsLayout() {
             <Tabs.Screen
                 name="dashboard"
                 options={{
-                    headerTitle: 'Home',
-                    headerShown: false,
+                    headerTitle: 'User Dashboard',
+                    headerShown: true,
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="home" size={size} color={color} />,
                 }}
@@ -27,8 +26,8 @@ export default function TabsLayout() {
             <Tabs.Screen
                 name="expiry"
                 options={{
-                    headerTitle: 'Expiry',
-                    headerShown: false,
+                    headerTitle: 'Expiring Items',
+                    headerShown: true,
                     tabBarLabel: 'Expiry',
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons name="calendar-clock" size={size} color={color} />
@@ -38,8 +37,8 @@ export default function TabsLayout() {
             <Tabs.Screen
                 name="expense"
                 options={{
-                    headerTitle: 'Expenses',
-                    headerShown: false,
+                    headerTitle: 'Expense Tracking',
+                    headerShown: true,
                     tabBarLabel: 'Expenses',
                     tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="cash" size={size} color={color} />,
                 }}

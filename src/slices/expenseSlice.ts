@@ -4,14 +4,18 @@ import { Expense } from './../types/Expense';
 
 interface ExpenseState {
     expenses: Expense[] | Partial<Expense>[];
-    monthlyExpenses: number;
-    yearlyExpenses: number;
+    monthlyExpenses: Expense[] | Partial<Expense>[];
+    yearlyExpenses: Expense[] | Partial<Expense>[];
+    monthlyTotal: number;
+    yearlyTotal: number;
 }
 
 const initialState: ExpenseState = {
     expenses: [],
-    monthlyExpenses: 0,
-    yearlyExpenses: 0,
+    monthlyExpenses: [],
+    yearlyExpenses: [],
+    monthlyTotal: 0,
+    yearlyTotal: 0,
 };
 
 export const expenseSlice = createSlice({
@@ -27,16 +31,24 @@ export const expenseSlice = createSlice({
         setYearlyExpenses: (state, action) => {
             state.yearlyExpenses = action.payload;
         },
+        setMonthlyTotal: (state, action) => {
+            state.monthlyTotal = action.payload;
+        },
+        setYearlyTotal: (state, action) => {
+            state.yearlyTotal = action.payload;
+        },
         incrementMonthlyExpenses: (state, action) => {
-            state.monthlyExpenses += action.payload;
+            state.monthlyTotal += action.payload;
         },
         incrementYearlyExpenses: (state, action) => {
-            state.yearlyExpenses += action.payload;
+            state.yearlyTotal += action.payload;
         },
         resetExpenses: (state) => {
             state.expenses = [];
-            state.monthlyExpenses = 0;
-            state.yearlyExpenses = 0;
+            state.monthlyExpenses = [];
+            state.yearlyExpenses = [];
+            state.monthlyTotal = 0;
+            state.yearlyTotal = 0;
         },
     },
 });
@@ -45,6 +57,8 @@ export const {
     setExpenses,
     setMonthlyExpenses,
     setYearlyExpenses,
+    setMonthlyTotal,
+    setYearlyTotal,
     incrementMonthlyExpenses,
     incrementYearlyExpenses,
     resetExpenses,
@@ -53,5 +67,7 @@ export const {
 export const selectExpenses = (state: RootState) => state.expense.expenses;
 export const selectMonthlyExpenses = (state: RootState) => state.expense.monthlyExpenses;
 export const selectYearlyExpenses = (state: RootState) => state.expense.yearlyExpenses;
+export const selectMonthlyTotal = (state: RootState) => state.expense.monthlyTotal;
+export const selectYearlyTotal = (state: RootState) => state.expense.yearlyTotal;
 
 export default expenseSlice.reducer;

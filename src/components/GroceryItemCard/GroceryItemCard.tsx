@@ -4,8 +4,8 @@ import { Text, View } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 
 import { StyledComponent } from 'nativewind';
-import { GroceryItem } from '../../types/GroceryItem';
-import { constructExpiryString } from '../../utils/date';
+import { GroceryItem } from '~types/GroceryItem';
+import { constructExpiryString } from '~utils/date';
 
 // TODO: combine all grocery card vairants/refactor into single file, separate fns with one handler and reduce to two.
 
@@ -18,7 +18,7 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                         {item.name} ({item.quantity})
                     </StyledComponent>
                     <StyledComponent component={Text} className="text-xl font-heading text-text">
-                        ${item.totalPrice}
+                        ${Number(item.totalPrice).toFixed(2)}
                     </StyledComponent>
                 </StyledComponent>
                 <StyledComponent component={Text} className="text-lg mt-2 text-red-400 font-subheading">

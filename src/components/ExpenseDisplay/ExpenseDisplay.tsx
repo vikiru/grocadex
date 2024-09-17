@@ -19,7 +19,7 @@ export default function ExpenseDisplay({ monthlyExpense }: ExpenseDisplayProps) 
                 </StyledComponent>
                 <StyledComponent component={View} className="flex-row items-center justify-center mt-2">
                     <StyledComponent component={Text} className="text-text text-3xl font-bold">
-                        ${monthlyExpense.toLocaleString()}
+                        ${monthlyExpense}
                     </StyledComponent>
                 </StyledComponent>
             </Card.Content>

@@ -1,58 +1,52 @@
+import { LinearGradient, useFont, vec } from '@shopify/react-native-skia';
 import { Text, View } from 'react-native';
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from 'victory';
+import { Bar, CartesianChart } from 'victory-native';
 
+import { DateTime } from 'luxon';
 import { StyledComponent } from 'nativewind';
 import React from 'react';
+import Baloo from '~fonts/Baloo2-VariableFont_wght.ttf';
 
-export default function BarChart({ data, title }: { data: any; title: string }) {
+export default function BarChart({ data }: { data: { label: string; amount: number }[] }) {
+    const font = useFont(Baloo, 12);
+    const year = DateTime.now().year;
+
     return (
-        <StyledComponent component={View} className="rounded-lg mt-2">
-            <StyledComponent component={Text} className="text-center text-text text-lg font-heading">
-                {title}
-            </StyledComponent>
-            <VictoryChart
-                height={300}
-                width={450}
-                theme={VictoryTheme.material}
-                domainPadding={{ x: 5 }}
-                animate={{ duration: 2000, easing: 'bounce' }}
+        <StyledComponent component={View} className="mx-4 shadow-lg mt-2 px-2 rounded-md">
+            <StyledComponent
+                component={Text}
+                className="mb-1 text-base text-text font-semibold text-center font-heading"
             >
-                <VictoryBar
+                Yearly Expenses for {year}
+            </StyledComponent>
+            <StyledComponent component={View} className="h-52 w-full ">
+                <CartesianChart
                     data={data}
-                    x="month"
-                    y="value"
-                    alignment="start"
-                    style={{
-                        data: { fill: '#4CAF50' },
-                    }}
-                />
-                <VictoryAxis
-                    tickFormat={(t) => t}
-                    style={{
-                        axis: { stroke: '#756f6a' },
-                        ticks: { stroke: 'grey', size: 5 },
-                        tickLabels: {
-                            fontSize: 10,
-                            fontFamily: 'Open Sans',
+                    xKey="label"
+                    yKeys={['amount']}
+                    domainPadding={{ left: 0, right: 20, top: 30 }}
+                    axisOptions={{
+                        font,
+                        tickCount: {
+                            x: 12,
+                            y: 10,
                         },
-                        grid: { stroke: 'transparent' },
                     }}
-                />
-                <VictoryAxis
-                    dependentAxis
-                    tickFormat={(t) => `$${t}`}
-                    style={{
-                        axis: { stroke: '#756f6a' },
-                        ticks: { stroke: 'grey', size: 5 },
-                        tickLabels: {
-                            fontSize: 10,
-                            textAnchor: 'end',
-                            fontFamily: 'Open Sans',
-                        },
-                        grid: { stroke: 'transparent' },
-                    }}
-                />
-            </VictoryChart>
+                >
+                    {({ points, chartBounds }) => (
+                        <Bar
+                            chartBounds={chartBounds}
+                            points={points.amount}
+                            roundedCorners={{
+                                topLeft: 5,
+                                topRight: 5,
+                            }}
+                        >
+                            <LinearGradient start={vec(0, 0)} end={vec(0, 400)} colors={['#a78bfa', '#a78bfa50']} />
+                        </Bar>
+                    )}
+                </CartesianChart>
+            </StyledComponent>
         </StyledComponent>
     );
 }

@@ -1,46 +1,64 @@
 import { DateTime } from 'luxon';
-import { GroceryItem } from '../types/GroceryItem';
+import { GroceryItem } from '~types/GroceryItem';
+import { Receipt } from '~types/Receipt';
 
-export const formatDate = (date: Date, format: string): string => {
-    return DateTime.fromJSDate(date).toFormat(format);
+export const formatDate = (date: Date | string, format: string): string => {
+    if (typeof date === 'string') {
+        return DateTime.fromISO(date).toFormat(format);
+    } else return DateTime.fromJSDate(date).toFormat(format);
 };
-
 export const createDateFromTimestamp = (timestamp: number): Date => {
     const date = DateTime.fromMillis(timestamp, { zone: 'utc' }).toJSDate();
     return date;
 };
 
-export const constructExpiryString = (date: Date): string => {
-    const expiryDate = DateTime.fromJSDate(date);
+export const constructExpiryString = (date: string | Date): string => {
+    const expiryDate = convertDatetoDateTime(date);
     const now = DateTime.now();
     const daysUntilExpiry = expiryDate.diff(now, 'days').days;
 
     if (daysUntilExpiry > 0) {
-        return `Expiring in ${Math.ceil(daysUntilExpiry)} days`;
+        return `Expiring in ${Math.abs(Math.ceil(daysUntilExpiry))} days`;
     } else if (daysUntilExpiry === 0) {
         return 'Expired today';
     } else {
-        return `Expired ${Math.floor(-daysUntilExpiry)} days ago`;
+        return `Expired ${Math.abs(Math.floor(daysUntilExpiry))} days ago`;
     }
 };
 
-export const sortActiveItems = (items: GroceryItem[]): GroceryItem[] => {
-    return items.sort((a, b) => {
-        const firstDate = DateTime.fromJSDate(a.expiryDate);
-        const secondDate = DateTime.fromJSDate(b.expiryDate);
+export const sortActiveItems = (items: GroceryItem[] | Partial<GroceryItem>[]) => {
+    items.sort((a, b) => {
+        const firstDate = convertDatetoDateTime(a.expiryDate!);
+        const secondDate = convertDatetoDateTime(b.expiryDate!);
         return firstDate.diff(secondDate).toMillis();
     });
 };
 
-export const daysBetweenDates = (startDate: Date, endDate: Date): number => {
-    const start = DateTime.fromJSDate(startDate);
-    const end = DateTime.fromJSDate(endDate);
+export const sortReceipts = (receipts: Receipt[] | Partial<Receipt>[]) => {
+    receipts.sort((a, b) => {
+        const firstDate = convertDatetoDateTime(a.purchaseDate!);
+        const secondDate = convertDatetoDateTime(b.purchaseDate!);
+        return firstDate.diff(secondDate).toMillis();
+    });
+};
+
+export const daysBetweenDates = (startDate: string | Date, endDate: string | Date): number => {
+    const start = convertDatetoDateTime(startDate);
+    const end = convertDatetoDateTime(endDate);
     return end.diff(start, 'days').days;
+};
+
+export const convertDatetoDateTime = (date: string | Date) => {
+    if (typeof date === 'string') {
+        return DateTime.fromISO(date);
+    } else {
+        return DateTime.fromJSDate(date);
+    }
 };
 
 export const findExpiredItems = (items: GroceryItem[]): GroceryItem[] => {
     return items.filter((item) => {
-        const expiryDate = DateTime.fromJSDate(item.expiryDate);
+        const expiryDate = convertDatetoDateTime(item.expiryDate);
         return expiryDate < DateTime.now();
     });
 };
