@@ -11,7 +11,7 @@ export function useDeleteData() {
         setError(null);
 
         try {
-            const response = await axios.delete(`${payload.url}/${payload.id}`);
+            const response = await axios.delete(`${payload.url}`);
             return response;
         } catch (error: any) {
             setError(error);

@@ -2,8 +2,8 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
 import { usePostData } from '~hooks/api/usePostData';
+import { useUser } from '~hooks/redux/useUser';
 import { RequestPayload } from '~types/RequestPayload';
-import { useUser } from './../redux/useUser';
 
 export function useLogin() {
     const { updateUser } = useUser();

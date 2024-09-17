@@ -27,10 +27,17 @@ const receiptSlice = createSlice({
         removeReceipt: (state, action: PayloadAction<number>) => {
             state.receipts = state.receipts.filter((receipt) => receipt.id !== action.payload);
         },
+        updateReceipt: (state, action) => {
+            const { receiptId, receipt } = action.payload;
+            const index = state.receipts.findIndex((receipt) => receipt.id === receiptId);
+            if (index !== -1) {
+                state.receipts[index] = receipt;
+            }
+        },
     },
 });
 
-export const { setReceipts, resetReceipts, addReceipt, removeReceipt } = receiptSlice.actions;
+export const { setReceipts, resetReceipts, addReceipt, removeReceipt, updateReceipt } = receiptSlice.actions;
 
 export const selectReceipts = (state: RootState) => state.receipt.receipts;
 
