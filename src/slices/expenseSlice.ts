@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
 import { Expense } from './../types/Expense';
 
-interface ExpenseState {
+type ExpenseState = {
     expenses: Expense[] | Partial<Expense>[];
     monthlyExpenses: Expense[] | Partial<Expense>[];
     yearlyExpenses: Expense[] | Partial<Expense>[];
     monthlyTotal: number;
     yearlyTotal: number;
-}
+};
 
 const initialState: ExpenseState = {
     expenses: [],

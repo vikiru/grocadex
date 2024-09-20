@@ -16,19 +16,21 @@ const validationSchema = Yup.object().shape({
     expiryDate: Yup.date().required('Expiry date is required'),
 });
 
-interface GroceryModalProps {
+type GroceryModalProps = {
+    initialValues?: GroceryItem | Partial<GroceryItem>;
     visible: boolean;
     onDismiss: () => void;
     onSubmit: (item: GroceryItem | Partial<GroceryItem>) => void;
-}
+};
 
-export default function GroceryModal({ visible, onDismiss, onSubmit }: GroceryModalProps) {
-    const initialValues: GroceryItem | Partial<GroceryItem> = {
+export default function GroceryModal({ initialValues, visible, onDismiss, onSubmit }: GroceryModalProps) {
+    const defaultValues: GroceryItem | Partial<GroceryItem> = {
         name: '',
         quantity: 1,
         unitPrice: 1.0,
         expiryDate: new Date(),
     };
+    const values = { ...defaultValues, ...initialValues };
 
     return (
         <Modal visible={visible} onRequestClose={onDismiss} animationType="slide" transparent={true}>
@@ -38,7 +40,7 @@ export default function GroceryModal({ visible, onDismiss, onSubmit }: GroceryMo
                         Add a new grocery item
                     </StyledComponent>
                     <Formik
-                        initialValues={initialValues}
+                        initialValues={values}
                         validationSchema={validationSchema}
                         onSubmit={(values: GroceryItem | Partial<GroceryItem>, { resetForm }) => {
                             values.totalPrice = parseFloat(values.totalPrice!.toString());

@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
 import { GroceryItem } from './../types/GroceryItem';
 
-interface ActiveItemState {
+type ActiveItemState = {
     activeItems: GroceryItem[] | Partial<GroceryItem>[];
-}
+};
 
 const initialState: ActiveItemState = {
     activeItems: [],
@@ -23,13 +23,26 @@ const activeItemSlice = createSlice({
         addActiveItem: (state, action) => {
             state.activeItems.push(action.payload);
         },
+        addMultipleActiveItems: (state, action) => {
+            state.activeItems = [...state.activeItems, ...action.payload];
+        },
         removeActiveItem: (state, action) => {
             state.activeItems = state.activeItems.filter((item) => item.id !== action.payload);
+        },
+        removeItemsByReceipt: (state, action) => {
+            state.activeItems = state.activeItems.filter((item) => item.receiptId !== action.payload);
         },
     },
 });
 
-export const { setActiveItems, resetActiveItems, addActiveItem, removeActiveItem } = activeItemSlice.actions;
+export const {
+    setActiveItems,
+    resetActiveItems,
+    addActiveItem,
+    addMultipleActiveItems,
+    removeActiveItem,
+    removeItemsByReceipt,
+} = activeItemSlice.actions;
 
 export const selectActiveItems = (state: RootState) => state.activeItem.activeItems;
 

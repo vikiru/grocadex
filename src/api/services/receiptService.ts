@@ -19,7 +19,7 @@ export async function saveReceipt(receipt: Omit<Receipt, 'id'>): Promise<Receipt
 
 export async function retrieveReceipts(userId: number): Promise<Receipt[]> {
     try {
-        const receipts = await prisma.receipt.findMany({ where: { userId } });
+        const receipts = await prisma.receipt.findMany({ where: { userId }, include: { groceryItems: true } });
         logger.info('Successfully retrieved receipts from database.');
         return receipts;
     } catch (error) {
@@ -30,7 +30,10 @@ export async function retrieveReceipts(userId: number): Promise<Receipt[]> {
 
 export async function retrieveReceiptByReceiptId(userId: number, receiptId: number): Promise<Receipt | null> {
     try {
-        const receipt = await prisma.receipt.findUnique({ where: { userId, id: receiptId } });
+        const receipt = await prisma.receipt.findUnique({
+            where: { userId, id: receiptId },
+            include: { groceryItems: true },
+        });
         if (!receipt) {
             logger.error(`Receipt with id ${receiptId} not found.`);
         } else {

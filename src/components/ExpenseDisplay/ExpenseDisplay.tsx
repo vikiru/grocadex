@@ -4,9 +4,9 @@ import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { View } from 'react-native';
 
-interface ExpenseDisplayProps {
+type ExpenseDisplayProps = {
     monthlyExpense: number;
-}
+};
 
 export default function ExpenseDisplay({ monthlyExpense }: ExpenseDisplayProps) {
     return (
@@ -19,7 +19,7 @@ export default function ExpenseDisplay({ monthlyExpense }: ExpenseDisplayProps) 
                 </StyledComponent>
                 <StyledComponent component={View} className="flex-row items-center justify-center mt-2">
                     <StyledComponent component={Text} className="text-text text-3xl font-bold">
-                        ${monthlyExpense}
+                        ${monthlyExpense.toFixed(2)}
                     </StyledComponent>
                 </StyledComponent>
             </Card.Content>

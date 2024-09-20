@@ -6,11 +6,13 @@ import { logger } from '~config/logger';
 export async function createReceipt(req: Request, res: Response): Promise<void> {
     const data = req.body;
     const { groceryItems, ...receiptData } = data;
+    console.log(receiptData);
 
     try {
         const receipt = await ReceiptService.saveReceipt(receiptData);
         await GroceryItemService.saveGroceryItem(groceryItems, receipt.id, receipt.userId);
-        res.status(201).json({ message: 'Receipt created successfully', data: receipt });
+        const updatedReceipt = await ReceiptService.retrieveReceiptByReceiptId(receipt.userId, receipt.id);
+        res.status(201).json({ message: 'Receipt created successfully', data: updatedReceipt });
     } catch (error) {
         logger.error(`Error saving receipt: ${error}`);
         res.status(500).json({ error: 'Internal server error.' });

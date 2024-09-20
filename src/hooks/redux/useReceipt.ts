@@ -1,5 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addReceipt, removeReceipt, resetReceipts, selectReceipts, setReceipts } from '~slices/receiptSlice';
+import {
+    addReceipt,
+    removeReceipt,
+    resetReceipts,
+    selectReceipts,
+    setReceipts,
+    updateReceipt,
+} from '~slices/receiptSlice';
 
 import { Receipt } from '~types/Receipt';
 import { sortReceipts } from '~utils/date';
@@ -25,9 +32,9 @@ export const useReceipt = () => {
         dispatch(removeReceipt(id));
     };
 
-    const updateReceipt = (id: number, receipt: Receipt) => {
-        dispatch();
+    const modifyReceipt = (id: number, receipt: Receipt) => {
+        dispatch(updateReceipt({ id, receipt }));
     };
 
-    return { receipts, setReceiptValues, removeReceipts, createReceipt, deleteReceipt, updateReceipt };
+    return { receipts, setReceiptValues, removeReceipts, createReceipt, deleteReceipt, modifyReceipt };
 };

@@ -1,9 +1,11 @@
 export type Expense = {
     date: Date | string;
     amount: number;
-    stores?: string[];
+    stores: string[];
+    storeBreakdown?: {
+        storeName: string;
+        amount: number;
+    };
     month: number;
     year: number;
 };
-
-// TODO: convert stores -> storeBreakdown: [{ storeName: string, amount: number }]

@@ -11,6 +11,12 @@ NativeWindStyleSheet.setOutput({
     default: 'native',
 });
 
+type IntroDetailsProps = {
+    heading: string;
+    subtext: string;
+    icon: any;
+};
+
 export default function Index() {
     const moveToRegistration = async () => {
         router.push('/registration');
@@ -101,10 +107,4 @@ export function IntroDetails(props: IntroDetailsProps) {
             </StyledComponent>
         </StyledComponent>
     );
-}
-
-interface IntroDetailsProps {
-    heading: string;
-    subtext: string;
-    icon: any;
 }

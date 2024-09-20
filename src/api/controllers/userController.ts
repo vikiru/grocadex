@@ -50,9 +50,6 @@ export async function getUserData(req: Request, res: Response): Promise<void> {
         const groceryItems = await GroceryItemService.retrieveGroceryItemsByUser(userId);
         const receipts = await ReceiptService.retrieveReceipts(userId);
 
-        console.log(groceryItems);
-        console.log(receipts);
-
         res.status(200).json({
             data: { groceryItems, receipts },
             message: 'Successfully retrieved receipts and grocery items for user.',

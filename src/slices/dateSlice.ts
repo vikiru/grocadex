@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store/store';
 
-interface DateState {
+type DateState = {
     date: string;
     currentDay: number;
     currentMonth: number;
     currentYear: number;
-}
+};
 
 const initialState: DateState = {
     date: new Date().toISOString(),

@@ -19,14 +19,16 @@ export default function receipt() {
                     <StyledComponent component={ReceiptCard} receipt={receipt} key={receipt.id} />
                 ))}
             </StyledComponent>
-            <StyledComponent
-                component={FAB}
-                icon="plus"
-                onPress={() => {
-                    router.push('/receipt/new');
-                }}
-                className="absolute bottom-10 right-10 z-0 bg-white"
-            />
+            {receipts.length > 5 && (
+                <StyledComponent
+                    component={FAB}
+                    icon="plus"
+                    onPress={() => {
+                        router.push('/receipt/new');
+                    }}
+                    className="absolute bottom-10 right-10 z-0 bg-white"
+                />
+            )}
         </StyledComponent>
     );
 }

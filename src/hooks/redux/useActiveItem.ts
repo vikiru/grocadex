@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
     addActiveItem,
+    addMultipleActiveItems,
     removeActiveItem,
+    removeItemsByReceipt,
     resetActiveItems,
     selectActiveItems,
     setActiveItems,
@@ -23,13 +25,29 @@ export const useActiveItem = () => {
         dispatch(addActiveItem(item));
     };
 
+    const addMultipleItems = (items: GroceryItem[]) => {
+        dispatch(addMultipleActiveItems(items));
+    };
+
     const removeItem = (id: number) => {
         dispatch(removeActiveItem(id));
+    };
+
+    const removeItemsByReceiptId = (receiptId: number) => {
+        dispatch(removeItemsByReceipt(receiptId));
     };
 
     const resetActiveItem = () => {
         dispatch(resetActiveItems());
     };
 
-    return { activeItems, updateActiveItem, addItem, removeItem, resetActiveItem };
+    return {
+        activeItems,
+        updateActiveItem,
+        addItem,
+        addMultipleItems,
+        removeItem,
+        removeItemsByReceiptId,
+        resetActiveItem,
+    };
 };

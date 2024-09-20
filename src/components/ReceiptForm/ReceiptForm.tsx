@@ -1,20 +1,16 @@
 import * as Yup from 'yup';
 
-import { ScrollView, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import { router } from 'expo-router';
 import { Formik } from 'formik';
 import { StyledComponent } from 'nativewind';
 import React from 'react';
+import { View } from 'react-native';
 import DateSelector from '~components/DateSelector/DateSelector';
 import GroceryAdder from '~components/GroceryAdder/GroceryAdder';
-import { DateFormat } from '~constants/Dates';
+import GroceryContainer from '~components/GroceryContainer/GroceryContainer';
 import { usePostData } from '~hooks/api/usePostData';
-import { GroceryItem } from '~types/GroceryItem';
-import { Receipt } from '~types/Receipt';
-import { RequestPayload } from '~types/RequestPayload';
-import { formatDate } from '~utils/date';
+import useReceipts from '~hooks/components/useReceipts';
 
 const validationSchema = Yup.object({
     store: Yup.string().required('Must provide a store name'),
@@ -42,25 +38,13 @@ const validationSchema = Yup.object({
 
 export default function ReceiptForm() {
     const { postData } = usePostData();
+    const { handleCreate, loading, error } = useReceipts();
     return (
         <Formik
             initialValues={{ store: '', purchaseDate: new Date(), total: 1.0, groceryItems: [] }}
             validationSchema={validationSchema}
-            onSubmit={async (value: Receipt | Partial<Receipt>) => {
-                value.groceryItems?.forEach((item: GroceryItem | Partial<GroceryItem>) => {
-                    item.purchaseDate = value.purchaseDate;
-                });
-
-                const payload: RequestPayload = {
-                    url: `http://10.0.0.94:3000/api/v1/receipts`,
-                    data: { ...value, userId: 1 },
-                };
-
-                const data = await postData(payload);
-
-                if (data?.status === 201) {
-                    router.push('/receipt');
-                }
+            onSubmit={(values) => {
+                handleCreate(values);
             }}
         >
             {({ handleSubmit, handleChange, setFieldValue, values }) => (
@@ -98,51 +82,7 @@ export default function ReceiptForm() {
                         purchaseDate={values.purchaseDate!}
                     />
                     {values.groceryItems && values.groceryItems.length > 0 && (
-                        <StyledComponent component={ScrollView} className="flex flex-1 mx-2 max-h-60 pb-20">
-                            {values.groceryItems.map((item: GroceryItem | Partial<GroceryItem>, index: number) => (
-                                <StyledComponent
-                                    key={index}
-                                    component={View}
-                                    className="bg-white border border-gray-200 rounded-md p-2 mx-2 my-1"
-                                >
-                                    <StyledComponent component={View} className="flex-row justify-between items-center">
-                                        <StyledComponent
-                                            component={Text}
-                                            className="font-semibold text-sm text-gray-800 flex-1"
-                                        >
-                                            {item.name} ({item.quantity})
-                                        </StyledComponent>
-                                        <StyledComponent component={Text} className="text-sm font-semibold text-text">
-                                            CAD${item.totalPrice}
-                                        </StyledComponent>
-                                    </StyledComponent>
-
-                                    <StyledComponent
-                                        component={View}
-                                        className="flex-row justify-between items-center mt-1"
-                                    >
-                                        <StyledComponent component={Text} className="text-xs text-gray-600">
-                                            ${item.unitPrice} each
-                                        </StyledComponent>
-                                        <StyledComponent component={Text} className="text-xs text-red-500">
-                                            Expires: {formatDate(item.expiryDate!, DateFormat)}
-                                        </StyledComponent>
-                                    </StyledComponent>
-
-                                    <StyledComponent
-                                        component={View}
-                                        className="flex-row justify-between items-center mt-1"
-                                    >
-                                        <StyledComponent component={Button} icon="pencil" className="rounded-lg">
-                                            Edit
-                                        </StyledComponent>
-                                        <StyledComponent component={Button} icon="cancel" className="rounded-lg">
-                                            Delete
-                                        </StyledComponent>
-                                    </StyledComponent>
-                                </StyledComponent>
-                            ))}
-                        </StyledComponent>
+                        <GroceryContainer groceryItems={values.groceryItems} setFieldValue={setFieldValue} />
                     )}
                     <StyledComponent component={View} className="mt-2 flex-1 justify-end items-center pb-5">
                         <StyledComponent

@@ -8,11 +8,11 @@ import { TextInput } from 'react-native-paper';
 import { DateFormat } from './../../constants/Dates';
 import { formatDate } from './../../utils/date';
 
-interface DatePickerProps {
+type DatePickerProps = {
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<Values>>;
     fieldName: string;
     label: string;
-}
+};
 
 export default function DateSelector({ setFieldValue, fieldName, label }: DatePickerProps) {
     const [purchaseString, setPurchaseString] = useState('');

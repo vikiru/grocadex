@@ -3,9 +3,9 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '~store/store';
 import { User } from '~types/User';
 
-interface UserState {
+type UserState = {
     user: User | Partial<User> | null;
-}
+};
 
 const initialState: UserState = {
     user: null,

@@ -3,9 +3,9 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '~store/store';
 import { Receipt } from '~types/Receipt';
 
-interface ReceiptState {
+type ReceiptState = {
     receipts: Receipt[] | Partial<Receipt>[];
-}
+};
 
 const initialState: ReceiptState = {
     receipts: [],

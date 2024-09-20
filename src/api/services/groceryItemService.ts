@@ -29,7 +29,7 @@ export async function retrieveGroceryItemsByUser(userId: number): Promise<Grocer
     try {
         const groceryItems = await prisma.groceryItem.findMany({ where: { userId } });
         if (groceryItems.length > 0) {
-            logger.info(`Successfully retrieved grocery items belonging to receipt ${userId}.`);
+            logger.info(`Successfully retrieved grocery items belonging to user ${userId}.`);
         }
         return groceryItems;
     } catch (error) {

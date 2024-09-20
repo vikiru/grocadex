@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '~store/store';
 import { GroceryItem } from '~types/GroceryItem';
 
-interface GroceryItemState {
+type GroceryItemState = {
     groceryItems: GroceryItem[] | Partial<GroceryItem>[];
-}
+};
 
 const initialState: GroceryItemState = {
     groceryItems: [],

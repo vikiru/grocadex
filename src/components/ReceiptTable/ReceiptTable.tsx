@@ -52,7 +52,7 @@ export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Parti
                         </DataTable.Cell>
                         <DataTable.Cell numeric>
                             <StyledComponent component={Text} className="text-text text-sm font-body">
-                                ${receipt.total}
+                                ${Number(receipt.total).toFixed(2)}
                             </StyledComponent>
                         </DataTable.Cell>
                     </DataTable.Row>
