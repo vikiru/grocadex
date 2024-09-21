@@ -17,19 +17,21 @@ const validationSchema = Yup.object().shape({
 });
 
 type GroceryModalProps = {
+    method: string;
     initialValues?: GroceryItem | Partial<GroceryItem>;
     visible: boolean;
     onDismiss: () => void;
-    onSubmit: (item: GroceryItem | Partial<GroceryItem>) => void;
+    onSubmit: any;
 };
 
-export default function GroceryModal({ initialValues, visible, onDismiss, onSubmit }: GroceryModalProps) {
-    const defaultValues: GroceryItem | Partial<GroceryItem> = {
-        name: '',
-        quantity: 1,
-        unitPrice: 1.0,
-        expiryDate: new Date(),
-    };
+const defaultValues: GroceryItem | Partial<GroceryItem> = {
+    name: '',
+    quantity: 1,
+    unitPrice: 1.0,
+    expiryDate: new Date(),
+};
+
+export default function GroceryModal({ method, initialValues, visible, onDismiss, onSubmit }: GroceryModalProps) {
     const values = { ...defaultValues, ...initialValues };
 
     return (
@@ -37,7 +39,7 @@ export default function GroceryModal({ initialValues, visible, onDismiss, onSubm
             <StyledComponent component={View} className="flex-1 justify-center items-center bg-background">
                 <StyledComponent component={View} className="rounded-lg p-4 mx-4 w-full max-w-md m-2">
                     <StyledComponent component={Text} className="ml-1 text-text text-lg font-semibold font-heading">
-                        Add a new grocery item
+                        {method} a grocery item
                     </StyledComponent>
                     <Formik
                         initialValues={values}
@@ -105,7 +107,7 @@ export default function GroceryModal({ initialValues, visible, onDismiss, onSubm
                                         mode="contained"
                                         className="bg-primary"
                                     >
-                                        Add Item
+                                        {method} Item
                                     </StyledComponent>
                                 </StyledComponent>
                             </StyledComponent>

@@ -63,16 +63,11 @@ export async function getGroceryItemById(req: Request, res: Response): Promise<v
 export async function updateGroceryItem(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const { receiptId, groceryItemId } = req.params;
-    const updatedFields = req.body;
+    const { groceryItem } = req.body;
 
     try {
-        await GroceryItemService.updateGroceryItemById(
-            userId,
-            parseInt(receiptId, 10),
-            parseInt(groceryItemId, 10),
-            updatedFields,
-        );
-        res.status(200).json({ message: 'Grocery item updated successfully' });
+        const updatedItem = await GroceryItemService.updateGroceryItemById(groceryItem);
+        res.status(200).json({ message: 'Grocery item updated successfully', data: updatedItem });
     } catch (error) {
         logger.error(`Error updating grocery item with id ${groceryItemId}: ${error}`);
         res.status(500).json({ error: 'Internal server error.' });

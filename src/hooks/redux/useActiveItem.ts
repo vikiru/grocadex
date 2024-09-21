@@ -7,6 +7,7 @@ import {
     resetActiveItems,
     selectActiveItems,
     setActiveItems,
+    updateActiveItem,
 } from '~slices/activeItemSlice';
 
 import { GroceryItem } from '~types/GroceryItem';
@@ -16,7 +17,12 @@ export const useActiveItem = () => {
     const activeItems = useSelector(selectActiveItems);
     const dispatch = useDispatch();
 
-    const updateActiveItem = (items: GroceryItem[]) => {
+    const updateItem = (updatedItem: GroceryItem) => {
+        dispatch(updateActiveItem(updatedItem));
+        sortActiveItems(activeItems);
+    };
+
+    const updateActiveItems = (items: GroceryItem[]) => {
         sortActiveItems(items);
         dispatch(setActiveItems(items));
     };
@@ -43,7 +49,8 @@ export const useActiveItem = () => {
 
     return {
         activeItems,
-        updateActiveItem,
+        updateItem,
+        updateActiveItems,
         addItem,
         addMultipleItems,
         removeItem,

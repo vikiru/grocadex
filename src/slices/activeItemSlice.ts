@@ -14,6 +14,19 @@ const activeItemSlice = createSlice({
     name: 'activeItem',
     initialState,
     reducers: {
+        updateActiveItem: (state, action) => {
+            const groceryItem = action.payload;
+            const index = state.activeItems.findIndex(
+                (item) => item.id === groceryItem.id && item.receiptId === groceryItem.receiptId,
+            );
+
+            if (index !== -1) {
+                state.activeItems[index] = {
+                    ...state.activeItems[index],
+                    ...groceryItem,
+                };
+            }
+        },
         setActiveItems: (state, action) => {
             state.activeItems = action.payload;
         },
@@ -36,6 +49,7 @@ const activeItemSlice = createSlice({
 });
 
 export const {
+    updateActiveItem,
     setActiveItems,
     resetActiveItems,
     addActiveItem,

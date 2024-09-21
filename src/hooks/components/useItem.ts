@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Toast from 'react-native-toast-message';
 import { useDeleteData } from '~hooks/api/useDeleteData';
 import { usePutData } from '~hooks/api/usePutData';
-import { useGrocery } from '~hooks/redux/useGrocery';
+import { useActiveItem } from '~hooks/redux/useActiveItem';
 import { useUser } from '~hooks/redux/useUser';
 import { GroceryItem } from '~types/GroceryItem';
 import { RequestPayload } from '~types/RequestPayload';
@@ -12,25 +12,28 @@ export default function useItem() {
     const { user } = useUser();
     const { putData } = usePutData();
     const { deleteData } = useDeleteData();
-    const { removeItem, updateItem } = useGrocery();
+    const { removeItem, updateItem } = useActiveItem();
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
 
-    const handleEdit = async (receiptId: number, groceryItem: GroceryItem) => {
+    const handleUpdate = async (groceryItem: GroceryItem) => {
         setLoading(true);
         setError(null);
+        const { receiptId } = groceryItem;
         const groceryItemId = groceryItem?.id;
 
         const payload: RequestPayload = {
             url: `http://10.0.0.168:3000/api/v1/receipts/${receiptId}/groceries/${groceryItemId}`,
-            data: { userId: user?.id, receiptId, groceryId: groceryItem?.id, updatedFields: groceryItem },
+            data: { groceryItem },
         };
 
         try {
             const response = await putData(payload);
             if (response?.status === 200) {
-                updateItem(receiptId, groceryItem.id, groceryItem);
+                const { data } = response.data;
+                groceryItem.expiryDate = new Date(groceryItem.expiryDate).toISOString();
+                updateItem(groceryItem);
                 Toast.show({
                     type: 'success',
                     text1: 'Successfully updated item',
@@ -38,7 +41,7 @@ export default function useItem() {
                     autoHide: true,
                     visibilityTime: 2000,
                 });
-                setTimeout(() => router.push('/expiry'), 1500);
+                setTimeout(() => router.push('/dashboard'), 1500);
                 setLoading(false);
                 return { success: true };
             } else {
@@ -80,5 +83,5 @@ export default function useItem() {
         }
     };
 
-    return { handleEdit, handleDelete, loading, error };
+    return { handleUpdate, handleDelete, loading, error };
 }

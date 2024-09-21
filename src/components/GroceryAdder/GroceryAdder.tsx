@@ -47,6 +47,7 @@ export default function GroceryAdder({ initialValues, setFieldValue, groceryItem
                 Add Item
             </StyledComponent>
             <GroceryModal
+                method="Add"
                 visible={showGroceryModal}
                 onDismiss={() => setShowGroceryModal(false)}
                 onSubmit={(item: GroceryItem | Partial<GroceryItem>) =>

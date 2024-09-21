@@ -9,8 +9,8 @@ import { View } from 'react-native';
 import DateSelector from '~components/DateSelector/DateSelector';
 import GroceryAdder from '~components/GroceryAdder/GroceryAdder';
 import GroceryContainer from '~components/GroceryContainer/GroceryContainer';
-import { usePostData } from '~hooks/api/usePostData';
 import useReceipts from '~hooks/components/useReceipts';
+import { Receipt } from '~types/Receipt';
 
 const validationSchema = Yup.object({
     store: Yup.string().required('Must provide a store name'),
@@ -30,21 +30,34 @@ const validationSchema = Yup.object({
         .required('No groceries added to receipt'),
 });
 
-// TODO: Add edit/delete functionality, delete modal popup that can be customized via props.
-// TODO: add toast and setimeout for success
+// TODO: Add edit functionality for receipt.
 // TODO: update this to use the redux user id
 // TODO: update this to use proper url
 // TODO: separate item card and card container
 
-export default function ReceiptForm() {
-    const { postData } = usePostData();
+const defaultValues = {
+    store: '',
+    purchaseDate: new Date(),
+    total: 1.0,
+    groceryItems: [],
+};
+
+type ReceiptFormProps = {
+    initialValues: Receipt | Partial<Receipt>;
+};
+
+// TODO: handle submit as props similar to grocerymodal
+
+export default function ReceiptForm({ initialValues }: ReceiptFormProps) {
     const { handleCreate, loading, error } = useReceipts();
+    const values = { ...defaultValues, ...initialValues };
+
     return (
         <Formik
-            initialValues={{ store: '', purchaseDate: new Date(), total: 1.0, groceryItems: [] }}
+            initialValues={values}
             validationSchema={validationSchema}
-            onSubmit={(values) => {
-                handleCreate(values);
+            onSubmit={(data: Receipt | Partial<Receipt>) => {
+                handleCreate(data);
             }}
         >
             {({ handleSubmit, handleChange, setFieldValue, values }) => (

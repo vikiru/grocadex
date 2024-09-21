@@ -7,7 +7,6 @@ import { usePutData } from '~hooks/api/usePutData';
 import { useActiveItem } from '~hooks/redux/useActiveItem';
 import { useReceipt } from '~hooks/redux/useReceipt';
 import { useUser } from '~hooks/redux/useUser';
-import { GroceryItem } from '~types/GroceryItem';
 import { Receipt } from '~types/Receipt';
 import { RequestPayload } from '~types/RequestPayload';
 
@@ -23,19 +22,11 @@ export default function useReceipts() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
 
-    const handleCreate = async ({
-        store: store,
-        purchaseDate: purchaseDate,
-        total: total,
-        groceryItems: groceryItems,
-    }: {
-        store: string;
-        purchaseDate: Date;
-        total: number;
-        groceryItems: GroceryItem[];
-    }) => {
+    const handleCreate = async (receipt: Receipt | Partial<Receipt>) => {
         setLoading(true);
         setError(null);
+
+        const { store, purchaseDate, total, groceryItems } = receipt;
 
         const payload: RequestPayload = {
             url: `http://10.0.0.168:3000/api/v1/receipts/`,

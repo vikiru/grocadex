@@ -6,7 +6,6 @@ import { logger } from '~config/logger';
 export async function createReceipt(req: Request, res: Response): Promise<void> {
     const data = req.body;
     const { groceryItems, ...receiptData } = data;
-    console.log(receiptData);
 
     try {
         const receipt = await ReceiptService.saveReceipt(receiptData);

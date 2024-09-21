@@ -32,7 +32,10 @@ const groceryItemSlice = createSlice({
                 (item) => item.id === groceryItemId && item.receiptId === receiptId,
             );
             if (index !== -1) {
-                state.groceryItems[index] = updatedItem;
+                state.groceryItems[index] = {
+                    ...state.groceryItems[index],
+                    ...updatedItem,
+                };
             }
         },
     },

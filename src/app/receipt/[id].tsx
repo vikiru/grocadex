@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Button, Divider } from 'react-native-paper';
@@ -13,9 +13,10 @@ import { useReceipt } from '~hooks/redux/useReceipt';
 import { GroceryItem } from '~types/GroceryItem';
 import { formatDate } from '~utils/date';
 
-// TODO: add view/delete grocery and receipt functionality
+// TODO: add edit functionality for receipts
+// TODO: Update pages to handle default/new user (i.e. no receipts/expenses/items)
 // TODO: fix styling (fonts, colorurs, etc)
-// TODO: cleanup api and maintain consistent behavior
+// TODO: cleanup api and maintain consistent behavior, create custom ResponseType = {data, message, error}
 // TODO: add aws, update readme, add docs, add logo and favicons, openapi docs
 // TODO: cleanup dependencies, configs, fonts, add comments
 // TODO: update grocery cards to be universal/consistent or max 2 components for this purpose. add view receipt functionality,
@@ -85,6 +86,12 @@ export default function ReceiptView() {
                         mode="elevated"
                         className="max-w-md bg-primary w-60 mx-auto h-10 mt-2"
                         textColor="white"
+                        onPress={() =>
+                            router.push({
+                                pathname: '/receipt/edit',
+                                params: { id: receipt.id }, // Wrap receipt.id in an object
+                            })
+                        }
                     >
                         Edit
                     </StyledComponent>

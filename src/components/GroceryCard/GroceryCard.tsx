@@ -1,5 +1,6 @@
 import { Button, Card, Divider, Text } from 'react-native-paper';
 
+import { router } from 'expo-router';
 import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { View } from 'react-native';
@@ -68,7 +69,9 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
                     mode="text"
                     className="bg-primary"
                     textColor="white"
-                    onPress={() => {}}
+                    onPress={() => {
+                        router.push(`/grocery/${item.id}`);
+                    }}
                 >
                     Edit
                 </StyledComponent>

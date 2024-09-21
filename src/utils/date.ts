@@ -26,15 +26,16 @@ export const constructExpiryString = (date: string | Date): string => {
     }
 };
 
-export const sortActiveItems = (items: GroceryItem[] | Partial<GroceryItem>[]) => {
+export const sortActiveItems = (items: GroceryItem[] | Partial<GroceryItem>[]): void => {
     items.sort((a, b) => {
         const firstDate = convertDatetoDateTime(a.expiryDate!);
         const secondDate = convertDatetoDateTime(b.expiryDate!);
+        console.log(firstDate, secondDate);
         return firstDate.diff(secondDate).toMillis();
     });
 };
 
-export const sortReceipts = (receipts: Receipt[] | Partial<Receipt>[]) => {
+export const sortReceipts = (receipts: Receipt[] | Partial<Receipt>[]): void => {
     receipts.sort((a, b) => {
         const firstDate = convertDatetoDateTime(a.purchaseDate!);
         const secondDate = convertDatetoDateTime(b.purchaseDate!);
@@ -48,7 +49,7 @@ export const daysBetweenDates = (startDate: string | Date, endDate: string | Dat
     return end.diff(start, 'days').days;
 };
 
-export const convertDatetoDateTime = (date: string | Date) => {
+export const convertDatetoDateTime = (date: string | Date): DateTime => {
     if (typeof date === 'string') {
         return DateTime.fromISO(date);
     } else {
