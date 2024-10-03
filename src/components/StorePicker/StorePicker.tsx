@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { SelectList } from 'react-native-dropdown-select-list';
-import { Stores } from '../../constants/Stores';
+import { Stores } from '~constants/Stores';
 
 type StorePickerProps = {
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<Values>>;

@@ -42,7 +42,7 @@ export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Parti
                     <DataTable.Row key={receipt.id}>
                         <DataTable.Cell>
                             <StyledComponent component={Text} className="text-text text-sm font-body">
-                                {formatDate(receipt?.purchaseDate, DateFormat)}
+                                {formatDate(receipt!.purchaseDate!, DateFormat)}
                             </StyledComponent>
                         </DataTable.Cell>
                         <DataTable.Cell>

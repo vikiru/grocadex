@@ -1,6 +1,7 @@
 import { FormikErrors, FormikValues as Values } from 'formik';
 import { ScrollView, Text, View } from 'react-native';
 
+import { router } from 'expo-router';
 import { StyledComponent } from 'nativewind';
 import { Button } from 'react-native-paper';
 import { DateFormat } from '~constants/Dates';
@@ -19,7 +20,9 @@ const handleDelete = (
     return groceryItems.filter((item) => item !== groceryItem);
 };
 
-const handleEdit = () => {};
+const handleEdit = (id: number) => {
+    router.push(`/grocery/${id}`);
+};
 
 type GroceryCardProps = {
     groceryItems: GroceryItem[] | Partial<GroceryItem>[];
@@ -48,7 +51,12 @@ function GroceryCard({ groceryItems, item, setFieldValue }: GroceryCardProps) {
             </StyledComponent>
 
             <StyledComponent component={View} className="flex-row justify-between items-center mt-1">
-                <StyledComponent component={Button} icon="pencil" className="rounded-lg">
+                <StyledComponent
+                    component={Button}
+                    icon="pencil"
+                    className="rounded-lg"
+                    onPress={() => handleEdit(item.id!)}
+                >
                     Edit
                 </StyledComponent>
                 <StyledComponent

@@ -5,8 +5,8 @@ import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { View } from 'react-native';
 import { DateFormat } from '~constants/Dates';
+import { GroceryItem } from '~types/GroceryItem';
 import { formatDate } from '~utils/date';
-import { GroceryItem } from '../../types/GroceryItem';
 
 export default function GroceryCard({ item }: { item: Partial<GroceryItem> | GroceryItem }) {
     const formatPrice = (price: number | undefined) => {

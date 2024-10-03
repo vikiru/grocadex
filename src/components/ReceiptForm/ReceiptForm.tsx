@@ -31,6 +31,8 @@ const validationSchema = Yup.object({
 });
 
 // TODO: Add edit functionality for receipt.
+// TODO: update api so that post and put return created/updated items. Optimize queries where possible, maintain consistent format
+
 // TODO: update this to use the redux user id
 // TODO: update this to use proper url
 // TODO: separate item card and card container
@@ -44,6 +46,7 @@ const defaultValues = {
 
 type ReceiptFormProps = {
     initialValues: Receipt | Partial<Receipt>;
+    handleSubmit?: any; // TODO: handle submit for creating and updating receipt (figure out how to update receipt and items either as a whole or receipt then items individually)
 };
 
 // TODO: handle submit as props similar to grocerymodal

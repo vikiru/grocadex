@@ -89,7 +89,7 @@ export default function ReceiptView() {
                         onPress={() =>
                             router.push({
                                 pathname: '/receipt/edit',
-                                params: { id: receipt.id }, // Wrap receipt.id in an object
+                                params: { id: receipt.id },
                             })
                         }
                     >

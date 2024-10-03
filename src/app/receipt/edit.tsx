@@ -8,5 +8,5 @@ export default function EditReceipt() {
     const { id } = local;
     const receipt = receipts.find((receipt) => Number(receipt.id) === Number(id));
 
-    return <ReceiptForm initialValues={receipt!} />;
+    return receipt ? <ReceiptForm initialValues={receipt} /> : null;
 }

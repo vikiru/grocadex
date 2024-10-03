@@ -1,6 +1,6 @@
 export const DateFormat = 'MM/dd/yyyy'; // 01/21/2000
-export const DateStringFormat = 'MMM d, yyyy'; // Aug 23, 2000
-export const ExpenseFormat = 'MMM yyyy'; // Aug 2000
+export const DateStringFormat = 'MMM d, yyyy'; // Jan 21, 2000
+export const ExpenseFormat = 'MMM yyyy'; // Jan 2000
 export const ShortDateFormat = 'MM/dd'; // 01/21
 export const LongDateFormat = 'dddd, MMMM d, yyyy'; // Sunday, January 21, 2000
 
