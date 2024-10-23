@@ -17,7 +17,7 @@ export function useLogin() {
         setError(null);
 
         const payload: RequestPayload = {
-            url: `http://10.0.0.168:3000/api/v1/auth/login`,
+            url: `${process.env.EXPO_PUBLIC_API_URL}/auth/login`,
             data: values,
         };
 

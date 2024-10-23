@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store/store';
-import { GroceryItem } from './../types/GroceryItem';
+import { RootState } from '~store/store';
+import { GroceryItem } from '~types/GroceryItem';
 
 type ActiveItemState = {
     activeItems: GroceryItem[] | Partial<GroceryItem>[];
@@ -27,6 +27,11 @@ const activeItemSlice = createSlice({
                 };
             }
         },
+        updateActiveItemsByReceipt: (state, action) => {
+            const { receiptId, updatedItems } = action.payload;
+            state.activeItems = state.activeItems.filter((item) => item.receiptId !== receiptId);
+            state.activeItems = [...state.activeItems, ...updatedItems];
+        },
         setActiveItems: (state, action) => {
             state.activeItems = action.payload;
         },
@@ -50,6 +55,7 @@ const activeItemSlice = createSlice({
 
 export const {
     updateActiveItem,
+    updateActiveItemsByReceipt,
     setActiveItems,
     resetActiveItems,
     addActiveItem,

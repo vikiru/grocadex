@@ -7,7 +7,7 @@ import { RequestPayload } from '~types/RequestPayload';
 import { constructExpenses } from '~utils/expense';
 
 export function useDashboard() {
-    const { updateActiveItem } = useActiveItem();
+    const { updateActiveItems } = useActiveItem();
     const { setReceiptValues } = useReceipt();
     const { updateExpenses } = useExpense();
     const { getData } = useGetData();
@@ -19,7 +19,7 @@ export function useDashboard() {
         setError(null);
 
         const payload: RequestPayload = {
-            url: `http://10.0.0.168:3000/api/v1/users/dashboard`,
+            url: `${process.env.NEXT_PUBLIC_API_URL}/users/dashboard`,
             data: [],
         };
 
@@ -29,7 +29,7 @@ export function useDashboard() {
                 const data = response?.data;
                 const { groceryItems, receipts } = data.data;
                 setReceiptValues(receipts);
-                updateActiveItem(groceryItems);
+                updateActiveItems(groceryItems);
                 const expenses = constructExpenses(receipts);
                 updateExpenses(expenses);
                 return { success: true };

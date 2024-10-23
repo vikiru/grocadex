@@ -57,9 +57,11 @@ export async function updateReceipt(req: Request, res: Response): Promise<void> 
     const receiptId = parseInt(req.params.id, 10);
     const updatedFields = req.body;
 
+    const { receipt, groceryItems } = updatedFields;
+
     try {
-        await ReceiptService.updateReceiptById(userId, receiptId, updatedFields);
-        res.status(200).json({ message: 'Receipt updated successfully' });
+        const updatedReceipt = await ReceiptService.updateReceiptById(userId, receiptId, receipt, groceryItems);
+        res.status(200).json({ message: 'Receipt updated successfully', data: updatedReceipt });
     } catch (error) {
         logger.error(`Error updating receipt with id ${receiptId}: ${error}`);
         res.status(500).json({ error: 'Internal server error.' });

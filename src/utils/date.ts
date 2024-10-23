@@ -30,7 +30,7 @@ export const sortActiveItems = (items: GroceryItem[] | Partial<GroceryItem>[]): 
     items.sort((a, b) => {
         const firstDate = convertDatetoDateTime(a.expiryDate!);
         const secondDate = convertDatetoDateTime(b.expiryDate!);
-        console.log(firstDate, secondDate);
+        firstDate, secondDate;
         return firstDate.diff(secondDate).toMillis();
     });
 };

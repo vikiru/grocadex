@@ -9,7 +9,6 @@ import { View } from 'react-native';
 import DateSelector from '~components/DateSelector/DateSelector';
 import GroceryAdder from '~components/GroceryAdder/GroceryAdder';
 import GroceryContainer from '~components/GroceryContainer/GroceryContainer';
-import useReceipts from '~hooks/components/useReceipts';
 import { Receipt } from '~types/Receipt';
 
 const validationSchema = Yup.object({
@@ -30,7 +29,6 @@ const validationSchema = Yup.object({
         .required('No groceries added to receipt'),
 });
 
-// TODO: Add edit functionality for receipt.
 // TODO: update api so that post and put return created/updated items. Optimize queries where possible, maintain consistent format
 
 // TODO: update this to use the redux user id
@@ -45,14 +43,15 @@ const defaultValues = {
 };
 
 type ReceiptFormProps = {
-    initialValues: Receipt | Partial<Receipt>;
-    handleSubmit?: any; // TODO: handle submit for creating and updating receipt (figure out how to update receipt and items either as a whole or receipt then items individually)
+    initialValues?: Receipt | Partial<Receipt>;
+    handleSubmit: any;
+    loading: boolean;
+    error: Error | null;
 };
 
 // TODO: handle submit as props similar to grocerymodal
 
-export default function ReceiptForm({ initialValues }: ReceiptFormProps) {
-    const { handleCreate, loading, error } = useReceipts();
+export default function ReceiptForm({ initialValues, handleSubmit, loading, error }: ReceiptFormProps) {
     const values = { ...defaultValues, ...initialValues };
 
     return (
@@ -60,7 +59,9 @@ export default function ReceiptForm({ initialValues }: ReceiptFormProps) {
             initialValues={values}
             validationSchema={validationSchema}
             onSubmit={(data: Receipt | Partial<Receipt>) => {
-                handleCreate(data);
+                ('DATA');
+                data;
+                handleSubmit(data);
             }}
         >
             {({ handleSubmit, handleChange, setFieldValue, values }) => (

@@ -10,14 +10,13 @@ import { useUser } from '~hooks/redux/useUser';
 import { Receipt } from '~types/Receipt';
 import { RequestPayload } from '~types/RequestPayload';
 
-// TODO: cleanup this and the redux slices/hooks. Make sure all post routes return the created item(s)
 export default function useReceipts() {
     const { user } = useUser();
     const { postData } = usePostData();
     const { putData } = usePutData();
     const { deleteData } = useDeleteData();
-    const { createReceipt, deleteReceipt, modifyReceipt } = useReceipt();
-    const { addMultipleItems, removeItemsByReceiptId } = useActiveItem();
+    const { createReceipt, modifyReceipt, deleteReceipt } = useReceipt();
+    const { addMultipleItems, updateActiveItemsByReceiptId, removeItemsByReceiptId } = useActiveItem();
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
@@ -29,7 +28,7 @@ export default function useReceipts() {
         const { store, purchaseDate, total, groceryItems } = receipt;
 
         const payload: RequestPayload = {
-            url: `http://10.0.0.168:3000/api/v1/receipts/`,
+            url: `${process.env.EXPO_PUBLIC_API_URL}/receipts/`,
             data: { userId: user?.id, store, purchaseDate, total, groceryItems },
         };
 
@@ -57,19 +56,25 @@ export default function useReceipts() {
         }
     };
 
-    const handleUpdate = async (receiptId: number, receipt: Receipt) => {
+    const handleUpdate = async (receipt: Receipt) => {
         setLoading(true);
         setError(null);
 
+        const { groceryItems, ...receiptData } = receipt;
+
         const payload: RequestPayload = {
-            url: `http://10.0.0.168:3000/api/v1/receipts/${receiptId}`,
-            data: { userId: user?.id, receiptId, updatedFields: receipt },
+            url: `${process.env.EXPO_PUBLIC_API_URL}/receipts/${receipt.id}`,
+            data: { receipt: receiptData, groceryItems },
         };
 
         try {
+            //TODO: ensure time data is converted to string before storing.
             const response = await putData(payload);
             if (response?.status === 200) {
-                modifyReceipt(receiptId, receipt);
+                const responseData = response.data;
+                const receipt = responseData.data;
+                modifyReceipt(receipt);
+                updateActiveItemsByReceiptId(receipt.id, receipt.groceryItems);
                 Toast.show({
                     type: 'success',
                     text1: 'Successfully updated receipt',
@@ -93,7 +98,7 @@ export default function useReceipts() {
         setError(null);
 
         const payload: RequestPayload = {
-            url: `http://10.0.0.168:3000/api/v1/receipts/${receiptId}`,
+            url: `${process.env.EXPO_PUBLIC_API_URL}/receipts/${receiptId}`,
             data: { userId: user?.id, receiptId },
         };
 

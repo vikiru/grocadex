@@ -74,7 +74,7 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                         visible={dialogVisible}
                         headerText="Delete Grocery Item"
                         bodyText="Are you sure you want to remove this grocery item from your active items?"
-                        handleDelete={() => console.log('press')}
+                        handleDelete={() => 'press'}
                         setDialogVisible={setDialogVisible}
                     />
                 )}

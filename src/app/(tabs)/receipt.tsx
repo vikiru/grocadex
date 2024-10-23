@@ -11,6 +11,8 @@ import { Receipt } from '~types/Receipt';
 
 export default function receipt() {
     const { receipts } = useReceipt();
+    ('RECEIPTS');
+    receipts;
     return (
         <StyledComponent component={ScrollView} horizontal={false} className="bg-background min-h-full min-w-full">
             <SearchBar placeholder="Search receipts..." />

@@ -24,7 +24,7 @@ export default function useItem() {
         const groceryItemId = groceryItem?.id;
 
         const payload: RequestPayload = {
-            url: `http://10.0.0.168:3000/api/v1/receipts/${receiptId}/groceries/${groceryItemId}`,
+            url: `${process.env.EXPO_PUBLIC_API_URL}/receipts/${receiptId}/groceries/${groceryItemId}`,
             data: { groceryItem },
         };
 

@@ -13,7 +13,6 @@ import { useReceipt } from '~hooks/redux/useReceipt';
 import { GroceryItem } from '~types/GroceryItem';
 import { formatDate } from '~utils/date';
 
-// TODO: add edit functionality for receipts
 // TODO: Update pages to handle default/new user (i.e. no receipts/expenses/items)
 // TODO: fix styling (fonts, colorurs, etc)
 // TODO: cleanup api and maintain consistent behavior, create custom ResponseType = {data, message, error}

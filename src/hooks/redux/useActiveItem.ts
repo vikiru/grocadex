@@ -8,6 +8,7 @@ import {
     selectActiveItems,
     setActiveItems,
     updateActiveItem,
+    updateActiveItemsByReceipt,
 } from '~slices/activeItemSlice';
 
 import { GroceryItem } from '~types/GroceryItem';
@@ -20,6 +21,10 @@ export const useActiveItem = () => {
     const updateItem = (updatedItem: GroceryItem) => {
         dispatch(updateActiveItem(updatedItem));
         sortActiveItems(activeItems);
+    };
+
+    const updateActiveItemsByReceiptId = (receiptId: number, updatedItems: GroceryItem[]) => {
+        dispatch(updateActiveItemsByReceipt({ receiptId, updatedItems }));
     };
 
     const updateActiveItems = (items: GroceryItem[]) => {
@@ -51,6 +56,7 @@ export const useActiveItem = () => {
         activeItems,
         updateItem,
         updateActiveItems,
+        updateActiveItemsByReceiptId,
         addItem,
         addMultipleItems,
         removeItem,

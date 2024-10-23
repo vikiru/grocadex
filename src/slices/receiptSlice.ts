@@ -28,10 +28,14 @@ const receiptSlice = createSlice({
             state.receipts = state.receipts.filter((receipt) => receipt.id !== action.payload);
         },
         updateReceipt: (state, action) => {
-            const { receiptId, receipt } = action.payload;
-            const index = state.receipts.findIndex((receipt) => receipt.id === receiptId);
+            const receipt = action.payload;
+            const index = state.receipts.findIndex((r) => r.id === receipt.id);
+
             if (index !== -1) {
-                state.receipts[index] = receipt;
+                state.receipts[index] = {
+                    ...state.receipts[index],
+                    ...receipt,
+                };
             }
         },
     },
