@@ -4,12 +4,9 @@ import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
 import { ScrollView, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import { router } from 'expo-router';
 import { Formik } from 'formik';
 import React from 'react';
-import usePostData from '~hooks/api/usePostData';
-import { RequestPayload } from '~types/RequestPayload';
-import { User } from '~types/User';
+import { useRegistration } from '~hooks/components/useRegistration';
 
 NativeWindStyleSheet.setOutput({
     default: 'native',
@@ -24,28 +21,13 @@ const validationSchema = Yup.object({
 });
 
 export default function SignUp() {
-    const { postData } = usePostData();
-
-    const handleSignUp = async (values: User) => {
-        const payload: RequestPayload = {
-            url: `${process.env.API_URL}/users`,
-            data: values,
-        };
-        const data = await postData(payload);
-        if (data?.status === 201) {
-            router.push('/');
-        }
-    };
-
-    const handleCancel = async () => {
-        router.push('/');
-    };
+    const { handleSignup, handleCancel } = useRegistration();
 
     return (
         <Formik
             initialValues={{ firstName: '', lastName: '', username: '', email: '', password: '' }}
             validationSchema={validationSchema}
-            onSubmit={handleSignUp}
+            onSubmit={handleSignup}
         >
             {({ handleChange, handleSubmit, handleBlur, values }) => (
                 <StyledComponent

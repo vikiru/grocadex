@@ -7,13 +7,35 @@ import { Button } from 'react-native-paper';
 import { GroceryItem } from '../../types/GroceryItem';
 import GroceryModal from '../GroceryModal/GroceryModal';
 
-interface GroceryAdderProps {
+type GroceryAdderProps = {
+    initialValues?: GroceryItem | Partial<GroceryItem>;
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<Values>>;
     groceryItems: Partial<GroceryItem>[] | GroceryItem[];
-    purchaseDate: Date;
-}
+    purchaseDate: Date | string;
+};
 
-export default function GroceryAdder({ setFieldValue, groceryItems, purchaseDate }: GroceryAdderProps) {
+type GroceryData = {
+    groceryItems: Partial<GroceryItem>[] | GroceryItem[];
+    item: Partial<GroceryItem> | GroceryItem;
+    purchaseDate: Date | string;
+};
+
+const handleSubmit = async (
+    data: GroceryData,
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<Values>>,
+    setShowGroceryModal: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
+    const { groceryItems, item, purchaseDate } = data;
+    item.purchaseDate = purchaseDate;
+    item.unitPrice =
+        item.quantity && item.quantity > 1 && item.totalPrice
+            ? Number((item.totalPrice / item.quantity).toFixed(2))
+            : item.totalPrice;
+    setFieldValue('groceryItems', [...groceryItems!, item]);
+    setShowGroceryModal(false);
+};
+
+export default function GroceryAdder({ initialValues, setFieldValue, groceryItems, purchaseDate }: GroceryAdderProps) {
     const [showGroceryModal, setShowGroceryModal] = useState(false);
 
     return (
@@ -25,17 +47,12 @@ export default function GroceryAdder({ setFieldValue, groceryItems, purchaseDate
                 Add Item
             </StyledComponent>
             <GroceryModal
+                method="Add"
                 visible={showGroceryModal}
                 onDismiss={() => setShowGroceryModal(false)}
-                onSubmit={(item: GroceryItem | Partial<GroceryItem>) => {
-                    item.purchaseDate = purchaseDate;
-                    item.unitPrice =
-                        item.quantity && item.quantity > 1 && item.totalPrice
-                            ? Number((item.totalPrice / item.quantity).toFixed(2))
-                            : item.totalPrice;
-                    setFieldValue('groceryItems', [...groceryItems!, item]);
-                    setShowGroceryModal(false);
-                }}
+                onSubmit={(item: GroceryItem | Partial<GroceryItem>) =>
+                    handleSubmit({ groceryItems, item, purchaseDate }, setFieldValue, setShowGroceryModal)
+                }
             />
         </StyledComponent>
     );

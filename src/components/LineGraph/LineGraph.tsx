@@ -29,14 +29,14 @@ export default function LineGraph() {
                 <VictoryLabel text="Yearly Expenses" y={20} x={180} textAnchor="middle" />
                 <VictoryLine data={data} x="month" y="value" />
                 <VictoryAxis
-                    tickFormat={(t) => t}
+                    tickFormat={(t: any) => t}
                     style={{
                         grid: { stroke: 'transparent' },
                     }}
                 />
                 <VictoryAxis
                     dependentAxis
-                    tickFormat={(t) => `$${t}`}
+                    tickFormat={(t: any) => `$${t}`}
                     style={{
                         grid: { stroke: 'transparent' },
                     }}

@@ -1,24 +1,24 @@
+import { Request, Response } from 'express';
 import { GroceryItemService, ReceiptService } from '~services/';
 
-import { Response } from 'express';
 import { logger } from '~config/logger';
-import { UserRequest } from '~types/express';
 
-export async function createReceipt(req: UserRequest, res: Response): Promise<void> {
+export async function createReceipt(req: Request, res: Response): Promise<void> {
     const data = req.body;
     const { groceryItems, ...receiptData } = data;
 
     try {
         const receipt = await ReceiptService.saveReceipt(receiptData);
         await GroceryItemService.saveGroceryItem(groceryItems, receipt.id, receipt.userId);
-        res.status(201).json({ message: 'Receipt created successfully', data: receipt });
+        const updatedReceipt = await ReceiptService.retrieveReceiptByReceiptId(receipt.userId, receipt.id);
+        res.status(201).json({ message: 'Receipt created successfully', data: updatedReceipt });
     } catch (error) {
         logger.error(`Error saving receipt: ${error}`);
         res.status(500).json({ error: 'Internal server error.' });
     }
 }
 
-export async function getReceiptsByUserId(req: UserRequest, res: Response): Promise<void> {
+export async function getReceiptsByUserId(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     try {
         const receipts = await ReceiptService.retrieveReceipts(userId);
@@ -34,7 +34,7 @@ export async function getReceiptsByUserId(req: UserRequest, res: Response): Prom
     }
 }
 
-export async function getReceiptById(req: UserRequest, res: Response): Promise<void> {
+export async function getReceiptById(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const receiptId = parseInt(req.params.id, 10);
 
@@ -52,21 +52,23 @@ export async function getReceiptById(req: UserRequest, res: Response): Promise<v
     }
 }
 
-export async function updateReceipt(req: UserRequest, res: Response): Promise<void> {
+export async function updateReceipt(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const receiptId = parseInt(req.params.id, 10);
     const updatedFields = req.body;
 
+    const { receipt, groceryItems } = updatedFields;
+
     try {
-        await ReceiptService.updateReceiptById(userId, receiptId, updatedFields);
-        res.status(200).json({ message: 'Receipt updated successfully' });
+        const updatedReceipt = await ReceiptService.updateReceiptById(userId, receiptId, receipt, groceryItems);
+        res.status(200).json({ message: 'Receipt updated successfully', data: updatedReceipt });
     } catch (error) {
         logger.error(`Error updating receipt with id ${receiptId}: ${error}`);
         res.status(500).json({ error: 'Internal server error.' });
     }
 }
 
-export async function deleteReceiptById(req: UserRequest, res: Response): Promise<void> {
+export async function deleteReceiptById(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const receiptId = parseInt(req.params.id, 10);
 
@@ -79,7 +81,7 @@ export async function deleteReceiptById(req: UserRequest, res: Response): Promis
     }
 }
 
-export async function getReceiptsByMonth(req: UserRequest, res: Response): Promise<void> {
+export async function getReceiptsByMonth(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const { startMonth, endMonth } = req.params;
 
@@ -99,7 +101,7 @@ export async function getReceiptsByMonth(req: UserRequest, res: Response): Promi
     }
 }
 
-export async function getReceiptsByYear(req: UserRequest, res: Response): Promise<void> {
+export async function getReceiptsByYear(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const { year } = req.params;
     try {

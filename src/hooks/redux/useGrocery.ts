@@ -5,6 +5,7 @@ import {
     resetGroceryItems,
     selectGroceryItems,
     setGroceryItems,
+    updateGroceryItem,
 } from '~slices/groceryItemSlice';
 
 import { GroceryItem } from '~types/GroceryItem';
@@ -29,5 +30,9 @@ export const useGrocery = () => {
         dispatch(removeGroceryItem(id));
     };
 
-    return { groceryItems, updateGroceryItems, resetItems, addItem, removeItem };
+    const updateItem = (receiptId: number, groceryItemId: number, updatedItem: GroceryItem) => {
+        dispatch(updateGroceryItem({ receiptId, groceryItemId, updatedItem }));
+    };
+
+    return { groceryItems, updateGroceryItems, resetItems, addItem, removeItem, updateItem };
 };

@@ -8,6 +8,6 @@ const UserRouter = express.Router();
 const baseUrl = `/${apiVersionString}/users`;
 
 UserRouter.post(baseUrl, UserController.createUser);
-UserRouter.get(`${baseUrl}/dashboard`, ensureAuthenticated, UserController.getUserById);
+UserRouter.get(`${baseUrl}/dashboard`, ensureAuthenticated, UserController.getUserData);
 
 export { UserRouter };

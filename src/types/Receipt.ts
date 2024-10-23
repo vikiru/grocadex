@@ -1,12 +1,12 @@
 import { GroceryItem } from '~types/GroceryItem';
 import { User } from '~types/User';
 
-export interface Receipt {
+export type Receipt = {
     id: number;
     user: User;
     userId: number;
     store: string;
-    purchaseDate: Date;
+    purchaseDate: Date | string;
     total: number;
     groceryItems: Partial<GroceryItem>[] | GroceryItem[];
-}
+};

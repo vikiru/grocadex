@@ -11,7 +11,6 @@ export function usePostData() {
         setError(null);
 
         try {
-            console.log(payload.data, typeof payload.data);
             const response = await axios.post(payload.url, payload.data, {
                 headers: {
                     'Content-Type': 'application/json',

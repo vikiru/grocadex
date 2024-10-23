@@ -1,4 +1,5 @@
-import { Receipt } from '@prisma/client';
+import { GroceryItem, Receipt } from '@prisma/client';
+
 import { logger } from '~config/logger';
 import { prisma } from '~data/';
 
@@ -19,7 +20,7 @@ export async function saveReceipt(receipt: Omit<Receipt, 'id'>): Promise<Receipt
 
 export async function retrieveReceipts(userId: number): Promise<Receipt[]> {
     try {
-        const receipts = await prisma.receipt.findMany({ where: { userId } });
+        const receipts = await prisma.receipt.findMany({ where: { userId }, include: { groceryItems: true } });
         logger.info('Successfully retrieved receipts from database.');
         return receipts;
     } catch (error) {
@@ -30,7 +31,10 @@ export async function retrieveReceipts(userId: number): Promise<Receipt[]> {
 
 export async function retrieveReceiptByReceiptId(userId: number, receiptId: number): Promise<Receipt | null> {
     try {
-        const receipt = await prisma.receipt.findUnique({ where: { userId, id: receiptId } });
+        const receipt = await prisma.receipt.findUnique({
+            where: { userId, id: receiptId },
+            include: { groceryItems: true },
+        });
         if (!receipt) {
             logger.error(`Receipt with id ${receiptId} not found.`);
         } else {
@@ -46,11 +50,55 @@ export async function retrieveReceiptByReceiptId(userId: number, receiptId: numb
 export async function updateReceiptById(
     userId: number,
     receiptId: number,
-    updatedFields: Partial<Omit<Receipt, 'id'>>,
-): Promise<void> {
+    updatedReceipt: Receipt,
+    updatedGroceryItems: GroceryItem[],
+): Promise<Receipt> {
     try {
-        await prisma.receipt.update({ where: { userId, id: receiptId }, data: updatedFields });
+        const existingGroceryItems = await prisma.groceryItem.findMany({
+            where: { receiptId: receiptId },
+        });
+        const newGroceryItems = updatedGroceryItems.filter((item) => !item.id);
+        const deletedItemIds = existingGroceryItems
+            .filter((item) => !updatedGroceryItems.some((updatedItem) => updatedItem.id === item.id))
+            .map((item) => item.id);
+
+        const receipt = await prisma.receipt.update({
+            where: {
+                id: receiptId,
+                userId: userId,
+            },
+            data: {
+                ...updatedReceipt,
+                groceryItems: {
+                    update: updatedGroceryItems.map((item) => ({
+                        where: { id: item.id },
+                        data: {
+                            name: item.name,
+                            quantity: item.quantity,
+                            unitPrice: item.unitPrice,
+                            totalPrice: item.totalPrice,
+                            purchaseDate: updatedReceipt.purchaseDate,
+                            expiryDate: item.expiryDate,
+                        },
+                    })),
+                    create: newGroceryItems.map((item) => ({
+                        name: item.name,
+                        quantity: item.quantity,
+                        unitPrice: item.unitPrice,
+                        totalPrice: item.totalPrice,
+                        purchaseDate: updatedReceipt.purchaseDate,
+                        expiryDate: item.expiryDate,
+                    })),
+                    deleteMany: deletedItemIds.map((id) => ({ id })),
+                },
+            },
+            include: {
+                groceryItems: true,
+            },
+        });
+
         logger.info('Successfully updated receipt in the database.');
+        return receipt;
     } catch (error) {
         logger.error(`Error updating receipt with id ${receiptId}: ${error}`);
         throw error;

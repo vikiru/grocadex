@@ -1,9 +1,13 @@
 {
     "compilerOptions": {
+        "target": "ESNext",
+        "lib": ["DOM", "ESNext"],
         "checkJs": true,
         "allowJs": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "forceConsistentCasingInFileNames": true,
         "baseUrl": ".",
         "paths": {
@@ -15,9 +19,10 @@
             "~prisma/*": ["./prisma/*"],
             "~routes/*": ["./routes/index.ts"],
             "~services/*": ["./services/index.ts"],
+            "~strategies/*": ["./strategies/*"],
             "~types/*": ["./types/*"],
             "~utils/*": ["./utils/*"]
         },
-        "typeRoots": ["node_modules/@types", "api/types"]
+        "typeRoots": ["./node_modules/@types", "types"]
     }
 }

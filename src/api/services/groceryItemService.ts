@@ -25,7 +25,19 @@ export async function saveGroceryItem(
     }
 }
 
-export async function retrieveGroceryItems(userId: number, receiptId: number): Promise<GroceryItem[]> {
+export async function retrieveGroceryItemsByUser(userId: number): Promise<GroceryItem[]> {
+    try {
+        const groceryItems = await prisma.groceryItem.findMany({ where: { userId } });
+        if (groceryItems.length > 0) {
+            logger.info(`Successfully retrieved grocery items belonging to user ${userId}.`);
+        }
+        return groceryItems;
+    } catch (error) {
+        logger.error(`Error retrieving grocery items from database: ${error}`);
+    }
+}
+
+export async function retrieveGroceryItemsByReceiptId(userId: number, receiptId: number): Promise<GroceryItem[]> {
     try {
         const groceryItems = await prisma.groceryItem.findMany({ where: { userId, receiptId } });
 
@@ -54,18 +66,21 @@ export async function retrieveGroceryItemById(
 }
 
 export async function updateGroceryItemById(
-    userId: number,
-    receiptId: number,
-    groceryItemId: number,
-    updatedFields: Partial<GroceryItem>,
-): Promise<void> {
+    groceryItem: GroceryItem | Partial<GroceryItem>,
+): Promise<GroceryItem | null> {
     try {
-        await prisma.groceryItem.update({ where: { userId, receiptId, id: groceryItemId }, data: updatedFields });
+        const updatedItem = await prisma.groceryItem.update({
+            where: { userId: groceryItem.userId, receiptId: groceryItem.receiptId, id: groceryItem.id },
+            data: groceryItem,
+        });
         logger.info('Successfully updated grocery item in the database.');
+        return updatedItem;
     } catch (error) {
         logger.error(`Error updating grocery item in database: ${error}`);
+        return null;
     }
 }
+
 export async function removeGroceryItemById(userId: number, receiptId: number, groceryItemId: number): Promise<void> {
     try {
         await prisma.groceryItem.delete({ where: { userId, receiptId, id: groceryItemId } });

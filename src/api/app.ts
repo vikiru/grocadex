@@ -1,13 +1,14 @@
-import './strategies/local';
+import 'module-alias/register';
+import '~strategies/local';
 
-import * as middlewares from './middlewares/index';
+import * as middlewares from '~middlewares/';
 
-import { apiVersionString, port } from './config';
-import { ActiveItemRouter, AuthRouter, GroceryItemRouter, ReceiptRouter, UserRouter } from './routes';
+import { apiVersionString, port } from '~config/index';
+import { ActiveItemRouter, AuthRouter, GroceryItemRouter, ReceiptRouter, UserRouter } from '~routes/';
 
 import express from 'express';
 import passport from 'passport';
-import { logger } from './config/logger';
+import { logger } from '~config/logger';
 
 const app = express();
 

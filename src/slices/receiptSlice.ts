@@ -1,10 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store/store';
-import { Receipt } from '../types/Receipt';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-interface ReceiptState {
+import { RootState } from '~store/store';
+import { Receipt } from '~types/Receipt';
+
+type ReceiptState = {
     receipts: Receipt[] | Partial<Receipt>[];
-}
+};
 
 const initialState: ReceiptState = {
     receipts: [],
@@ -14,7 +15,7 @@ const receiptSlice = createSlice({
     name: 'receipt',
     initialState,
     reducers: {
-        setReceipts: (state, action) => {
+        setReceipts: (state, action: PayloadAction<Receipt[] | Partial<Receipt>[]>) => {
             state.receipts = action.payload;
         },
         resetReceipts: (state) => {
@@ -23,13 +24,24 @@ const receiptSlice = createSlice({
         addReceipt: (state, action) => {
             state.receipts.push(action.payload);
         },
-        removeReceipt: (state, action) => {
+        removeReceipt: (state, action: PayloadAction<number>) => {
             state.receipts = state.receipts.filter((receipt) => receipt.id !== action.payload);
+        },
+        updateReceipt: (state, action) => {
+            const receipt = action.payload;
+            const index = state.receipts.findIndex((r) => r.id === receipt.id);
+
+            if (index !== -1) {
+                state.receipts[index] = {
+                    ...state.receipts[index],
+                    ...receipt,
+                };
+            }
         },
     },
 });
 
-export const { setReceipts, resetReceipts, addReceipt, removeReceipt } = receiptSlice.actions;
+export const { setReceipts, resetReceipts, addReceipt, removeReceipt, updateReceipt } = receiptSlice.actions;
 
 export const selectReceipts = (state: RootState) => state.receipt.receipts;
 

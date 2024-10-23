@@ -1,10 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store/store';
-import { User } from '../types/User';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-interface UserState {
+import { RootState } from '~store/store';
+import { User } from '~types/User';
+
+type UserState = {
     user: User | Partial<User> | null;
-}
+};
 
 const initialState: UserState = {
     user: null,
@@ -14,7 +15,7 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser: (state, action) => {
+        setUser: (state, action: PayloadAction<User | Partial<User>>) => {
             state.user = action.payload;
         },
         resetUser: (state) => {

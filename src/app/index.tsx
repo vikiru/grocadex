@@ -1,17 +1,21 @@
 import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
 import { StatusBar, Text, View } from 'react-native';
-import { Button, PaperProvider } from 'react-native-paper';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Button } from 'react-native-paper';
 import Logo from '~components/Logo/Logo';
-import { store } from '~store/store';
 
 NativeWindStyleSheet.setOutput({
     default: 'native',
 });
+
+type IntroDetailsProps = {
+    heading: string;
+    subtext: string;
+    icon: any;
+};
 
 export default function Index() {
     const moveToRegistration = async () => {
@@ -23,60 +27,56 @@ export default function Index() {
     };
 
     return (
-        <Provider store={store}>
-            <PaperProvider>
-                <StyledComponent component={View} className="bg-background min-h-full min-w-full flex mt-10">
-                    <StatusBar />
-                    <Logo />
-                    <StyledComponent component={View} className="flex-row mx-auto mt-1 mb-3">
-                        <StyledComponent component={Text} className="text-text text-lg italic font-body">
-                            A grocery expiry and expense tracker.
-                        </StyledComponent>
-                    </StyledComponent>
-
-                    <IntroDetails
-                        icon="clock-outline"
-                        heading="Track & Organize Groceries"
-                        subtext="Manage your grocery items and never miss an expiry date again!"
-                    />
-
-                    <IntroDetails
-                        icon="cash-multiple"
-                        heading="Save Money"
-                        subtext="Monitor your monthly expenses with ease and stay on top of your budgeting goals!"
-                    />
-
-                    <IntroDetails
-                        icon="leaf"
-                        heading="Reduce Waste"
-                        subtext="Never waste unused food again due to missed expiry dates. Keep your kitchen waste-free!"
-                    />
-
-                    <StyledComponent component={View} className="mt-5 lg:mx-auto">
-                        <StyledComponent
-                            component={Button}
-                            icon="account-plus"
-                            mode="elevated"
-                            className="max-w-md my-2 w-60 bg-primary mx-auto"
-                            textColor="white"
-                            onPress={() => moveToRegistration()}
-                        >
-                            Sign Up
-                        </StyledComponent>
-                        <StyledComponent
-                            component={Button}
-                            icon="login"
-                            mode="elevated"
-                            className="max-w-md my-2 w-60 bg-secondary mx-auto"
-                            textColor="white"
-                            onPress={() => moveToLogin()}
-                        >
-                            Login
-                        </StyledComponent>
-                    </StyledComponent>
+        <StyledComponent component={View} className="bg-background min-h-full min-w-full flex mt-10">
+            <StatusBar />
+            <Logo />
+            <StyledComponent component={View} className="flex-row mx-auto mt-1 mb-3">
+                <StyledComponent component={Text} className="text-text text-lg italic font-body">
+                    A grocery expiry and expense tracker.
                 </StyledComponent>
-            </PaperProvider>
-        </Provider>
+            </StyledComponent>
+
+            <IntroDetails
+                icon="clock-outline"
+                heading="Track & Organize Groceries"
+                subtext="Manage your grocery items and never miss an expiry date again!"
+            />
+
+            <IntroDetails
+                icon="cash-multiple"
+                heading="Save Money"
+                subtext="Monitor your monthly expenses with ease and stay on top of your budgeting goals!"
+            />
+
+            <IntroDetails
+                icon="leaf"
+                heading="Reduce Waste"
+                subtext="Never waste unused food again due to missed expiry dates. Keep your kitchen waste-free!"
+            />
+
+            <StyledComponent component={View} className="mt-5 lg:mx-auto">
+                <StyledComponent
+                    component={Button}
+                    icon="account-plus"
+                    mode="elevated"
+                    className="max-w-md my-2 w-60 bg-primary mx-auto"
+                    textColor="white"
+                    onPress={() => moveToRegistration()}
+                >
+                    Sign Up
+                </StyledComponent>
+                <StyledComponent
+                    component={Button}
+                    icon="login"
+                    mode="elevated"
+                    className="max-w-md my-2 w-60 bg-secondary mx-auto"
+                    textColor="white"
+                    onPress={() => moveToLogin()}
+                >
+                    Login
+                </StyledComponent>
+            </StyledComponent>
+        </StyledComponent>
     );
 }
 
@@ -107,10 +107,4 @@ export function IntroDetails(props: IntroDetailsProps) {
             </StyledComponent>
         </StyledComponent>
     );
-}
-
-interface IntroDetailsProps {
-    heading: string;
-    subtext: string;
-    icon: any;
 }

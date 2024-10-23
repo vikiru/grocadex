@@ -9,7 +9,6 @@ import { DateStringFormat } from './../../constants/Dates';
 import { formatDate } from './../../utils/date';
 
 export default function ReceiptCard({ receipt }: { receipt: Receipt | Partial<Receipt> }) {
-    console.log(receipt.purchaseDate);
     return (
         <StyledComponent component={Card} className="m-2 rounded-lg bg-white border-primary border-2 shadow-md">
             <StyledComponent component={Card.Content} className="">
@@ -23,7 +22,7 @@ export default function ReceiptCard({ receipt }: { receipt: Receipt | Partial<Re
                 </StyledComponent>
 
                 <StyledComponent component={Text} className="text-lg font-semibold mb-1">
-                    CAD${receipt.total!.toFixed(2)}
+                    CAD${Number(receipt.total!).toFixed(2)}
                 </StyledComponent>
                 <StyledComponent component={View} className="flex mt-1">
                     <StyledComponent

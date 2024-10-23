@@ -3,6 +3,8 @@ import { Text, View } from 'react-native';
 
 import { StyledComponent } from 'nativewind';
 import { DataTable } from 'react-native-paper';
+import { DateFormat } from '~constants/Dates';
+import { formatDate } from '~utils/date';
 import { Receipt } from '../../types/Receipt';
 
 export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Partial<Receipt>[] }) {
@@ -40,7 +42,7 @@ export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Parti
                     <DataTable.Row key={receipt.id}>
                         <DataTable.Cell>
                             <StyledComponent component={Text} className="text-text text-sm font-body">
-                                {receipt.purchaseDate?.toLocaleDateString()}
+                                {formatDate(receipt!.purchaseDate!, DateFormat)}
                             </StyledComponent>
                         </DataTable.Cell>
                         <DataTable.Cell>
@@ -50,7 +52,7 @@ export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Parti
                         </DataTable.Cell>
                         <DataTable.Cell numeric>
                             <StyledComponent component={Text} className="text-text text-sm font-body">
-                                ${receipt.total?.toFixed(2)}
+                                ${Number(receipt.total).toFixed(2)}
                             </StyledComponent>
                         </DataTable.Cell>
                     </DataTable.Row>

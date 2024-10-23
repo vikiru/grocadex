@@ -1,9 +1,9 @@
-import { Response } from 'express';
+import { Request, Response } from 'express';
+
 import { logger } from '~config/logger';
 import { ActiveItemService } from '~services/';
-import { UserRequest } from '~types/express';
 
-export async function createActiveItems(req: UserRequest, res: Response): Promise<void> {
+export async function createActiveItems(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const { receiptIds } = req.body;
 
@@ -16,7 +16,7 @@ export async function createActiveItems(req: UserRequest, res: Response): Promis
     }
 }
 
-export async function getActiveItems(req: UserRequest, res: Response): Promise<void> {
+export async function getActiveItems(req: Request, res: Response): Promise<void> {
     const userId = req.user;
 
     try {
@@ -33,7 +33,7 @@ export async function getActiveItems(req: UserRequest, res: Response): Promise<v
     }
 }
 
-export async function getActiveItemById(req: UserRequest, res: Response): Promise<void> {
+export async function getActiveItemById(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const groceryItemId = parseInt(req.params.id, 10);
 
@@ -51,7 +51,7 @@ export async function getActiveItemById(req: UserRequest, res: Response): Promis
     }
 }
 
-export async function deleteActiveItems(req: UserRequest, res: Response): Promise<void> {
+export async function deleteActiveItems(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const groceryItemIds = req.body.groceryItemIds;
 

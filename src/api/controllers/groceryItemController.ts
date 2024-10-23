@@ -1,10 +1,10 @@
+import { Request, Response } from 'express';
+
 import { GroceryItem } from '@prisma/client';
-import { Response } from 'express';
 import { logger } from '~config/logger';
 import { GroceryItemService } from '~services/';
-import { UserRequest } from '~types/express';
 
-export async function createGroceryItem(req: UserRequest, res: Response): Promise<void> {
+export async function createGroceryItem(req: Request, res: Response): Promise<void> {
     const user = req.user;
     const groceryItem: GroceryItem = req.body;
 
@@ -17,12 +17,12 @@ export async function createGroceryItem(req: UserRequest, res: Response): Promis
     }
 }
 
-export async function getGroceryItemsByReceiptId(req: UserRequest, res: Response): Promise<void> {
+export async function getGroceryItemsByReceiptId(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const receiptId = parseInt(req.params.receiptId, 10);
 
     try {
-        const groceryItems = await GroceryItemService.retrieveGroceryItems(userId, receiptId);
+        const groceryItems = await GroceryItemService.retrieveGroceryItemsByReceiptId(userId, receiptId);
 
         if (groceryItems.length > 0) {
             res.status(200).json({
@@ -38,7 +38,7 @@ export async function getGroceryItemsByReceiptId(req: UserRequest, res: Response
     }
 }
 
-export async function getGroceryItemById(req: UserRequest, res: Response): Promise<void> {
+export async function getGroceryItemById(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const { receiptId, groceryItemId } = req.params;
 
@@ -60,26 +60,21 @@ export async function getGroceryItemById(req: UserRequest, res: Response): Promi
     }
 }
 
-export async function updateGroceryItem(req: UserRequest, res: Response): Promise<void> {
+export async function updateGroceryItem(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const { receiptId, groceryItemId } = req.params;
-    const updatedFields = req.body;
+    const { groceryItem } = req.body;
 
     try {
-        await GroceryItemService.updateGroceryItemById(
-            userId,
-            parseInt(receiptId, 10),
-            parseInt(groceryItemId, 10),
-            updatedFields,
-        );
-        res.status(200).json({ message: 'Grocery item updated successfully' });
+        const updatedItem = await GroceryItemService.updateGroceryItemById(groceryItem);
+        res.status(200).json({ message: 'Grocery item updated successfully', data: updatedItem });
     } catch (error) {
         logger.error(`Error updating grocery item with id ${groceryItemId}: ${error}`);
         res.status(500).json({ error: 'Internal server error.' });
     }
 }
 
-export async function deleteGroceryItem(req: UserRequest, res: Response): Promise<void> {
+export async function deleteGroceryItem(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const { receiptId, groceryItemId } = req.params;
 

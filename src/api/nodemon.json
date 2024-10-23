@@ -1,7 +1,7 @@
 {
     "watch": ["."],
     "ext": "ts",
-    "exec": "ts-node app.ts",
+    "exec": "ts-node -r module-alias/register app.ts",
     "ignore": ["app/**/*.ts", "node_modules", "dist"],
     "restartable": "rs"
 }

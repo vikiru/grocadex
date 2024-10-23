@@ -6,10 +6,10 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:import/recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:react/recommended",
+        "plugin:import/recommended",
         "plugin:react-native/all",
+        "plugin:react/recommended",
         "plugin:tailwindcss/recommended",
         "prettier"
     ],
@@ -19,33 +19,35 @@
         "sourceType": "module"
     },
     "plugins": [
-        "import",
-        "unused-imports",
-        "node",
         "@typescript-eslint",
+        "import",
+        "node",
         "prettier",
-        "react",
         "react-native",
-        "tailwindcss"
+        "react",
+        "tailwindcss",
+        "unused-imports"
     ],
     "rules": {
-        "import/no-unresolved": "off",
-        "prettier/prettier": "warn",
-        "unused-imports/no-unused-imports": "error",
-        "@typescript-eslint/no-require-imports": "off",
-        "node/no-unsupported-features/es-syntax": "off",
-        "react/react-in-jsx-scope": "off",
-        "react/prop-types": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/no-var-requires": "off",
-        "react-native/no-raw-text": "off",
-        "tailwindcss/no-custom-classname": "off",
-        "import/namespace": "off",
         "@typescript-eslint/no-explicit-any": "off",
-        "react-native/no-inline-styles": "off",
-        "tailwindcss/migration-from-tailwind-2": "off",
+        "@typescript-eslint/no-require-imports": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-var-requires": "off",
         "import/named": "off",
+        "import/namespace": "off",
         "import/no-named-as-default": "off",
+        "import/no-unresolved": "off",
+        "node/no-unsupported-features/es-syntax": "off",
+        "prettier/prettier": "warn",
+        "react-native/no-inline-styles": "off",
+        "react-native/no-raw-text": "off",
+        "react/prop-types": "off",
+        "react/react-in-jsx-scope": "off",
+        "tailwindcss/migration-from-tailwind-2": "off",
+        "tailwindcss/no-custom-classname": "off",
+        "unused-imports/no-unused-imports": "error",
+        "react/jsx-no-comment-textnodes": "off",
         "react/jsx-sort-props": [
             "off",
             {
@@ -53,8 +55,7 @@
                 "shorthandFirst": true,
                 "ignoreCase": true
             }
-        ],
-        "react/jsx-no-comment-textnodes": "off"
+        ]
     },
     "settings": {
         "react": {

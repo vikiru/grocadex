@@ -1,7 +1,11 @@
-export interface Expense {
-    date: Date;
+export type Expense = {
+    date: Date | string;
     amount: number;
-    stores?: string[];
+    stores: string[];
+    storeBreakdown?: {
+        storeName: string;
+        amount: number;
+    };
     month: number;
     year: number;
-}
+};

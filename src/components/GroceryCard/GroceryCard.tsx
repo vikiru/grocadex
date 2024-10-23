@@ -1,17 +1,16 @@
 import { Button, Card, Divider, Text } from 'react-native-paper';
 
+import { router } from 'expo-router';
 import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { View } from 'react-native';
-import { GroceryItem } from '../../types/GroceryItem';
+import { DateFormat } from '~constants/Dates';
+import { GroceryItem } from '~types/GroceryItem';
+import { formatDate } from '~utils/date';
 
 export default function GroceryCard({ item }: { item: Partial<GroceryItem> | GroceryItem }) {
-    const formatDate = (date: Date | undefined) => {
-        return date ? date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A';
-    };
-
     const formatPrice = (price: number | undefined) => {
-        return price ? `$${price.toFixed(2)}` : 'N/A';
+        return price ? `$${Number(price).toFixed(2)}` : 'N/A';
     };
 
     return (
@@ -48,7 +47,7 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
                             Purchased
                         </StyledComponent>
                         <StyledComponent component={Text} className="text-sm text-gray-700 font-body">
-                            {formatDate(item.purchaseDate)}
+                            {formatDate(item.purchaseDate!, DateFormat)}
                         </StyledComponent>
                     </StyledComponent>
 
@@ -57,7 +56,7 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
                             Expires
                         </StyledComponent>
                         <StyledComponent component={Text} className="text-sm font-semibold text-red-400 font-body">
-                            {formatDate(item.expiryDate)}
+                            {formatDate(item.expiryDate!, DateFormat)}
                         </StyledComponent>
                     </StyledComponent>
                 </StyledComponent>
@@ -70,7 +69,9 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
                     mode="text"
                     className="bg-primary"
                     textColor="white"
-                    onPress={() => {}}
+                    onPress={() => {
+                        router.push(`/grocery/${item.id}`);
+                    }}
                 >
                     Edit
                 </StyledComponent>

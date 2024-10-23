@@ -17,11 +17,7 @@ GroceryItemRouter.get(
     ensureAuthenticated,
     GroceryItemController.getGroceryItemById,
 );
-GroceryItemRouter.put(
-    `${baseUrl}/:receiptId/groceries/:groceryItemId`,
-    ensureAuthenticated,
-    GroceryItemController.updateGroceryItem,
-);
+GroceryItemRouter.put(`${baseUrl}/:receiptId/groceries/:groceryItemId`, GroceryItemController.updateGroceryItem);
 GroceryItemRouter.delete(
     `${baseUrl}/:receiptId/groceries/:groceryItemId`,
     ensureAuthenticated,

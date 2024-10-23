@@ -4,12 +4,10 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import { router } from 'expo-router';
 import { Formik } from 'formik';
 import { StyledComponent } from 'nativewind';
 import Logo from '~components/Logo/Logo';
-import usePostData from '~hooks/api/usePostData';
-import { RequestPayload } from '~types/RequestPayload';
+import { useLogin } from '~hooks/components/useLogin';
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),
@@ -18,27 +16,7 @@ const validationSchema = Yup.object().shape({
 
 export default function Login() {
     const [displayPassword, setDisplayPassword] = useState(true);
-    const { postData } = usePostData();
-
-    const handleLogin = async (values: { username: string; password: string }) => {
-        const payload: RequestPayload = {
-            // TODO: change this to ipv4 for mobile to desktop local testing
-            url: `http://10.0.0.94:3000/api/v1/auth/login`,
-            data: values,
-        };
-
-        console.log(payload);
-
-        const data = await postData(payload);
-        console.log(data);
-        if (data?.status === 200) {
-            router.push('/dashboard');
-        }
-    };
-
-    const handleCancel = async () => {
-        router.push('/');
-    };
+    const { handleLogin, handleCancel } = useLogin();
 
     return (
         <StyledComponent component={View} className="bg-background min-h-full min-w-full flex mt-10">

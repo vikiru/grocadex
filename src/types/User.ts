@@ -1,7 +1,7 @@
 import { GroceryItem } from '~types/GroceryItem';
 import { Receipt } from '~types/Receipt';
 
-export interface User {
+export type User = {
     id?: number;
     firstName: string;
     lastName: string;
@@ -10,4 +10,4 @@ export interface User {
     password: string;
     receipts?: Receipt[];
     activeItems?: GroceryItem[];
-}
+};
