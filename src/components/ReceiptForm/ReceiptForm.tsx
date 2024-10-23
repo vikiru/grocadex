@@ -49,8 +49,6 @@ type ReceiptFormProps = {
     error: Error | null;
 };
 
-// TODO: handle submit as props similar to grocerymodal
-
 export default function ReceiptForm({ initialValues, handleSubmit, loading, error }: ReceiptFormProps) {
     const values = { ...defaultValues, ...initialValues };
 
@@ -59,8 +57,6 @@ export default function ReceiptForm({ initialValues, handleSubmit, loading, erro
             initialValues={values}
             validationSchema={validationSchema}
             onSubmit={(data: Receipt | Partial<Receipt>) => {
-                ('DATA');
-                data;
                 handleSubmit(data);
             }}
         >
