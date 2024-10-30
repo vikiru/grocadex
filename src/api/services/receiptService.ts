@@ -70,17 +70,24 @@ export async function updateReceiptById(
             data: {
                 ...updatedReceipt,
                 groceryItems: {
-                    update: updatedGroceryItems.map((item) => ({
-                        where: { id: item.id },
-                        data: {
-                            name: item.name,
-                            quantity: item.quantity,
-                            unitPrice: item.unitPrice,
-                            totalPrice: item.totalPrice,
-                            purchaseDate: updatedReceipt.purchaseDate,
-                            expiryDate: item.expiryDate,
-                        },
-                    })),
+                    update: updatedGroceryItems
+                        .map((item) => {
+                            if (item.id) {
+                                return {
+                                    where: { id: item.id },
+                                    data: {
+                                        name: item.name,
+                                        quantity: item.quantity,
+                                        unitPrice: item.unitPrice,
+                                        totalPrice: item.totalPrice,
+                                        purchaseDate: updatedReceipt.purchaseDate,
+                                        expiryDate: item.expiryDate,
+                                    },
+                                };
+                            }
+                            return null;
+                        })
+                        .filter(Boolean),
                     create: newGroceryItems.map((item) => ({
                         name: item.name,
                         quantity: item.quantity,
