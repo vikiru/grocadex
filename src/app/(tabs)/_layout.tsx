@@ -1,12 +1,10 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { StyledComponent } from 'nativewind';
 import React from 'react';
 
 export default function TabsLayout() {
     return (
-        <StyledComponent
-            component={Tabs}
+        <Tabs
             screenOptions={{
                 tabBarLabelPosition: 'below-icon',
                 tabBarStyle: { backgroundColor: '#E8F5E9' },
@@ -54,6 +52,6 @@ export default function TabsLayout() {
                     ),
                 }}
             />
-        </StyledComponent>
+        </Tabs>
     );
 }

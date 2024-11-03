@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 
-import { StyledComponent } from 'nativewind';
 import { DataTable } from 'react-native-paper';
 import { DateFormat } from '~constants/Dates';
 import { formatDate } from '~utils/date';
@@ -18,42 +17,32 @@ export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Parti
     }, [numberOfItemsPerPage]);
 
     return (
-        <StyledComponent component={View} className="rounded-lg shadow-md p-4">
-            <StyledComponent component={DataTable} className="w-full">
+        <View className="rounded-lg shadow-md p-4">
+            <DataTable className="w-full">
                 <DataTable.Header>
                     <DataTable.Title>
-                        <StyledComponent component={Text} className="font-semibold text-base text-text font-heading">
-                            Purchased
-                        </StyledComponent>
+                        <Text className="font-semibold text-base text-text font-heading">Purchased</Text>
                     </DataTable.Title>
                     <DataTable.Title>
-                        <StyledComponent component={Text} className="font-semibold text-base text-text font-heading">
-                            Store
-                        </StyledComponent>
+                        <Text className="font-semibold text-base text-text font-heading">Store</Text>
                     </DataTable.Title>
                     <DataTable.Title numeric>
-                        <StyledComponent component={Text} className="font-semibold text-base text-text font-heading">
-                            Total ($)
-                        </StyledComponent>
+                        <Text className="font-semibold text-base text-text font-heading">Total ($)</Text>
                     </DataTable.Title>
                 </DataTable.Header>
 
                 {receipts.slice(from, to).map((receipt: Receipt | Partial<Receipt>) => (
                     <DataTable.Row key={receipt.id}>
                         <DataTable.Cell>
-                            <StyledComponent component={Text} className="text-text text-sm font-body">
+                            <Text className="text-text text-sm font-body">
                                 {formatDate(receipt!.purchaseDate!, DateFormat)}
-                            </StyledComponent>
+                            </Text>
                         </DataTable.Cell>
                         <DataTable.Cell>
-                            <StyledComponent component={Text} className="text-text text-sm font-body">
-                                {receipt.store}
-                            </StyledComponent>
+                            <Text className="text-text text-sm font-body">{receipt.store}</Text>
                         </DataTable.Cell>
                         <DataTable.Cell numeric>
-                            <StyledComponent component={Text} className="text-text text-sm font-body">
-                                ${Number(receipt.total).toFixed(2)}
-                            </StyledComponent>
+                            <Text className="text-text text-sm font-body">${Number(receipt.total).toFixed(2)}</Text>
                         </DataTable.Cell>
                     </DataTable.Row>
                 ))}
@@ -68,7 +57,7 @@ export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Parti
                     onItemsPerPageChange={onItemsPerPageChange}
                     selectPageDropdownLabel={'Rows per page'}
                 />
-            </StyledComponent>
-        </StyledComponent>
+            </DataTable>
+        </View>
     );
 }

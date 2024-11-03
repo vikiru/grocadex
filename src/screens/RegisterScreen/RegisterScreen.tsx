@@ -1,16 +1,11 @@
 import * as Yup from 'yup';
 
-import { NativeWindStyleSheet, StyledComponent } from 'nativewind';
 import { ScrollView, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 import { Formik } from 'formik';
 import React from 'react';
 import { useRegistration } from '~hooks/components/useRegistration';
-
-NativeWindStyleSheet.setOutput({
-    default: 'native',
-});
 
 const validationSchema = Yup.object({
     firstName: Yup.string().required('First name is required'),
@@ -30,24 +25,18 @@ export default function RegisterScreen() {
             onSubmit={handleSignup}
         >
             {({ handleChange, handleSubmit, handleBlur, values }) => (
-                <StyledComponent
-                    component={ScrollView}
-                    className="bg-background min-h-full min-w-full flex pt-10 flex-1"
-                >
-                    <StyledComponent component={View} className="flex-row mx-auto">
-                        <StyledComponent component={Text} className="text-text text-3xl font-semibold font-heading">
-                            Sign Up
-                        </StyledComponent>
-                    </StyledComponent>
+                <ScrollView className="bg-background min-h-full min-w-full flex pt-10 flex-1">
+                    <View className="flex-row mx-auto">
+                        <Text className="text-text text-3xl font-semibold font-heading">Sign Up</Text>
+                    </View>
 
-                    <StyledComponent component={View} className="my-2">
-                        <StyledComponent component={Text} className="text-center text-gray-600 text-lg font-body">
+                    <View className="my-2">
+                        <Text className="text-center text-gray-600 text-lg font-body">
                             Start your journey to saving money and reducing food waste!
-                        </StyledComponent>
-                    </StyledComponent>
+                        </Text>
+                    </View>
 
-                    <StyledComponent
-                        component={TextInput}
+                    <TextInput
                         label="First Name"
                         value={values.firstName}
                         placeholder="Enter your first name"
@@ -56,8 +45,7 @@ export default function RegisterScreen() {
                         className="my-1 mx-4 font-body bg-white border-2 border-primary"
                     />
 
-                    <StyledComponent
-                        component={TextInput}
+                    <TextInput
                         label="Last Name"
                         value={values.lastName}
                         placeholder="Enter your last name"
@@ -66,8 +54,7 @@ export default function RegisterScreen() {
                         className="my-1 mx-4 font-body bg-white border-2 border-primary"
                     />
 
-                    <StyledComponent
-                        component={TextInput}
+                    <TextInput
                         label="Username"
                         value={values.username}
                         placeholder="Enter your username"
@@ -76,8 +63,7 @@ export default function RegisterScreen() {
                         className="my-1 mx-4 font-body bg-white border-2 border-primary"
                     />
 
-                    <StyledComponent
-                        component={TextInput}
+                    <TextInput
                         label="Email Address"
                         value={values.email}
                         placeholder="Enter your email address"
@@ -86,8 +72,7 @@ export default function RegisterScreen() {
                         className="my-1 mx-4 font-body bg-white border-2 border-primary"
                     />
 
-                    <StyledComponent
-                        component={TextInput}
+                    <TextInput
                         label="Password"
                         value={values.password}
                         placeholder="Enter your password"
@@ -97,9 +82,8 @@ export default function RegisterScreen() {
                         className="my-1 mx-4 font-body bg-white border-2 border-primary"
                     />
 
-                    <StyledComponent component={View} className="lg:mx-auto">
-                        <StyledComponent
-                            component={Button}
+                    <View className="lg:mx-auto">
+                        <Button
                             icon="check-circle"
                             mode="elevated"
                             className="max-w-md my-1 mx-auto bg-primary font-body w-60"
@@ -107,10 +91,9 @@ export default function RegisterScreen() {
                             onPress={() => handleSubmit()}
                         >
                             Confirm Details
-                        </StyledComponent>
+                        </Button>
 
-                        <StyledComponent
-                            component={Button}
+                        <Button
                             icon="cancel"
                             mode="elevated"
                             className="max-w-md my-1 mx-auto bg-secondary font-body w-60"
@@ -118,9 +101,9 @@ export default function RegisterScreen() {
                             onPress={() => handleCancel()}
                         >
                             Cancel
-                        </StyledComponent>
-                    </StyledComponent>
-                </StyledComponent>
+                        </Button>
+                    </View>
+                </ScrollView>
             )}
         </Formik>
     );

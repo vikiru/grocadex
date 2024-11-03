@@ -1,6 +1,5 @@
 import { VictoryAxis, VictoryChart, VictoryLabel, VictoryLine, VictoryTheme } from 'victory';
 
-import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -21,10 +20,7 @@ const data = [
 
 export default function LineGraph() {
     return (
-        <StyledComponent
-            component={View}
-            className="flex justify-startml-2 h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px]"
-        >
+        <View className="flex justify-startml-2 h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px]">
             <VictoryChart height={200} theme={VictoryTheme.material}>
                 <VictoryLabel text="Yearly Expenses" y={20} x={180} textAnchor="middle" />
                 <VictoryLine data={data} x="month" y="value" />
@@ -42,6 +38,6 @@ export default function LineGraph() {
                     }}
                 />
             </VictoryChart>
-        </StyledComponent>
+        </View>
     );
 }

@@ -1,8 +1,6 @@
 import { Text, View } from 'react-native';
 import { Button, Dialog as PaperDialog, Portal } from 'react-native-paper';
 
-import { StyledComponent } from 'nativewind';
-
 type DialogProps = {
     visible: boolean;
     headerText: string;
@@ -15,7 +13,7 @@ export default function Dialog({ visible, headerText, bodyText, handleDelete, se
     const handleCancel = () => setDialogVisible(false);
 
     return (
-        <StyledComponent component={View}>
+        <View>
             <Portal>
                 <PaperDialog visible={visible}>
                     <PaperDialog.Title>{headerText}</PaperDialog.Title>
@@ -23,15 +21,15 @@ export default function Dialog({ visible, headerText, bodyText, handleDelete, se
                         <Text>{bodyText}</Text>
                     </PaperDialog.Content>
                     <PaperDialog.Actions>
-                        <StyledComponent component={Button} icon="cancel" onPress={handleCancel}>
+                        <Button icon="cancel" onPress={handleCancel}>
                             Cancel
-                        </StyledComponent>
-                        <StyledComponent component={Button} icon="delete" onPress={handleDelete}>
+                        </Button>
+                        <Button icon="delete" onPress={handleDelete}>
                             Delete
-                        </StyledComponent>
+                        </Button>
                     </PaperDialog.Actions>
                 </PaperDialog>
             </Portal>
-        </StyledComponent>
+        </View>
     );
 }

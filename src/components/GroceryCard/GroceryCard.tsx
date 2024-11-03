@@ -1,7 +1,6 @@
 import { Button, Card, Divider, Text } from 'react-native-paper';
 
 import { router } from 'expo-router';
-import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { View } from 'react-native';
 import { DateFormat } from '~constants/Dates';
@@ -14,57 +13,43 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
     };
 
     return (
-        <StyledComponent component={Card} className="my-1 mx-2 bg-white shadow-md rounded-lg border-2 border-primary">
+        <Card className="my-1 mx-2 bg-white shadow-md rounded-lg border-2 border-primary">
             <Card.Content>
-                <StyledComponent component={View} className="flex-row justify-between items-start mb-2">
-                    <StyledComponent
-                        component={Text}
-                        className="text-center text-base font-bold text-primary flex-1 mr-2 font-heading"
-                    >
+                <View className="flex-row justify-between items-start mb-2">
+                    <Text className="text-center text-base font-bold text-primary flex-1 mr-2 font-heading">
                         {item.name}
-                    </StyledComponent>
-                </StyledComponent>
+                    </Text>
+                </View>
 
-                <StyledComponent component={View} className="flex-row justify-between items-end space-x-2">
-                    <StyledComponent component={Text} className="text-sm text-gray-600 font-heading">
-                        Quantity: {item.quantity || 'N/A'}
-                    </StyledComponent>
+                <View className="flex-row justify-between items-end space-x-2">
+                    <Text className="text-sm text-gray-600 font-heading">Quantity: {item.quantity || 'N/A'}</Text>
 
-                    <StyledComponent component={Text} className="text-md py-1 text-gray-600 font-heading">
-                        |
-                    </StyledComponent>
+                    <Text className="text-md text-gray-600 font-heading">|</Text>
 
-                    <StyledComponent component={Text} className="text-sm text-gray-600 font-heading">
-                        Total: {formatPrice(item.totalPrice)}
-                    </StyledComponent>
-                </StyledComponent>
+                    <Text className="text-sm text-gray-600 font-heading">Total: {formatPrice(item.totalPrice)}</Text>
+                </View>
 
                 <Divider />
 
-                <StyledComponent component={View} className="mt-2">
-                    <StyledComponent component={View} className="mb-1">
-                        <StyledComponent component={Text} className="text-sm text-gray-500 font-subheading">
-                            Purchased
-                        </StyledComponent>
-                        <StyledComponent component={Text} className="text-sm text-gray-700 font-body">
+                <View className="mt-2">
+                    <View className="mb-1">
+                        <Text className="text-sm text-gray-500 font-subheading">Purchased</Text>
+                        <Text className="text-sm text-gray-700 font-body">
                             {formatDate(item.purchaseDate!, DateFormat)}
-                        </StyledComponent>
-                    </StyledComponent>
+                        </Text>
+                    </View>
 
-                    <StyledComponent component={View}>
-                        <StyledComponent component={Text} className="text-sm text-gray-500 font-subheading">
-                            Expires
-                        </StyledComponent>
-                        <StyledComponent component={Text} className="text-sm font-semibold text-red-400 font-body">
+                    <View>
+                        <Text className="text-sm text-gray-500 font-subheading">Expires</Text>
+                        <Text className="text-sm font-semibold text-red-400 font-body">
                             {formatDate(item.expiryDate!, DateFormat)}
-                        </StyledComponent>
-                    </StyledComponent>
-                </StyledComponent>
+                        </Text>
+                    </View>
+                </View>
             </Card.Content>
 
             <Card.Actions>
-                <StyledComponent
-                    component={Button}
+                <Button
                     icon="pencil"
                     mode="text"
                     className="bg-primary"
@@ -74,18 +59,11 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
                     }}
                 >
                     Edit
-                </StyledComponent>
-                <StyledComponent
-                    component={Button}
-                    icon="delete"
-                    mode="text"
-                    className="bg-red-400"
-                    textColor="white"
-                    onPress={() => {}}
-                >
+                </Button>
+                <Button icon="delete" mode="text" className="bg-red-400" textColor="white" onPress={() => {}}>
                     Delete
-                </StyledComponent>
+                </Button>
             </Card.Actions>
-        </StyledComponent>
+        </Card>
     );
 }

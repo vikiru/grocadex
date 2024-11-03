@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 
-import { StyledComponent } from 'nativewind';
 import { DataTable } from 'react-native-paper';
 import { ExpenseFormat } from '~constants/Dates';
 import { Expense } from '~types/Expense';
@@ -18,32 +17,24 @@ export default function ExpenseTable({ data }: { data: any }) {
     }, [numberOfItemsPerPage]);
 
     return (
-        <StyledComponent component={View} className="rounded-lg shadow-md py-4 my-2 mx-4">
-            <StyledComponent component={DataTable} className="w-full rounded-lg">
+        <View className="rounded-lg shadow-md py-4 my-2 mx-4">
+            <DataTable className="w-full rounded-lg">
                 <DataTable.Header>
                     <DataTable.Title>
-                        <StyledComponent component={Text} className="font-semibold text-base text-text font-heading">
-                            Purchase Date
-                        </StyledComponent>
+                        <Text className="font-semibold text-base text-text font-heading">Purchase Date</Text>
                     </DataTable.Title>
                     <DataTable.Title numeric>
-                        <StyledComponent component={Text} className="font-semibold text-base text-text font-heading">
-                            Total ($)
-                        </StyledComponent>
+                        <Text className="font-semibold text-base text-text font-heading">Total ($)</Text>
                     </DataTable.Title>
                 </DataTable.Header>
 
                 {data.slice(from, to).map((item: Expense) => (
                     <DataTable.Row key={item.month}>
-                        <StyledComponent component={DataTable.Cell}>
-                            <StyledComponent component={Text} className="text-text text-sm font-body">
-                                {formatDate(item.date, ExpenseFormat)}
-                            </StyledComponent>
-                        </StyledComponent>
+                        <DataTable.Cell>
+                            <Text className="text-text text-sm font-body">{formatDate(item.date, ExpenseFormat)}</Text>
+                        </DataTable.Cell>
                         <DataTable.Cell numeric>
-                            <StyledComponent component={Text} className="text-text text-sm font-body">
-                                ${Number(item.amount).toFixed(2)}
-                            </StyledComponent>
+                            <Text className="text-text text-sm font-body">${Number(item.amount).toFixed(2)}</Text>
                         </DataTable.Cell>
                     </DataTable.Row>
                 ))}
@@ -58,7 +49,7 @@ export default function ExpenseTable({ data }: { data: any }) {
                     onItemsPerPageChange={onItemsPerPageChange}
                     selectPageDropdownLabel={'Rows per page'}
                 />
-            </StyledComponent>
-        </StyledComponent>
+            </DataTable>
+        </View>
     );
 }

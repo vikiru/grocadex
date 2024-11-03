@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { StyledComponent } from 'nativewind';
 import { View } from 'react-native';
 import BarChart from '~components/BarChart/BarChart';
 import ExpenseTable from '~components/ExpenseTable/ExpenseTable';
@@ -19,9 +18,9 @@ export default function ExpenseScreen() {
     }, [yearlyExpenses]);
 
     return (
-        <StyledComponent component={View} className="bg-background">
+        <View className="bg-background">
             <BarChart data={data} />
             <ExpenseTable data={yearlyExpenses} />
-        </StyledComponent>
+        </View>
     );
 }

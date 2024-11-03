@@ -4,7 +4,6 @@ import { Modal, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 import { Formik } from 'formik';
-import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { GroceryItem } from '../../types/GroceryItem';
 import DateSelector from '../DateSelector/DateSelector';
@@ -28,6 +27,7 @@ const defaultValues: GroceryItem | Partial<GroceryItem> = {
     name: '',
     quantity: 1,
     unitPrice: 1.0,
+    totalPrice: 1.0,
     expiryDate: new Date(),
 };
 
@@ -36,11 +36,9 @@ export default function GroceryModal({ method, initialValues, visible, onDismiss
 
     return (
         <Modal visible={visible} onRequestClose={onDismiss} animationType="slide" transparent={true}>
-            <StyledComponent component={View} className="flex-1 justify-center items-center bg-background">
-                <StyledComponent component={View} className="rounded-lg p-4 mx-4 w-full max-w-md m-2">
-                    <StyledComponent component={Text} className="ml-1 text-text text-lg font-semibold font-heading">
-                        {method} a grocery item
-                    </StyledComponent>
+            <View className="flex-1 justify-center items-center bg-background">
+                <View className="rounded-lg p-4 mx-4 w-full max-w-md m-2">
+                    <Text className="ml-1 text-text text-lg font-semibold font-heading">{method} a grocery item</Text>
                     <Formik
                         initialValues={values}
                         validationSchema={validationSchema}
@@ -53,9 +51,8 @@ export default function GroceryModal({ method, initialValues, visible, onDismiss
                         }}
                     >
                         {({ handleChange, handleSubmit, setFieldValue, values }) => (
-                            <StyledComponent component={View}>
-                                <StyledComponent
-                                    component={TextInput}
+                            <View>
+                                <TextInput
                                     value={values.name}
                                     onChangeText={handleChange('name')}
                                     placeholder="Enter the name of the grocery item"
@@ -63,23 +60,21 @@ export default function GroceryModal({ method, initialValues, visible, onDismiss
                                     className="bg-white my-1 ml-r"
                                 />
 
-                                <StyledComponent
-                                    component={TextInput}
+                                <TextInput
                                     label="Quantity"
                                     value={values.quantity?.toString()}
-                                    onChangeText={(quantity) => setFieldValue('quantity', Number(quantity))}
+                                    onChangeText={(quantity: string) => setFieldValue('quantity', Number(quantity))}
                                     placeholder="Enter the quantity of the grocery item"
                                     keyboardType="numeric"
                                     mode="outlined"
                                     className="bg-white my-1"
                                 />
 
-                                <StyledComponent
-                                    component={TextInput}
+                                <TextInput
                                     label="Total Price"
                                     value={values.totalPrice?.toString()}
-                                    onChangeText={(totalPrice) => {
-                                        setFieldValue('totalPrice', totalPrice);
+                                    onChangeText={(totalPrice: string) => {
+                                        setFieldValue('totalPrice', Number(totalPrice));
                                     }}
                                     keyboardType="numeric"
                                     mode="outlined"
@@ -92,29 +87,19 @@ export default function GroceryModal({ method, initialValues, visible, onDismiss
                                     label="Expiry Date"
                                 />
 
-                                <StyledComponent component={View} className="flex-row mt-2 justify-end space-x-2">
-                                    <StyledComponent
-                                        component={Button}
-                                        onPress={onDismiss}
-                                        mode="outlined"
-                                        className="bg-white"
-                                    >
+                                <View className="flex-row mt-2 justify-end space-x-2">
+                                    <Button onPress={onDismiss} mode="outlined" className="bg-white">
                                         Cancel
-                                    </StyledComponent>
-                                    <StyledComponent
-                                        component={Button}
-                                        onPress={() => handleSubmit()}
-                                        mode="contained"
-                                        className="bg-primary"
-                                    >
+                                    </Button>
+                                    <Button onPress={() => handleSubmit()} mode="contained" className="bg-primary">
                                         {method} Item
-                                    </StyledComponent>
-                                </StyledComponent>
-                            </StyledComponent>
+                                    </Button>
+                                </View>
+                            </View>
                         )}
                     </Formik>
-                </StyledComponent>
-            </StyledComponent>
+                </View>
+            </View>
         </Modal>
     );
 }

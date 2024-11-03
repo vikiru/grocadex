@@ -1,6 +1,5 @@
 import { router, useLocalSearchParams } from 'expo-router';
 
-import { StyledComponent } from 'nativewind';
 import { View } from 'react-native';
 import GroceryModal from '~components/GroceryModal/GroceryModal';
 import Loader from '~components/Loader/Loader';
@@ -16,7 +15,7 @@ export default function GroceryItemEditScreen() {
     const groceryItem = activeItems.find((item: GroceryItem | Partial<GroceryItem>) => item.id === Number(id));
 
     return (
-        <StyledComponent component={View}>
+        <View>
             <GroceryModal
                 method="Update"
                 initialValues={groceryItem}
@@ -26,6 +25,6 @@ export default function GroceryItemEditScreen() {
             />
 
             <Loader loading={loading} />
-        </StyledComponent>
+        </View>
     );
 }

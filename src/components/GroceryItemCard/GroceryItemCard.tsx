@@ -4,7 +4,6 @@ import { Text, View } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 
 import { router } from 'expo-router';
-import { StyledComponent } from 'nativewind';
 import { useState } from 'react';
 import Dialog from '~components/Dialog/Dialog';
 import useItem from '~hooks/components/useItem';
@@ -29,23 +28,20 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
     const { handleDelete, loading, error } = useItem();
 
     return (
-        <StyledComponent component={Card} className="border-2 border-primary bg-white shadow-md rounded-lg p-4 m-2">
+        <Card className="border-2 border-primary bg-white shadow-md rounded-lg p-4 m-2">
             <Card.Content>
-                <StyledComponent component={View} className="flex flex-row justify-between">
-                    <StyledComponent component={Text} className="text-xl font-heading font-semibold">
+                <View className="flex flex-row justify-between">
+                    <Text className="text-xl font-heading font-semibold">
                         {item.name} ({item.quantity})
-                    </StyledComponent>
-                    <StyledComponent component={Text} className="text-xl font-heading text-text">
-                        ${Number(item.totalPrice).toFixed(2)}
-                    </StyledComponent>
-                </StyledComponent>
-                <StyledComponent component={Text} className="text-lg mt-2 text-red-400 font-subheading">
+                    </Text>
+                    <Text className="text-xl font-heading text-text">${Number(item.totalPrice).toFixed(2)}</Text>
+                </View>
+                <Text className="text-lg mt-2 text-red-400 font-subheading">
                     {constructExpiryString(item.expiryDate!)}
-                </StyledComponent>
+                </Text>
             </Card.Content>
-            <StyledComponent component={Card.Actions} className="flex flex-row justify-between m-1">
-                <StyledComponent
-                    component={Button}
+            <Card.Actions className="flex flex-row justify-between m-1">
+                <Button
                     icon="pencil"
                     mode="text"
                     className="bg-primary w-1/2"
@@ -55,9 +51,8 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                     }}
                 >
                     Edit
-                </StyledComponent>
-                <StyledComponent
-                    component={Button}
+                </Button>
+                <Button
                     icon="delete"
                     mode="text"
                     className="bg-red-400 w-1/2"
@@ -67,7 +62,7 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                     }}
                 >
                     Delete
-                </StyledComponent>
+                </Button>
 
                 {dialogVisible && (
                     <Dialog
@@ -78,7 +73,7 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                         setDialogVisible={setDialogVisible}
                     />
                 )}
-            </StyledComponent>
-        </StyledComponent>
+            </Card.Actions>
+        </Card>
     );
 }

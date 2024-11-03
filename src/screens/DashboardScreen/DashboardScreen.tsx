@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { StyledComponent } from 'nativewind';
 import { Divider } from 'react-native-paper';
 import ExpenseDisplay from '~components/ExpenseDisplay/ExpenseDisplay';
 import GroceryCard from '~components/GroceryCard/GroceryCard';
@@ -22,29 +21,25 @@ export default function DashboardScreen() {
     }, []);
 
     return (
-        <StyledComponent component={ScrollView} horizontal={false} className="bg-background min-h-full min-w-full flex">
-            <StyledComponent component={View} className="bg-background">
-                <StyledComponent
-                    component={ScrollView}
+        <ScrollView horizontal={false} className="bg-background min-h-full min-w-full flex">
+            <View className="bg-background">
+                <ScrollView
                     className="flex flex-row space-x-2 m-2 pb-2"
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
                     {activeItems.slice(0, 5).map((item, index) => (
-                        <StyledComponent component={GroceryCard} item={item} key={index} />
+                        <GroceryCard item={item} key={index} />
                     ))}
-                </StyledComponent>
+                </ScrollView>
 
                 <Divider />
                 <ExpenseDisplay monthlyExpense={monthlyTotal} />
 
-                <StyledComponent
-                    component={View}
-                    className="bg-background m-2 rounded-lg shadow-md border-2 border-primary"
-                >
+                <View className="bg-background m-2 rounded-lg shadow-md border-2 border-primary">
                     <ReceiptTable receipts={receipts} />
-                </StyledComponent>
-            </StyledComponent>
-        </StyledComponent>
+                </View>
+            </View>
+        </ScrollView>
     );
 }
