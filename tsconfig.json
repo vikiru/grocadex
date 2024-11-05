@@ -6,17 +6,18 @@
         "strict": true,
         "baseUrl": ".",
         "paths": {
+            "~api/*": ["./src/api/*"],
             "~assets/*": ["./src/assets/*"],
-            "~fonts/*": ["./src/assets/fonts/*"],
-            "~utils/*": ["./src/utils/*"],
-            "~types/*": ["./src/types/*"],
             "~components/*": ["./src/components/*"],
             "~constants/*": ["./src/constants/*"],
+            "~fonts/*": ["./src/assets/fonts/*"],
             "~hooks/*": ["./src/hooks/*"],
+            "~navigation/*": ["./src/navigation/*"],
             "~screens/*": ["./src/screens/*"],
-            "~store/*": ["./src/store/*"],
             "~slices/*": ["./src/slices/*"],
-            "~api/*": ["./src/api/*"]
+            "~store/*": ["./src/store/*"],
+            "~types/*": ["./src/types/*"],
+            "~utils/*": ["./src/utils/*"]
         },
         "typeRoots": ["./node_modules/@types", "./types", "./api/types"]
     },

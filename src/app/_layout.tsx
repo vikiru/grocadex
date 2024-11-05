@@ -8,12 +8,12 @@ import React, { useEffect } from 'react';
 import { persistor, store } from '~store/store';
 
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
 import { PaperProvider } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { useColorScheme } from '~hooks/components/useColorScheme';
+import StackNavigation from '~navigation/StackNavigation/StackNavigation';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -48,27 +48,7 @@ export default function RootLayout() {
             <PaperProvider>
                 <Provider store={store}>
                     <PersistGate loading={null} persistor={persistor}>
-                        <Stack>
-                            <Stack.Screen name="index" options={{ headerShown: false, headerTitle: '' }} />
-                            <Stack.Screen
-                                name="registration"
-                                options={{ headerShown: false, headerTitle: 'Register' }}
-                            />
-                            <Stack.Screen name="login" options={{ headerShown: false, headerTitle: 'Login' }} />
-                            <Stack.Screen name="(tabs)" options={{ headerShown: false, headerTitle: 'Home' }} />
-                            <Stack.Screen
-                                name="receipt/new"
-                                options={{ headerShown: true, headerTitle: 'Create Receipt' }}
-                            />
-                            <Stack.Screen
-                                name="receipt/[id]"
-                                options={{ headerShown: true, headerTitle: 'Receipt Details' }}
-                            />
-                            <Stack.Screen
-                                name="grocery/[id]"
-                                options={{ headerShown: true, headerTitle: 'Edit Grocery Item' }}
-                            />
-                        </Stack>
+                        <StackNavigation />
                         <Toast />
                     </PersistGate>
                 </Provider>

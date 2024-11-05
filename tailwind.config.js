@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ['./src/**/*.{js,jsx,ts,tsx}', './src/components/**/*.{js,jsx,ts,tsx}', './src/app/**/*.{js,jsx,ts,tsx}'],
+    content: [
+        './src/screens/**/*.{js,jsx,ts,tsx}',
+        './src/components/**/*.{js,jsx,ts,tsx}',
+        './src/app/**/*.{js,jsx,ts,tsx}',
+    ],
     presets: [require('nativewind/preset')],
     theme: {
         extend: {
@@ -11,7 +15,6 @@ module.exports = {
                 primary: '#4CAF50',
                 secondary: '#FF9800',
                 accent: '#03A9F4',
-
                 'text-dark': '#E0E0E0',
                 'background-dark': '#121212',
                 'primary-dark': '#81C784',

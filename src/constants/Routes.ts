@@ -15,3 +15,11 @@ export const DASHBOARD_ROUTE = `${BASE_URL}/dashboard`;
 export const constructGroceryRoute = (receiptId: number, groceryId: number): string => {
     return `${RECEIPT_ROUTE}/${receiptId}/groceries/${groceryId}`;
 };
+
+export const FRONTEND_DASHBOARD_ROUTE = '/dashboard';
+export const FRONTEND_EXPIRY_ROUTE = '/expiry';
+export const FRONTEND_EXPENSE_ROUTE = '/expense';
+export const FRONTEND_RECEIPT_ROUTE = '/receipt';
+export const FRONTEND_LOGIN_ROUTE = '/login';
+export const FRONTEND_LOGOUT_ROUTE = '/logout';
+export const FRONTEND_REGISTRATION_ROUTE = '/registration';

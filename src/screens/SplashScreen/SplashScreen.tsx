@@ -45,7 +45,8 @@ export default function SplashScreen() {
                 <Button
                     icon="account-plus"
                     mode="elevated"
-                    className="max-w-md my-2 w-60 bg-primary mx-auto"
+                    className="max-w-md my-2 w-60 mx-auto"
+                    buttonColor="#4CAF50"
                     textColor="white"
                     onPress={() => moveToRegistration()}
                 >
@@ -54,7 +55,8 @@ export default function SplashScreen() {
                 <Button
                     icon="login"
                     mode="elevated"
-                    className="max-w-md my-2 w-60 bg-secondary mx-auto"
+                    className="max-w-md my-2 w-60 mx-auto"
+                    buttonColor="#FF9800"
                     textColor="white"
                     onPress={() => moveToLogin()}
                 >
