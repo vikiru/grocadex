@@ -17,7 +17,7 @@ export default function TabNavigation() {
                 name="dashboard"
                 options={{
                     headerTitle: 'User Dashboard',
-                    headerShown: true,
+                    headerShown: false,
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="home" size={size} color={color} />,
                 }}

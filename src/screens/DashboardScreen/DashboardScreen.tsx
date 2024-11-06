@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
-
 import { Divider } from 'react-native-paper';
+
+import { useNavigation } from '@react-navigation/native';
 import ExpenseDisplay from '~components/ExpenseDisplay/ExpenseDisplay';
 import GroceryCard from '~components/GroceryCard/GroceryCard';
 import ReceiptTable from '~components/ReceiptTable/ReceiptTable';
@@ -11,6 +12,7 @@ import { useExpense } from '~hooks/redux/useExpense';
 import { useReceipt } from '~hooks/redux/useReceipt';
 
 export default function DashboardScreen() {
+    const navigation = useNavigation();
     const { handleDataRetrieval } = useDashboard();
     const { monthlyTotal } = useExpense();
     const { receipts } = useReceipt();
@@ -21,7 +23,7 @@ export default function DashboardScreen() {
     }, []);
 
     return (
-        <ScrollView horizontal={false} className="bg-background min-h-full min-w-full flex">
+        <ScrollView horizontal={false} className="bg-background min-h-full min-w-full">
             <View className="bg-background">
                 <ScrollView
                     className="flex flex-row space-x-2 m-2 pb-2"

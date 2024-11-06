@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { DASHBOARD_ROUTE } from '~constants/Routes';
 import { useGetData } from '~hooks/api/useGetData';
 import { useActiveItem } from '~hooks/redux/useActiveItem';
 import { useExpense } from '~hooks/redux/useExpense';
@@ -19,7 +20,7 @@ export function useDashboard() {
         setError(null);
 
         const payload: RequestPayload = {
-            url: `${process.env.NEXT_PUBLIC_API_URL}/users/dashboard`,
+            url: DASHBOARD_ROUTE,
             data: [],
         };
 

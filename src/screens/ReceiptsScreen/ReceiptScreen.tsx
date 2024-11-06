@@ -8,7 +8,7 @@ import SearchBar from '~components/SearchBar/SearchBar';
 import { useReceipt } from '~hooks/redux/useReceipt';
 import { Receipt } from '~types/Receipt';
 
-export default function receipt() {
+export default function ReceiptsScreen() {
     const { receipts } = useReceipt();
 
     return (

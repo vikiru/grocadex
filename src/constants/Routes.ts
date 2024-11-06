@@ -1,6 +1,8 @@
 export const API_VERSION = `v1`;
 export const API_VERSION_STRING = `/api/${API_VERSION}`;
-export const BASE_URL = `${process.env.EXPO_PUBLIC_API_URL}/${API_VERSION_STRING}`;
+export const BASE_URL = `${process.env.EXPO_PUBLIC_API_URL}${API_VERSION_STRING}`;
+
+console.log(BASE_URL);
 
 export const LOGIN_ROUTE = `${BASE_URL}/auth/login`;
 export const LOGOUT_ROUTE = `${BASE_URL}/auth/logout`;
