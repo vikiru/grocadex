@@ -1,5 +1,4 @@
-import { router, useLocalSearchParams } from 'expo-router';
-
+import { router } from 'expo-router';
 import { View } from 'react-native';
 import GroceryModal from '~components/GroceryModal/GroceryModal';
 import Loader from '~components/Loader/Loader';
@@ -7,9 +6,8 @@ import useItem from '~hooks/components/useItem';
 import { useActiveItem } from '~hooks/redux/useActiveItem';
 import { GroceryItem } from '~types/GroceryItem';
 
-export default function GroceryItemEditScreen() {
-    const local = useLocalSearchParams();
-    const { id } = local;
+export default function GroceryItemEditScreen({ route }) {
+    const { id } = route.params;
     const { handleUpdate, loading, error } = useItem();
     const { activeItems } = useActiveItem();
     const groceryItem = activeItems.find((item: GroceryItem | Partial<GroceryItem>) => item.id === Number(id));

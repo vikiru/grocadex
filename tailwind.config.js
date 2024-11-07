@@ -2,6 +2,7 @@
 module.exports = {
     content: [
         './src/screens/**/*.{js,jsx,ts,tsx}',
+        './src/navigation/**/*.{js,jsx,ts,tsx}',
         './src/components/**/*.{js,jsx,ts,tsx}',
         './src/app/**/*.{js,jsx,ts,tsx}',
     ],

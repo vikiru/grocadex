@@ -1,13 +1,12 @@
-import { useLocalSearchParams } from 'expo-router';
 import ReceiptForm from '~components/ReceiptForm/ReceiptForm';
 import useReceipts from '~hooks/components/useReceipts';
 import { useReceipt } from '~hooks/redux/useReceipt';
 
-export default function ReceiptEditScreen() {
-    const local = useLocalSearchParams();
+export default function ReceiptEditScreen({ route }) {
     const { receipts } = useReceipt();
     const { handleUpdate, loading, error } = useReceipts();
-    const { id } = local;
+    const { id } = route.params;
+    console.log(id);
     const receipt = receipts.find((receipt) => Number(receipt.id) === Number(id));
 
     return receipt ? (

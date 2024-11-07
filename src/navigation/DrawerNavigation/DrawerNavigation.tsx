@@ -1,9 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import DashboardScreen from '~screens/DashboardScreen/DashboardScreen';
+import DashboardStack from '~screens/DashboardStack/DashboardStack';
 import ExpenseScreen from '~screens/ExpenseScreen/ExpenseScreen';
-import ExpiryScreen from '~screens/ExpiryScreen/ExpiryScreen';
-import ReceiptsScreen from '~screens/ReceiptsScreen/ReceiptScreen';
+import ExpiryStack from '~screens/ExpiryStack/ExpiryStack';
+import ReceiptStack from '~screens/ReceiptStack/ReceiptStack';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,7 +21,7 @@ export default function DrawerNavigation() {
         >
             <Drawer.Screen
                 name="dashboard"
-                component={DashboardScreen}
+                component={DashboardStack}
                 options={{
                     title: 'Home',
                     headerShown: true,
@@ -30,7 +30,7 @@ export default function DrawerNavigation() {
             />
             <Drawer.Screen
                 name="expiry"
-                component={ExpiryScreen}
+                component={ExpiryStack}
                 options={{
                     title: 'Expiring Groceries',
                     headerShown: true,
@@ -48,10 +48,10 @@ export default function DrawerNavigation() {
             />
             <Drawer.Screen
                 name="receipt"
-                component={ReceiptsScreen}
+                component={ReceiptStack}
                 options={{
                     title: 'View Receipts',
-                    headerShown: true,
+                    headerShown: false,
                     drawerIcon: () => <MaterialCommunityIcons name="receipt" size={24} />,
                 }}
             />

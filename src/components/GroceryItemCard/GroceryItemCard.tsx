@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 
-import { router } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import Dialog from '~components/Dialog/Dialog';
 import useItem from '~hooks/components/useItem';
@@ -26,6 +26,7 @@ const deleteActiveItem = (
 export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<GroceryItem> }) {
     const [dialogVisible, setDialogVisible] = useState(false);
     const { handleDelete, loading, error } = useItem();
+    const navigation = useNavigation();
 
     return (
         <Card className="border-2 border-primary bg-white shadow-md rounded-lg p-4 m-2">
@@ -47,7 +48,9 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                     className="bg-primary w-1/2"
                     textColor="white"
                     onPress={() => {
-                        router.push(`/grocery/${item.id}`);
+                        navigation.navigate('grocery', {
+                            id: item.id,
+                        });
                     }}
                 >
                     Edit

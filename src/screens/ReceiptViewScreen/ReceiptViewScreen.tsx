@@ -1,8 +1,8 @@
-import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Button, Divider } from 'react-native-paper';
 
+import { useNavigation } from 'expo-router';
 import Dialog from '~components/Dialog/Dialog';
 import Loader from '~components/Loader/Loader';
 import { DateStringFormat } from '~constants/Dates';
@@ -29,15 +29,16 @@ const deleteReceipt = (
     handleDelete(receiptId);
 };
 
-export default function ReceiptViewScreen() {
+export default function ReceiptViewScreen({ route }) {
     const [dialogVisible, setDialogVisible] = useState(false);
     const { receipts } = useReceipt();
     const { handleDelete, loading, error } = useReceipts();
     const { activeItems } = useActiveItem();
-    const local = useLocalSearchParams();
-    const { id } = local;
+    const { id } = route.params;
+
     const receipt = receipts.find((receipt) => receipt.id === Number(id));
     const items = activeItems.filter((item) => item.receiptId === Number(id));
+    const navigation = useNavigation();
 
     if (receipt) {
         return (
@@ -76,9 +77,8 @@ export default function ReceiptViewScreen() {
                         className="max-w-md bg-primary w-60 mx-auto h-10 mt-2"
                         textColor="white"
                         onPress={() =>
-                            router.push({
-                                pathname: '/receipt/edit',
-                                params: { id: receipt.id },
+                            navigation.navigate('receipts/edit', {
+                                id: receipt.id,
                             })
                         }
                     >

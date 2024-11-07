@@ -1,6 +1,6 @@
 import { ScrollView, View } from 'react-native';
 
-import { router } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { FAB } from 'react-native-paper';
 import ReceiptCard from '~components/ReceiptCard/ReceiptCard';
@@ -10,6 +10,7 @@ import { Receipt } from '~types/Receipt';
 
 export default function ReceiptsScreen() {
     const { receipts } = useReceipt();
+    const navigation = useNavigation();
 
     return (
         <ScrollView horizontal={false} className="bg-background min-h-full min-w-full">
@@ -22,7 +23,7 @@ export default function ReceiptsScreen() {
             <FAB
                 icon="plus"
                 onPress={() => {
-                    router.push('/receipt/new');
+                    navigation.navigate('receipts/create');
                 }}
                 className="absolute bottom-10 right-10 z-0 bg-white"
             />

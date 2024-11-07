@@ -1,13 +1,15 @@
 import { Text, View } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 
-import { router } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { DateStringFormat } from '~constants/Dates';
 import { Receipt } from '~types/Receipt';
 import { formatDate } from '~utils/date';
 
 export default function ReceiptCard({ receipt }: { receipt: Receipt | Partial<Receipt> }) {
+    const navigation = useNavigation();
+
     return (
         <Card className="m-2 rounded-lg bg-white border-primary border-2 shadow-md">
             <Card.Content className="">
@@ -25,7 +27,7 @@ export default function ReceiptCard({ receipt }: { receipt: Receipt | Partial<Re
                         icon="eye"
                         mode="outlined"
                         onPress={() => {
-                            router.push(`/receipt/${receipt.id}`);
+                            navigation.navigate('receipts/view', { id: receipt.id });
                         }}
                     >
                         View Receipt

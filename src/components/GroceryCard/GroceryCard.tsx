@@ -1,6 +1,6 @@
 import { Button, Card, Divider, Text } from 'react-native-paper';
 
-import { router } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import { DateFormat } from '~constants/Dates';
@@ -8,12 +8,14 @@ import { GroceryItem } from '~types/GroceryItem';
 import { formatDate } from '~utils/date';
 
 export default function GroceryCard({ item }: { item: Partial<GroceryItem> | GroceryItem }) {
+    const navigation = useNavigation();
+
     const formatPrice = (price: number | undefined) => {
         return price ? `$${Number(price).toFixed(2)}` : 'N/A';
     };
 
     return (
-        <Card className="my-1 mx-2 bg-white shadow-md rounded-lg border-2 border-primary">
+        <Card className="my-1 mx-2 shadow-md rounded-lg border-2 border-primary">
             <Card.Content>
                 <View className="flex-row justify-between items-start mb-2">
                     <Text className="text-center text-base font-bold text-primary flex-1 mr-2 font-heading">
@@ -55,7 +57,9 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
                     className="bg-primary"
                     textColor="white"
                     onPress={() => {
-                        router.push(`/grocery/${item.id}`);
+                        navigation.navigate('grocery', {
+                            id: item.id,
+                        });
                     }}
                 >
                     Edit
