@@ -13,7 +13,7 @@ import { GroceryItem } from '~types/GroceryItem';
 import { formatDate } from '~utils/date';
 
 // TODO: Update pages to handle default/new user (i.e. no receipts/expenses/items)
-// TODO: fix styling (fonts, colorurs, etc)
+// TODO: fix styling (fonts, colours, etc)
 // TODO: cleanup api and maintain consistent behavior, create custom ResponseType = {data, message, error}
 // TODO: add aws, update readme, add docs, add logo and favicons, openapi docs
 // TODO: cleanup dependencies, configs, fonts, add comments
