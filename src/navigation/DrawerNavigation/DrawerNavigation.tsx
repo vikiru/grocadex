@@ -1,9 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import DashboardStack from '~screens/DashboardStack/DashboardStack';
+import DashboardStack from '~navigation/DashboardStack/DashboardStack';
+import ExpiryStack from '~navigation/ExpiryStack/ExpiryStack';
+import ReceiptStack from '~navigation/ReceiptStack/ReceiptStack';
 import ExpenseScreen from '~screens/ExpenseScreen/ExpenseScreen';
-import ExpiryStack from '~screens/ExpiryStack/ExpiryStack';
-import ReceiptStack from '~screens/ReceiptStack/ReceiptStack';
 
 const Drawer = createDrawerNavigator();
 

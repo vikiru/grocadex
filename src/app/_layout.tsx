@@ -13,7 +13,7 @@ import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { useColorScheme } from '~hooks/components/useColorScheme';
-import DrawerNavigation from '~navigation/DrawerNavigation/DrawerNavigation';
+import MainNavigation from '~navigation/MainNavigation/MainNavigation';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -48,7 +48,7 @@ export default function RootLayout() {
             <PaperProvider>
                 <Provider store={store}>
                     <PersistGate loading={null} persistor={persistor}>
-                        <DrawerNavigation />
+                        <MainNavigation />
                         <Toast />
                     </PersistGate>
                 </Provider>
