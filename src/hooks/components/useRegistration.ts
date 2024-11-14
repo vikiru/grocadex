@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
+import { USER_ROUTE } from '~constants/Routes';
 import { usePostData } from '~hooks/api/usePostData';
 import { RequestPayload } from '~types/RequestPayload';
 
@@ -21,7 +22,7 @@ export function useRegistration() {
         setError(null);
 
         const payload: RequestPayload = {
-            url: `http://10.0.0.168:3000/api/v1/users`,
+            url: USER_ROUTE,
             data: values,
         };
 

@@ -20,7 +20,7 @@ export default function ExpenseScreen() {
     return (
         <View className="bg-background">
             <BarChart data={data} />
-            <ExpenseTable data={yearlyExpenses} />
+            {yearlyExpenses.length > 0 && <ExpenseTable data={yearlyExpenses} />}
         </View>
     );
 }
