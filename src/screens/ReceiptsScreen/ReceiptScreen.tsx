@@ -1,7 +1,6 @@
 import { ScrollView, View } from 'react-native';
 
-import { router } from 'expo-router';
-import { StyledComponent } from 'nativewind';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { FAB } from 'react-native-paper';
 import ReceiptCard from '~components/ReceiptCard/ReceiptCard';
@@ -9,26 +8,25 @@ import SearchBar from '~components/SearchBar/SearchBar';
 import { useReceipt } from '~hooks/redux/useReceipt';
 import { Receipt } from '~types/Receipt';
 
-export default function receipt() {
+export default function ReceiptsScreen() {
     const { receipts } = useReceipt();
-    ('RECEIPTS');
-    receipts;
+    const navigation = useNavigation();
+
     return (
-        <StyledComponent component={ScrollView} horizontal={false} className="bg-background min-h-full min-w-full">
+        <ScrollView horizontal={false} className="bg-background min-h-full min-w-full">
             <SearchBar placeholder="Search receipts..." />
-            <StyledComponent component={View} className="grid grid-cols-3">
+            <View className="grid grid-cols-3">
                 {receipts.map((receipt: Receipt | Partial<Receipt>) => (
-                    <StyledComponent component={ReceiptCard} receipt={receipt} key={receipt.id} />
+                    <ReceiptCard receipt={receipt} key={receipt.id} />
                 ))}
-            </StyledComponent>
-            <StyledComponent
-                component={FAB}
+            </View>
+            <FAB
                 icon="plus"
                 onPress={() => {
-                    router.push('/receipt/new');
+                    navigation.navigate('receipts/create');
                 }}
                 className="absolute bottom-10 right-10 z-0 bg-white"
             />
-        </StyledComponent>
+        </ScrollView>
     );
 }

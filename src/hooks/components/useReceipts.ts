@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
+import { RECEIPT_ROUTE } from '~constants/Routes';
 import { useDeleteData } from '~hooks/api/useDeleteData';
 import usePostData from '~hooks/api/usePostData';
 import { usePutData } from '~hooks/api/usePutData';
@@ -28,7 +29,7 @@ export default function useReceipts() {
         const { store, purchaseDate, total, groceryItems } = receipt;
 
         const payload: RequestPayload = {
-            url: `${process.env.EXPO_PUBLIC_API_URL}/receipts/`,
+            url: RECEIPT_ROUTE,
             data: { userId: user?.id, store, purchaseDate, total, groceryItems },
         };
 

@@ -1,13 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
-import ReceiptForm from '~components/ReceiptForm/ReceiptForm';
-import useReceipts from '~hooks/components/useReceipts';
+import ReceiptCreateScreen from '~screens/ReceiptCreateScreen/ReceiptCreateScreen';
 
-export default function NewReceipt() {
-    const { handleCreate, loading, error } = useReceipts();
-    return (
-        <View>
-            <ReceiptForm handleSubmit={handleCreate} loading={loading} error={error} />
-        </View>
-    );
+export default function ReceiptCreate() {
+    return <ReceiptCreateScreen />;
 }

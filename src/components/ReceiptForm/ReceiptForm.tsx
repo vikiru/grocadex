@@ -3,7 +3,6 @@ import * as Yup from 'yup';
 import { Button, TextInput } from 'react-native-paper';
 
 import { Formik } from 'formik';
-import { StyledComponent } from 'nativewind';
 import React from 'react';
 import { View } from 'react-native';
 import DateSelector from '~components/DateSelector/DateSelector';
@@ -61,10 +60,9 @@ export default function ReceiptForm({ initialValues, handleSubmit, loading, erro
             }}
         >
             {({ handleSubmit, handleChange, setFieldValue, values }) => (
-                <StyledComponent component={View} className="bg-background min-h-full min-w-full flex pt-2">
-                    <StyledComponent component={View} className="mx-1">
-                        <StyledComponent
-                            component={TextInput}
+                <View className="bg-background min-h-full min-w-full flex pt-2">
+                    <View className="mx-1">
+                        <TextInput
                             mode="outlined"
                             label="Store Name"
                             value={values.store}
@@ -72,13 +70,12 @@ export default function ReceiptForm({ initialValues, handleSubmit, loading, erro
                             placeholder="Enter the store name"
                             className="bg-white rounded-lg mx-2"
                         />
-                    </StyledComponent>
-                    <StyledComponent component={View} className="mx-3">
+                    </View>
+                    <View className="mx-3">
                         <DateSelector setFieldValue={setFieldValue} fieldName="purchaseDate" label="Purchase Date" />
-                    </StyledComponent>
-                    <StyledComponent component={View} className="mt-1 mx-1">
-                        <StyledComponent
-                            component={TextInput}
+                    </View>
+                    <View className="mt-1 mx-1">
+                        <TextInput
                             label="Total Price"
                             value={values.total?.toString() || ''}
                             onChangeText={(total) => {
@@ -88,7 +85,7 @@ export default function ReceiptForm({ initialValues, handleSubmit, loading, erro
                             mode="outlined"
                             className="bg-white my-1 mx-2"
                         />
-                    </StyledComponent>
+                    </View>
                     <GroceryAdder
                         setFieldValue={setFieldValue}
                         groceryItems={values.groceryItems || []}
@@ -97,17 +94,12 @@ export default function ReceiptForm({ initialValues, handleSubmit, loading, erro
                     {values.groceryItems && values.groceryItems.length > 0 && (
                         <GroceryContainer groceryItems={values.groceryItems} setFieldValue={setFieldValue} />
                     )}
-                    <StyledComponent component={View} className="mt-2 flex-1 justify-end items-center pb-5">
-                        <StyledComponent
-                            component={Button}
-                            className="rounded-lg"
-                            mode="contained"
-                            onPress={() => handleSubmit()}
-                        >
+                    <View className="mt-2 flex-1 justify-end items-center pb-5">
+                        <Button className="rounded-lg" mode="contained" onPress={() => handleSubmit()}>
                             Submit
-                        </StyledComponent>
-                    </StyledComponent>
-                </StyledComponent>
+                        </Button>
+                    </View>
+                </View>
             )}
         </Formik>
     );

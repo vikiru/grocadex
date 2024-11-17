@@ -3,7 +3,6 @@ import { Text, View } from 'react-native';
 import { Bar, CartesianChart } from 'victory-native';
 
 import { DateTime } from 'luxon';
-import { StyledComponent } from 'nativewind';
 import React from 'react';
 import Baloo from '~fonts/Baloo2-VariableFont_wght.ttf';
 
@@ -12,14 +11,11 @@ export default function BarChart({ data }: { data: { label: string; amount: numb
     const year = DateTime.now().year;
 
     return (
-        <StyledComponent component={View} className="mx-4 shadow-lg mt-2 px-2 rounded-md">
-            <StyledComponent
-                component={Text}
-                className="mb-1 text-base text-text font-semibold text-center font-heading"
-            >
+        <View className="mx-4 shadow-lg mt-2 px-2 rounded-md">
+            <Text className="mb-1 text-base text-text font-semibold text-center font-heading">
                 Yearly Expenses for {year}
-            </StyledComponent>
-            <StyledComponent component={View} className="h-52 w-full ">
+            </Text>
+            <View className="h-52 w-full ">
                 <CartesianChart
                     data={data}
                     xKey="label"
@@ -46,7 +42,7 @@ export default function BarChart({ data }: { data: { label: string; amount: numb
                         </Bar>
                     )}
                 </CartesianChart>
-            </StyledComponent>
-        </StyledComponent>
+            </View>
+        </View>
     );
 }

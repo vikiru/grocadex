@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
+import { FRONTEND_DASHBOARD_ROUTE } from '~constants/Routes';
 import { useDeleteData } from '~hooks/api/useDeleteData';
 import { usePutData } from '~hooks/api/usePutData';
 import { useActiveItem } from '~hooks/redux/useActiveItem';
@@ -41,7 +42,7 @@ export default function useItem() {
                     autoHide: true,
                     visibilityTime: 2000,
                 });
-                setTimeout(() => router.push('/dashboard'), 1500);
+                setTimeout(() => router.push(FRONTEND_DASHBOARD_ROUTE), 1500);
                 setLoading(false);
                 return { success: true };
             } else {

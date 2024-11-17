@@ -1,3 +1,5 @@
+import { FRONTEND_DASHBOARD_ROUTE, LOGIN_ROUTE } from '~constants/Routes';
+
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
@@ -17,7 +19,7 @@ export function useLogin() {
         setError(null);
 
         const payload: RequestPayload = {
-            url: `${process.env.EXPO_PUBLIC_API_URL}/auth/login`,
+            url: LOGIN_ROUTE,
             data: values,
         };
 
@@ -36,7 +38,7 @@ export function useLogin() {
                     autoHide: true,
                     visibilityTime: 2000,
                 });
-                setTimeout(() => router.push('/dashboard'), 1500);
+                setTimeout(() => router.push(FRONTEND_DASHBOARD_ROUTE), 1500);
                 return { success: true };
             } else {
                 setError(new Error('Login failed. Please try again.'));

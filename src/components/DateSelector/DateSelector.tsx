@@ -1,7 +1,6 @@
 import { FormikErrors, FormikValues as Values } from 'formik';
 import React, { useState } from 'react';
 
-import { StyledComponent } from 'nativewind';
 import { View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { TextInput } from 'react-native-paper';
@@ -20,9 +19,8 @@ export default function DateSelector({ setFieldValue, fieldName, label }: DatePi
     const [editable, setEditable] = useState(true);
 
     return (
-        <StyledComponent component={View} className="mt-1">
-            <StyledComponent
-                component={TextInput}
+        <View className="mt-1">
+            <TextInput
                 mode="outlined"
                 label={label}
                 value={purchaseString}
@@ -43,6 +41,6 @@ export default function DateSelector({ setFieldValue, fieldName, label }: DatePi
                 }}
                 onCancel={() => setOpen(false)}
             />
-        </StyledComponent>
+        </View>
     );
 }
