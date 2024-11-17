@@ -3,8 +3,8 @@ import { ScrollView, Text, View } from 'react-native';
 import { Button, Divider } from 'react-native-paper';
 
 import { useNavigation } from '@react-navigation/native';
+import Card from '~components/Card/Card';
 import ExpenseDisplay from '~components/ExpenseDisplay/ExpenseDisplay';
-import GroceryCard from '~components/GroceryCard/GroceryCard';
 import ReceiptTable from '~components/ReceiptTable/ReceiptTable';
 import { useDashboard } from '~hooks/components/useDashboard';
 import { useActiveItem } from '~hooks/redux/useActiveItem';
@@ -58,7 +58,7 @@ export default function DashboardScreen() {
                     showsHorizontalScrollIndicator={false}
                 >
                     {activeItems.slice(0, 5).map((item, index) => (
-                        <GroceryCard item={item} key={index} />
+                        <Card variant="detail" item={item} key={index} />
                     ))}
                 </ScrollView>
 
