@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { Button } from 'react-native-paper';
-import { GroceryItem } from '../../types/GroceryItem';
-import GroceryModal from '../GroceryModal/GroceryModal';
+import { GroceryModal } from '~components/index';
+import { GroceryItem } from '~types/index';
 
 type GroceryAdderProps = {
     initialValues?: GroceryItem | Partial<GroceryItem>;

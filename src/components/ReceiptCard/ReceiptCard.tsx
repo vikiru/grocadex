@@ -4,7 +4,7 @@ import { Button, Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { DateStringFormat } from '~constants/Dates';
-import { Receipt } from '~types/Receipt';
+import { Receipt } from '~types/index';
 import { formatDate } from '~utils/date';
 
 export default function ReceiptCard({ receipt }: { receipt: Receipt | Partial<Receipt> }) {

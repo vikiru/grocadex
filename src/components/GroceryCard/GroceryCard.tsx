@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import { DateFormat } from '~constants/Dates';
-import { GroceryItem } from '~types/GroceryItem';
+import { GroceryItem } from '~types/index';
 import { formatDate } from '~utils/date';
 
 export default function GroceryCard({ item }: { item: Partial<GroceryItem> | GroceryItem }) {

@@ -1,19 +1,21 @@
-import GroceryCard from '~components/GroceryCard/GroceryCard';
-import GroceryItemCard from '~components/GroceryItemCard/GroceryItemCard';
-import { GroceryItem } from '~types/GroceryItem';
+import { GroceryCard, GroceryItemCard, ReceiptCard } from '~components/index';
+import { GroceryItem, Receipt } from '~types/index';
 
 type CardProps = {
     variant: string;
-    item: GroceryItem | Partial<GroceryItem>;
+    item?: GroceryItem | Partial<GroceryItem>;
+    receipt?: Receipt | Partial<Receipt>;
 };
 
-export default function Card({ variant, item }: CardProps) {
+export default function Card({ variant, item, receipt }: CardProps) {
     switch (variant) {
         case 'detail':
-            return <GroceryCard item={item} />;
+            return <GroceryCard item={item!} />;
         case 'compact':
-            return <GroceryItemCard item={item} />;
+            return <GroceryItemCard item={item!} />;
+        case 'receipt':
+            return <ReceiptCard receipt={receipt!} />;
         default:
-            return <GroceryCard item={item} />;
+            return <GroceryCard item={item!} />;
     }
 }

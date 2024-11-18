@@ -4,7 +4,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { Button } from 'react-native-paper';
 import { DateFormat } from '~constants/Dates';
-import { GroceryItem } from '~types/GroceryItem';
+import { GroceryItem } from '~types/index';
 import { formatDate } from '~utils/date';
 
 type GroceryContainerProps = {
