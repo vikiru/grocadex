@@ -1,6 +1,4 @@
-import { GroceryItem } from '~types/GroceryItem';
-import { Receipt } from '~types/Receipt';
-import { User } from '~types/User';
+import { GroceryItem, Receipt, User } from '~types/index';
 
 export type RequestPayload = {
     url: string;

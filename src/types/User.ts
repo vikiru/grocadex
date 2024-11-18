@@ -1,5 +1,4 @@
-import { GroceryItem } from '~types/GroceryItem';
-import { Receipt } from '~types/Receipt';
+import { GroceryItem, Receipt } from '~types/index';
 
 export type User = {
     id?: number;
