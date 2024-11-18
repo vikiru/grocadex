@@ -20,7 +20,7 @@
             "~routes/*": ["./routes/index.ts"],
             "~services/*": ["./services/index.ts"],
             "~strategies/*": ["./strategies/*"],
-            "~types/*": ["./types/*"],
+            "~types/*": ["../types/*"],
             "~utils/*": ["./utils/*"]
         },
         "typeRoots": ["./node_modules/@types", "types"]
