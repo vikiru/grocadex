@@ -1,6 +1,6 @@
+import { ExpiryScreen, GroceryItemEditScreen } from '~screens/index';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ExpiryScreen from '~screens/ExpiryScreen/ExpiryScreen';
-import GroceryItemEditScreen from '~screens/GroceryItemEditScreen/GroceryItemEditScreen';
 
 const Stack = createNativeStackNavigator();
 

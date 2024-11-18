@@ -1,10 +1,8 @@
+import { ReceiptCreateScreen, ReceiptEditScreen, ReceiptViewScreen, ReceiptsScreen } from '~screens/index';
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ReceiptCreateScreen from '~screens/ReceiptCreateScreen/ReceiptCreateScreen';
-import ReceiptEditScreen from '~screens/ReceiptEditScreen/ReceiptEditScreen';
-import ReceiptViewScreen from '~screens/ReceiptViewScreen/ReceiptViewScreen';
-import ReceiptsScreen from '~screens/ReceiptsScreen/ReceiptScreen';
 
 const Stack = createNativeStackNavigator();
 
