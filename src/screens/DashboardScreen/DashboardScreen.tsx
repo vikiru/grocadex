@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Button, Divider } from 'react-native-paper';
+import { Card, ExpenseDisplay, ReceiptTable } from '~components/index';
+import { useActiveItem, useExpense, useReceipt } from '~hooks/redux';
 
 import { useNavigation } from '@react-navigation/native';
-import Card from '~components/Card/Card';
-import ExpenseDisplay from '~components/ExpenseDisplay/ExpenseDisplay';
-import ReceiptTable from '~components/ReceiptTable/ReceiptTable';
-import { useDashboard } from '~hooks/components/useDashboard';
-import { useActiveItem } from '~hooks/redux/useActiveItem';
-import { useExpense } from '~hooks/redux/useExpense';
-import { useReceipt } from '~hooks/redux/useReceipt';
+import { useDashboard } from '~hooks/components/index';
 
 //TODO: Refactor and improve default components
 // TODO: Fix navigation to create new receipt

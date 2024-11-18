@@ -1,9 +1,8 @@
 import { ScrollView, View } from 'react-native';
+import { Card, SearchBar } from '~components/index';
 
 import React from 'react';
-import Card from '~components/Card/Card';
-import SearchBar from '~components/SearchBar/SearchBar';
-import { useActiveItem } from '~hooks/redux/useActiveItem';
+import { useActiveItem } from '~hooks/redux';
 
 export default function ExpiryScreen() {
     const { activeItems } = useActiveItem();
