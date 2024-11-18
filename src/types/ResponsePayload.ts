@@ -1,8 +1,8 @@
-import { GroceryItem, Receipt, User, UserData } from '~types/index';
+import { ResponseData } from '~types/index';
 
 export type ResponsePayload = {
     message: string;
-    data: User | UserData | Receipt | GroceryItem | Receipt[] | GroceryItem[];
+    data: ResponseData;
     success: boolean;
     error: string;
 };
