@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
+import { ResponsePayload } from '~types/index';
 
 import { logger } from '~config/logger';
 import { ActiveItemService } from '~services/';
-import { ResponsePayload } from '~types/index';
 
 export async function createActiveItems(req: Request, res: Response): Promise<void> {
     const userId = req.user;

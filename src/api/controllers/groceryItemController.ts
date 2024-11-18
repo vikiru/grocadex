@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 
+import { GroceryItem } from '@prisma/client';
 import { logger } from '~config/logger';
 import { GroceryItemService } from '~services/';
-import { GroceryItem, ResponsePayload } from '~types/index';
+import { ResponsePayload } from '~types/index';
 
 export async function createGroceryItem(req: Request, res: Response): Promise<void> {
     const user = req.user;
