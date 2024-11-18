@@ -5,7 +5,7 @@ import { Button, TextInput } from 'react-native-paper';
 
 import { Formik } from 'formik';
 import React from 'react';
-import { DateSelector } from '~components/index';
+import DateSelector from '~components/DateSelector/DateSelector';
 import { GroceryItem } from '~types/index';
 
 const validationSchema = Yup.object().shape({

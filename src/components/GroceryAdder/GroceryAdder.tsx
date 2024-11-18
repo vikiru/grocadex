@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { Button } from 'react-native-paper';
-import { GroceryModal } from '~components/index';
+import GroceryModal from '~components/GroceryModal/GroceryModal';
 import { GroceryItem } from '~types/index';
 
 type GroceryAdderProps = {

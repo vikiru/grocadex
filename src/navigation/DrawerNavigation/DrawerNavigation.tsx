@@ -1,8 +1,9 @@
-import { DashboardStack, ExpiryStack, ReceiptStack } from '~navigation/index';
-
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { ExpenseScreen } from '~screens/index';
+import DashboardStack from '~navigation/DashboardStack/DashboardStack';
+import ExpiryStack from '~navigation/ExpiryStack/ExpiryStack';
+import ReceiptStack from '~navigation/ReceiptStack/ReceiptStack';
+import ExpenseScreen from '~screens/ExpenseScreen/ExpenseScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -21,11 +22,11 @@ export default function DrawerNavigation() {
             <Drawer.Screen
                 name="dashboard"
                 component={DashboardStack}
-                options={{
+                options={({ route }) => ({
                     title: 'Home',
                     headerShown: true,
                     drawerIcon: () => <MaterialCommunityIcons name="home" size={24} />,
-                }}
+                })}
             />
             <Drawer.Screen
                 name="expiry"
