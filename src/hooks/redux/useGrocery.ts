@@ -8,7 +8,7 @@ import {
     updateGroceryItem,
 } from '~slices/groceryItemSlice';
 
-import { GroceryItem } from '~types/GroceryItem';
+import { GroceryItem } from '~types/index';
 
 export const useGrocery = () => {
     const groceryItems = useSelector(selectGroceryItems);

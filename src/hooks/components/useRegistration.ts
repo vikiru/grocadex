@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Toast from 'react-native-toast-message';
 import { USER_ROUTE } from '~constants/Routes';
 import { usePostData } from '~hooks/api/usePostData';
-import { RequestPayload } from '~types/RequestPayload';
+import { RequestPayload } from '~types/index';
 
 export function useRegistration() {
     const { postData } = usePostData();

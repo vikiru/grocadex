@@ -1,13 +1,12 @@
+import { useActiveItem, useExpense, useReceipt } from '~hooks/redux';
+
 import { useState } from 'react';
 import { DASHBOARD_ROUTE } from '~constants/Routes';
-import { useGetData } from '~hooks/api/useGetData';
-import { useActiveItem } from '~hooks/redux/useActiveItem';
-import { useExpense } from '~hooks/redux/useExpense';
-import { useReceipt } from '~hooks/redux/useReceipt';
-import { RequestPayload } from '~types/RequestPayload';
+import { useGetData } from '~hooks/api';
+import { RequestPayload } from '~types/index';
 import { constructExpenses } from '~utils/expense';
 
-export function useDashboard() {
+export default function useDashboard() {
     const { updateActiveItems } = useActiveItem();
     const { setReceiptValues } = useReceipt();
     const { updateExpenses } = useExpense();

@@ -8,7 +8,7 @@ import {
     updateReceipt,
 } from '~slices/receiptSlice';
 
-import { Receipt } from '~types/Receipt';
+import { Receipt } from '~types/index';
 import { sortReceipts } from '~utils/date';
 
 export const useReceipt = () => {

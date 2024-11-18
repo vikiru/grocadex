@@ -11,7 +11,7 @@ import {
     updateActiveItemsByReceipt,
 } from '~slices/activeItemSlice';
 
-import { GroceryItem } from '~types/GroceryItem';
+import { GroceryItem } from '~types/index';
 import { sortActiveItems } from '~utils/date';
 
 export const useActiveItem = () => {

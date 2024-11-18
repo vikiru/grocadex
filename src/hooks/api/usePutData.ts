@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React from 'react';
-import { RequestPayload } from '~types/RequestPayload';
+import { RequestPayload } from '~types/index';
 
-export function usePutData() {
+export default function usePutData() {
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState<Error | null>(null);
 
@@ -22,5 +22,3 @@ export function usePutData() {
 
     return { putData, isLoading, error };
 }
-
-export default usePutData;

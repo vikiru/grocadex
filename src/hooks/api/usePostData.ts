@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React from 'react';
-import { RequestPayload } from '~types/RequestPayload';
+import { RequestPayload } from '~types/index';
 
-export function usePostData() {
+export default function usePostData() {
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState<Error | null>(null);
 
@@ -26,5 +26,3 @@ export function usePostData() {
 
     return { postData, loading, error };
 }
-
-export default usePostData;
