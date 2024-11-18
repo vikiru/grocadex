@@ -1,11 +1,13 @@
 import * as Yup from 'yup';
 
 import { Button, TextInput } from 'react-native-paper';
-import { DateSelector, GroceryAdder, GroceryContainer } from '~components/index';
 
 import { Formik } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
+import DateSelector from '~components/DateSelector/DateSelector';
+import GroceryAdder from '~components/GroceryAdder/GroceryAdder';
+import GroceryContainer from '~components/GroceryContainer/GroceryContainer';
 import { Receipt } from '~types/index';
 
 const validationSchema = Yup.object({
@@ -25,11 +27,6 @@ const validationSchema = Yup.object({
         )
         .required('No groceries added to receipt'),
 });
-
-// TODO: update api so that post and put return created/updated items. Optimize queries where possible, maintain consistent format
-
-// TODO: update this to use the redux user id
-// TODO: update this to use proper url
 
 const defaultValues = {
     store: '',

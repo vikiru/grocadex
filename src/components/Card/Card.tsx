@@ -1,5 +1,8 @@
-import { GroceryCard, GroceryItemCard, ReceiptCard } from '~components/index';
 import { GroceryItem, Receipt } from '~types/index';
+
+import GroceryCard from '~components/GroceryCard/GroceryCard';
+import GroceryItemCard from '~components/GroceryItemCard/GroceryItemCard';
+import ReceiptCard from '~components/ReceiptCard/ReceiptCard';
 
 type CardProps = {
     variant: string;

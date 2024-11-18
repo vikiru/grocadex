@@ -22,11 +22,12 @@ export function DefaultDashboard() {
             </View>
             <View>
                 <Button
-                    icon="cancel"
+                    icon="plus"
                     mode="elevated"
                     className="max-w-md my-2 w-60 bg-secondary mx-auto"
+                    buttonColor="orange"
                     textColor="white"
-                    onPress={() => console.log('press')}
+                    onPress={() => navigation.navigate('receipts/create')}
                 >
                     Add Receipt
                 </Button>

@@ -5,7 +5,7 @@ import { Button, Card } from 'react-native-paper';
 
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { Dialog } from '~components/index';
+import Dialog from '~components/Dialog/Dialog';
 import { useItem } from '~hooks/components';
 import { GroceryItem } from '~types/index';
 import { constructExpiryString } from '~utils/date';
