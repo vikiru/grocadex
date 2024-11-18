@@ -1,4 +1,4 @@
-import DashboardScreen from '~screens/DashboardScreen/DashboardScreen';
+import { DashboardScreen } from '~screens/index';
 
 export default function Dashboard() {
     return <DashboardScreen />;

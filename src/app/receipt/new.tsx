@@ -1,4 +1,4 @@
-import ReceiptCreateScreen from '~screens/ReceiptCreateScreen/ReceiptCreateScreen';
+import { ReceiptCreateScreen } from '~screens/index';
 
 export default function ReceiptCreate() {
     return <ReceiptCreateScreen />;

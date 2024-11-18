@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '~store/store';
-import { GroceryItem } from '~types/GroceryItem';
+import { GroceryItem } from '~types/index';
 
 type ActiveItemState = {
     activeItems: GroceryItem[] | Partial<GroceryItem>[];

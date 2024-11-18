@@ -1,4 +1,4 @@
-import ReceiptsScreen from '~screens/ReceiptsScreen/ReceiptScreen';
+import { ReceiptsScreen } from '~screens/index';
 
 export default function receipt() {
     return <ReceiptsScreen />;

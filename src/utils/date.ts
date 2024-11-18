@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
-import { GroceryItem } from '~types/GroceryItem';
-import { Receipt } from '~types/Receipt';
+import { GroceryItem, Receipt } from '~types/index';
 
 export const formatDate = (date: Date | string, format: string): string => {
     if (typeof date === 'string') {
@@ -30,7 +29,7 @@ export const sortActiveItems = (items: GroceryItem[] | Partial<GroceryItem>[]): 
     items.sort((a, b) => {
         const firstDate = convertDatetoDateTime(a.expiryDate!);
         const secondDate = convertDatetoDateTime(b.expiryDate!);
-        firstDate, secondDate;
+
         return firstDate.diff(secondDate).toMillis();
     });
 };

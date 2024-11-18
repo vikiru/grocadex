@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '~store/store';
-import { Receipt } from '~types/Receipt';
+import { Receipt } from '~types/index';
 
 type ReceiptState = {
     receipts: Receipt[] | Partial<Receipt>[];

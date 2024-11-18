@@ -1,4 +1,4 @@
-import GroceryItemEditScreen from '~screens/GroceryItemEditScreen/GroceryItemEditScreen';
+import { GroceryItemEditScreen } from '~screens/index';
 
 export default function GroceryItemView() {
     return <GroceryItemEditScreen />;
