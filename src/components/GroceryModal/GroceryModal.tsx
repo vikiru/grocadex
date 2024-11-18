@@ -5,8 +5,8 @@ import { Button, TextInput } from 'react-native-paper';
 
 import { Formik } from 'formik';
 import React from 'react';
-import { GroceryItem } from '../../types/GroceryItem';
-import DateSelector from '../DateSelector/DateSelector';
+import { DateSelector } from '~components/index';
+import { GroceryItem } from '~types/index';
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),

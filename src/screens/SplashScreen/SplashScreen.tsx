@@ -1,10 +1,9 @@
 import { StatusBar, Text, View } from 'react-native';
+import { IntroDetails, Logo } from '~components/index';
 
 import { router } from 'expo-router';
 import React from 'react';
 import { Button } from 'react-native-paper';
-import IntroDetails from '~components/IntroDetails/IntroDetails';
-import Logo from '~components/Logo/Logo';
 
 export default function SplashScreen() {
     const moveToRegistration = async () => {

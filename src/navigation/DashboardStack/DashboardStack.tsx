@@ -1,6 +1,6 @@
+import { DashboardScreen, GroceryItemEditScreen } from '~screens/index';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import DashboardScreen from '~screens/DashboardScreen/DashboardScreen';
-import GroceryItemEditScreen from '~screens/GroceryItemEditScreen/GroceryItemEditScreen';
 
 const Stack = createNativeStackNavigator();
 

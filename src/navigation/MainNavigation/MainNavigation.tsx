@@ -1,6 +1,6 @@
-import { useUser } from '~hooks/redux/useUser';
-import AuthStack from '~navigation/AuthStack/AuthStack';
-import DrawerNavigation from '~navigation/DrawerNavigation/DrawerNavigation';
+import { AuthStack, DrawerNavigation } from '~navigation/index';
+
+import { useUser } from '~hooks/redux';
 
 export default function MainNavigation() {
     const { user } = useUser();

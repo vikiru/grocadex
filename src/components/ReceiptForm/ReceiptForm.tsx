@@ -1,14 +1,12 @@
 import * as Yup from 'yup';
 
 import { Button, TextInput } from 'react-native-paper';
+import { DateSelector, GroceryAdder, GroceryContainer } from '~components/index';
 
 import { Formik } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
-import DateSelector from '~components/DateSelector/DateSelector';
-import GroceryAdder from '~components/GroceryAdder/GroceryAdder';
-import GroceryContainer from '~components/GroceryContainer/GroceryContainer';
-import { Receipt } from '~types/Receipt';
+import { Receipt } from '~types/index';
 
 const validationSchema = Yup.object({
     store: Yup.string().required('Must provide a store name'),
@@ -32,7 +30,6 @@ const validationSchema = Yup.object({
 
 // TODO: update this to use the redux user id
 // TODO: update this to use proper url
-// TODO: separate item card and card container
 
 const defaultValues = {
     store: '',

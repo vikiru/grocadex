@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { BarChart, ExpenseTable } from '~components/index';
 
 import { View } from 'react-native';
-import BarChart from '~components/BarChart/BarChart';
-import ExpenseTable from '~components/ExpenseTable/ExpenseTable';
-import { useExpense } from '~hooks/redux/useExpense';
+import { useExpense } from '~hooks/redux';
 import { constructGraphData } from '~utils/expense';
 
 export default function ExpenseScreen() {

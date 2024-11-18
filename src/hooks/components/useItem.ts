@@ -1,13 +1,11 @@
+import { FRONTEND_DASHBOARD_ROUTE, FRONTEND_EXPIRY_ROUTE } from '~constants/Routes';
+import { useDeleteData, usePutData } from '~hooks/api';
+import { useActiveItem, useUser } from '~hooks/redux';
+import { GroceryItem, RequestPayload } from '~types/index';
+
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
-import { FRONTEND_DASHBOARD_ROUTE } from '~constants/Routes';
-import { useDeleteData } from '~hooks/api/useDeleteData';
-import { usePutData } from '~hooks/api/usePutData';
-import { useActiveItem } from '~hooks/redux/useActiveItem';
-import { useUser } from '~hooks/redux/useUser';
-import { GroceryItem } from '~types/GroceryItem';
-import { RequestPayload } from '~types/RequestPayload';
 
 export default function useItem() {
     const { user } = useUser();
@@ -58,7 +56,7 @@ export default function useItem() {
         setError(null);
 
         const payload: RequestPayload = {
-            url: `http://10.0.0.168:3000/api/v1/receipts/${receiptId}/groceries/${groceryItemId}`,
+            url: `${process.env.EXPO_PUBLIC_API_URL}/receipts/${receiptId}/groceries/${groceryItemId}`,
             data: { userId: user?.id, receiptId, groceryItemId },
         };
 
@@ -73,7 +71,7 @@ export default function useItem() {
                     autoHide: true,
                     visibilityTime: 2000,
                 });
-                setTimeout(() => router.push('/expiry'), 1500);
+                setTimeout(() => router.push(FRONTEND_EXPIRY_ROUTE), 1500);
                 setLoading(false);
                 return { success: true };
             } else {

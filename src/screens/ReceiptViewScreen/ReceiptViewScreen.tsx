@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Button, Divider } from 'react-native-paper';
+import { Dialog, Loader } from '~components/index';
+import { useActiveItem, useReceipt } from '~hooks/redux';
+import { GroceryItem, Receipt } from '~types/index';
 
 import { useNavigation } from 'expo-router';
-import Dialog from '~components/Dialog/Dialog';
-import Loader from '~components/Loader/Loader';
 import { DateStringFormat } from '~constants/Dates';
-import useReceipts from '~hooks/components/useReceipts';
-import { useActiveItem } from '~hooks/redux/useActiveItem';
-import { useReceipt } from '~hooks/redux/useReceipt';
-import { GroceryItem } from '~types/GroceryItem';
+import { useReceipts } from '~hooks/components';
 import { formatDate } from '~utils/date';
 
 // TODO: Update pages to handle default/new user (i.e. no receipts/expenses/items)
@@ -17,7 +15,6 @@ import { formatDate } from '~utils/date';
 // TODO: cleanup api and maintain consistent behavior, create custom ResponseType = {data, message, error}
 // TODO: add aws, update readme, add docs, add logo and favicons, openapi docs
 // TODO: cleanup dependencies, configs, fonts, add comments
-// TODO: update grocery cards to be universal/consistent or max 2 components for this purpose. add view receipt functionality,
 // search items
 
 const deleteReceipt = (
@@ -29,15 +26,15 @@ const deleteReceipt = (
     handleDelete(receiptId);
 };
 
-export default function ReceiptViewScreen({ route }) {
+export default function ReceiptViewScreen({ route }: any) {
     const [dialogVisible, setDialogVisible] = useState(false);
     const { receipts } = useReceipt();
     const { handleDelete, loading, error } = useReceipts();
     const { activeItems } = useActiveItem();
     const { id } = route.params;
 
-    const receipt = receipts.find((receipt) => receipt.id === Number(id));
-    const items = activeItems.filter((item) => item.receiptId === Number(id));
+    const receipt = receipts.find((receipt: Receipt | Partial<Receipt>) => receipt.id === Number(id));
+    const items = activeItems.filter((item: GroceryItem | Partial<GroceryItem>) => item.receiptId === Number(id));
     const navigation = useNavigation();
 
     if (receipt) {

@@ -1,12 +1,11 @@
 import { ScrollView, View } from 'react-native';
+import { Card, SearchBar } from '~components/index';
 
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { FAB } from 'react-native-paper';
-import ReceiptCard from '~components/ReceiptCard/ReceiptCard';
-import SearchBar from '~components/SearchBar/SearchBar';
-import { useReceipt } from '~hooks/redux/useReceipt';
-import { Receipt } from '~types/Receipt';
+import { useReceipt } from '~hooks/redux';
+import { Receipt } from '~types/index';
 
 export default function ReceiptsScreen() {
     const { receipts } = useReceipt();
@@ -17,7 +16,7 @@ export default function ReceiptsScreen() {
             <SearchBar placeholder="Search receipts..." />
             <View className="grid grid-cols-3">
                 {receipts.map((receipt: Receipt | Partial<Receipt>) => (
-                    <ReceiptCard receipt={receipt} key={receipt.id} />
+                    <Card variant="receipt" receipt={receipt} key={receipt.id} />
                 ))}
             </View>
             <FAB

@@ -1,6 +1,6 @@
+import { Expense, Receipt } from '~types/index';
+
 import { Months } from '~constants/Dates';
-import { Expense } from '~types/Expense';
-import { Receipt } from '~types/Receipt';
 import { convertDatetoDateTime } from '~utils/date';
 import { filterReceiptsByMonthYear } from '~utils/receipt';
 

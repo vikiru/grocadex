@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import { DataTable } from 'react-native-paper';
 import { ExpenseFormat } from '~constants/Dates';
-import { Expense } from '~types/Expense';
+import { Expense } from '~types/index';
 import { formatDate } from '~utils/date';
 
 export default function ExpenseTable({ data }: { data: any }) {

@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 import { Formik } from 'formik';
-import Logo from '~components/Logo/Logo';
+import { Logo } from '~components/index';
 import { useLogin } from '~hooks/components/useLogin';
 
 const validationSchema = Yup.object().shape({

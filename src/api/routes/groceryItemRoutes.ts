@@ -1,7 +1,7 @@
 import express from 'express';
-import { apiVersionString } from '../config';
-import { GroceryItemController } from '../controllers';
-import { ensureAuthenticated } from '../middlewares';
+import { apiVersionString } from '~config/index';
+import { GroceryItemController } from '~controllers/';
+import { ensureAuthenticated } from '~middlewares/';
 
 const GroceryItemRouter = express.Router();
 const baseUrl = `/${apiVersionString}/receipts`;

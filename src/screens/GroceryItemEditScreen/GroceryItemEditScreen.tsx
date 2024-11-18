@@ -1,12 +1,12 @@
+import { GroceryModal, Loader } from '~components/index';
+
 import { router } from 'expo-router';
 import { View } from 'react-native';
-import GroceryModal from '~components/GroceryModal/GroceryModal';
-import Loader from '~components/Loader/Loader';
-import useItem from '~hooks/components/useItem';
-import { useActiveItem } from '~hooks/redux/useActiveItem';
-import { GroceryItem } from '~types/GroceryItem';
+import { useItem } from '~hooks/components';
+import { useActiveItem } from '~hooks/redux';
+import { GroceryItem } from '~types/index';
 
-export default function GroceryItemEditScreen({ route }) {
+export default function GroceryItemEditScreen({ route }: any) {
     const { id } = route.params;
     const { handleUpdate, loading, error } = useItem();
     const { activeItems } = useActiveItem();

@@ -3,8 +3,8 @@ import { Text, View } from 'react-native';
 
 import { DataTable } from 'react-native-paper';
 import { DateFormat } from '~constants/Dates';
+import { Receipt } from '~types/index';
 import { formatDate } from '~utils/date';
-import { Receipt } from '../../types/Receipt';
 
 export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Partial<Receipt>[] }) {
     const [page, setPage] = React.useState(0);

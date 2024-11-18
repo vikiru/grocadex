@@ -14,7 +14,7 @@ import {
 } from '~slices/expenseSlice';
 
 import { DateTime } from 'luxon';
-import { Expense } from '~types/Expense';
+import { Expense } from '~types/index';
 import { calculateExpenses } from '~utils/expense';
 
 export const useExpense = () => {

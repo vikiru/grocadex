@@ -1,11 +1,12 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
-import { usePostData } from '~hooks/api/usePostData';
-import { useUser } from '~hooks/redux/useUser';
-import { RequestPayload } from '~types/RequestPayload';
+import { LOGOUT_ROUTE } from '~constants/Routes';
+import { usePostData } from '~hooks/api';
+import { useUser } from '~hooks/redux';
+import { RequestPayload } from '~types/index';
 
-export function useLogout() {
+export default function useLogout() {
     const { deleteUser } = useUser();
     const { postData } = usePostData();
     const router = useRouter();
@@ -17,7 +18,7 @@ export function useLogout() {
         setError(null);
 
         const payload: RequestPayload = {
-            url: `http://10.0.0.168:3000/api/v1/auth/logout`,
+            url: LOGOUT_ROUTE,
             data: [],
         };
 

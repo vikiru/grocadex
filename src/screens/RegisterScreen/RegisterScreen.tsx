@@ -5,7 +5,7 @@ import { Button, TextInput } from 'react-native-paper';
 
 import { Formik } from 'formik';
 import React from 'react';
-import { useRegistration } from '~hooks/components/useRegistration';
+import { useRegistration } from '~hooks/components';
 
 const validationSchema = Yup.object({
     firstName: Yup.string().required('First name is required'),

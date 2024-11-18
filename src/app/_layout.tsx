@@ -13,7 +13,7 @@ import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { useColorScheme } from '~hooks/components/useColorScheme';
-import MainNavigation from '~navigation/MainNavigation/MainNavigation';
+import { MainNavigation } from '~navigation/index';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

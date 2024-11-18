@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import ReceiptForm from '~components/ReceiptForm/ReceiptForm';
+import { ReceiptForm } from '~components/index';
 import useReceipts from '~hooks/components/useReceipts';
 
 export default function ReceiptCreateScreen() {

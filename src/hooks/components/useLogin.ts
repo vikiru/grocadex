@@ -3,11 +3,11 @@ import { FRONTEND_DASHBOARD_ROUTE, LOGIN_ROUTE } from '~constants/Routes';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
-import { usePostData } from '~hooks/api/usePostData';
-import { useUser } from '~hooks/redux/useUser';
-import { RequestPayload } from '~types/RequestPayload';
+import { usePostData } from '~hooks/api';
+import { useUser } from '~hooks/redux';
+import { RequestPayload } from '~types/index';
 
-export function useLogin() {
+export default function useLogin() {
     const { updateUser } = useUser();
     const { postData } = usePostData();
     const router = useRouter();
