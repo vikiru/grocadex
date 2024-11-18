@@ -2,64 +2,94 @@ import { Request, Response } from 'express';
 
 import { logger } from '~config/logger';
 import { ActiveItemService } from '~services/';
+import { ResponsePayload } from '~types/index';
 
 export async function createActiveItems(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const { receiptIds } = req.body;
+    const response: ResponsePayload = { message: '', data: null, success: false, error: '' };
 
     try {
         await ActiveItemService.saveActiveItems(userId, receiptIds);
-        res.status(201).json({ message: 'Active items created successfully' });
+        response['message'] = 'Active items created successfully';
+        response['success'] = true;
+        response['error'] = 'No error occured.';
+        res.status(201).json(response);
     } catch (error) {
         logger.error(`Error saving active items: ${error}`);
-        res.status(500).json({ error: 'Internal server error.' });
+        response['mesasge'] = 'Internal server error';
+        response['error'] = 'There was an error saving active items to the database.';
+        res.status(500).json(response);
     }
 }
 
 export async function getActiveItems(req: Request, res: Response): Promise<void> {
     const userId = req.user;
-
+    const response: ResponsePayload = { message: '', data: [], success: false, error: '' };
     try {
         const activeItems = await ActiveItemService.retrieveActiveItems(userId);
 
         if (activeItems.length > 0) {
-            res.status(200).json({ data: activeItems, message: 'Successfully retrieved all active items for user' });
+            response['message'] = 'Successfully retrieved all active items for user.';
+            response['data'] = activeItems;
+            response['success'] = true;
+            response['error'] = 'No error occured.';
+            res.status(200).json(response);
         } else {
-            res.status(404).json({ error: 'No active items found' });
+            response['message'] = 'No active items found';
+            response['error'] = 'There was an error retrieving the active items for the given user.';
+            res.status(404).json(response);
         }
     } catch (error) {
         logger.error(`Error retrieving active items for user with id ${userId}: ${error}`);
-        res.status(500).json({ error: 'Internal server error.' });
+        response['message'] = 'Internal server error.';
+        response['error'] = 'There was an error retrieving the active items for the given user.';
+        res.status(500).json(response);
     }
 }
 
 export async function getActiveItemById(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const groceryItemId = parseInt(req.params.id, 10);
+    const response: ResponsePayload = { message: '', data: null, success: false, error: '' };
 
     try {
         const activeItem = await ActiveItemService.retrieveActiveItemById(userId, groceryItemId);
 
         if (activeItem) {
-            res.status(200).json({ data: activeItem });
+            response['message'] = 'Successfully retrieved active item for user.';
+            response['data'] = activeItem;
+            response['success'] = true;
+            response['error'] = 'No error occured.';
+            res.status(200).json(response);
         } else {
-            res.status(404).json({ error: 'Active item not found' });
+            response['message'] = 'Active item not found';
+            response['error'] = 'No active item matching the given user id.';
+            res.status(404).json(response);
         }
     } catch (error) {
         logger.error(`Error retrieving active item with id ${groceryItemId}: ${error}`);
-        res.status(500).json({ error: error.message });
+        response['message'] = 'Internal server error.';
+        response['error'] = 'There was an error retrieving the active item for the given user.';
+        res.status(500).json(response);
     }
 }
 
 export async function deleteActiveItems(req: Request, res: Response): Promise<void> {
     const userId = req.user;
     const groceryItemIds = req.body.groceryItemIds;
+    const response: ResponsePayload = { message: '', data: null, success: false, error: '' };
 
     try {
         await ActiveItemService.removeActiveItems(userId, groceryItemIds);
-        res.status(200).json({ message: 'Active items removed successfully' });
+        response['message'] = 'Successfully removed active items';
+        response['success'] = true;
+        response['error'] = 'No error occured.';
+        res.status(200).json(response);
     } catch (error) {
         logger.error(`Error removing active items from user ${userId}: ${error}`);
-        res.status(500).json({ error: 'Internal server error.' });
+        response['message'] = 'Internal server error.';
+        response['error'] = 'There was an error removing the active items for the given user.';
+        res.status(500).json(response);
     }
 }

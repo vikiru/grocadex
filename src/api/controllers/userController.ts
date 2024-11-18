@@ -3,59 +3,87 @@ import { AuthService, GroceryItemService, ReceiptService, UserService } from '~s
 
 import { User } from '@prisma/client';
 import { logger } from '~config/logger';
+import { ResponsePayload } from '~types/index';
 
 export async function createUser(req: Request, res: Response): Promise<void> {
     const user: User = req.body;
+    const response: ResponsePayload = { message: '', data: null, success: false, error: '' };
 
     try {
         if (await AuthService.checkIfUserExists(user.username)) {
-            res.status(400).json({ error: 'Username is already taken' });
-            return;
+            response['message'] = 'Username is already taken.';
+            response['error'] = 'Username is already taken.';
+            return res.status(400).json(response);
         }
 
         if (await AuthService.checkIfEmailExists(user.email)) {
-            res.status(400).json({ error: 'Email is already taken' });
-            return;
+            response['message'] = 'Email is already taken.';
+            response['error'] = 'Email is already taken.';
+            return res.status(400).json(response);
         }
 
         await UserService.saveUser(user);
-        res.status(201).json({ message: 'User created successfully' });
+        response['message'] = 'User created successfully.';
+        response['success'] = true;
+        response['error'] = 'No error occurred.';
+        res.status(201).json(response);
     } catch (error) {
         logger.error(`Error creating user: ${error}`);
-        res.status(500).json({ error: 'Internal server error.' });
+        response['message'] = 'Internal server error.';
+        response['error'] = 'Failed to create user.';
+        res.status(500).json(response);
     }
 }
 
 export async function getUserById(req: Request, res: Response): Promise<void> {
     const userId = req.user;
+    const response: ResponsePayload = { message: '', data: null, success: false, error: '' };
 
     try {
         const user = await UserService.retrieveUserById(userId);
 
         if (user) {
             delete user.password;
-            res.status(200).json({ data: user });
+            response['data'] = user;
+            response['success'] = true;
+            response['message'] = 'Successfully retrieved user.';
+            response['error'] = 'No error occurred.';
+            res.status(200).json(response);
         } else {
-            res.status(404).json({ error: 'User not found' });
+            response['message'] = 'User not found.';
+            response['error'] = 'User not found.';
+            res.status(404).json(response);
         }
     } catch (error) {
         logger.error(`Error retrieving user with id ${userId}: ${error}`);
-        res.status(500).json({ error: 'Internal server error.' });
+        response['message'] = 'Internal server error.';
+        response['error'] = 'Failed to retrieve user.';
+        res.status(500).json(response);
     }
 }
 
 export async function getUserData(req: Request, res: Response): Promise<void> {
     const userId = req.user;
+    const response: ResponsePayload = {
+        message: '',
+        data: { groceryItems: [], receipts: [] },
+        success: false,
+        error: '',
+    };
+
     try {
         const groceryItems = await GroceryItemService.retrieveGroceryItemsByUser(userId);
         const receipts = await ReceiptService.retrieveReceipts(userId);
 
-        res.status(200).json({
-            data: { groceryItems, receipts },
-            message: 'Successfully retrieved receipts and grocery items for user.',
-        });
+        response['data'] = { groceryItems, receipts };
+        response['message'] = 'Successfully retrieved receipts and grocery items for user.';
+        response['success'] = true;
+        response['error'] = 'No error occurred.';
+        res.status(200).json(response);
     } catch (error) {
         logger.error(`Error retrieving user data for user id ${userId}: ${error}`);
-        res.status(500).json({ error: 'Internal server error.' });
+        response['message'] = 'Internal server error.';
+        response['error'] = 'Failed to retrieve user data.';
+        res.status(500).json(response);
     }
 }
