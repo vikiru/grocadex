@@ -1,3 +1,4 @@
+import { BASE_URL, RECEIPT_ROUTE } from '~constants/Routes';
 import { useDeleteData, usePostData, usePutData } from '~hooks/api';
 import { useActiveItem, useReceipt, useUser } from '~hooks/redux';
 import { Receipt, RequestPayload } from '~types/index';
@@ -5,7 +6,6 @@ import { Receipt, RequestPayload } from '~types/index';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
-import { RECEIPT_ROUTE } from '~constants/Routes';
 
 export default function useReceipts() {
     const { user } = useUser();
@@ -60,7 +60,7 @@ export default function useReceipts() {
         const { groceryItems, ...receiptData } = receipt;
 
         const payload: RequestPayload = {
-            url: `${process.env.EXPO_PUBLIC_API_URL}/receipts/${receipt.id}`,
+            url: `${BASE_URL}/receipts/${receipt.id}`,
             data: { receipt: receiptData, groceryItems },
         };
 
@@ -95,7 +95,7 @@ export default function useReceipts() {
         setError(null);
 
         const payload: RequestPayload = {
-            url: `${process.env.EXPO_PUBLIC_API_URL}/receipts/${receiptId}`,
+            url: `${BASE_URL}/receipts/${receiptId}`,
             data: { userId: user?.id, receiptId },
         };
 

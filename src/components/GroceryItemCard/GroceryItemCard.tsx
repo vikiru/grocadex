@@ -10,17 +10,16 @@ import { useItem } from '~hooks/components';
 import { GroceryItem } from '~types/index';
 import { constructExpiryString } from '~utils/date';
 
-// TODO: combine all grocery card vairants/refactor into single file, separate fns with one handler and reduce to two.
-
 // TODO: fix this to work with active item and not delete the actual item from the receipt.
 
 const deleteActiveItem = (
-    id: number,
+    receiptId: number,
+    groceryItemId: number,
     setDialogVisible: React.Dispatch<React.SetStateAction<boolean>>,
     handleDelete: any,
 ) => {
     setDialogVisible(false);
-    handleDelete(id);
+    handleDelete(receiptId, groceryItemId);
 };
 
 export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<GroceryItem> }) {
@@ -29,7 +28,7 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
     const navigation = useNavigation();
 
     return (
-        <Card className="border-2 border-primary bg-white shadow-md rounded-lg p-4 m-2">
+        <Card className="border-2 border-primary shadow-md rounded-lg p-4 m-2">
             <Card.Content>
                 <View className="flex flex-row justify-between">
                     <Text className="text-xl font-heading font-semibold">
@@ -46,6 +45,7 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                     icon="pencil"
                     mode="text"
                     className="bg-primary w-1/2"
+                    buttonColor="green"
                     textColor="white"
                     onPress={() => {
                         navigation.navigate('grocery', {
@@ -59,6 +59,7 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                     icon="delete"
                     mode="text"
                     className="bg-red-400 w-1/2"
+                    buttonColor="red"
                     textColor="white"
                     onPress={() => {
                         setDialogVisible(true);
@@ -72,7 +73,7 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                         visible={dialogVisible}
                         headerText="Delete Grocery Item"
                         bodyText="Are you sure you want to remove this grocery item from your active items?"
-                        handleDelete={() => 'press'}
+                        handleDelete={() => deleteActiveItem(item.receiptId!, item.id!, setDialogVisible, handleDelete)}
                         setDialogVisible={setDialogVisible}
                     />
                 )}

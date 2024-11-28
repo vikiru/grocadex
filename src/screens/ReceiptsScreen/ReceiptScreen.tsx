@@ -14,7 +14,7 @@ export default function ReceiptsScreen() {
     return (
         <ScrollView horizontal={false} className="bg-background min-h-full min-w-full">
             <SearchBar placeholder="Search receipts..." />
-            <View className="grid grid-cols-3">
+            <View className="flex flex-col">
                 {receipts.map((receipt: Receipt | Partial<Receipt>) => (
                     <Card variant="receipt" receipt={receipt} key={receipt.id} />
                 ))}

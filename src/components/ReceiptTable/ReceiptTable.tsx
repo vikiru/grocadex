@@ -17,7 +17,7 @@ export default function ReceiptTable({ receipts }: { receipts: Receipt[] | Parti
     }, [numberOfItemsPerPage]);
 
     return (
-        <View className="rounded-lg shadow-md p-4">
+        <View className="rounded-lg p-4">
             <DataTable className="w-full">
                 <DataTable.Header>
                     <DataTable.Title>

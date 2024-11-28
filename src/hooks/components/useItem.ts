@@ -1,4 +1,4 @@
-import { FRONTEND_DASHBOARD_ROUTE, FRONTEND_EXPIRY_ROUTE } from '~constants/Routes';
+import { BASE_URL, FRONTEND_DASHBOARD_ROUTE, FRONTEND_EXPIRY_ROUTE } from '~constants/Routes';
 import { useDeleteData, usePutData } from '~hooks/api';
 import { useActiveItem, useUser } from '~hooks/redux';
 import { GroceryItem, RequestPayload } from '~types/index';
@@ -23,9 +23,10 @@ export default function useItem() {
         const groceryItemId = groceryItem?.id;
 
         const payload: RequestPayload = {
-            url: `${process.env.EXPO_PUBLIC_API_URL}/receipts/${receiptId}/groceries/${groceryItemId}`,
+            url: `${BASE_URL}/receipts/${receiptId}/groceries/${groceryItemId}`,
             data: { groceryItem },
         };
+        console.log(payload);
 
         try {
             const response = await putData(payload);
@@ -56,9 +57,10 @@ export default function useItem() {
         setError(null);
 
         const payload: RequestPayload = {
-            url: `${process.env.EXPO_PUBLIC_API_URL}/receipts/${receiptId}/groceries/${groceryItemId}`,
+            url: `${BASE_URL}/receipts/${receiptId}/groceries/${groceryItemId}`,
             data: { userId: user?.id, receiptId, groceryItemId },
         };
+        console.log(payload);
 
         try {
             const response = await deleteData(payload);
