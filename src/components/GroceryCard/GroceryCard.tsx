@@ -55,6 +55,7 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
                     icon="pencil"
                     mode="text"
                     className="bg-primary"
+                    buttonColor="green"
                     textColor="white"
                     onPress={() => {
                         navigation.navigate('grocery', {
@@ -64,7 +65,14 @@ export default function GroceryCard({ item }: { item: Partial<GroceryItem> | Gro
                 >
                     Edit
                 </Button>
-                <Button icon="delete" mode="text" className="bg-red-400" textColor="white" onPress={() => {}}>
+                <Button
+                    icon="delete"
+                    mode="text"
+                    className="bg-red-400"
+                    buttonColor="red"
+                    textColor="white"
+                    onPress={() => {}}
+                >
                     Delete
                 </Button>
             </Card.Actions>

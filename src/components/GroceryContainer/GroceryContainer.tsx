@@ -7,6 +7,8 @@ import { DateFormat } from '~constants/Dates';
 import { GroceryItem } from '~types/index';
 import { formatDate } from '~utils/date';
 
+// TODO: Separate components, functions into separate hooks.
+
 type GroceryContainerProps = {
     groceryItems: GroceryItem[] | Partial<GroceryItem>[];
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<Values>>;

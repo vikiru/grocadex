@@ -27,7 +27,7 @@ export function DefaultDashboard() {
                     className="max-w-md my-2 w-60 bg-secondary mx-auto"
                     buttonColor="orange"
                     textColor="white"
-                    onPress={() => navigation.navigate('receipts/create')}
+                    onPress={() => navigation.navigate('receipt', { screen: 'receipts/create' })}
                 >
                     Add Receipt
                 </Button>
@@ -64,7 +64,7 @@ export default function DashboardScreen() {
                 {monthlyTotal > 0 && <ExpenseDisplay monthlyExpense={monthlyTotal} />}
 
                 {receipts.length > 0 && (
-                    <View className="bg-background m-2 rounded-lg shadow-md border-2 border-primary">
+                    <View className="bg-background m-2 rounded-lg shadow-md">
                         <ReceiptTable receipts={receipts} />
                     </View>
                 )}

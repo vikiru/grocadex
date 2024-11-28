@@ -30,6 +30,7 @@ export const useExpense = () => {
         const date = DateTime.now();
         const currentMonth = date.month;
         const currentYear = date.year;
+        console.log(date, currentMonth, currentYear);
         const filteredYearlyExpenses = expenses.filter((expense) => expense.year === currentYear);
         const filteredMonthlyExpenses = expenses.filter((expense) => expense.month === currentMonth);
         const yearlyTotal = calculateExpenses(filteredYearlyExpenses);
