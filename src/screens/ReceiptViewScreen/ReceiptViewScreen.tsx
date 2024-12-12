@@ -15,7 +15,7 @@ import { formatDate } from '~utils/date';
 // TODO: cleanup api and maintain consistent behavior, create custom ResponseType = {data, message, error}
 // TODO: add aws, update readme, add docs, add logo and favicons, openapi docs
 // TODO: cleanup dependencies, configs, fonts, add comments
-// search items
+// TODO: search items
 
 const deleteReceipt = (
     receiptId: number,
