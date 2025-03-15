@@ -83,7 +83,7 @@ export default tseslint.config(
             'perfectionist/sort-object-types': 'off',
         },
 
-        files: ['src/**/*.js', 'src/**/*.jsx', 'src/**/*.ts', 'src/**/*.tsx'],
+        files: ['src/**/*.{js,jsx,ts,tsx}'],
     },
     globalIgnores([
         'node_modules/**/*',
@@ -97,6 +97,8 @@ export default tseslint.config(
         '*.xml',
         '*.html',
         '*.ico',
+        '.env',
+        '.env.sample',
         '.gitignore',
         '.prettierignore',
     ]),

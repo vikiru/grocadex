@@ -7,7 +7,7 @@ import {
     DefaultTheme,
     ThemeProvider,
 } from '@react-navigation/native';
-import { defaultConfig } from '@tamagui/config';
+import { defaultConfig } from '@tamagui/config/v4';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';

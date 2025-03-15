@@ -1,7 +1,6 @@
 {
     "name": "grocery-tracker",
     "version": "1.0.0",
-    "type": "module",
     "description": "",
     "private": true,
     "author": "Visakan Kirubakaran",
@@ -116,7 +115,7 @@
         "prettier-plugin-prisma": "^5.0.0",
         "prettier-plugin-tailwindcss": "^0.6.11",
         "tailwindcss": "^3.4.14",
-        "typescript": "5.3.3",
+        "typescript": "^5.8.2",
         "typescript-eslint": "^8.26.1"
     },
     "lint-staged": {

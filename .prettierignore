@@ -9,3 +9,6 @@ public/
 .gitattributes
 LICENSE
 *.ico
+.env
+.env.sample
+package-lock.json
