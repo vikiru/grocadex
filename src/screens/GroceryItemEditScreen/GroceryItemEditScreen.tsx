@@ -10,7 +10,9 @@ export default function GroceryItemEditScreen({ route }: any) {
     const { id } = route.params;
     const { handleUpdate, loading, error } = useItem();
     const { activeItems } = useActiveItem();
-    const groceryItem = activeItems.find((item: GroceryItem | Partial<GroceryItem>) => item.id === Number(id));
+    const groceryItem = activeItems.find(
+        (item: GroceryItem | Partial<GroceryItem>) => item.id === Number(id),
+    );
 
     return (
         <View>

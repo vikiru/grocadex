@@ -1,25 +1,31 @@
 {
     "extends": "expo/tsconfig.base",
     "compilerOptions": {
-        "target": "ES6",
+        "target": "ESNext",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "incremental": true,
+        "allowJs": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
         "baseUrl": ".",
         "paths": {
-            "~api/*": ["./src/api/*"],
-            "~assets/*": ["./src/assets/*"],
-            "~components/*": ["./src/components/*"],
-            "~constants/*": ["./src/constants/*"],
-            "~fonts/*": ["./src/assets/fonts/*"],
-            "~hooks/*": ["./src/hooks/*"],
+            "~api/*": ["src/api/*"],
+            "~assets/*": ["src/assets/*"],
+            "~components/*": ["src/components/*"],
+            "~constants/*": ["src/constants/*"],
+            "~fonts/*": ["src/assets/fonts/*"],
+            "~hooks/*": ["src/hooks/*"],
             "~navigation/*": ["./src/navigation/*"],
             "~screens/*": ["./src/screens/*"],
             "~slices/*": ["./src/slices/*"],
             "~store/*": ["./src/store/*"],
-            "~types/*": ["./src/types/*"],
+            "~types/*": ["src/types/*"],
             "~utils/*": ["./src/utils/*"]
         },
-        "typeRoots": ["./node_modules/@types", "./types", "./api/types"]
+        "typeRoots": ["./node_modules/@types", "./src/types", "./api/types"]
     },
     "include": [
         "src/**/*",

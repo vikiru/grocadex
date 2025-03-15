@@ -1,4 +1,9 @@
-import { ReceiptCreateScreen, ReceiptEditScreen, ReceiptViewScreen, ReceiptsScreen } from '~screens/index';
+import {
+    ReceiptCreateScreen,
+    ReceiptEditScreen,
+    ReceiptsScreen,
+    ReceiptViewScreen,
+} from '~screens/index';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';

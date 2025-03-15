@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     resetExpenses,
@@ -12,8 +13,6 @@ import {
     setYearlyExpenses,
     setYearlyTotal,
 } from '~slices/expenseSlice';
-
-import { DateTime } from 'luxon';
 import { Expense } from '~types/index';
 import { calculateExpenses } from '~utils/expense';
 
@@ -31,8 +30,12 @@ export const useExpense = () => {
         const currentMonth = date.month;
         const currentYear = date.year;
         console.log(date, currentMonth, currentYear);
-        const filteredYearlyExpenses = expenses.filter((expense) => expense.year === currentYear);
-        const filteredMonthlyExpenses = expenses.filter((expense) => expense.month === currentMonth);
+        const filteredYearlyExpenses = expenses.filter(
+            (expense) => expense.year === currentYear,
+        );
+        const filteredMonthlyExpenses = expenses.filter(
+            (expense) => expense.month === currentMonth,
+        );
         const yearlyTotal = calculateExpenses(filteredYearlyExpenses);
         const monthlyTotal = calculateExpenses(filteredMonthlyExpenses);
         dispatch(setMonthlyExpenses(filteredMonthlyExpenses));

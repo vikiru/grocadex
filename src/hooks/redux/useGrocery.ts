@@ -30,9 +30,20 @@ export const useGrocery = () => {
         dispatch(removeGroceryItem(id));
     };
 
-    const updateItem = (receiptId: number, groceryItemId: number, updatedItem: GroceryItem) => {
+    const updateItem = (
+        receiptId: number,
+        groceryItemId: number,
+        updatedItem: GroceryItem,
+    ) => {
         dispatch(updateGroceryItem({ receiptId, groceryItemId, updatedItem }));
     };
 
-    return { groceryItems, updateGroceryItems, resetItems, addItem, removeItem, updateItem };
+    return {
+        groceryItems,
+        updateGroceryItems,
+        resetItems,
+        addItem,
+        removeItem,
+        updateItem,
+    };
 };

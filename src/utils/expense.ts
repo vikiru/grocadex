@@ -5,7 +5,8 @@ import { convertDatetoDateTime } from '~utils/date';
 import { filterReceiptsByMonthYear } from '~utils/receipt';
 
 export const constructExpenses = (receipts: Receipt[]): Expense[] => {
-    const expenseMap: Map<string, { total: number; stores: Set<string> }> = new Map();
+    const expenseMap: Map<string, { total: number; stores: Set<string> }> =
+        new Map();
 
     receipts.forEach((receipt) => {
         const date = convertDatetoDateTime(receipt.purchaseDate);
@@ -42,15 +43,30 @@ export const calculateMonthlyStoreBreakdown = (
     year: number,
 ): { store: string; amount: number; percentage: string }[] => {
     const filteredReceipts = filterReceiptsByMonthYear(receipts, month, year);
-    const uniqueStores: Set<string> = new Set(filteredReceipts.map((receipt) => receipt.store));
-    const total = filteredReceipts.reduce((total, receipt) => total + receipt.total, 0);
-    const breakdown: { store: string; amount: number; percentage: string }[] = [];
+    const uniqueStores: Set<string> = new Set(
+        filteredReceipts.map((receipt) => receipt.store),
+    );
+    const total = filteredReceipts.reduce(
+        (total, receipt) => total + receipt.total,
+        0,
+    );
+    const breakdown: { store: string; amount: number; percentage: string }[] =
+        [];
 
     for (const store of uniqueStores) {
-        const storeReceipts = filteredReceipts.filter((receipt) => receipt.store === store);
-        const storeAmount = storeReceipts.reduce((total, receipt) => total + receipt.total, 0);
+        const storeReceipts = filteredReceipts.filter(
+            (receipt) => receipt.store === store,
+        );
+        const storeAmount = storeReceipts.reduce(
+            (total, receipt) => total + receipt.total,
+            0,
+        );
         const percentage = (storeAmount / total) * 100;
-        breakdown.push({ store, amount: storeAmount, percentage: percentage.toFixed(2) });
+        breakdown.push({
+            store,
+            amount: storeAmount,
+            percentage: percentage.toFixed(2),
+        });
     }
 
     return breakdown;
@@ -62,7 +78,7 @@ export const calculateExpenses = (expenses: Expense[]): number => {
     }, 0);
 };
 
-export const constructGraphData = (expenses: Expense[] | Partial<Expense>[]) => {
+export const constructGraphData = (expenses: Expense[]) => {
     const expenseMap = new Map<number, number>();
     expenses.forEach((expense) => {
         if (expense.month && expense.amount !== undefined) {

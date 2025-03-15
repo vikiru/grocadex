@@ -33,61 +33,80 @@ export default function ReceiptViewScreen({ route }: any) {
     const { activeItems } = useActiveItem();
     const { id } = route.params;
 
-    const receipt = receipts.find((receipt: Receipt | Partial<Receipt>) => receipt.id === Number(id));
-    const items = activeItems.filter((item: GroceryItem | Partial<GroceryItem>) => item.receiptId === Number(id));
+    const receipt = receipts.find(
+        (receipt: Partial<Receipt> | Receipt) => receipt.id === Number(id),
+    );
+    const items = activeItems.filter(
+        (item: GroceryItem | Partial<GroceryItem>) =>
+            item.receiptId === Number(id),
+    );
     const navigation = useNavigation();
 
     if (receipt) {
         return (
-            <View className="bg-background min-h-screen min-w-screen">
-                <View className="flex flex-row justify-between m-2">
-                    <Text className="text-xl font-heading flex-1">{receipt.store}</Text>
-                    <Text className="font-heading font-light text-lg">
+            <View className="min-w-screen min-h-screen bg-background">
+                <View className="m-2 flex flex-row justify-between">
+                    <Text className="flex-1 font-heading text-xl">
+                        {receipt.store}
+                    </Text>
+                    <Text className="font-heading text-lg font-light">
                         {formatDate(receipt.purchaseDate!, DateStringFormat)}
                     </Text>
                 </View>
 
                 <View className="mx-2 mt-2 flex flex-row justify-between">
-                    <Text className="text-2xl font-semibold mb-1">CAD${Number(receipt.total).toFixed(2)}</Text>
-                    <Text className="text-lg font-subheading">{items.length} items</Text>
+                    <Text className="mb-1 text-2xl font-semibold">
+                        CAD${Number(receipt.total).toFixed(2)}
+                    </Text>
+                    <Text className="font-subheading text-lg">
+                        {items.length} items
+                    </Text>
                 </View>
 
                 <Divider />
 
                 <ScrollView className="mx-2 max-h-64 pb-2">
-                    {items?.map((item: GroceryItem | Partial<GroceryItem>, index: number) => (
-                        <View key={item.id} className="mx-2 mt-1">
-                            <View className="flex flex-row justify-between">
-                                <Text className="font-body text-base">
-                                    {index + 1}. {item.name} ({item.quantity})
-                                </Text>
-                                <Text className="font-subheading text-base">${Number(item.totalPrice).toFixed(2)}</Text>
+                    {items?.map(
+                        (
+                            item: GroceryItem | Partial<GroceryItem>,
+                            index: number,
+                        ) => (
+                            <View className="mx-2 mt-1" key={item.id}>
+                                <View className="flex flex-row justify-between">
+                                    <Text className="font-body text-base">
+                                        {index + 1}. {item.name} (
+                                        {item.quantity})
+                                    </Text>
+                                    <Text className="font-subheading text-base">
+                                        ${Number(item.totalPrice).toFixed(2)}
+                                    </Text>
+                                </View>
                             </View>
-                        </View>
-                    ))}
+                        ),
+                    )}
                 </ScrollView>
 
-                <View className="mt-6 flex-1 flex">
+                <View className="mt-6 flex flex-1">
                     <Button
+                        className="mx-auto mt-2 h-10 w-60 max-w-md bg-primary"
                         icon="pencil"
                         mode="elevated"
-                        className="max-w-md bg-primary w-60 mx-auto h-10 mt-2"
-                        textColor="white"
                         onPress={() =>
                             navigation.navigate('receipts/edit', {
                                 id: receipt.id,
                             })
                         }
+                        textColor="white"
                     >
                         Edit
                     </Button>
 
                     <Button
+                        className="mx-auto mt-4 h-10 w-60 max-w-md bg-red-400 shadow-md"
                         icon="cancel"
                         mode="elevated"
-                        className="max-w-md w-60 mx-auto h-10 mt-4 shadow-md bg-red-400"
-                        textColor="white"
                         onPress={() => setDialogVisible(true)}
+                        textColor="white"
                     >
                         Delete
                     </Button>
@@ -97,7 +116,13 @@ export default function ReceiptViewScreen({ route }: any) {
                             visible={dialogVisible}
                             headerText="Delete Receipt"
                             bodyText="Are you sure you want to delete this receipt?"
-                            handleDelete={() => deleteReceipt(receipt.id!, setDialogVisible, handleDelete)}
+                            handleDelete={() =>
+                                deleteReceipt(
+                                    receipt.id,
+                                    setDialogVisible,
+                                    handleDelete,
+                                )
+                            }
                             setDialogVisible={setDialogVisible}
                         />
                     )}

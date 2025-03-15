@@ -12,11 +12,18 @@ export default function ReceiptsScreen() {
     const navigation = useNavigation();
 
     return (
-        <ScrollView horizontal={false} className="bg-background min-h-full min-w-full">
+        <ScrollView
+            className="min-h-full min-w-full bg-background"
+            horizontal={false}
+        >
             <SearchBar placeholder="Search receipts..." />
             <View className="flex flex-col">
                 {receipts.map((receipt: Receipt | Partial<Receipt>) => (
-                    <Card variant="receipt" receipt={receipt} key={receipt.id} />
+                    <Card
+                        key={receipt.id}
+                        receipt={receipt}
+                        variant="receipt"
+                    />
                 ))}
             </View>
             <FAB

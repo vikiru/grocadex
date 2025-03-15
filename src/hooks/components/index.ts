@@ -6,4 +6,12 @@ import useLogout from '~hooks/components/useLogout';
 import useReceipts from '~hooks/components/useReceipts';
 import { useThemeColor } from '~hooks/components/useThemeColor';
 
-export { useColorScheme, useDashboard, useItem, useLogin, useLogout, useReceipts, useThemeColor };
+export {
+    useColorScheme,
+    useDashboard,
+    useItem,
+    useLogin,
+    useLogout,
+    useReceipts,
+    useThemeColor,
+};

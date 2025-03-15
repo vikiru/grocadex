@@ -10,4 +10,14 @@ export const QuantityUnits = [
     'teaspoons',
 ];
 
-export const ShorthandUnits = ['g', 'kg', 'oz', 'lb', 'L', 'mL', 'cups', 'tbsp', 'tsp'];
+export const ShorthandUnits = [
+    'g',
+    'kg',
+    'oz',
+    'lb',
+    'L',
+    'mL',
+    'cups',
+    'tbsp',
+    'tsp',
+];

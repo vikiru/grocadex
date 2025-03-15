@@ -6,16 +6,20 @@ import { DateTime } from 'luxon';
 import React from 'react';
 import Baloo from '~fonts/Baloo2-VariableFont_wght.ttf';
 
-export default function BarChart({ data }: { data: { label: string; amount: number }[] }) {
+export default function BarChart({
+    data,
+}: {
+    data: { label: string; amount: number }[];
+}) {
     const font = useFont(Baloo, 12);
     const year = DateTime.now().year;
 
     return (
-        <View className="mx-4 shadow-lg mt-2 px-2 rounded-md">
-            <Text className="mb-1 text-base text-text font-semibold text-center font-heading">
+        <View className="mx-4 mt-2 rounded-md px-2 shadow-lg">
+            <Text className="mb-1 text-center font-heading text-base font-semibold text-text">
                 Yearly Expenses for {year}
             </Text>
-            <View className="h-52 w-full ">
+            <View className="h-52 w-full">
                 <CartesianChart
                     data={data}
                     xKey="label"
@@ -38,7 +42,11 @@ export default function BarChart({ data }: { data: { label: string; amount: numb
                                 topRight: 5,
                             }}
                         >
-                            <LinearGradient start={vec(0, 0)} end={vec(0, 400)} colors={['#a78bfa', '#a78bfa50']} />
+                            <LinearGradient
+                                colors={['#a78bfa', '#a78bfa50']}
+                                end={vec(0, 400)}
+                                start={vec(0, 0)}
+                            />
                         </Bar>
                     )}
                 </CartesianChart>

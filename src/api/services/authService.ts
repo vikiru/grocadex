@@ -23,7 +23,10 @@ export async function checkIfEmailExists(email: string): Promise<boolean> {
     }
 }
 
-export async function validateUser(username: string, password: string): Promise<User> {
+export async function validateUser(
+    username: string,
+    password: string,
+): Promise<User> {
     try {
         const user = await prisma.user.findUnique({ where: { username } });
         const isValidPassword = await validPassword(password, user.password);

@@ -9,7 +9,11 @@ export const sortReceiptsByPurchaseDate = (receipts: Receipt[]): Receipt[] => {
     });
 };
 
-export const filterReceiptsByMonthYear = (receipts: Receipt[], month: number, year: number): Receipt[] => {
+export const filterReceiptsByMonthYear = (
+    receipts: Receipt[],
+    month: number,
+    year: number,
+): Receipt[] => {
     return receipts.filter((receipt) => {
         const receiptDate = convertDatetoDateTime(receipt.purchaseDate);
         const receiptMonth = receiptDate.month;
@@ -18,7 +22,10 @@ export const filterReceiptsByMonthYear = (receipts: Receipt[], month: number, ye
     });
 };
 
-export const filterReceiptsByYear = (receipts: Receipt[], year: number): Receipt[] => {
+export const filterReceiptsByYear = (
+    receipts: Receipt[],
+    year: number,
+): Receipt[] => {
     return receipts.filter((receipt) => {
         const receiptDate = convertDatetoDateTime(receipt.purchaseDate);
         const receiptYear = receiptDate.year;

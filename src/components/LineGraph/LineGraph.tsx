@@ -1,4 +1,10 @@
-import { VictoryAxis, VictoryChart, VictoryLabel, VictoryLine, VictoryTheme } from 'victory';
+import {
+    VictoryAxis,
+    VictoryChart,
+    VictoryLabel,
+    VictoryLine,
+    VictoryTheme,
+} from 'victory';
 
 import React from 'react';
 import { View } from 'react-native';
@@ -20,9 +26,14 @@ const data = [
 
 export default function LineGraph() {
     return (
-        <View className="flex justify-startml-2 h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px]">
+        <View className="justify-startml-2 flex h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px]">
             <VictoryChart height={200} theme={VictoryTheme.material}>
-                <VictoryLabel text="Yearly Expenses" y={20} x={180} textAnchor="middle" />
+                <VictoryLabel
+                    text="Yearly Expenses"
+                    textAnchor="middle"
+                    x={180}
+                    y={20}
+                />
                 <VictoryLine data={data} x="month" y="value" />
                 <VictoryAxis
                     tickFormat={(t: any) => t}

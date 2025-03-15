@@ -33,11 +33,23 @@ const sessionMiddleware = session({
     cookie: { secure: env === 'production' },
 });
 
-export function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
+export function ensureAuthenticated(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) {
     if (req.isAuthenticated()) {
         return next();
     }
     res.status(401).json({ error: 'User is not authenticated' });
 }
 
-export { body, compression, cors, favicon, helmet, morganMiddleware as morgan, sessionMiddleware as session };
+export {
+    body,
+    compression,
+    cors,
+    favicon,
+    helmet,
+    morganMiddleware as morgan,
+    sessionMiddleware as session,
+};

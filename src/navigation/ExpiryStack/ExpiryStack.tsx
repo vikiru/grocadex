@@ -7,8 +7,16 @@ const Stack = createNativeStackNavigator();
 export default function ExpiryStack() {
     return (
         <Stack.Navigator initialRouteName="expiry">
-            <Stack.Screen name="expiry" component={ExpiryScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="grocery" component={GroceryItemEditScreen} options={{ headerShown: false }} />
+            <Stack.Screen
+                component={ExpiryScreen}
+                name="expiry"
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                component={GroceryItemEditScreen}
+                name="grocery"
+                options={{ headerShown: false }}
+            />
         </Stack.Navigator>
     );
 }

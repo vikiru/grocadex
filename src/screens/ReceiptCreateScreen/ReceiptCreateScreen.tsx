@@ -7,7 +7,11 @@ export default function ReceiptCreateScreen() {
     const { handleCreate, loading, error } = useReceipts();
     return (
         <View>
-            <ReceiptForm handleSubmit={handleCreate} loading={loading} error={error} />
+            <ReceiptForm
+                error={error}
+                handleSubmit={handleCreate}
+                loading={loading}
+            />
         </View>
     );
 }

@@ -17,37 +17,47 @@ export default function ExpenseTable({ data }: { data: any }) {
     }, [numberOfItemsPerPage]);
 
     return (
-        <View className="rounded-lg shadow-md py-4 my-2 mx-4">
+        <View className="mx-4 my-2 rounded-lg py-4 shadow-md">
             <DataTable className="w-full rounded-lg">
                 <DataTable.Header>
                     <DataTable.Title>
-                        <Text className="font-semibold text-base text-text font-heading">Purchase Date</Text>
+                        <Text className="font-heading text-base font-semibold text-text">
+                            Purchase Date
+                        </Text>
                     </DataTable.Title>
                     <DataTable.Title numeric>
-                        <Text className="font-semibold text-base text-text font-heading">Total ($)</Text>
+                        <Text className="font-heading text-base font-semibold text-text">
+                            Total ($)
+                        </Text>
                     </DataTable.Title>
                 </DataTable.Header>
 
                 {data.slice(from, to).map((item: Expense) => (
                     <DataTable.Row key={item.month}>
                         <DataTable.Cell>
-                            <Text className="text-text text-sm font-body">{formatDate(item.date, ExpenseFormat)}</Text>
+                            <Text className="font-body text-sm text-text">
+                                {formatDate(item.date, ExpenseFormat)}
+                            </Text>
                         </DataTable.Cell>
                         <DataTable.Cell numeric>
-                            <Text className="text-text text-sm font-body">${Number(item.amount).toFixed(2)}</Text>
+                            <Text className="font-body text-sm text-text">
+                                ${Number(item.amount).toFixed(2)}
+                            </Text>
                         </DataTable.Cell>
                     </DataTable.Row>
                 ))}
 
                 <DataTable.Pagination
-                    page={page}
-                    numberOfPages={Math.ceil(data.length / numberOfItemsPerPage)}
-                    onPageChange={(page) => setPage(page)}
                     label={`${from + 1}-${to} of ${data.length}`}
-                    showFastPaginationControls
                     numberOfItemsPerPage={numberOfItemsPerPage}
+                    numberOfPages={Math.ceil(
+                        data.length / numberOfItemsPerPage,
+                    )}
                     onItemsPerPageChange={onItemsPerPageChange}
+                    onPageChange={(page) => setPage(page)}
+                    page={page}
                     selectPageDropdownLabel={'Rows per page'}
+                    showFastPaginationControls
                 />
             </DataTable>
         </View>

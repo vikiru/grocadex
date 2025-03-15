@@ -8,7 +8,11 @@ import { GroceryItem } from '~types/index';
 
 type GroceryAdderProps = {
     initialValues?: GroceryItem | Partial<GroceryItem>;
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<Values>>;
+    setFieldValue: (
+        field: string,
+        value: any,
+        shouldValidate?: boolean,
+    ) => Promise<FormikErrors<Values> | void>;
     groceryItems: Partial<GroceryItem>[] | GroceryItem[];
     purchaseDate: Date | string;
 };
@@ -21,7 +25,11 @@ type GroceryData = {
 
 const handleSubmit = async (
     data: GroceryData,
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<Values>>,
+    setFieldValue: (
+        field: string,
+        value: any,
+        shouldValidate?: boolean,
+    ) => Promise<FormikErrors<Values> | void>,
     setShowGroceryModal: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
     const { groceryItems, item, purchaseDate } = data;
@@ -34,13 +42,23 @@ const handleSubmit = async (
     setShowGroceryModal(false);
 };
 
-export default function GroceryAdder({ initialValues, setFieldValue, groceryItems, purchaseDate }: GroceryAdderProps) {
+export default function GroceryAdder({
+    initialValues,
+    setFieldValue,
+    groceryItems,
+    purchaseDate,
+}: GroceryAdderProps) {
     const [showGroceryModal, setShowGroceryModal] = useState(false);
 
     return (
-        <View className="px-2 mt-1 flex flex-row justify-between">
-            <Text className="ml-2 mb-1 mt-2 text-text text-md font-semibold font-heading">Grocery Items</Text>
-            <Button className="rounded-lg" onPress={() => setShowGroceryModal(true)}>
+        <View className="mt-1 flex flex-row justify-between px-2">
+            <Text className="text-md mb-1 ml-2 mt-2 font-heading font-semibold text-text">
+                Grocery Items
+            </Text>
+            <Button
+                className="rounded-lg"
+                onPress={() => setShowGroceryModal(true)}
+            >
                 Add Item
             </Button>
             <GroceryModal
@@ -48,7 +66,11 @@ export default function GroceryAdder({ initialValues, setFieldValue, groceryItem
                 visible={showGroceryModal}
                 onDismiss={() => setShowGroceryModal(false)}
                 onSubmit={(item: GroceryItem | Partial<GroceryItem>) =>
-                    handleSubmit({ groceryItems, item, purchaseDate }, setFieldValue, setShowGroceryModal)
+                    handleSubmit(
+                        { groceryItems, item, purchaseDate },
+                        setFieldValue,
+                        setShowGroceryModal,
+                    )
                 }
             />
         </View>

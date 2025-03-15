@@ -17,7 +17,9 @@ const activeItemSlice = createSlice({
         updateActiveItem: (state, action) => {
             const groceryItem = action.payload;
             const index = state.activeItems.findIndex(
-                (item) => item.id === groceryItem.id && item.receiptId === groceryItem.receiptId,
+                (item) =>
+                    item.id === groceryItem.id &&
+                    item.receiptId === groceryItem.receiptId,
             );
 
             if (index !== -1) {
@@ -29,7 +31,9 @@ const activeItemSlice = createSlice({
         },
         updateActiveItemsByReceipt: (state, action) => {
             const { receiptId, updatedItems } = action.payload;
-            state.activeItems = state.activeItems.filter((item) => item.receiptId !== receiptId);
+            state.activeItems = state.activeItems.filter(
+                (item) => item.receiptId !== receiptId,
+            );
             state.activeItems = [...state.activeItems, ...updatedItems];
         },
         setActiveItems: (state, action) => {
@@ -45,10 +49,14 @@ const activeItemSlice = createSlice({
             state.activeItems = [...state.activeItems, ...action.payload];
         },
         removeActiveItem: (state, action) => {
-            state.activeItems = state.activeItems.filter((item) => item.id !== action.payload);
+            state.activeItems = state.activeItems.filter(
+                (item) => item.id !== action.payload,
+            );
         },
         removeItemsByReceipt: (state, action) => {
-            state.activeItems = state.activeItems.filter((item) => item.receiptId !== action.payload);
+            state.activeItems = state.activeItems.filter(
+                (item) => item.receiptId !== action.payload,
+            );
         },
     },
 });
@@ -64,6 +72,7 @@ export const {
     removeItemsByReceipt,
 } = activeItemSlice.actions;
 
-export const selectActiveItems = (state: RootState) => state.activeItem.activeItems;
+export const selectActiveItems = (state: RootState) =>
+    state.activeItem.activeItems;
 
 export default activeItemSlice.reducer;

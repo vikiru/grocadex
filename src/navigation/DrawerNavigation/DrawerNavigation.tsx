@@ -25,7 +25,9 @@ export default function DrawerNavigation() {
                 options={({ route }) => ({
                     title: 'Home',
                     headerShown: true,
-                    drawerIcon: () => <MaterialCommunityIcons name="home" size={24} />,
+                    drawerIcon: () => (
+                        <MaterialCommunityIcons name="home" size={24} />
+                    ),
                 })}
             />
             <Drawer.Screen
@@ -34,7 +36,9 @@ export default function DrawerNavigation() {
                 options={{
                     title: 'Expiring Groceries',
                     headerShown: true,
-                    drawerIcon: () => <MaterialCommunityIcons name="calendar" size={24} />,
+                    drawerIcon: () => (
+                        <MaterialCommunityIcons name="calendar" size={24} />
+                    ),
                 }}
             />
             <Drawer.Screen
@@ -43,7 +47,9 @@ export default function DrawerNavigation() {
                 options={{
                     title: 'View Expenses',
                     headerShown: true,
-                    drawerIcon: () => <MaterialCommunityIcons name="cash" size={26} />,
+                    drawerIcon: () => (
+                        <MaterialCommunityIcons name="cash" size={26} />
+                    ),
                 }}
             />
             <Drawer.Screen
@@ -52,7 +58,9 @@ export default function DrawerNavigation() {
                 options={{
                     title: 'View Receipts',
                     headerShown: false,
-                    drawerIcon: () => <MaterialCommunityIcons name="receipt" size={24} />,
+                    drawerIcon: () => (
+                        <MaterialCommunityIcons name="receipt" size={24} />
+                    ),
                 }}
             />
         </Drawer.Navigator>
