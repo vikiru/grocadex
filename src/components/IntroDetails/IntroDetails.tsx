@@ -10,14 +10,23 @@ type IntroDetailsProps = {
 
 export default function IntroDetails(props: IntroDetailsProps) {
     return (
-        <View className="flex flex-row items-center my-2">
-            <View className="flex items-center justify-center h-16 w-16 max-w-[20%]">
-                <MaterialCommunityIcons name={props.icon} size={40} color="black" className="ml-3" />
+        <View className="my-2 flex flex-row items-center">
+            <View className="flex h-16 w-16 max-w-[20%] items-center justify-center">
+                <MaterialCommunityIcons
+                    className="ml-3"
+                    color="black"
+                    name={props.icon}
+                    size={40}
+                />
             </View>
-            <View className="ml-4 flex flex-col max-w-[300px]">
-                <Text className="text-text font-semibold text-left text-lg font-merriweather">{props.heading}</Text>
+            <View className="ml-4 flex max-w-[300px] flex-col">
+                <Text className="font-merriweather text-left text-lg font-semibold text-text">
+                    {props.heading}
+                </Text>
                 <View className="mr-5 flex">
-                    <Text className="text-text text-left text-md mt-1 font-body mr-2">{props.subtext}</Text>
+                    <Text className="text-md mr-2 mt-1 text-left font-body text-text">
+                        {props.subtext}
+                    </Text>
                 </View>
             </View>
         </View>

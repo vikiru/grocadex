@@ -1,3 +1,11 @@
-node_modules/
 .github/
-package-lock.json
+.husky/
+build/
+next/
+node_modules/
+public/
+.prettierignore
+.gitignore
+.gitattributes
+LICENSE
+*.ico

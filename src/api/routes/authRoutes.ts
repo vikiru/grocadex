@@ -9,6 +9,10 @@ const baseUrl = `/${apiVersionString}/auth`;
 const AuthRouter = express.Router();
 
 AuthRouter.post(`${baseUrl}/login`, AuthController.loginUser);
-AuthRouter.post(`${baseUrl}/logout`, ensureAuthenticated, AuthController.logoutUser);
+AuthRouter.post(
+    `${baseUrl}/logout`,
+    ensureAuthenticated,
+    AuthController.logoutUser,
+);
 
 export { AuthRouter };

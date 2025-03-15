@@ -22,48 +22,54 @@ const deleteActiveItem = (
     handleDelete(receiptId, groceryItemId);
 };
 
-export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<GroceryItem> }) {
+export default function GroceryItemCard({
+    item,
+}: {
+    item: GroceryItem | Partial<GroceryItem>;
+}) {
     const [dialogVisible, setDialogVisible] = useState(false);
     const { handleDelete, loading, error } = useItem();
     const navigation = useNavigation();
 
     return (
-        <Card className="border-2 border-primary shadow-md rounded-lg p-4 m-2">
+        <Card className="m-2 rounded-lg border-2 border-primary p-4 shadow-md">
             <Card.Content>
                 <View className="flex flex-row justify-between">
-                    <Text className="text-xl font-heading font-semibold">
+                    <Text className="font-heading text-xl font-semibold">
                         {item.name} ({item.quantity})
                     </Text>
-                    <Text className="text-xl font-heading text-text">${Number(item.totalPrice).toFixed(2)}</Text>
+                    <Text className="font-heading text-xl text-text">
+                        ${Number(item.totalPrice).toFixed(2)}
+                    </Text>
                 </View>
-                <Text className="text-lg mt-2 text-red-400 font-subheading">
+                <Text className="mt-2 font-subheading text-lg text-red-400">
                     {constructExpiryString(item.expiryDate!)}
                 </Text>
             </Card.Content>
-            <Card.Actions className="flex flex-row justify-between m-1">
+            <Card.Actions className="m-1 flex flex-row justify-between">
                 <Button
+                    buttonColor="green"
+                    className="w-1/2 bg-primary"
                     icon="pencil"
                     mode="text"
-                    className="bg-primary w-1/2"
-                    buttonColor="green"
-                    textColor="white"
                     onPress={() => {
                         navigation.navigate('grocery', {
                             id: item.id,
                         });
                     }}
+                    textColor="white"
                 >
                     Edit
                 </Button>
                 <Button
+                    buttonColor="red"
+                    className="w-1/2 bg-red-400"
                     icon="delete"
                     mode="text"
-                    className="bg-red-400 w-1/2"
-                    buttonColor="red"
-                    textColor="white"
                     onPress={() => {
                         setDialogVisible(true);
                     }}
+                    textColor="white"
                 >
                     Delete
                 </Button>
@@ -73,7 +79,14 @@ export default function GroceryItemCard({ item }: { item: GroceryItem | Partial<
                         visible={dialogVisible}
                         headerText="Delete Grocery Item"
                         bodyText="Are you sure you want to remove this grocery item from your active items?"
-                        handleDelete={() => deleteActiveItem(item.receiptId!, item.id!, setDialogVisible, handleDelete)}
+                        handleDelete={() =>
+                            deleteActiveItem(
+                                item.receiptId,
+                                item.id,
+                                setDialogVisible,
+                                handleDelete,
+                            )
+                        }
                         setDialogVisible={setDialogVisible}
                     />
                 )}

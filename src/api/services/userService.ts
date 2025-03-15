@@ -29,13 +29,17 @@ export async function retrieveUserById(userId: number): Promise<User | null> {
         });
 
         if (user) {
-            logger.info(`Successfully retrieved user with id ${userId} from the database.`);
+            logger.info(
+                `Successfully retrieved user with id ${userId} from the database.`,
+            );
         } else {
             logger.error(`User with id ${userId} not found.`);
         }
         return user;
     } catch (error) {
-        logger.error(`Error retrieving user with id ${userId} from the database: ${error}`);
+        logger.error(
+            `Error retrieving user with id ${userId} from the database: ${error}`,
+        );
         throw error;
     }
 }

@@ -9,7 +9,13 @@ type DialogProps = {
     setDialogVisible: (visible: boolean) => void;
 };
 
-export default function Dialog({ visible, headerText, bodyText, handleDelete, setDialogVisible }: DialogProps) {
+export default function Dialog({
+    visible,
+    headerText,
+    bodyText,
+    handleDelete,
+    setDialogVisible,
+}: DialogProps) {
     const handleCancel = () => setDialogVisible(false);
 
     return (

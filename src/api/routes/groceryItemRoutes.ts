@@ -11,13 +11,20 @@ GroceryItemRouter.get(
     ensureAuthenticated,
     GroceryItemController.getGroceryItemsByReceiptId,
 );
-GroceryItemRouter.post(`${baseUrl}/:receiptId/groceries`, ensureAuthenticated, GroceryItemController.createGroceryItem);
+GroceryItemRouter.post(
+    `${baseUrl}/:receiptId/groceries`,
+    ensureAuthenticated,
+    GroceryItemController.createGroceryItem,
+);
 GroceryItemRouter.get(
     `${baseUrl}/:receiptId/groceries/:groceryItemId`,
     ensureAuthenticated,
     GroceryItemController.getGroceryItemById,
 );
-GroceryItemRouter.put(`${baseUrl}/:receiptId/groceries/:groceryItemId`, GroceryItemController.updateGroceryItem);
+GroceryItemRouter.put(
+    `${baseUrl}/:receiptId/groceries/:groceryItemId`,
+    GroceryItemController.updateGroceryItem,
+);
 GroceryItemRouter.delete(
     `${baseUrl}/:receiptId/groceries/:groceryItemId`,
     ensureAuthenticated,

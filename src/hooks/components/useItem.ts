@@ -1,4 +1,8 @@
-import { BASE_URL, FRONTEND_DASHBOARD_ROUTE, FRONTEND_EXPIRY_ROUTE } from '~constants/Routes';
+import {
+    BASE_URL,
+    FRONTEND_DASHBOARD_ROUTE,
+    FRONTEND_EXPIRY_ROUTE,
+} from '~constants/Routes';
 import { useDeleteData, usePutData } from '~hooks/api';
 import { useActiveItem, useUser } from '~hooks/redux';
 import { GroceryItem, RequestPayload } from '~types/index';
@@ -32,7 +36,9 @@ export default function useItem() {
             const response = await putData(payload);
             if (response?.status === 200) {
                 const { data } = response.data;
-                groceryItem.expiryDate = new Date(groceryItem.expiryDate).toISOString();
+                groceryItem.expiryDate = new Date(
+                    groceryItem.expiryDate,
+                ).toISOString();
                 updateItem(groceryItem);
                 Toast.show({
                     type: 'success',

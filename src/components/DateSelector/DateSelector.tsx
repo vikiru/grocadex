@@ -8,12 +8,20 @@ import { DateFormat } from '~constants/Dates';
 import { formatDate } from '~utils/date';
 
 type DatePickerProps = {
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<Values>>;
+    setFieldValue: (
+        field: string,
+        value: any,
+        shouldValidate?: boolean,
+    ) => Promise<FormikErrors<Values> | void>;
     fieldName: string;
     label: string;
 };
 
-export default function DateSelector({ setFieldValue, fieldName, label }: DatePickerProps) {
+export default function DateSelector({
+    setFieldValue,
+    fieldName,
+    label,
+}: DatePickerProps) {
     const [purchaseString, setPurchaseString] = useState('');
     const [open, setOpen] = useState(false);
     const [editable, setEditable] = useState(true);
@@ -21,13 +29,13 @@ export default function DateSelector({ setFieldValue, fieldName, label }: DatePi
     return (
         <View className="mt-1">
             <TextInput
-                mode="outlined"
-                label={label}
-                value={purchaseString}
+                className="rounded-lg bg-white"
                 editable={editable}
+                label={label}
+                mode="outlined"
                 onPress={() => setOpen(true)}
                 placeholder={`Enter your ${label.toLowerCase()} date`}
-                className="bg-white rounded-lg"
+                value={purchaseString}
             />
 
             <DateTimePickerModal

@@ -4,7 +4,13 @@ import '~strategies/local';
 import * as middlewares from '~middlewares/';
 
 import { apiVersionString, port } from '~config/index';
-import { ActiveItemRouter, AuthRouter, GroceryItemRouter, ReceiptRouter, UserRouter } from '~routes/';
+import {
+    ActiveItemRouter,
+    AuthRouter,
+    GroceryItemRouter,
+    ReceiptRouter,
+    UserRouter,
+} from '~routes/';
 
 import express from 'express';
 import passport from 'passport';
@@ -22,7 +28,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(middlewares.compression());
 app.use(middlewares.morgan);
 
-app.listen(port, () => logger.info(`groceryapi started on port: http://localhost:${port}/${apiVersionString}.`));
+app.listen(port, () =>
+    logger.info(
+        `groceryapi started on port: http://localhost:${port}/${apiVersionString}.`,
+    ),
+);
 
 app.set('trust proxy', 1);
 

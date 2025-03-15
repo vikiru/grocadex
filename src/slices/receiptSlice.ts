@@ -15,7 +15,7 @@ const receiptSlice = createSlice({
     name: 'receipt',
     initialState,
     reducers: {
-        setReceipts: (state, action: PayloadAction<Receipt[] | Partial<Receipt>[]>) => {
+        setReceipts: (state, action: PayloadAction<Partial<Receipt>[]>) => {
             state.receipts = action.payload;
         },
         resetReceipts: (state) => {
@@ -25,7 +25,9 @@ const receiptSlice = createSlice({
             state.receipts.push(action.payload);
         },
         removeReceipt: (state, action: PayloadAction<number>) => {
-            state.receipts = state.receipts.filter((receipt) => receipt.id !== action.payload);
+            state.receipts = state.receipts.filter(
+                (receipt) => receipt.id !== action.payload,
+            );
         },
         updateReceipt: (state, action) => {
             const receipt = action.payload;
@@ -41,7 +43,13 @@ const receiptSlice = createSlice({
     },
 });
 
-export const { setReceipts, resetReceipts, addReceipt, removeReceipt, updateReceipt } = receiptSlice.actions;
+export const {
+    setReceipts,
+    resetReceipts,
+    addReceipt,
+    removeReceipt,
+    updateReceipt,
+} = receiptSlice.actions;
 
 export const selectReceipts = (state: RootState) => state.receipt.receipts;
 

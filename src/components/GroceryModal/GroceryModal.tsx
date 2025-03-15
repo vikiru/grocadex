@@ -10,8 +10,12 @@ import { GroceryItem } from '~types/index';
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
-    quantity: Yup.number().required('Quantity is required').positive('Quantity must be positive'),
-    totalPrice: Yup.number().required('Total price is required').positive('Total price must be positive'),
+    quantity: Yup.number()
+        .required('Quantity is required')
+        .positive('Quantity must be positive'),
+    totalPrice: Yup.number()
+        .required('Total price is required')
+        .positive('Total price must be positive'),
     expiryDate: Yup.date().required('Expiry date is required'),
 });
 
@@ -31,54 +35,89 @@ const defaultValues: GroceryItem | Partial<GroceryItem> = {
     expiryDate: new Date(),
 };
 
-export default function GroceryModal({ method, initialValues, visible, onDismiss, onSubmit }: GroceryModalProps) {
+export default function GroceryModal({
+    method,
+    initialValues,
+    visible,
+    onDismiss,
+    onSubmit,
+}: GroceryModalProps) {
     const values = { ...defaultValues, ...initialValues };
 
     return (
-        <Modal visible={visible} onRequestClose={onDismiss} animationType="slide" transparent={true}>
-            <View className="flex-1 justify-center items-center bg-background">
-                <View className="rounded-lg p-4 mx-4 w-full max-w-md m-2">
-                    <Text className="ml-1 text-text text-lg font-semibold font-heading">{method} a grocery item</Text>
+        <Modal
+            animationType="slide"
+            onRequestClose={onDismiss}
+            transparent={true}
+            visible={visible}
+        >
+            <View className="flex-1 items-center justify-center bg-background">
+                <View className="m-2 mx-4 w-full max-w-md rounded-lg p-4">
+                    <Text className="ml-1 font-heading text-lg font-semibold text-text">
+                        {method} a grocery item
+                    </Text>
                     <Formik
                         initialValues={values}
-                        validationSchema={validationSchema}
-                        onSubmit={(values: GroceryItem | Partial<GroceryItem>, { resetForm }) => {
-                            values.totalPrice = parseFloat(values.totalPrice!.toString());
-                            values.unitPrice = parseFloat((values.totalPrice / values.quantity!).toFixed(2));
+                        onSubmit={(
+                            values: GroceryItem | Partial<GroceryItem>,
+                            { resetForm },
+                        ) => {
+                            values.totalPrice = parseFloat(
+                                values.totalPrice!.toString(),
+                            );
+                            values.unitPrice = parseFloat(
+                                (values.totalPrice / values.quantity!).toFixed(
+                                    2,
+                                ),
+                            );
                             onSubmit(values);
                             resetForm();
                             onDismiss();
                         }}
+                        validationSchema={validationSchema}
                     >
-                        {({ handleChange, handleSubmit, setFieldValue, values }) => (
+                        {({
+                            handleChange,
+                            handleSubmit,
+                            setFieldValue,
+                            values,
+                        }) => (
                             <View>
                                 <TextInput
-                                    value={values.name}
+                                    className="ml-r my-1 bg-white"
+                                    mode="outlined"
                                     onChangeText={handleChange('name')}
                                     placeholder="Enter the name of the grocery item"
-                                    mode="outlined"
-                                    className="bg-white my-1 ml-r"
+                                    value={values.name}
                                 />
 
                                 <TextInput
+                                    className="my-1 bg-white"
+                                    keyboardType="numeric"
                                     label="Quantity"
-                                    value={values.quantity?.toString()}
-                                    onChangeText={(quantity: string) => setFieldValue('quantity', Number(quantity))}
-                                    placeholder="Enter the quantity of the grocery item"
-                                    keyboardType="numeric"
                                     mode="outlined"
-                                    className="bg-white my-1"
+                                    onChangeText={(quantity: string) =>
+                                        setFieldValue(
+                                            'quantity',
+                                            Number(quantity),
+                                        )
+                                    }
+                                    placeholder="Enter the quantity of the grocery item"
+                                    value={values.quantity?.toString()}
                                 />
 
                                 <TextInput
-                                    label="Total Price"
-                                    value={values.totalPrice?.toString()}
-                                    onChangeText={(totalPrice: string) => {
-                                        setFieldValue('totalPrice', Number(totalPrice));
-                                    }}
+                                    className="my-1 bg-white"
                                     keyboardType="numeric"
+                                    label="Total Price"
                                     mode="outlined"
-                                    className="bg-white my-1"
+                                    onChangeText={(totalPrice: string) => {
+                                        setFieldValue(
+                                            'totalPrice',
+                                            Number(totalPrice),
+                                        );
+                                    }}
+                                    value={values.totalPrice?.toString()}
                                 />
 
                                 <DateSelector
@@ -87,11 +126,19 @@ export default function GroceryModal({ method, initialValues, visible, onDismiss
                                     label="Expiry Date"
                                 />
 
-                                <View className="flex-row mt-2 justify-end space-x-2">
-                                    <Button onPress={onDismiss} mode="outlined" className="bg-white">
+                                <View className="mt-2 flex-row justify-end space-x-2">
+                                    <Button
+                                        className="bg-white"
+                                        mode="outlined"
+                                        onPress={onDismiss}
+                                    >
                                         Cancel
                                     </Button>
-                                    <Button onPress={() => handleSubmit()} mode="contained" className="bg-primary">
+                                    <Button
+                                        className="bg-primary"
+                                        mode="contained"
+                                        onPress={() => handleSubmit()}
+                                    >
                                         {method} Item
                                     </Button>
                                 </View>

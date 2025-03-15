@@ -25,7 +25,7 @@ export const constructExpiryString = (date: string | Date): string => {
     }
 };
 
-export const sortActiveItems = (items: GroceryItem[] | Partial<GroceryItem>[]): void => {
+export const sortActiveItems = (items: GroceryItem[]): void => {
     items.sort((a, b) => {
         const firstDate = convertDatetoDateTime(a.expiryDate!);
         const secondDate = convertDatetoDateTime(b.expiryDate!);
@@ -34,7 +34,7 @@ export const sortActiveItems = (items: GroceryItem[] | Partial<GroceryItem>[]): 
     });
 };
 
-export const sortReceipts = (receipts: Receipt[] | Partial<Receipt>[]): void => {
+export const sortReceipts = (receipts: Partial<Receipt>[]): void => {
     receipts.sort((a, b) => {
         const firstDate = convertDatetoDateTime(a.purchaseDate!);
         const secondDate = convertDatetoDateTime(b.purchaseDate!);
@@ -42,7 +42,10 @@ export const sortReceipts = (receipts: Receipt[] | Partial<Receipt>[]): void => 
     });
 };
 
-export const daysBetweenDates = (startDate: string | Date, endDate: string | Date): number => {
+export const daysBetweenDates = (
+    startDate: Date | string,
+    endDate: Date | string,
+): number => {
     const start = convertDatetoDateTime(startDate);
     const end = convertDatetoDateTime(endDate);
     return end.diff(start, 'days').days;

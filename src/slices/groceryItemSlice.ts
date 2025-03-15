@@ -24,12 +24,15 @@ const groceryItemSlice = createSlice({
             state.groceryItems.push(action.payload);
         },
         removeGroceryItem: (state, action) => {
-            state.groceryItems = state.groceryItems.filter((item) => item.id !== action.payload);
+            state.groceryItems = state.groceryItems.filter(
+                (item) => item.id !== action.payload,
+            );
         },
         updateGroceryItem: (state, action) => {
             const { receiptId, groceryItemId, updatedItem } = action.payload;
             const index = state.groceryItems.findIndex(
-                (item) => item.id === groceryItemId && item.receiptId === receiptId,
+                (item) =>
+                    item.id === groceryItemId && item.receiptId === receiptId,
             );
             if (index !== -1) {
                 state.groceryItems[index] = {
@@ -41,9 +44,15 @@ const groceryItemSlice = createSlice({
     },
 });
 
-export const { setGroceryItems, resetGroceryItems, addGroceryItem, removeGroceryItem, updateGroceryItem } =
-    groceryItemSlice.actions;
+export const {
+    setGroceryItems,
+    resetGroceryItems,
+    addGroceryItem,
+    removeGroceryItem,
+    updateGroceryItem,
+} = groceryItemSlice.actions;
 
-export const selectGroceryItems = (state: RootState) => state.grocery.groceryItems;
+export const selectGroceryItems = (state: RootState) =>
+    state.grocery.groceryItems;
 
 export default groceryItemSlice.reducer;

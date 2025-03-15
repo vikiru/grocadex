@@ -8,11 +8,11 @@ export default function SearchBar({ placeholder }: { placeholder: string }) {
 
     return (
         <Searchbar
-            placeholder={placeholder}
+            className="m-2 border-2 border-primary bg-white shadow-md"
             onChangeText={onChangeSearch}
-            value={searchQuery}
-            className="m-2 bg-white shadow-md border-primary border-2"
+            placeholder={placeholder}
             style={{ fontFamily: 'Open Sans' }}
+            value={searchQuery}
         />
     );
 }

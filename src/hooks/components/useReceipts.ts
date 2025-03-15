@@ -13,7 +13,11 @@ export default function useReceipts() {
     const { putData } = usePutData();
     const { deleteData } = useDeleteData();
     const { createReceipt, modifyReceipt, deleteReceipt } = useReceipt();
-    const { addMultipleItems, updateActiveItemsByReceiptId, removeItemsByReceiptId } = useActiveItem();
+    const {
+        addMultipleItems,
+        updateActiveItemsByReceiptId,
+        removeItemsByReceiptId,
+    } = useActiveItem();
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
@@ -26,7 +30,13 @@ export default function useReceipts() {
 
         const payload: RequestPayload = {
             url: RECEIPT_ROUTE,
-            data: { userId: user?.id, store, purchaseDate, total, groceryItems },
+            data: {
+                userId: user?.id,
+                store,
+                purchaseDate,
+                total,
+                groceryItems,
+            },
         };
 
         try {
@@ -46,7 +56,9 @@ export default function useReceipts() {
                 setLoading(false);
                 return { success: true };
             } else {
-                setError(new Error('Failed to update receipt, please try again.'));
+                setError(
+                    new Error('Failed to update receipt, please try again.'),
+                );
             }
         } catch (error) {
             return { success: false };
@@ -83,7 +95,9 @@ export default function useReceipts() {
                 setLoading(false);
                 return { success: true };
             } else {
-                setError(new Error('Failed to update receipt, please try again.'));
+                setError(
+                    new Error('Failed to update receipt, please try again.'),
+                );
             }
         } catch (error) {
             return { success: false };
@@ -115,7 +129,9 @@ export default function useReceipts() {
                 setLoading(false);
                 return { success: true };
             } else {
-                setError(new Error('Failed to delete receipt. Please try again.'));
+                setError(
+                    new Error('Failed to delete receipt. Please try again.'),
+                );
             }
         } catch (error) {
             return { success: false };

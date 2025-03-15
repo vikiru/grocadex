@@ -14,20 +14,27 @@ export function DefaultDashboard() {
 
     return (
         <View className="mx-auto max-w-sm">
-            <Text className="text-lg">You currently do not have any receipts or groceries added.</Text>
+            <Text className="text-lg">
+                You currently do not have any receipts or groceries added.
+            </Text>
             <View className="mt-2 pb-2">
                 <Text className="text-lg">
-                    Consider adding a receipt with grocery items to get started on your journey!
+                    Consider adding a receipt with grocery items to get started
+                    on your journey!
                 </Text>
             </View>
             <View>
                 <Button
+                    buttonColor="orange"
+                    className="mx-auto my-2 w-60 max-w-md bg-secondary"
                     icon="plus"
                     mode="elevated"
-                    className="max-w-md my-2 w-60 bg-secondary mx-auto"
-                    buttonColor="orange"
+                    onPress={() =>
+                        navigation.navigate('receipt', {
+                            screen: 'receipts/create',
+                        })
+                    }
                     textColor="white"
-                    onPress={() => navigation.navigate('receipt', { screen: 'receipts/create' })}
                 >
                     Add Receipt
                 </Button>
@@ -47,10 +54,13 @@ export default function DashboardScreen() {
     }, []);
 
     return (
-        <ScrollView horizontal={false} className="bg-background min-h-full min-w-full">
+        <ScrollView
+            className="min-h-full min-w-full bg-background"
+            horizontal={false}
+        >
             <View className="bg-background">
                 <ScrollView
-                    className="flex flex-row space-x-2 m-2 pb-2"
+                    className="m-2 flex flex-row space-x-2 pb-2"
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 >
@@ -60,11 +70,15 @@ export default function DashboardScreen() {
                 </ScrollView>
 
                 {activeItems.length > 0 && <Divider />}
-                {activeItems.length === 0 && receipts.length === 0 && <DefaultDashboard />}
-                {monthlyTotal > 0 && <ExpenseDisplay monthlyExpense={monthlyTotal} />}
+                {activeItems.length === 0 && receipts.length === 0 && (
+                    <DefaultDashboard />
+                )}
+                {monthlyTotal > 0 && (
+                    <ExpenseDisplay monthlyExpense={monthlyTotal} />
+                )}
 
                 {receipts.length > 0 && (
-                    <View className="bg-background m-2 rounded-lg shadow-md">
+                    <View className="m-2 rounded-lg bg-background shadow-md">
                         <ReceiptTable receipts={receipts} />
                     </View>
                 )}

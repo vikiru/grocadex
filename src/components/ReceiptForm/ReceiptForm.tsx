@@ -13,7 +13,9 @@ import { Receipt } from '~types/index';
 const validationSchema = Yup.object({
     store: Yup.string().required('Must provide a store name'),
     purchaseDate: Yup.date().required('Must provide a valid purchase date'),
-    total: Yup.number().required('Total should not be 0').positive('Total price must be positive'),
+    total: Yup.number()
+        .required('Total should not be 0')
+        .positive('Total price must be positive'),
     groceryItems: Yup.array()
         .of(
             Yup.object().shape({
@@ -42,7 +44,12 @@ type ReceiptFormProps = {
     error: Error | null;
 };
 
-export default function ReceiptForm({ initialValues, handleSubmit, loading, error }: ReceiptFormProps) {
+export default function ReceiptForm({
+    initialValues,
+    handleSubmit,
+    loading,
+    error,
+}: ReceiptFormProps) {
     const values = { ...defaultValues, ...initialValues };
 
     return (
@@ -54,30 +61,34 @@ export default function ReceiptForm({ initialValues, handleSubmit, loading, erro
             }}
         >
             {({ handleSubmit, handleChange, setFieldValue, values }) => (
-                <View className="bg-background min-h-full min-w-full flex pt-2">
+                <View className="flex min-h-full min-w-full bg-background pt-2">
                     <View className="mx-1">
                         <TextInput
-                            mode="outlined"
+                            className="mx-2 rounded-lg bg-white"
                             label="Store Name"
-                            value={values.store}
+                            mode="outlined"
                             onChangeText={handleChange('store')}
                             placeholder="Enter the store name"
-                            className="bg-white rounded-lg mx-2"
+                            value={values.store}
                         />
                     </View>
                     <View className="mx-3">
-                        <DateSelector setFieldValue={setFieldValue} fieldName="purchaseDate" label="Purchase Date" />
+                        <DateSelector
+                            fieldName="purchaseDate"
+                            label="Purchase Date"
+                            setFieldValue={setFieldValue}
+                        />
                     </View>
-                    <View className="mt-1 mx-1">
+                    <View className="mx-1 mt-1">
                         <TextInput
+                            className="mx-2 my-1 bg-white"
+                            keyboardType="decimal-pad"
                             label="Total Price"
-                            value={values.total?.toString() || ''}
+                            mode="outlined"
                             onChangeText={(total) => {
                                 setFieldValue('total', total);
                             }}
-                            keyboardType="decimal-pad"
-                            mode="outlined"
-                            className="bg-white my-1 mx-2"
+                            value={values.total?.toString() || ''}
                         />
                     </View>
                     <GroceryAdder
@@ -86,10 +97,17 @@ export default function ReceiptForm({ initialValues, handleSubmit, loading, erro
                         purchaseDate={values.purchaseDate!}
                     />
                     {values.groceryItems && values.groceryItems.length > 0 && (
-                        <GroceryContainer groceryItems={values.groceryItems} setFieldValue={setFieldValue} />
+                        <GroceryContainer
+                            groceryItems={values.groceryItems}
+                            setFieldValue={setFieldValue}
+                        />
                     )}
-                    <View className="mt-2 flex-1 justify-end items-center pb-5">
-                        <Button className="rounded-lg" mode="contained" onPress={() => handleSubmit()}>
+                    <View className="mt-2 flex-1 items-center justify-end pb-5">
+                        <Button
+                            className="rounded-lg"
+                            mode="contained"
+                            onPress={() => handleSubmit()}
+                        >
                             Submit
                         </Button>
                     </View>

@@ -65,9 +65,13 @@ export const {
 } = expenseSlice.actions;
 
 export const selectExpenses = (state: RootState) => state.expense.expenses;
-export const selectMonthlyExpenses = (state: RootState) => state.expense.monthlyExpenses;
-export const selectYearlyExpenses = (state: RootState) => state.expense.yearlyExpenses;
-export const selectMonthlyTotal = (state: RootState) => state.expense.monthlyTotal;
-export const selectYearlyTotal = (state: RootState) => state.expense.yearlyTotal;
+export const selectMonthlyExpenses = (state: RootState) =>
+    state.expense.monthlyExpenses;
+export const selectYearlyExpenses = (state: RootState) =>
+    state.expense.yearlyExpenses;
+export const selectMonthlyTotal = (state: RootState) =>
+    state.expense.monthlyTotal;
+export const selectYearlyTotal = (state: RootState) =>
+    state.expense.yearlyTotal;
 
 export default expenseSlice.reducer;

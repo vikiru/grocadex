@@ -4,8 +4,17 @@ import passport from 'passport';
 import { logger } from '~config/logger';
 import { ResponsePayload } from '~types/index';
 
-export async function loginUser(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const response: ResponsePayload = { message: '', data: null, success: false, error: '' };
+export async function loginUser(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+): Promise<void> {
+    const response: ResponsePayload = {
+        message: '',
+        data: null,
+        success: false,
+        error: '',
+    };
 
     passport.authenticate('local', (err, user) => {
         if (err) {
@@ -40,7 +49,12 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
 }
 
 export async function logoutUser(req: Request, res: Response): Promise<void> {
-    const response: ResponsePayload = { message: '', data: null, success: false, error: '' };
+    const response: ResponsePayload = {
+        message: '',
+        data: null,
+        success: false,
+        error: '',
+    };
 
     try {
         req.logout((err) => {

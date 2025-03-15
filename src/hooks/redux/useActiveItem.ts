@@ -23,7 +23,10 @@ export const useActiveItem = () => {
         sortActiveItems(activeItems);
     };
 
-    const updateActiveItemsByReceiptId = (receiptId: number, updatedItems: GroceryItem[]) => {
+    const updateActiveItemsByReceiptId = (
+        receiptId: number,
+        updatedItems: GroceryItem[],
+    ) => {
         dispatch(updateActiveItemsByReceipt({ receiptId, updatedItems }));
     };
 

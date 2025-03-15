@@ -6,14 +6,20 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import { Stores } from '~constants/Stores';
 
 type StorePickerProps = {
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<Values>>;
+    setFieldValue: (
+        field: string,
+        value: any,
+        shouldValidate?: boolean,
+    ) => Promise<FormikErrors<Values> | void>;
 };
 export default function StorePicker({ setFieldValue }: StorePickerProps) {
     return (
         <View className="px-2">
-            <Text className="ml-1 text-text text-md font-semibold font-heading">Store</Text>
+            <Text className="text-md ml-1 font-heading font-semibold text-text">
+                Store
+            </Text>
 
-            <View className="flex-1 mx-1 mt-1">
+            <View className="mx-1 mt-1 flex-1">
                 <SelectList
                     data={Stores}
                     setSelected={(item: { label: string; value: string }) => {

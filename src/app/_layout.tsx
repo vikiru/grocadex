@@ -1,22 +1,28 @@
 import 'react-native-reanimated';
+
 import '../../global.css';
 
-import * as SplashScreen from 'expo-splash-screen';
-
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import { persistor, store } from '~store/store';
-
+import {
+    DarkTheme,
+    DefaultTheme,
+    ThemeProvider,
+} from '@react-navigation/native';
+import { defaultConfig } from '@tamagui/config';
 import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import React, { useEffect } from 'react';
 import { PaperProvider } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { createTamagui, TamaguiProvider } from 'tamagui';
 import { useColorScheme } from '~hooks/components/useColorScheme';
 import { MainNavigation } from '~navigation/index';
+import { persistor, store } from '~store/store';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+const config = createTamagui(defaultConfig);
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
@@ -44,14 +50,18 @@ export default function RootLayout() {
     }
 
     return (
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <ThemeProvider
+            value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+        >
             <PaperProvider>
-                <Provider store={store}>
-                    <PersistGate loading={null} persistor={persistor}>
-                        <MainNavigation />
-                        <Toast />
-                    </PersistGate>
-                </Provider>
+                <TamaguiProvider config={config}>
+                    <Provider store={store}>
+                        <PersistGate loading={null} persistor={persistor}>
+                            <MainNavigation />
+                            <Toast />
+                        </PersistGate>
+                    </Provider>
+                </TamaguiProvider>
             </PaperProvider>
         </ThemeProvider>
     );

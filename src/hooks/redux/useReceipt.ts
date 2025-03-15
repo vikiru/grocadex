@@ -36,5 +36,12 @@ export const useReceipt = () => {
         dispatch(updateReceipt(receipt));
     };
 
-    return { receipts, setReceiptValues, removeReceipts, createReceipt, deleteReceipt, modifyReceipt };
+    return {
+        receipts,
+        setReceiptValues,
+        removeReceipts,
+        createReceipt,
+        deleteReceipt,
+        modifyReceipt,
+    };
 };

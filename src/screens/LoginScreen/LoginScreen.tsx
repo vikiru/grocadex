@@ -10,7 +10,9 @@ import { useLogin } from '~hooks/components/useLogin';
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),
-    password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
+    password: Yup.string()
+        .min(8, 'Password must be at least 8 characters')
+        .required('Password is required'),
 });
 
 export default function LoginScreen() {
@@ -18,11 +20,12 @@ export default function LoginScreen() {
     const { handleLogin, handleCancel } = useLogin();
 
     return (
-        <View className="bg-background min-h-full min-w-full flex mt-10">
+        <View className="mt-10 flex min-h-full min-w-full bg-background">
             <Logo />
-            <View className="flex-row mx-auto my-2 mb-3">
-                <Text className="text-gray-600 text-lg font-body text-center">
-                    Welcome back! Ready to continue saving money and reducing waste together?
+            <View className="mx-auto my-2 mb-3 flex-row">
+                <Text className="text-center font-body text-lg text-gray-600">
+                    Welcome back! Ready to continue saving money and reducing
+                    waste together?
                 </Text>
             </View>
 
@@ -34,47 +37,49 @@ export default function LoginScreen() {
                 {({ handleChange, handleBlur, handleSubmit, values }) => (
                     <>
                         <TextInput
+                            className="mx-4 my-1 border-2 border-primary bg-white font-body"
                             label="Username"
-                            value={values.username}
-                            placeholder="Enter your username"
-                            onChangeText={handleChange('username')}
                             onBlur={handleBlur('username')}
-                            className="my-1 mx-4 font-body bg-white border-2 border-primary"
+                            onChangeText={handleChange('username')}
+                            placeholder="Enter your username"
+                            value={values.username}
                         />
 
                         <TextInput
+                            className="mx-4 my-1 border-2 border-primary bg-white font-body"
                             label="Password"
-                            value={values.password}
-                            secureTextEntry={displayPassword}
-                            placeholder="Enter your password"
-                            onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
+                            onChangeText={handleChange('password')}
+                            placeholder="Enter your password"
                             right={
                                 <TextInput.Icon
                                     icon={displayPassword ? 'eye-off' : 'eye'}
-                                    onPress={() => setDisplayPassword(!displayPassword)}
+                                    onPress={() =>
+                                        setDisplayPassword(!displayPassword)
+                                    }
                                 />
                             }
-                            className="my-1 mx-4 font-body bg-white border-2 border-primary"
+                            secureTextEntry={displayPassword}
+                            value={values.password}
                         />
 
-                        <View className="lg:mx-auto mt-2">
+                        <View className="mt-2 lg:mx-auto">
                             <Button
+                                className="mx-auto my-2 w-60 max-w-md bg-primary"
                                 icon="account-circle"
                                 mode="elevated"
-                                className="max-w-md my-2 mx-auto bg-primary w-60"
-                                textColor="white"
                                 onPress={() => handleSubmit()}
+                                textColor="white"
                             >
                                 Login
                             </Button>
 
                             <Button
+                                className="mx-auto my-2 w-60 max-w-md bg-secondary"
                                 icon="cancel"
                                 mode="elevated"
-                                className="max-w-md my-2 w-60 bg-secondary mx-auto"
-                                textColor="white"
                                 onPress={() => handleCancel()}
+                                textColor="white"
                             >
                                 Cancel
                             </Button>

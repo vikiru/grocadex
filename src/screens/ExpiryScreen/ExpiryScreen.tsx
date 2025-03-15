@@ -8,7 +8,10 @@ export default function ExpiryScreen() {
     const { activeItems } = useActiveItem();
 
     return (
-        <ScrollView horizontal={false} className="bg-background min-h-full min-w-full">
+        <ScrollView
+            className="min-h-full min-w-full bg-background"
+            horizontal={false}
+        >
             <SearchBar placeholder="Search items..." />
             <View className="flex flex-col">
                 {activeItems.map((item) => (
