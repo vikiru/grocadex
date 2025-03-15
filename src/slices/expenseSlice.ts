@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '~store/store';
-import { Expense } from '~types/index';
+import { Expense } from '~types/Expense';
 
 type ExpenseState = {
     expenses: Expense[] | Partial<Expense>[];
