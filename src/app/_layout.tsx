@@ -1,28 +1,22 @@
 import 'react-native-reanimated';
-
-import '../../global.css';
-
+import '@/global.css';
 import {
     DarkTheme,
     DefaultTheme,
     ThemeProvider,
 } from '@react-navigation/native';
-import { defaultConfig } from '@tamagui/config/v4';
+
+import '../../global.css';
+
 import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
-import { PaperProvider } from 'react-native-paper';
-import Toast from 'react-native-toast-message';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { createTamagui, TamaguiProvider } from 'tamagui';
+import { GluestackUIProvider } from '~components/ui/gluestack-ui-provider';
 import { useColorScheme } from '~hooks/components/useColorScheme';
-import { MainNavigation } from '~navigation/index';
-import { persistor, store } from '~store/store';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-const config = createTamagui(defaultConfig);
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
@@ -50,19 +44,14 @@ export default function RootLayout() {
     }
 
     return (
-        <ThemeProvider
-            value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-        >
-            <PaperProvider>
-                <TamaguiProvider config={config}>
-                    <Provider store={store}>
-                        <PersistGate loading={null} persistor={persistor}>
-                            <MainNavigation />
-                            <Toast />
-                        </PersistGate>
-                    </Provider>
-                </TamaguiProvider>
-            </PaperProvider>
-        </ThemeProvider>
+        <GluestackUIProvider mode="light">
+            <ThemeProvider
+                value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+            >
+                <Stack>
+                    <Stack.Screen name="index" />
+                </Stack>
+            </ThemeProvider>
+        </GluestackUIProvider>
     );
 }

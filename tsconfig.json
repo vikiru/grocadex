@@ -1,41 +1,75 @@
 {
-    "extends": "expo/tsconfig.base",
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
-        "incremental": true,
-        "allowJs": true,
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "baseUrl": ".",
-        "paths": {
-            "~api/*": ["src/api/*"],
-            "~assets/*": ["src/assets/*"],
-            "~components/*": ["src/components/*"],
-            "~constants/*": ["src/constants/*"],
-            "~fonts/*": ["src/assets/fonts/*"],
-            "~hooks/*": ["src/hooks/*"],
-            "~navigation/*": ["./src/navigation/*"],
-            "~screens/*": ["./src/screens/*"],
-            "~slices/*": ["./src/slices/*"],
-            "~store/*": ["./src/store/*"],
-            "~types/*": ["src/types/*"],
-            "~utils/*": ["./src/utils/*"]
-        },
-        "typeRoots": ["./node_modules/@types", "./src/types", "./api/types"]
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "incremental": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "~api/*": [
+        "src/api/*"
+      ],
+      "~assets/*": [
+        "src/assets/*"
+      ],
+      "~components/*": [
+        "src/components/*"
+      ],
+      "~constants/*": [
+        "src/constants/*"
+      ],
+      "~fonts/*": [
+        "src/assets/fonts/*"
+      ],
+      "~hooks/*": [
+        "src/hooks/*"
+      ],
+      "~navigation/*": [
+        "./src/navigation/*"
+      ],
+      "~screens/*": [
+        "./src/screens/*"
+      ],
+      "~slices/*": [
+        "./src/slices/*"
+      ],
+      "~store/*": [
+        "./src/store/*"
+      ],
+      "~types/*": [
+        "src/types/*"
+      ],
+      "~utils/*": [
+        "./src/utils/*"
+      ],
+      "@/*": [
+        "./*"
+      ],
+      "tailwind.config": [
+        "./tailwind.config.js"
+      ]
     },
-    "include": [
-        "src/**/*",
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/app/**/*.ts",
-        "api/**/*.ts",
-        ".expo/types/**/*.ts",
-        "expo-env.d.ts",
-        "nativewind-env.d.ts"
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types",
+      "./api/types"
     ]
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/app/**/*.ts",
+    "api/**/*.ts",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
+  ]
 }
