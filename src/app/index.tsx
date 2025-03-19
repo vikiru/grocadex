@@ -1,28 +1,24 @@
 import React from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native';
 import IntroDetails from '~components/IntroDetails';
 import { Button, ButtonText } from '~components/ui/button';
 
 function IndexScreen() {
     return (
-        <View className="min-h-screen bg-light-background-50 pt-4 lg:pt-20 dark:bg-dark-background-50">
-            <View className="flex w-full flex-row justify-center">
-                <Text className="w-fit text-center text-h1 font-bold">
-                    <Text className="text-light-primary-400 dark:text-dark-primary-400">
-                        Grocery
-                    </Text>
-                    <Text className="text-light-accent-400 dark:text-dark-accent-400">
-                        Tracker
-                    </Text>
+        <View className="flex min-h-screen items-center justify-center bg-light-background-50">
+            <View className="flex w-full flex-row justify-center lg:-mt-12">
+                <Text className="w-fit text-center font-bold">
+                    <Text className="h1 text-light-primary-400">Grocery</Text>
+                    <Text className="h1 text-light-accent-400">Tracker</Text>
                 </Text>
             </View>
 
-            <Text className="font-heading text-center text-h5 italic text-light-text-950 dark:text-dark-text-950">
+            <Text className="h4 text-center italic text-light-text-950 lg:pt-2">
                 A smart way to manage your groceries.
             </Text>
 
-            <View className="lg:my-4">
+            <View className="lg:mt-4">
                 <IntroDetails
                     heading="Track & Organize Groceries"
                     icon="clock-outline"
@@ -42,22 +38,14 @@ function IndexScreen() {
                 />
             </View>
 
-            <View className="xs:mx-auto mx-6 mt-5 flex flex-col items-center justify-center gap-2 lg:mx-auto lg:w-full lg:gap-4">
-                <Button
-                    action="primary"
-                    className="bg-light-primary-400 lg:w-full lg:max-w-[450px] dark:bg-dark-primary-400"
-                    variant="solid"
-                >
-                    <ButtonText>Login</ButtonText>
-                </Button>
+            <View className="mx-6 mt-5 flex flex-col items-center justify-center gap-2 lg:mx-auto lg:w-full lg:gap-4">
+                <TouchableOpacity className="h6 4xl:h5 w-full rounded-md bg-light-primary-400 px-3 py-2 text-center xs:max-w-[400px] lg:max-w-[450px] xl:max-w-[650px] 4xl:max-w-[850px]">
+                    Login
+                </TouchableOpacity>
 
-                <Button
-                    action="secondary"
-                    className="bg-light-accent-400 lg:w-full lg:max-w-[450px] dark:bg-dark-accent-400"
-                    variant="solid"
-                >
-                    <ButtonText>Sign Up</ButtonText>
-                </Button>
+                <TouchableOpacity className="h6 4xl:h5 w-full rounded-md bg-light-accent-400 px-3 py-2 text-center xs:max-w-[400px] lg:max-w-[450px] xl:max-w-[650px] 4xl:max-w-[850px]">
+                    Sign Up
+                </TouchableOpacity>
             </View>
         </View>
     );

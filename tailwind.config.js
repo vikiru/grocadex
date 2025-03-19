@@ -12,6 +12,17 @@ module.exports = {
         },
     ],
     theme: {
+        screens: {
+            xs: '300px',
+            sm: '500px',
+            md: '768px',
+            lg: '1024px',
+            xl: '1280px',
+            '2xl': '1792px',
+            '3xl': '2048px',
+            '4xl': '2304px',
+            '5xl': '2560px',
+        },
         extend: {
             colors: {
                 light: {
@@ -226,21 +237,13 @@ module.exports = {
                 },
             },
             fontFamily: {
-                heading: undefined,
-                body: undefined,
-                mono: undefined,
+                heading: [],
+                body: [],
+                mono: [],
                 roboto: ['Roboto', 'sans-serif'],
             },
             fontWeight: {
                 extrablack: '950',
-            },
-            fontSize: {
-                h1: 'clamp(2rem, 10vw, 3rem)',
-                h2: 'clamp(1.5rem, 10vw, 2.5rem)',
-                h3: 'clamp(1.25rem, 10vw, 2rem)',
-                h4: 'clamp(1rem, 10vw, 1.5rem)',
-                h5: 'clamp(0.875rem, 10vw, 1.25rem)',
-                h6: 'clamp(0.75rem, 10vw, 1rem)',
             },
             boxShadow: {
                 'hard-1': '-2px 2px 8px 0px rgba(38, 38, 38, 0.20)',
