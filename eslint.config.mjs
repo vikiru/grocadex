@@ -90,6 +90,7 @@ export default tseslint.config(
     globalIgnores([
         'node_modules/**/*',
         '.github/**/*',
+        '.husky/**/*',
         'public/**/*',
         '*.json',
         '*.md',
