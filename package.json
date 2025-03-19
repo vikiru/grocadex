@@ -1,14 +1,10 @@
 {
     "name": "grocery-tracker",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description": "",
-    "private": true,
     "author": "Visakan Kirubakaran",
+    "private": true,
     "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/vikiru/grocery-tracker"
-    },
     "keywords": [],
     "main": "expo-router/entry",
     "scripts": {
@@ -84,6 +80,7 @@
         "@babel/core": "^7.26.0",
         "@eslint/eslintrc": "^3.3.0",
         "@eslint/js": "^9.22.0",
+        "@semantic-release/git": "^10.0.1",
         "@types/jest": "^29.5.14",
         "@types/luxon": "^3.4.2",
         "@types/node": "^20.17.3",
@@ -114,14 +111,27 @@
         "prettier-plugin-prisma": "^5.0.0",
         "prettier-plugin-tailwindcss": "^0.6.11",
         "react-test-renderer": "18.3.1",
+        "semantic-release": "^24.2.3",
         "tailwindcss": "^3.4.17",
         "typescript": "^5.3.3",
         "typescript-eslint": "^8.26.1"
     },
     "lint-staged": {
-        "*.{js,jsx,ts,tsx}": [
-            "npm run lint",
-            "npm run prettier"
+        "*.{js,mjs,cjs,ts,jsx,tsx}": [
+            "eslint --fix",
+            "prettier --write"
+        ]
+    },
+    "release": {
+        "branches": [
+            "main"
+        ],
+        "plugins": [
+            "@semantic-release/commit-analyzer",
+            "@semantic-release/release-notes-generator",
+            "@semantic-release/npm",
+            "@semantic-release/git",
+            "@semantic-release/github"
         ]
     },
     "overrides": {
