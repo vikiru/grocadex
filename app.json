@@ -1,38 +1,33 @@
 {
-    "expo": {
-        "name": "grocery-tracker",
-        "slug": "grocery-tracker",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./src/assets/images/icon.png",
-        "scheme": "myapp",
-        "userInterfaceStyle": "automatic",
-        "newArchEnabled": true,
-        "splash": {
-            "image": "./src/assets/images/splash.png",
-            "resizeMode": "contain",
+    "name": "grocery-tracker",
+    "slug": "grocery-tracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+        "image": "./src/assets/images/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+    },
+    "ios": {
+        "supportsTablet": true
+    },
+    "android": {
+        "adaptiveIcon": {
+            "foregroundImage": "./src/assets/images/adaptive-icon.png",
             "backgroundColor": "#ffffff"
-        },
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./src/assets/images/adaptive-icon.png",
-                "backgroundColor": "#ffffff"
-            }
-        },
-        "web": {
-            "bundler": "metro",
-            "output": "static",
-            "favicon": ""
-        },
-        "plugins": ["expo-router", "expo-font"],
-        "experiments": {
-            "typedRoutes": true
-        },
-        "expo": {
-            "userInterfaceStyle": "automatic"
         }
+    },
+    "web": {
+        "bundler": "metro",
+        "output": "static",
+        "favicon": ""
+    },
+    "plugins": ["expo-router", "expo-font"],
+    "experiments": {
+        "typedRoutes": true
     }
 }
