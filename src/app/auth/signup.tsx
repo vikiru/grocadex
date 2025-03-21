@@ -100,7 +100,7 @@ function SignUp() {
                 </VStack>
             </HStack>
 
-            <HStack className="mx-4 mt-4">
+            <HStack className="mx-4 mt-1">
                 <VStack className="w-full">
                     <Text className="font-heading text-lg text-typography-900 xl:text-xl">
                         Password

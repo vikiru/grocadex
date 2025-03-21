@@ -57,7 +57,7 @@ function GroceryCard() {
                 >
                     <ButtonText className="font-body text-lg">Edit</ButtonText>
                     <MaterialCommunityIcons
-                        className="ml-2"
+                        className="mb-1 ml-2"
                         color="white"
                         name="pencil"
                         size={24}
@@ -73,7 +73,7 @@ function GroceryCard() {
                         Delete
                     </ButtonText>
                     <MaterialCommunityIcons
-                        className="ml-2"
+                        className="mb-1 ml-2"
                         color="white"
                         name="trash-can"
                         size={24}
