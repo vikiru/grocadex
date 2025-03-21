@@ -2,6 +2,7 @@ import { Button, ButtonText } from '~components/ui/button';
 import { Heading } from '~components/ui/heading';
 import { HStack } from '~components/ui/hstack';
 import { Input, InputField } from '~components/ui/input';
+import { Link, LinkText } from '~components/ui/link';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
 
@@ -67,13 +68,14 @@ function Login() {
                             Login
                         </ButtonText>
                     </Button>
-
-                    <Button action="secondary" variant="solid">
-                        <ButtonText className="font-body xs:text-base xl:text-lg">
-                            Sign Up
-                        </ButtonText>
-                    </Button>
                 </VStack>
+            </HStack>
+
+            <HStack className="mx-4 mt-2 flex justify-center">
+                <Text>Don&apos;t have an account? </Text>{' '}
+                <Link href="/auth/signup">
+                    <LinkText>Sign Up</LinkText>
+                </Link>
             </HStack>
         </VStack>
     );
