@@ -12,17 +12,17 @@ function IntroDetails(props: IntroDetailsProps) {
         <View className="mx-auto my-2 flex flex-row items-center">
             <View className="flex h-16 w-16 max-w-[20%] items-center justify-center">
                 <MaterialCommunityIcons
-                    className="text-light-text-950 mx-3"
+                    className="mx-3 text-typography-950"
                     name={props.icon}
                     size={40}
                 />
             </View>
             <View className="ml-4 flex max-w-[300px] flex-col md:max-w-[400px] xl:max-w-[600px] 4xl:max-w-[800px]">
-                <Text className="h5 text-light-text-950 font-heading font-bold">
+                <Text className="font-heading font-bold text-typography-950 xs:text-xl lg:text-2xl">
                     {props.heading}
                 </Text>
                 <View className="mr-5 flex">
-                    <Text className="p text-light-text-950 mr-2 mt-1 text-left">
+                    <Text className="p mr-2 mt-1 text-left font-body text-typography-700">
                         {props.subtext}
                     </Text>
                 </View>
