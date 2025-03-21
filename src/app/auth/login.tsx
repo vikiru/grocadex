@@ -72,9 +72,11 @@ function Login() {
             </HStack>
 
             <HStack className="mx-4 mt-2 flex justify-center">
-                <Text>Don&apos;t have an account? </Text>{' '}
+                <Text className="text-lg xl:text-xl">
+                    Don&apos;t have an account?{' '}
+                </Text>{' '}
                 <Link href="/auth/signup">
-                    <LinkText>Sign Up</LinkText>
+                    <LinkText className="text-lg xl:text-xl">Sign Up</LinkText>
                 </Link>
             </HStack>
         </VStack>
