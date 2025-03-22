@@ -43,7 +43,7 @@ export default function RootLayout() {
                 value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
             >
                 <Stack>
-                    <Stack.Screen name="index" />
+                    <Stack.Screen name="grocery/create" />
                 </Stack>
             </ThemeProvider>
         </GluestackUIProvider>
