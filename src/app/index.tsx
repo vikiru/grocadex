@@ -1,8 +1,10 @@
+import { Link } from 'expo-router';
 import React from 'react';
 import IntroDetails from '~components/IntroDetails';
 import { Button, ButtonText } from '~components/ui/button';
 import { Heading } from '~components/ui/heading';
 import { HStack } from '~components/ui/hstack';
+import { LinkText } from '~components/ui/link';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
 
@@ -17,6 +19,10 @@ function IndexScreen() {
             <Text className="text-center font-body text-lg italic text-typography-600 xl:text-2xl">
                 A smart way to manage your groceries
             </Text>
+
+            <Link className="mx-4" href="/grocery/create">
+                <LinkText>Test</LinkText>
+            </Link>
 
             <VStack>
                 <IntroDetails
