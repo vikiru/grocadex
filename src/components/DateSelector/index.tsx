@@ -17,7 +17,7 @@ import { VStack } from '~components/ui/vstack';
 type DateSelectorProps = {
     title: string;
     date: DateType;
-    setDate: (date: DateType) => void;
+    setDate: React.Dispatch<React.SetStateAction<Date>>;
     setOpen: (isOpen: boolean) => void;
 };
 
