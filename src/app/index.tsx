@@ -20,7 +20,7 @@ function IndexScreen() {
                 A smart way to manage your groceries
             </Text>
 
-            <Link className="mx-4" href="/grocery/create">
+            <Link className="mx-4" href="/receipt/create">
                 <LinkText>Test</LinkText>
             </Link>
 
