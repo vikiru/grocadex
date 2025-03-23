@@ -1,11 +1,18 @@
 import { DateTime } from 'luxon';
 import { GroceryItem, Receipt } from '~types/index';
 
+export const parseDate = (date: Date | string): Date => {
+    if (typeof date === 'string') {
+        return DateTime.fromISO(date).toJSDate();
+    } else return DateTime.fromJSDate(date).toJSDate();
+};
+
 export const formatDate = (date: Date | string, format: string): string => {
     if (typeof date === 'string') {
         return DateTime.fromISO(date).toFormat(format);
     } else return DateTime.fromJSDate(date).toFormat(format);
 };
+
 export const createDateFromTimestamp = (timestamp: number): Date => {
     const date = DateTime.fromMillis(timestamp, { zone: 'utc' }).toJSDate();
     return date;
@@ -17,11 +24,11 @@ export const constructExpiryString = (date: string | Date): string => {
     const daysUntilExpiry = expiryDate.diff(now, 'days').days;
 
     if (daysUntilExpiry > 0) {
-        return `Expiring in ${Math.abs(Math.ceil(daysUntilExpiry))} days`;
+        return `Expiring in ${Math.abs(Math.ceil(daysUntilExpiry))} day${Math.abs(Math.ceil(daysUntilExpiry)) === 1 ? '' : 's'}`;
     } else if (daysUntilExpiry === 0) {
         return 'Expired today';
     } else {
-        return `Expired ${Math.abs(Math.floor(daysUntilExpiry))} days ago`;
+        return `Expired ${Math.abs(Math.floor(daysUntilExpiry))} day${Math.abs(Math.floor(daysUntilExpiry)) === 1 ? '' : 's'} ago`;
     }
 };
 

@@ -1,38 +1,70 @@
 import { Expense, Receipt } from '~types/index';
-
 import { Months } from '~constants/Dates';
-import { convertDatetoDateTime } from '~utils/date';
+import { parseDate } from '~utils/date';
 import { filterReceiptsByMonthYear } from '~utils/receipt';
 
-export const constructExpenses = (receipts: Receipt[]): Expense[] => {
-    const expenseMap: Map<string, { total: number; stores: Set<string> }> =
-        new Map();
+export const constructExpense = (receipts: Receipt[]): Expense | null => {
+    if (receipts.length === 0) return null;
+    const receiptIds = new Set<number>();
+    const stores = new Set<string>();
+    let total = 0;
+    const { purchaseDate } = receipts[0];
+    const date = parseDate(purchaseDate);
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
 
     receipts.forEach((receipt) => {
-        const date = convertDatetoDateTime(receipt.purchaseDate);
-        const year = date.year;
-        const month = date.month;
-        const key = `${year}-${month}`;
+        receiptIds.add(receipt.id);
+        stores.add(receipt.store);
+        total += receipt.total;
+    });
+
+    return {
+        month,
+        year,
+        total,
+        stores: Array.from(stores),
+        receiptIds: Array.from(receiptIds),
+    };
+};
+
+export const constructExpenses = (receipts: Receipt[]): (Expense | null)[] => {
+    if (receipts.length === 0) return [];
+
+    const expenseMap = new Map<string, Receipt[]>();
+
+    for (const receipt of receipts) {
+        const date = parseDate(receipt.purchaseDate);
+        const key = `${date.getFullYear()}-${date.getMonth() + 1}`;
 
         if (!expenseMap.has(key)) {
-            expenseMap.set(key, { total: 0, stores: new Set<string>() });
+            expenseMap.set(key, []);
         }
+        expenseMap.get(key)!.push(receipt);
+    }
 
-        const entry = expenseMap.get(key);
-        if (entry) {
-            entry.total += Number(receipt.total);
-            entry.stores.add(receipt.store);
+    return Array.from(expenseMap.values()).map(constructExpense);
+};
+
+export const calculateExpenses = (expenses: Expense[]): number => {
+    return expenses.reduce((total, expense) => {
+        return total + expense.total;
+    }, 0);
+};
+
+export const constructGraphData = (expenses: Expense[]) => {
+    const expenseMap = new Map<number, number>();
+    expenses.forEach((expense) => {
+        if (expense.month && expense.total !== undefined) {
+            expenseMap.set(expense.month, expense.total);
         }
     });
 
-    return Array.from(expenseMap.entries()).map(([key, { total, stores }]) => {
-        const [year, month] = key.split('-').map(Number);
+    return Months.map((month, index) => {
+        const monthNumber = index + 1;
         return {
-            date: new Date(year, month, 1).toISOString(),
-            month,
-            year,
-            amount: total,
-            stores: Array.from(stores),
+            label: month,
+            amount: expenseMap.get(monthNumber) || 0,
         };
     });
 };
@@ -70,27 +102,4 @@ export const calculateMonthlyStoreBreakdown = (
     }
 
     return breakdown;
-};
-
-export const calculateExpenses = (expenses: Expense[]): number => {
-    return expenses.reduce((total, expense) => {
-        return total + expense.amount;
-    }, 0);
-};
-
-export const constructGraphData = (expenses: Expense[]) => {
-    const expenseMap = new Map<number, number>();
-    expenses.forEach((expense) => {
-        if (expense.month && expense.amount !== undefined) {
-            expenseMap.set(expense.month, expense.amount);
-        }
-    });
-
-    return Months.map((month, index) => {
-        const monthNumber = index + 1;
-        return {
-            label: month,
-            amount: expenseMap.get(monthNumber) || 0,
-        };
-    });
 };
