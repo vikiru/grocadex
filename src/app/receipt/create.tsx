@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
+import { DateType } from 'react-native-ui-datepicker';
 import DateInputField from '~components/DateInputField';
 import { Button } from '~components/ui/button';
 import { Heading } from '~components/ui/heading';
@@ -82,7 +83,7 @@ const groceryItems = [
 ];
 
 function CreateReceipt() {
-    const [purchaseDate, setPurchaseDate] = useState(new Date());
+    const [purchaseDate, setPurchaseDate] = useState<DateType>(new Date());
 
     return (
         <VStack className="min-h-screen w-full bg-background-100">
