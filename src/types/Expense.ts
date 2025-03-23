@@ -1,11 +1,8 @@
 export type Expense = {
-    date: Date | string;
-    amount: number;
-    stores: string[];
-    storeBreakdown?: {
-        storeName: string;
-        amount: number;
-    };
+    id?: number;
     month: number;
     year: number;
+    total: number;
+    stores: string[];
+    receiptIds: number[];
 };
