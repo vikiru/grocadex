@@ -82,6 +82,7 @@ export default tseslint.config(
             ],
             'no-secrets/no-secrets': 'error',
             'perfectionist/sort-objects': 'off',
+            'perfectionist/sort-union-types': 'off',
             'perfectionist/sort-object-types': 'off',
         },
 

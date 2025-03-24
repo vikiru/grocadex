@@ -1,8 +1,8 @@
 import { ResponseData } from '~types/index';
 
-export type ResponsePayload = {
+export type ResponsePayload<T = any> = {
     message: string;
-    data: ResponseData;
+    data: T;
     success: boolean;
     error: string;
 };
