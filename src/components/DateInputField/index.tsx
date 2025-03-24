@@ -11,11 +11,20 @@ import { formatDate } from '~utils/date';
 type DateInputFieldProps = {
     label: string;
     date: DateType;
-    setDate: (date: DateType) => void;
+    setDate: React.Dispatch<React.SetStateAction<DateType>>;
+    error?: string;
+    isInvalid?: boolean;
 };
 
-function DateInputField({ label, date, setDate }: DateInputFieldProps) {
+function DateInputField({
+    label,
+    date,
+    setDate,
+    error,
+    isInvalid,
+}: DateInputFieldProps) {
     const [open, setOpen] = useState(false);
+    const [dateString, setDateString] = useState('');
 
     return (
         <VStack className="w-full">
@@ -27,6 +36,7 @@ function DateInputField({ label, date, setDate }: DateInputFieldProps) {
             <HStack className="mx-4 mt-1">
                 <Input
                     className="w-full bg-background-0 font-body"
+                    isReadOnly={dateString !== ''}
                     size="xl"
                     variant="outline"
                 >
@@ -34,18 +44,23 @@ function DateInputField({ label, date, setDate }: DateInputFieldProps) {
                         className="font-body"
                         onFocus={() => setOpen(true)}
                         placeholder="Select a date"
-                        value={date ? formatDate(date, DateFormat) : ''}
+                        value={dateString}
                     />
                 </Input>
             </HStack>
 
-            {open && (
+            {open && dateString === '' && (
                 <DateSelector
                     date={date}
                     setDate={setDate}
+                    setDateString={setDateString}
                     setOpen={setOpen}
                     title={`Select ${label}`}
                 />
+            )}
+
+            {isInvalid && error && (
+                <Text className="text-error-500">{error}</Text>
             )}
         </VStack>
     );

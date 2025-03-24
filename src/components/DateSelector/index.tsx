@@ -13,26 +13,34 @@ import {
     ModalHeader,
 } from '~components/ui/modal';
 import { VStack } from '~components/ui/vstack';
+import { DateFormat } from '~constants/Dates';
+import { formatDate } from '~utils/date';
 
 type DateSelectorProps = {
     title: string;
     date: DateType;
-    setDate: React.Dispatch<React.SetStateAction<Date>>;
+    setDate: React.Dispatch<React.SetStateAction<DateType>>;
     setOpen: (isOpen: boolean) => void;
+    setDateString: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function DateSelector({ title, date, setDate, setOpen }: DateSelectorProps) {
+function DateSelector({
+    title,
+    date,
+    setDate,
+    setDateString,
+}: DateSelectorProps) {
     const defaultStyles = useDefaultStyles();
-    const [showModal, setShowModal] = useState(true);
+    const [open, setOpenState] = useState(true);
 
     const handleDateChange = ({ date }: { date: DateType }) => {
-        setShowModal(false);
-        setOpen(false);
+        setOpenState(false);
+        setDateString(formatDate(date as Date, DateFormat));
         setDate(date);
     };
 
     return (
-        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+        <Modal isOpen={open} onClose={() => setOpenState(false)}>
             <ModalBackdrop />
             <ModalContent>
                 <ModalHeader>

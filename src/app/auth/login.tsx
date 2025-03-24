@@ -1,3 +1,4 @@
+import LoginForm from '~components/forms/LoginForm';
 import { Button, ButtonText } from '~components/ui/button';
 import { Heading } from '~components/ui/heading';
 import { HStack } from '~components/ui/hstack';
@@ -20,56 +21,7 @@ function Login() {
                 </VStack>
             </HStack>
 
-            <HStack className="mx-4 mt-1">
-                <VStack className="w-full">
-                    <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                        Email
-                    </Text>
-                    <HStack>
-                        <Input
-                            className="w-full bg-background-0 font-body"
-                            size="xl"
-                            variant="outline"
-                        >
-                            <InputField
-                                className="font-body"
-                                placeholder="Enter email"
-                            />
-                        </Input>
-                    </HStack>
-                </VStack>
-            </HStack>
-
-            <HStack className="mx-4 mt-4">
-                <VStack className="w-full">
-                    <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                        Password
-                    </Text>
-                    <HStack>
-                        <Input
-                            className="w-full bg-background-0"
-                            size="xl"
-                            variant="outline"
-                        >
-                            <InputField
-                                className="font-body"
-                                placeholder="Enter password"
-                                secureTextEntry
-                            />
-                        </Input>
-                    </HStack>
-                </VStack>
-            </HStack>
-
-            <HStack className="mx-4 mt-4">
-                <VStack className="w-full gap-3">
-                    <Button action="primary" variant="solid">
-                        <ButtonText className="font-body xs:text-base xl:text-lg">
-                            Login
-                        </ButtonText>
-                    </Button>
-                </VStack>
-            </HStack>
+            <LoginForm />
 
             <HStack className="mx-4 mt-2 flex justify-center">
                 <Text className="text-lg xl:text-xl">
