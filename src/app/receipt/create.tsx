@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ScrollView } from 'react-native';
 import { DateType } from 'react-native-ui-datepicker';
 import DateInputField from '~components/DateInputField';
+import ReceiptForm from '~components/forms/ReceiptForm';
 import { Button } from '~components/ui/button';
 import { Heading } from '~components/ui/heading';
 import { HStack } from '~components/ui/hstack';
@@ -83,8 +84,6 @@ const groceryItems = [
 ];
 
 function CreateReceipt() {
-    const [purchaseDate, setPurchaseDate] = useState<DateType>(new Date());
-
     return (
         <VStack className="min-h-screen w-full bg-background-100">
             <HStack className="mx-4 mt-2">
@@ -93,109 +92,7 @@ function CreateReceipt() {
                 </Heading>
             </HStack>
 
-            <HStack className="mx-4 mt-1">
-                <VStack className="w-full">
-                    <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                        Store Name
-                    </Text>
-                    <HStack>
-                        <Input
-                            className="w-full bg-background-0 font-body"
-                            size="xl"
-                            variant="outline"
-                        >
-                            <InputField
-                                className="font-body"
-                                placeholder="Enter store name"
-                            />
-                        </Input>
-                    </HStack>
-                </VStack>
-            </HStack>
-
-            <DateInputField
-                date={purchaseDate}
-                label="Purchase Date"
-                setDate={setPurchaseDate}
-            />
-
-            <HStack className="mx-4 mt-1">
-                <VStack className="w-full">
-                    <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                        Total ($)
-                    </Text>
-                    <HStack>
-                        <Input
-                            className="w-full bg-background-0 font-body"
-                            size="xl"
-                            variant="outline"
-                        >
-                            <InputField
-                                className="font-body"
-                                placeholder="Enter total amount spent"
-                            />
-                        </Input>
-                    </HStack>
-                </VStack>
-            </HStack>
-
-            <HStack className="mx-4 mt-2 flex items-center justify-between">
-                <Heading className="font-heading font-semibold xs:text-2xl xl:text-3xl">
-                    Grocery Items
-                </Heading>
-                <Text className="mt-2 font-body text-lg text-typography-600">
-                    Add Item
-                </Text>
-            </HStack>
-
-            <ScrollView className="mx-4 mt-4 max-h-[14rem] xl:mt-2 xl:max-h-[20rem]">
-                {groceryItems.map((groceryItem, index) => (
-                    <VStack className="gap-3 pb-6" key={index}>
-                        <HStack className="flex items-center justify-between">
-                            <Heading className="mt-2 font-heading font-medium">
-                                {groceryItem.name} ({groceryItem.quantity})
-                            </Heading>
-                            <Text className="mt-2 font-info">
-                                ${groceryItem.price}
-                            </Text>
-                        </HStack>
-
-                        <HStack>
-                            <Text className="font-info">
-                                Expires on {groceryItem.expiryDate}.
-                            </Text>
-                        </HStack>
-                        <HStack className="flex items-center gap-2">
-                            <Button
-                                action="primary"
-                                className="w-28"
-                                size="md"
-                                variant="solid"
-                            >
-                                <MaterialCommunityIcons
-                                    className="mb-1 ml-2"
-                                    color="white"
-                                    name="pencil"
-                                    size={24}
-                                />
-                            </Button>
-                            <Button
-                                action="negative"
-                                className="w-28"
-                                size="md"
-                                variant="solid"
-                            >
-                                <MaterialCommunityIcons
-                                    className="mb-1 ml-2"
-                                    color="white"
-                                    name="trash-can"
-                                    size={24}
-                                />
-                            </Button>
-                        </HStack>
-                    </VStack>
-                ))}
-            </ScrollView>
+            <ReceiptForm />
         </VStack>
     );
 }
