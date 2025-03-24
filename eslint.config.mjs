@@ -94,6 +94,8 @@ export default tseslint.config(
         '.husky/**/*',
         'public/**/*',
         'src/assets/fonts/**/*',
+        'src/api/prisma/**/*',
+        'src/api/**/*.json',
         '*.json',
         '*.md',
         '*.mjs',
