@@ -8,6 +8,7 @@ export const LOGOUT_ROUTE = `${BASE_URL}/auth/logout`;
 export const USER_ROUTE = `${BASE_URL}/users`;
 export const ACTIVE_ITEM_ROUTE = `${BASE_URL}/active-items`;
 export const GROCERY_ITEM_ROUTE = `${BASE_URL}/grocery-items`;
+export const EXPENSE_ROUTE = `${BASE_URL}/expenses`;
 export const RECEIPT_ROUTE = `${BASE_URL}/receipts`;
 
 export const DASHBOARD_ROUTE = `${BASE_URL}/dashboard`;
