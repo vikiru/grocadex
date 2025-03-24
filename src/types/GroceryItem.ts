@@ -1,7 +1,7 @@
 import { Receipt, User } from '~types/index';
 
 export type GroceryItem = {
-    id: number;
+    id?: number;
     userId: number;
     receiptId: number;
     name: string;
