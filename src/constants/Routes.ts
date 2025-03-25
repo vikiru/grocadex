@@ -6,8 +6,7 @@ export const LOGIN_ROUTE = `${BASE_URL}/auth/login`;
 export const LOGOUT_ROUTE = `${BASE_URL}/auth/logout`;
 
 export const USER_ROUTE = `${BASE_URL}/users`;
-export const ACTIVE_ITEM_ROUTE = `${BASE_URL}/active-items`;
-export const GROCERY_ITEM_ROUTE = `${BASE_URL}/grocery-items`;
+export const ACTIVE_ITEM_ROUTE = `${BASE_URL}/receipts/groceries/active`;
 export const EXPENSE_ROUTE = `${BASE_URL}/expenses`;
 export const RECEIPT_ROUTE = `${BASE_URL}/receipts`;
 

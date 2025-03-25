@@ -1,4 +1,4 @@
-import express = require('express');
+import express from 'express';
 
 import { apiVersionString } from '~config/index';
 import { AuthController } from '~controllers/';
@@ -9,6 +9,7 @@ const baseUrl = `/${apiVersionString}/auth`;
 const AuthRouter = express.Router();
 
 AuthRouter.post(`${baseUrl}/login`, AuthController.loginUser);
+
 AuthRouter.post(
     `${baseUrl}/logout`,
     ensureAuthenticated,

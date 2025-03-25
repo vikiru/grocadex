@@ -1,4 +1,4 @@
-import express = require('express');
+import express from 'express';
 
 import { apiVersionString } from '~config/index';
 import { ReceiptController } from '~controllers/';
@@ -12,11 +12,13 @@ ReceiptRouter.get(
     ensureAuthenticated,
     ReceiptController.getReceiptsByUserId,
 );
+
 ReceiptRouter.post(
     `${baseUrl}`,
     ensureAuthenticated,
     ReceiptController.createReceipt,
 );
+
 ReceiptRouter.get(
     `${baseUrl}/:id`,
     ensureAuthenticated,

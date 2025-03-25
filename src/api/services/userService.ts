@@ -25,7 +25,7 @@ export async function retrieveUserById(userId: number): Promise<User | null> {
     try {
         const user = await prisma.user.findUnique({
             where: { id: userId },
-            include: { activeItems: true, receipts: true },
+            include: { activeItems: true, receipts: true, expenses: true },
         });
 
         if (user) {
