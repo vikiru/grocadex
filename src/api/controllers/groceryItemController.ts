@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-
 import { GroceryItem } from '@prisma/client';
 import { logger } from '~config/logger';
 import { GroceryItemService } from '~services/';
@@ -9,7 +8,7 @@ export async function createGroceryItem(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const user = req.user;
+    const userId = req.user;
     const groceryItem: GroceryItem = req.body;
     const response: ResponsePayload = {
         message: '',
@@ -22,11 +21,11 @@ export async function createGroceryItem(
         await GroceryItemService.saveGroceryItem(
             groceryItem,
             groceryItem.receiptId,
-            user,
+            userId,
         );
         response['message'] = 'Successfully created the grocery item.';
         response['success'] = true;
-        response['error'] = 'No error occured.';
+        response['error'] = 'No error occurred.';
         res.status(201).json(response);
     } catch (error) {
         logger.error(`Error saving grocery item: ${error}`);
@@ -69,6 +68,40 @@ export async function deleteGroceryItem(
     }
 }
 
+export async function getActiveGroceryItems(req: Request, res: Response) {
+    const userId = req.user;
+    const response: ResponsePayload = {
+        message: '',
+        data: null,
+        success: false,
+        error: '',
+    };
+
+    try {
+        const activeItems =
+            await GroceryItemService.retrieveActiveItems(userId);
+
+        if (activeItems.length > 0) {
+            response['message'] =
+                'Successfully retrieved active grocery items.';
+            response['data'] = activeItems;
+            response['success'] = true;
+            response['error'] = 'No error occurred.';
+            res.status(200).json(response);
+        } else {
+            response['message'] = 'No active grocery items found.';
+            response['error'] = 'There are no active grocery items.';
+            res.status(404).json(response);
+        }
+    } catch (error) {
+        logger.error(`Error retrieving active grocery items: ${error}`);
+        response['message'] = 'Internal server error';
+        response['error'] =
+            'There was an error retrieving the active grocery items';
+        res.status(500).json(response);
+    }
+}
+
 export async function getGroceryItemById(
     req: Request,
     res: Response,
@@ -94,7 +127,7 @@ export async function getGroceryItemById(
                 'Successfully retrieved grocery item for the given id.';
             response['data'] = groceryItem;
             response['success'] = true;
-            response['error'] = 'No error occured.';
+            response['error'] = 'No error occurred.';
             res.status(200).json(response);
         } else {
             response['message'] = 'No grocery item found for the given id.';
@@ -138,7 +171,7 @@ export async function getGroceryItemsByReceiptId(
                 'Successfully retrieved all grocery items for receipt';
             response['data'] = groceryItems;
             response['success'] = true;
-            response['error'] = 'No error occured.';
+            response['error'] = 'No error occurred.';
             res.status(200).json(response);
         } else {
             response['message'] = 'No grocery items found for this receipt';
@@ -171,10 +204,10 @@ export async function updateGroceryItem(
 
     try {
         const updatedItem =
-            await GroceryItemService.updateGroceryItemById(groceryItem);
+            await GroceryItemService.updateGroceryItems(groceryItem);
         response['message'] = 'Successfully updated grocery item.';
         response['data'] = updatedItem;
-        response['error'] = 'No error occured.';
+        response['error'] = 'No error occurred.';
         res.status(200).json(response);
     } catch (error) {
         logger.error(

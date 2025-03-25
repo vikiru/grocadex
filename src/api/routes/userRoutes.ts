@@ -1,4 +1,4 @@
-import express = require('express');
+import express from 'express';
 
 import { apiVersionString } from '~config/index';
 import { UserController } from '~controllers/';

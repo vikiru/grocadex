@@ -2,6 +2,20 @@ import { GroceryItem } from '@prisma/client';
 import { logger } from '~config/logger';
 import { prisma } from '~data/';
 
+export async function retrieveActiveItems(
+    userId: number,
+): Promise<GroceryItem[]> {
+    try {
+        const activeItems = await prisma.groceryItem.findMany({
+            where: { userId, isActive: true },
+        });
+
+        return activeItems;
+    } catch (error) {
+        logger.error('Error retrieving active items from database: ${error}');
+    }
+}
+
 export async function removeGroceryItemById(
     userId: number,
     receiptId: number,
@@ -105,22 +119,30 @@ export async function saveGroceryItem(
     }
 }
 
-export async function updateGroceryItemById(
-    groceryItem: GroceryItem | Partial<GroceryItem>,
-): Promise<GroceryItem | null> {
+export async function updateGroceryItems(
+    groceryItems: GroceryItem | GroceryItem[],
+): Promise<GroceryItem[] | GroceryItem | null> {
     try {
-        const updatedItem = await prisma.groceryItem.update({
-            where: {
-                userId: groceryItem.userId,
-                receiptId: groceryItem.receiptId,
-                id: groceryItem.id,
-            },
-            data: groceryItem,
-        });
-        logger.info('Successfully updated grocery item in the database.');
-        return updatedItem;
+        const itemsToUpdate = Array.isArray(groceryItems)
+            ? groceryItems
+            : [groceryItems];
+        const updatedItems = await Promise.all(
+            itemsToUpdate.map(async (groceryItem) => {
+                return await prisma.groceryItem.update({
+                    where: {
+                        userId: groceryItem.userId,
+                        receiptId: groceryItem.receiptId,
+                        id: groceryItem.id,
+                    },
+                    data: groceryItem,
+                });
+            }),
+        );
+
+        logger.info('Successfully updated grocery item(s) in the database.');
+        return updatedItems.length === 1 ? updatedItems[0] : updatedItems;
     } catch (error) {
-        logger.error(`Error updating grocery item in database: ${error}`);
+        logger.error(`Error updating grocery item(s) in database: ${error}`);
         return null;
     }
 }
