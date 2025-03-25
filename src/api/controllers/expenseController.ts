@@ -15,7 +15,7 @@ export async function deleteExpenseById(
         error: '',
     };
     const userId = req.user;
-    const { expenseId } = req.params;
+    const expenseId = parseInt(req.params.expenseId, 10);
 
     try {
         const success = await ExpenseService.deleteExpenseById(
@@ -127,7 +127,7 @@ export async function retrieveExpenseById(
         error: '',
     };
     const userId = req.user;
-    const { expenseId } = req.params;
+    const expenseId = parseInt(req.params.expenseId, 10);
 
     try {
         const expense = await ExpenseService.retrieveExpenseById(

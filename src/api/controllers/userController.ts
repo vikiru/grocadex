@@ -33,11 +33,17 @@ export async function createUser(req: Request, res: Response): Promise<void> {
             return res.status(400).json(response);
         }
 
-        await UserService.saveUser(user);
-        response['message'] = 'User created successfully.';
-        response['success'] = true;
-        response['error'] = 'No error occurred.';
-        res.status(201).json(response);
+        const newUser = await UserService.saveUser(user);
+        if (newUser) {
+            response['message'] = 'User created successfully.';
+            response['success'] = true;
+            response['error'] = 'No error occurred.';
+            res.status(201).json(response);
+        } else {
+            response['message'] = 'Failed to create user.';
+            response['error'] = 'Failed to create user.';
+            res.status(400).json(response);
+        }
     } catch (error) {
         logger.error(`Error creating user: ${error}`);
         response['message'] = 'Internal server error.';

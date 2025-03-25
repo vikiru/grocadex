@@ -3,11 +3,11 @@ import { logger } from '~config/logger';
 import { prisma } from '~data/';
 import { hashPassword } from '~utils/hashPassword';
 
-export async function saveUser(user: Omit<User, 'id'>): Promise<void> {
+export async function saveUser(user: Omit<User, 'id'>): Promise<User | null> {
     try {
         const hashedPassword = await hashPassword(user.password);
 
-        await prisma.user.create({
+        const savedUser = await prisma.user.create({
             data: {
                 ...user,
                 password: hashedPassword,
@@ -15,9 +15,10 @@ export async function saveUser(user: Omit<User, 'id'>): Promise<void> {
         });
 
         logger.info('Successfully saved user to the database.');
+        return savedUser;
     } catch (error) {
         logger.error(`Error saving user to the database: ${error}`);
-        throw error;
+        throw new Error('Failed to save user to the database.');
     }
 }
 
@@ -32,14 +33,15 @@ export async function retrieveUserById(userId: number): Promise<User | null> {
             logger.info(
                 `Successfully retrieved user with id ${userId} from the database.`,
             );
+            return user;
         } else {
             logger.error(`User with id ${userId} not found.`);
+            return null;
         }
-        return user;
     } catch (error) {
         logger.error(
             `Error retrieving user with id ${userId} from the database: ${error}`,
         );
-        throw error;
+        throw new Error(`Error retrieving user with id ${userId}.`);
     }
 }
