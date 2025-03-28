@@ -1,5 +1,4 @@
 import express from 'express';
-
 import { apiVersionString } from '~config/index';
 import { UserController } from '~controllers/';
 import { ensureAuthenticated } from '~middlewares/';

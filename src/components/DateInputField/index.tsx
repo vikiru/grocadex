@@ -10,6 +10,7 @@ import { formatDate } from '~utils/date';
 
 type DateInputFieldProps = {
     label: string;
+    placeholder: string;
     date: DateType;
     setDate: React.Dispatch<React.SetStateAction<DateType>>;
     error?: string;
@@ -18,6 +19,7 @@ type DateInputFieldProps = {
 
 function DateInputField({
     label,
+    placeholder,
     date,
     setDate,
     error,
@@ -43,7 +45,7 @@ function DateInputField({
                     <InputField
                         className="font-body"
                         onFocus={() => setOpen(true)}
-                        placeholder="Select a date"
+                        placeholder={placeholder}
                         value={dateString}
                     />
                 </Input>

@@ -1,15 +1,11 @@
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
 import Toast from 'react-native-toast-message';
-import { USER_ROUTE } from '~constants/Routes';
-import { usePostData } from '~hooks/api/usePostData';
-import { RequestPayload } from '~types/index';
+import { useCreateUserMutation } from '~services/userService';
 
 export function useRegistration() {
-    const { postData } = usePostData();
     const router = useRouter();
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<Error | null>(null);
+    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
+        useCreateUserMutation();
 
     const register = async (values: {
         firstName: string;
@@ -18,18 +14,16 @@ export function useRegistration() {
         email: string;
         password: string;
     }) => {
-        setLoading(true);
-        setError(null);
-
-        const payload: RequestPayload = {
-            url: USER_ROUTE,
-            data: values,
-        };
-
         try {
-            const response = await postData(payload);
+            const data = await mutateAsync({
+                firstName: values.firstName,
+                lastName: values.lastName,
+                username: values.username,
+                email: values.email,
+                password: values.password,
+            });
 
-            if (response?.status === 201) {
+            if (data.success) {
                 Toast.show({
                     type: 'success',
                     position: 'top',
@@ -39,11 +33,19 @@ export function useRegistration() {
                     visibilityTime: 2000,
                 });
                 setTimeout(() => router.push('/'), 1500);
-                return { success: true };
+            } else {
+                Toast.show({
+                    type: 'error',
+                    position: 'top',
+                    text1: 'Signup failed',
+                    text2: 'An error occurred during signup. Please try again.',
+                    autoHide: true,
+                    visibilityTime: 2000,
+                });
+                console.error('Signup failed:', error);
             }
         } catch (error) {
-            setError(new Error('User sign up failed. Please try again'));
-            return { success: false };
+            console.error('Error during signup:', error);
         }
     };
 
@@ -61,5 +63,13 @@ export function useRegistration() {
         router.push('/');
     };
 
-    return { register, handleSignup, handleCancel, loading, error };
+    return {
+        register,
+        handleSignup,
+        handleCancel,
+        isIdle,
+        isPending,
+        isError,
+        isSuccess,
+    };
 }

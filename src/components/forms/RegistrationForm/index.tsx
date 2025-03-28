@@ -4,14 +4,12 @@ import { HStack } from '~components/ui/hstack';
 import { Input, InputField } from '~components/ui/input';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
+import { useRegistration } from '~hooks/useRegistration';
 import { signupValidationSchema } from '~schemas/index';
-import { User } from '~types/User';
 
-type RegistrationFormProps = {
-    onSubmit: (values: Partial<User>) => void;
-};
+function RegistrationForm() {
+    const { register } = useRegistration();
 
-function RegistrationForm({ onSubmit }: RegistrationFormProps) {
     return (
         <VStack>
             <Formik
@@ -22,10 +20,8 @@ function RegistrationForm({ onSubmit }: RegistrationFormProps) {
                     email: '',
                     password: '',
                 }}
-                onSubmit={(values, { resetForm }) => {
-                    if (onSubmit) {
-                        onSubmit(values);
-                    }
+                onSubmit={async (values, { resetForm }) => {
+                    await register(values);
                     resetForm();
                 }}
                 validationSchema={signupValidationSchema}

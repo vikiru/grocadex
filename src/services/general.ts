@@ -1,11 +1,22 @@
 import axios from 'axios';
 import { RequestPayload } from '~types/RequestPayload';
 
+//TODO: fix dashboard/api issues. cannot seem to use auth requests. user undefined/cookies not set
+
+const axiosInstance = axios.create({
+    withCredentials: true,
+    baseURL: 'http://localhost:3000',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+    },
+});
+
 export async function deleteData<T>(
     payload: RequestPayload,
 ): Promise<T | null> {
     try {
-        const response = await axios.delete<T>(`${payload.url}`);
+        const response = await axiosInstance.delete<T>(payload.url);
         return response.data;
     } catch (error: any) {
         console.error(
@@ -17,10 +28,8 @@ export async function deleteData<T>(
 
 export async function getData<T>(payload: RequestPayload): Promise<T | null> {
     try {
-        const response = await axios.get<T>(payload.url, {
-            headers: {
-                Accept: 'application/json',
-            },
+        const response = await axiosInstance.get<T>(payload.url, {
+            params: payload.data,
         });
         return response.data;
     } catch (error: any) {
@@ -33,12 +42,7 @@ export async function getData<T>(payload: RequestPayload): Promise<T | null> {
 
 export async function postData<T>(payload: RequestPayload): Promise<T | null> {
     try {
-        const response = await axios.post<T>(payload.url, payload.data, {
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-        });
+        const response = await axiosInstance.post<T>(payload.url, payload.data);
         return response.data;
     } catch (error: any) {
         console.error(
@@ -50,12 +54,7 @@ export async function postData<T>(payload: RequestPayload): Promise<T | null> {
 
 export async function putData<T>(payload: RequestPayload): Promise<T | null> {
     try {
-        const response = await axios.put<T>(payload.url, payload.data, {
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-        });
+        const response = await axiosInstance.put<T>(payload.url, payload.data);
         return response.data;
     } catch (error: any) {
         console.error(

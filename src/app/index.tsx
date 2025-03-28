@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React from 'react';
 import IntroDetails from '~components/IntroDetails';
 import { Button, ButtonText } from '~components/ui/button';
@@ -7,8 +7,13 @@ import { HStack } from '~components/ui/hstack';
 import { LinkText } from '~components/ui/link';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
+import {
+    FRONTEND_LOGIN_ROUTE,
+    FRONTEND_REGISTRATION_ROUTE,
+} from '~constants/Routes';
 
 function IndexScreen() {
+    const router = useRouter();
     return (
         <VStack className="min-h-screen w-full bg-background-100 xs:mt-2 xs:max-w-none md:mx-auto lg:mt-4 lg:max-w-xl xl:max-w-2xl">
             <VStack className="flex w-full flex-row justify-center">
@@ -44,7 +49,11 @@ function IndexScreen() {
 
             <HStack className="mx-4 mt-4">
                 <VStack className="w-full gap-3">
-                    <Button action="primary" variant="solid">
+                    <Button
+                        action="primary"
+                        onPress={() => router.push(FRONTEND_LOGIN_ROUTE)}
+                        variant="solid"
+                    >
                         <ButtonText className="font-body xs:text-base xl:text-lg">
                             Login
                         </ButtonText>
@@ -54,7 +63,11 @@ function IndexScreen() {
 
             <HStack className="mx-4 mt-2">
                 <VStack className="w-full gap-3">
-                    <Button action="secondary" variant="solid">
+                    <Button
+                        action="secondary"
+                        onPress={() => router.push(FRONTEND_REGISTRATION_ROUTE)}
+                        variant="solid"
+                    >
                         <ButtonText className="font-body xs:text-base xl:text-lg">
                             Sign Up
                         </ButtonText>

@@ -11,16 +11,25 @@ import { Input, InputField } from '~components/ui/input';
 import { Modal, ModalBackdrop, ModalContent } from '~components/ui/modal';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
+import { DateFormat } from '~constants/Dates';
 import { receiptSchema } from '~schemas/index';
 import { GroceryItem } from '~types/GroceryItem';
 import { Receipt } from '~types/Receipt';
+import { formatDate, parseDate } from '~utils/date';
 
 type ReceiptFormProps = {
-    initialValues?: Partial<Receipt>;
-    onSubmit?: (values: Partial<Receipt>) => void;
+    userId: number;
+    receiptId?: number;
+    initialValues?: Receipt | Omit<Receipt, 'id'>;
+    onSubmit?: (values: Receipt | Omit<Receipt, 'id'>) => void;
 };
 
-function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
+function ReceiptForm({
+    userId,
+    receiptId,
+    initialValues,
+    onSubmit,
+}: ReceiptFormProps) {
     const [createGroceryVisible, setCreateGroceryVisible] = useState(false);
     const [modifyGroceryItemVisible, setModifyGroceryItemVisible] =
         useState(false);
@@ -35,10 +44,18 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                 groceryItems:
                     initialValues?.groceryItems || ([] as GroceryItem[]),
             }}
-            onSubmit={(values, { resetForm }) => {
-                if (onSubmit) {
-                    onSubmit(values);
+            onSubmit={async (values, { resetForm }) => {
+                const finalValues: Receipt = { userId, ...values };
+                let calculatedTotal = 0;
+                values.groceryItems.map((item, index) => {
+                    calculatedTotal += Number(item.totalPrice!);
+                    item.purchaseDate = finalValues.purchaseDate;
+                });
+                finalValues.total = calculatedTotal;
+                if (receiptId) {
+                    finalValues.id = receiptId;
                 }
+                onSubmit?.(finalValues);
                 resetForm();
             }}
             validationSchema={receiptSchema}
@@ -86,6 +103,14 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                             !!errors.purchaseDate && touched.purchaseDate
                         }
                         label="Purchase Date"
+                        placeholder={
+                            initialValues?.purchaseDate
+                                ? formatDate(
+                                      parseDate(initialValues?.purchaseDate),
+                                      DateFormat,
+                                  )
+                                : 'Select a date'
+                        }
                         setDate={(date) => setFieldValue('purchaseDate', date)}
                     />
 
@@ -101,10 +126,14 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                             >
                                 <InputField
                                     isInvalid={!!errors.total && touched.total}
-                                    onBlur={handleBlur('total')}
+                                    onBlur={() => {
+                                        handleChange('total')(
+                                            Number(values.total).toFixed(2),
+                                        );
+                                    }}
                                     onChangeText={handleChange('total')}
                                     placeholder="Enter total spent"
-                                    value={String(values.total)}
+                                    value={values.total}
                                 />
                             </Input>
                             {!!errors.total && touched.total && (
@@ -148,7 +177,7 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                                             values.purchaseDate || new Date(),
                                     }}
                                     onSubmit={(groceryValues) => {
-                                        const name = groceryValues.name!;
+                                        const name = groceryValues.name;
                                         const quantity = Number(
                                             groceryValues.quantity,
                                         );
@@ -171,7 +200,7 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                                             values.purchaseDate,
                                         ).toISOString();
                                         const expiryDate = new Date(
-                                            groceryValues.expiryDate!,
+                                            groceryValues.expiryDate,
                                         ).toISOString();
 
                                         const newGroceryItem: Partial<GroceryItem> =
@@ -189,12 +218,13 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                                         ]);
                                         setCreateGroceryVisible(false);
                                     }}
+                                    userId={userId}
                                 />
                             </ModalContent>
                         </Modal>
                     )}
 
-                    <ScrollView className="mx-4 mt-4 max-h-[14rem] xl:mt-2 xl:max-h-[20rem]">
+                    <ScrollView className="mx-4 mt-4 max-h-[14rem] xl:mt-2 xl:max-h-[10rem]">
                         {values.groceryItems.map((groceryItem, index) => (
                             <VStack className="gap-3 pb-6" key={index}>
                                 <HStack className="flex items-center justify-between">
@@ -253,6 +283,7 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                                                 />
                                                 <ModalContent>
                                                     <GroceryForm
+                                                        id={groceryItem.id}
                                                         initialValues={{
                                                             purchaseDate:
                                                                 values.purchaseDate ||
@@ -286,7 +317,7 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                                                             groceryValues,
                                                         ) => {
                                                             const name =
-                                                                groceryValues.name!;
+                                                                groceryValues.name;
                                                             const quantity =
                                                                 Number(
                                                                     groceryValues.quantity,
@@ -317,7 +348,7 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                                                                 ).toISOString();
                                                             const expiryDate =
                                                                 new Date(
-                                                                    groceryValues.expiryDate!,
+                                                                    groceryValues.expiryDate,
                                                                 ).toISOString();
 
                                                             const updatedGroceryItem: Partial<GroceryItem> =
@@ -337,6 +368,8 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                                                                 false,
                                                             );
                                                         }}
+                                                        receiptId={receiptId}
+                                                        userId={userId}
                                                     />
                                                 </ModalContent>
                                             </Modal>
@@ -374,13 +407,13 @@ function ReceiptForm({ initialValues, onSubmit }: ReceiptFormProps) {
                         <VStack className="w-full gap-3">
                             <Button
                                 action="primary"
+                                className="w-full"
                                 onPress={() => {
-                                    console.log('Submit button pressed');
                                     handleSubmit();
                                 }}
                                 variant="solid"
                             >
-                                <ButtonText className="mt-auto font-body xs:text-base xl:text-lg">
+                                <ButtonText className="font-body xs:text-base xl:text-lg">
                                     Submit
                                 </ButtonText>
                             </Button>

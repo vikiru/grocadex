@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { GroceryItemService, ReceiptService } from '~services/';
-
 import { logger } from '~config/logger';
+import { GroceryItemService, ReceiptService } from '~services/';
 import { ResponsePayload } from '~types/index';
 
 export async function createReceipt(
@@ -10,6 +9,7 @@ export async function createReceipt(
 ): Promise<void> {
     const data = req.body;
     const { groceryItems, ...receiptData } = data;
+
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -228,11 +228,7 @@ export async function updateReceipt(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
-    const receiptId = parseInt(req.params.id, 10);
-    const updatedFields = req.body;
-
-    const { receipt, groceryItems } = updatedFields;
+    const receiptData = req.body;
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -242,18 +238,27 @@ export async function updateReceipt(
 
     try {
         const updatedReceipt = await ReceiptService.updateReceiptById(
-            userId,
-            receiptId,
-            receipt,
-            groceryItems,
+            receiptData.userId,
+            receiptData.id,
+            receiptData,
+            receiptData.groceryItems,
         );
-        response['message'] = 'Receipt updated successfully.';
-        response['data'] = updatedReceipt;
-        response['success'] = true;
-        response['error'] = 'No error occurred.';
-        res.status(200).json(response);
+
+        if (updatedReceipt) {
+            response['data'] = updatedReceipt;
+            response['success'] = true;
+            response['message'] = 'Receipt updated successfully.';
+            response['error'] = 'No error occurred.';
+            res.status(200).json(response);
+        } else {
+            response['message'] = 'Receipt not found.';
+            response['error'] = 'No receipt found with the provided ID.';
+            res.status(404).json(response);
+        }
     } catch (error) {
-        logger.error(`Error updating receipt with id ${receiptId}: ${error}`);
+        logger.error(
+            `Error updating receipt with id ${receiptData.id}: ${error}`,
+        );
         response['message'] = 'Internal server error.';
         response['error'] = 'Failed to update receipt.';
         res.status(500).json(response);

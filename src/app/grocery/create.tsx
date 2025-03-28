@@ -5,7 +5,12 @@ import { Heading } from '~components/ui/heading';
 import { HStack } from '~components/ui/hstack';
 import { VStack } from '~components/ui/vstack';
 
-function CreateGrocery() {
+type CreateGroceryProps = {
+    userId: number;
+    receiptId: number;
+};
+
+function CreateGrocery({ userId, receiptId }: CreateGroceryProps) {
     return (
         <ScrollView className="w-full bg-background-100">
             <HStack className="mx-4 mt-2">
@@ -14,7 +19,7 @@ function CreateGrocery() {
                 </Heading>
             </HStack>
 
-            <GroceryForm />
+            <GroceryForm receiptId={receiptId} userId={userId} />
 
             <HStack className="mx-4 mt-2">
                 <VStack className="w-full gap-3">

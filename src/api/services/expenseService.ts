@@ -1,6 +1,6 @@
-import { Expense } from '.prisma/client';
+import { Expense } from '@prisma/client';
 import { logger } from '~config/logger';
-import { prisma } from '~data/*';
+import { prisma } from '~data/';
 
 export async function deleteExpenseById(
     userId: number,
