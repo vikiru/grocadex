@@ -3,6 +3,4 @@ export type Expense = {
     month: number;
     year: number;
     total: number;
-    stores: string[];
-    receiptIds: number[];
 };

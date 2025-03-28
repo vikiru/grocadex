@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { logger } from '~config/logger';
-import { ExpenseService } from '~services/*';
+import { ExpenseService } from '~services/';
 import { ResponsePayload } from '~types/index';
 
 export async function deleteExpenseById(

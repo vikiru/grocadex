@@ -7,7 +7,6 @@ type ReceiptState = {
     receipts: Receipt[];
     getReceipts: () => Receipt[];
     getReceiptById: (receiptId: number) => Receipt | undefined;
-    getReceiptsByIds: (receiptIds: number[]) => Receipt[];
     getReceiptsByMonthYear: (month: number, year: number) => Receipt[];
     getReceiptsByYear: (year: number) => Receipt[];
     setReceipts: (receipts: Receipt[]) => void;
@@ -24,11 +23,6 @@ export const useReceiptStore = create<ReceiptState>()(
             getReceipts: () => get().receipts,
             getReceiptById: (receiptId: number) =>
                 get().receipts.find((receipt) => receipt.id === receiptId),
-            getReceiptsByIds: (receiptIds: number[]) => {
-                return get().receipts.filter((receipt) =>
-                    receiptIds.includes(receipt.id),
-                );
-            },
             getReceiptsByMonthYear: (month: number, year: number) => {
                 return get().receipts.filter((receipt) => {
                     const date = new Date(receipt.purchaseDate);
@@ -47,14 +41,11 @@ export const useReceiptStore = create<ReceiptState>()(
             addReceipt: (receipt: Receipt) =>
                 set({ receipts: [...get().receipts, receipt] }),
             deleteReceipt: (receiptId: number) => {
-                const currentReceipts = get().receipts;
-                const updatedReceipts = currentReceipts.filter(
+                const updatedReceipts = get().receipts.filter(
                     (receipt) => receipt.id !== receiptId,
                 );
-                if (updatedReceipts.length === currentReceipts.length) return;
                 set({ receipts: updatedReceipts });
             },
-
             updateReceipt: (receiptId: number, updatedReceipt: Receipt) => {
                 const currentReceipts = get().receipts;
                 const receiptIndex = currentReceipts.findIndex(

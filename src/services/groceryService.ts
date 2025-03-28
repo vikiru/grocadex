@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { GROCERY_ITEM_ROUTE } from '~constants/Routes';
+import { RECEIPT_ROUTE } from '~constants/Routes';
+import { deleteData, getData, postData, putData } from '~services/general';
+import { useGroceryStore } from '~store/groceryStore';
 import { GroceryItem } from '~types/index';
-import { RequestPayload, ResponsePayload } from '~types/index';
-
-import { deleteData, getData, postData, putData } from './general';
+import { ResponsePayload } from '~types/index';
 
 function useCreateGroceryItemMutation() {
     const queryClient = useQueryClient();
@@ -11,23 +11,27 @@ function useCreateGroceryItemMutation() {
     return useMutation<
         ResponsePayload<GroceryItem>,
         Error,
-        RequestPayload<GroceryItem>
+        GroceryItem | GroceryItem[]
     >({
-        mutationFn: async (newItem) => {
+        mutationFn: async (newGroceryItems: GroceryItem | GroceryItem[]) => {
+            const receiptId = Array.isArray(newGroceryItems)
+                ? newGroceryItems[0].receiptId
+                : newGroceryItems.receiptId;
             const response = await postData<ResponsePayload<GroceryItem>>({
-                url: GROCERY_ITEM_ROUTE,
-                data: newItem,
+                url: `${RECEIPT_ROUTE}/${receiptId}/groceries`,
+                data: newGroceryItems,
             });
-
             if (!response) {
                 throw new Error(
                     'Failed to create grocery item: No response data.',
                 );
             }
-
             return response;
         },
         onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['dashboard'],
+            });
             queryClient.invalidateQueries({
                 queryKey: ['groceryItems'],
             });
@@ -40,26 +44,29 @@ function useCreateGroceryItemMutation() {
 
 function useDeleteGroceryItemMutation() {
     const queryClient = useQueryClient();
+    const { getGroceryItems, setGroceryItems } = useGroceryStore();
 
     return useMutation<
         ResponsePayload<null>,
         Error,
-        RequestPayload<{ id: string }>
+        Pick<GroceryItem, 'id' | 'receiptId'>
     >({
-        mutationFn: async ({ id }) => {
+        mutationFn: async ({ id, receiptId }) => {
             const response = await deleteData<ResponsePayload<null>>({
-                url: `${GROCERY_ITEM_ROUTE}/${id}`,
+                url: `${RECEIPT_ROUTE}/${receiptId}/groceries/${id}`,
             });
-
             if (!response) {
                 throw new Error(
                     'Failed to delete grocery item: No response data.',
                 );
             }
-
             return response;
         },
-        onSuccess: () => {
+        onSuccess: async (data: ResponsePayload<null>, variables) => {
+            const items = getGroceryItems();
+            setGroceryItems(
+                getGroceryItems().filter((item) => item.id !== variables.id),
+            );
             queryClient.invalidateQueries({
                 queryKey: ['groceryItems'],
             });
@@ -70,12 +77,12 @@ function useDeleteGroceryItemMutation() {
     });
 }
 
-function useRetrieveGroceryItemsQuery() {
+function useRetrieveGroceryItemsByReceiptQuery() {
     return useQuery<ResponsePayload<GroceryItem[]>, Error>({
         queryKey: ['groceryItems'],
         queryFn: async () => {
             const response = await getData<ResponsePayload<GroceryItem[]>>({
-                url: GROCERY_ITEM_ROUTE,
+                url: `${RECEIPT_ROUTE}/groceries`,
             });
 
             if (!response) {
@@ -91,27 +98,31 @@ function useRetrieveGroceryItemsQuery() {
 
 function useUpdateGroceryItemMutation() {
     const queryClient = useQueryClient();
+    const { updateGroceryItem } = useGroceryStore();
 
-    return useMutation<
-        ResponsePayload<GroceryItem>,
-        Error,
-        RequestPayload<GroceryItem>
-    >({
-        mutationFn: async (updatedItem) => {
+    return useMutation<ResponsePayload<GroceryItem>, Error, GroceryItem>({
+        mutationFn: async (updatedGroceryItem: GroceryItem) => {
             const response = await putData<ResponsePayload<GroceryItem>>({
-                url: `${GROCERY_ITEM_ROUTE}/${updatedItem.data!.id}`,
-                data: updatedItem.data,
+                url: `${RECEIPT_ROUTE}/${updatedGroceryItem.receiptId}/groceries/${updatedGroceryItem.id}`,
+                data: updatedGroceryItem,
             });
-
             if (!response) {
                 throw new Error(
                     'Failed to update grocery item: No response data.',
                 );
             }
-
             return response;
         },
-        onSuccess: () => {
+        onSuccess: async (data: ResponsePayload<GroceryItem>) => {
+            const updatedItem = data.data;
+            updateGroceryItem(
+                updatedItem.id!,
+                updatedItem.receiptId,
+                updatedItem,
+            );
+            queryClient.invalidateQueries({
+                queryKey: ['dashboard'],
+            });
             queryClient.invalidateQueries({
                 queryKey: ['groceryItems'],
             });
@@ -125,6 +136,6 @@ function useUpdateGroceryItemMutation() {
 export {
     useCreateGroceryItemMutation,
     useDeleteGroceryItemMutation,
-    useRetrieveGroceryItemsQuery,
+    useRetrieveGroceryItemsByReceiptQuery,
     useUpdateGroceryItemMutation,
 };

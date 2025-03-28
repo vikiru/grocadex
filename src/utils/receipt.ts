@@ -5,7 +5,7 @@ export const sortReceiptsByPurchaseDate = (receipts: Receipt[]): Receipt[] => {
     return receipts.sort((a, b) => {
         const firstDate = convertDatetoDateTime(a.purchaseDate);
         const secondDate = convertDatetoDateTime(b.purchaseDate);
-        return firstDate.diff(secondDate).toMillis();
+        return secondDate.diff(firstDate).toMillis();
     });
 };
 

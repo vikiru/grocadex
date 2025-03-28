@@ -41,6 +41,9 @@ export async function deleteGroceryItem(
 ): Promise<void> {
     const userId = req.user;
     const { receiptId, groceryItemId } = req.params;
+
+    console.log(req.params);
+    console.log(req.body);
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -193,8 +196,8 @@ export async function updateGroceryItem(
     res: Response,
 ): Promise<void> {
     const userId = req.user;
-    const { groceryItemId } = req.params;
-    const { groceryItem } = req.body;
+    const { receiptId, groceryItemId } = req.params;
+    const groceryItem = req.body;
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -205,16 +208,25 @@ export async function updateGroceryItem(
     try {
         const updatedItem =
             await GroceryItemService.updateGroceryItems(groceryItem);
-        response['message'] = 'Successfully updated grocery item.';
-        response['data'] = updatedItem;
-        response['error'] = 'No error occurred.';
-        res.status(200).json(response);
+
+        if (updatedItem) {
+            response['success'] = true;
+            response['message'] = 'Successfully updated grocery item.';
+            response['data'] = updatedItem;
+            response['error'] = 'No error occurred.';
+            return res.status(200).json(response);
+        } else {
+            response['message'] = 'No grocery item found for the given id.';
+            response['error'] =
+                'There was an error retrieving the grocery item for the given id.';
+            return res.status(404).json(response);
+        }
     } catch (error) {
         logger.error(
-            `Error updating grocery item with id ${groceryItemId}: ${error}`,
+            `Error updating grocery item with id ${groceryItemId}: belonging to receipt with id ${receiptId}: ${error}`,
         );
         response['message'] = 'Internal server error.';
         response['error'] = 'There was an error updating the grocery item.';
-        res.status(500).json(response);
+        return res.status(500).json(response);
     }
 }

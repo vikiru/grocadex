@@ -1,4 +1,4 @@
-import { GroceryItem, Receipt } from '~types/index';
+import { Expense, GroceryItem, Receipt } from '~types/index';
 
 export type User = {
     id?: number;
@@ -8,5 +8,6 @@ export type User = {
     username: string;
     password: string;
     receipts?: Receipt[];
-    activeItems?: GroceryItem[];
+    groceryItems?: GroceryItem[];
+    expenses?: Expense[];
 };

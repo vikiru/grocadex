@@ -1,3 +1,5 @@
+import { useRouter } from 'expo-router';
+import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import GroceryCard from '~components/GroceryCard';
 import { Button, ButtonText } from '~components/ui/button';
@@ -14,32 +16,46 @@ import {
 } from '~components/ui/table';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
+import { DateFormat } from '~constants/Dates';
+import useDashboard from '~hooks/useDashboard';
+import { useGroceryStore } from '~store/groceryStore';
+import { useReceiptStore } from '~store/receiptStore';
+import { GroceryItem } from '~types/GroceryItem';
+import { Receipt } from '~types/Receipt';
+import { formatDate, parseDate } from '~utils/date';
 
-const expenses = [
-    { store: 'Walmart', purchased: '03/15/2023', total: 219.5 },
-    {
-        store: 'Real Canadian Superstore',
-        purchased: '03/10/2023',
-        total: 159.99,
-    },
-    { store: 'Shoppers Drug Mart', purchased: '03/05/2023', total: 185.3 },
-    { store: 'Metro', purchased: '02/28/2023', total: 210.6 },
-    { store: 'Costco', purchased: '02/20/2023', total: 275.9 },
-    { store: 'Food Basics', purchased: '02/12/2023', total: 125.99 },
-    { store: 'Loblaws', purchased: '02/05/2023', total: 189.3 },
-    { store: 'FreshCo', purchased: '01/28/2023', total: 250.0 },
-    { store: 'Provigo', purchased: '01/22/2023', total: 175.45 },
-    { store: 'Safeway', purchased: '01/15/2023', total: 132.0 },
-];
+// TODO: finish cleanup, check for any missing onpress, finish checkup of delete grocery/expense
+// TODO: ensure receipt total changes as needed when grocery items are edited on their own.
+// Update grocery state, receipt state mutually as needed
+// expense, date hooks (later) - setup tanstack logic for now. add create multiple expense api logic
+// TODO: fix dashboard/api issues. cannot seem to use auth requests. user undefined/cookies not set
+// TODO: Finish remaining frontend then fix api auth issues
+// TODO: EAS/Expo Secrets
 
 function Dashboard() {
+    const router = useRouter();
+    const { retrieveData, isSuccess, data } = useDashboard();
+    const receipts = useReceiptStore((state) => state.receipts);
+    const groceryItems = useGroceryStore((state) => state.groceryItems);
+
+    useEffect(() => {
+        if (isSuccess && data) {
+            retrieveData();
+        }
+    }, []);
+
     return (
         <ScrollView className="w-full bg-background-100">
             <HStack className="mx-4 mb-4 mt-2 flex items-center justify-between">
                 <Heading className="font-semibold xs:text-2xl xl:text-3xl">
                     Current Grocery Items
                 </Heading>
-                <Button variant="link">
+                <Button
+                    onPress={() => {
+                        router.push('/grocery');
+                    }}
+                    variant="link"
+                >
                     <ButtonText className="text-lg xl:text-xl">
                         Show All
                     </ButtonText>
@@ -48,10 +64,14 @@ function Dashboard() {
 
             <ScrollView className="mx-4 max-h-[200px]" horizontal>
                 <HStack className="gap-4">
-                    <GroceryCard />
-                    <GroceryCard />
-                    <GroceryCard />
-                    <GroceryCard />
+                    {groceryItems
+                        .slice(0, 5)
+                        .map((groceryItem: GroceryItem, index) => (
+                            <GroceryCard
+                                groceryItem={groceryItem}
+                                key={index}
+                            />
+                        ))}
                 </HStack>
             </ScrollView>
 
@@ -67,7 +87,26 @@ function Dashboard() {
                         Your Expenses
                     </Text>
                     <Heading className="text-primary mb-2 font-info font-bold text-typography-950 xs:text-3xl xl:text-4xl">
-                        $2137.09
+                        $
+                        {receipts
+                            .filter((receipt) => {
+                                const purchaseDate = parseDate(
+                                    receipt.purchaseDate,
+                                );
+                                const currentDate = new Date();
+                                return (
+                                    purchaseDate.getMonth() ===
+                                        currentDate.getMonth() &&
+                                    purchaseDate.getFullYear() ===
+                                        currentDate.getFullYear()
+                                );
+                            })
+                            .reduce(
+                                (total, receipt) =>
+                                    total + Number(receipt.total),
+                                0,
+                            )
+                            .toFixed(2)}
                     </Heading>
                     <Text className="font-body text-xl text-error-500">
                         40% increase from last month
@@ -91,19 +130,35 @@ function Dashboard() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {expenses.map((expense, index) => (
-                            <TableRow key={index}>
-                                <TableData className="font-body xl:text-lg">
-                                    {expense.store}
-                                </TableData>
-                                <TableData className="font-info xl:text-lg">
-                                    {expense.purchased}
-                                </TableData>
-                                <TableData className="font-info xl:text-lg">
-                                    {expense.total.toFixed(2)}
-                                </TableData>
-                            </TableRow>
-                        ))}
+                        {receipts
+                            .filter((receipt) => {
+                                const purchaseDate = parseDate(
+                                    receipt.purchaseDate,
+                                );
+                                const currentDate = new Date();
+                                return (
+                                    purchaseDate.getMonth() ===
+                                        currentDate.getMonth() &&
+                                    purchaseDate.getFullYear() ===
+                                        currentDate.getFullYear()
+                                );
+                            })
+                            .map((receipt: Receipt, index) => (
+                                <TableRow key={index}>
+                                    <TableData className="font-body xl:text-lg">
+                                        {receipt.store}
+                                    </TableData>
+                                    <TableData className="font-info xl:text-lg">
+                                        {formatDate(
+                                            parseDate(receipt.purchaseDate),
+                                            DateFormat,
+                                        )}
+                                    </TableData>
+                                    <TableData className="font-info xl:text-lg">
+                                        {Number(receipt.total).toFixed(2)}
+                                    </TableData>
+                                </TableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </VStack>

@@ -13,8 +13,10 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
+import Toast from 'react-native-toast-message';
 import { GluestackUIProvider } from '~components/ui/gluestack-ui-provider';
-import { useColorScheme } from '~hooks/components/useColorScheme';
+import { useColorScheme } from '~hooks/useColorScheme';
+
 const queryClient = new QueryClient();
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -50,6 +52,7 @@ export default function RootLayout() {
                     </Stack>
                 </ThemeProvider>
             </GluestackUIProvider>
+            <Toast />
         </QueryClientProvider>
     );
 }

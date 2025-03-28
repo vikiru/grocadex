@@ -1,18 +1,21 @@
 import express from 'express';
-
+import passport from 'passport';
 import { apiVersionString } from '~config/index';
 import { AuthController } from '~controllers/';
-import { ensureAuthenticated } from '~middlewares/';
 
 const baseUrl = `/${apiVersionString}/auth`;
 
 const AuthRouter = express.Router();
 
-AuthRouter.post(`${baseUrl}/login`, AuthController.loginUser);
+AuthRouter.post(
+    `${baseUrl}/login`,
+    passport.authenticate('local'),
+    AuthController.loginUser,
+);
 
 AuthRouter.post(
     `${baseUrl}/logout`,
-    ensureAuthenticated,
+
     AuthController.logoutUser,
 );
 
