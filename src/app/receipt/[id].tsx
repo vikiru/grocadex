@@ -1,5 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useLocalSearchParams } from 'expo-router';
+import { useRouter } from 'expo-router';
+import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
+import Alert from '~components/Alert';
 import { Button, ButtonText } from '~components/ui/button';
 import { Heading } from '~components/ui/heading';
 import { HStack } from '~components/ui/hstack';
@@ -13,46 +17,52 @@ import {
 } from '~components/ui/table';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
-
-const groceryItems = [
-    { name: 'Apple', quantity: 3, totalPrice: 5.25 },
-    { name: 'Banana', quantity: 6, totalPrice: 3.0 },
-    { name: 'Orange', quantity: 2, totalPrice: 4.0 },
-    { name: 'Milk', quantity: 1, totalPrice: 1.5 },
-    { name: 'Eggs', quantity: 12, totalPrice: 2.5 },
-    { name: 'Milk', quantity: 1, totalPrice: 1.5 },
-    { name: 'Eggs', quantity: 12, totalPrice: 2.5 },
-    { name: 'Milk', quantity: 1, totalPrice: 1.5 },
-    { name: 'Eggs', quantity: 12, totalPrice: 2.5 },
-    { name: 'Milk', quantity: 1, totalPrice: 1.5 },
-    { name: 'Eggs', quantity: 12, totalPrice: 2.5 },
-    { name: 'Milk', quantity: 1, totalPrice: 1.5 },
-    { name: 'Eggs', quantity: 12, totalPrice: 2.5 },
-    { name: 'Milk', quantity: 1, totalPrice: 1.5 },
-    { name: 'Eggs', quantity: 12, totalPrice: 2.5 },
-    { name: 'Milk', quantity: 1, totalPrice: 1.5 },
-    { name: 'Eggs', quantity: 12, totalPrice: 2.5 },
-];
+import { DateFormat } from '~constants/Dates';
+import {
+    FRONTEND_RECEIPT_MODIFY_ROUTE,
+    FRONTEND_RECEIPT_ROUTE,
+} from '~constants/Routes';
+import { useDeleteReceipt } from '~hooks/useReceiptForm';
+import { useReceiptStore } from '~store/receiptStore';
+import { Receipt } from '~types/Receipt';
+import { formatDate, parseDate } from '~utils/date';
 
 function ReceiptDetails() {
-    const totalSpent = groceryItems
-        .reduce((acc, item) => acc + item.totalPrice, 0)
-        .toFixed(2);
+    const { id } = useLocalSearchParams();
+    const receipts = useReceiptStore((state) => state.receipts);
+    const receipt = receipts.find(
+        (receipt: Receipt) => receipt.id === Number(id),
+    );
+    const router = useRouter();
+    const { handleDelete } = useDeleteReceipt();
+
+    useEffect(() => {}, [receipts]);
+
+    if (!receipt) {
+        return (
+            <HStack className="mx-4 mt-2">
+                <Text className="font-body text-lg text-typography-600">
+                    Receipt not found.
+                </Text>
+            </HStack>
+        );
+    }
 
     return (
         <VStack className="bg-background-100">
             <HStack className="mx-4 mt-2 flex items-center justify-between">
                 <Heading className="font-heading xs:text-3xl xl:text-4xl">
-                    Costco
+                    {receipt.store}
                 </Heading>
                 <Heading className="font-info font-medium xs:text-2xl xl:text-3xl">
-                    ${totalSpent}
+                    ${Number(receipt.total).toFixed(2)}
                 </Heading>
             </HStack>
 
             <HStack className="mx-4 mt-1">
                 <Text className="font-body text-lg text-typography-600 xl:text-xl">
-                    40 items purchased on 01/01/2023.
+                    {receipt.groceryItems.length} items purchased on{' '}
+                    {formatDate(parseDate(receipt.purchaseDate), DateFormat)}.
                 </Text>
             </HStack>
 
@@ -72,7 +82,7 @@ function ReceiptDetails() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {groceryItems.map((item, index) => (
+                        {receipt.groceryItems.map((item, index) => (
                             <TableRow key={index}>
                                 <TableData className="font-body xl:text-lg">
                                     {item.name}
@@ -81,7 +91,7 @@ function ReceiptDetails() {
                                     {item.quantity}
                                 </TableData>
                                 <TableData className="font-info xl:text-lg">
-                                    ${item.totalPrice.toFixed(2)}
+                                    ${Number(item.totalPrice).toFixed(2)}
                                 </TableData>
                             </TableRow>
                         ))}
@@ -93,6 +103,11 @@ function ReceiptDetails() {
                 <Button
                     action="primary"
                     className="flex-1"
+                    onPress={() =>
+                        router.push(
+                            `${FRONTEND_RECEIPT_MODIFY_ROUTE}/${receipt.id}`,
+                        )
+                    }
                     size="md"
                     variant="solid"
                 >
@@ -107,22 +122,14 @@ function ReceiptDetails() {
             </HStack>
 
             <HStack className="mx-4 mt-2">
-                <Button
-                    action="negative"
-                    className="flex-1"
-                    size="md"
-                    variant="solid"
-                >
-                    <ButtonText className="font-body text-lg">
-                        Delete
-                    </ButtonText>
-                    <MaterialCommunityIcons
-                        className="mb-1 ml-2"
-                        color="white"
-                        name="trash-can"
-                        size={24}
-                    />
-                </Button>
+                <Alert
+                    alertHeading="Are you sure you want to delete this receipt?"
+                    alertText="Deleting the receipt will remove it and all grocery items, this action cannot be undone. Please confirm if you wish to proceed."
+                    handleDelete={async () => {
+                        await handleDelete(receipt.id!);
+                        router.replace(FRONTEND_RECEIPT_ROUTE);
+                    }}
+                />
             </HStack>
         </VStack>
     );

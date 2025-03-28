@@ -5,20 +5,37 @@ import { HStack } from '~components/ui/hstack';
 import { Input, InputField } from '~components/ui/input';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
+import { DateFormat } from '~constants/Dates';
 import { grocerySchema } from '~schemas/index';
 import { GroceryItem } from '~types/GroceryItem';
+import { formatDate, parseDate } from '~utils/date';
 
 type GroceryFormProps = {
+    id?: number;
+    userId: number;
+    receiptId?: number;
     initialValues?: Partial<GroceryItem>;
-    onSubmit?: (values: Partial<GroceryItem>) => void;
+    onSubmit?: (
+        values:
+            | GroceryItem
+            | Pick<
+                  GroceryItem,
+                  | 'name'
+                  | 'expiryDate'
+                  | 'quantity'
+                  | 'unitPrice'
+                  | 'totalPrice'
+              >,
+    ) => Promise<void>;
 };
 
-// TODO:
-// - dates are fixed now. Need to fix submit
-// - add grocery item, update item and delete item. ensure everything is logged then move onto to fixing other forms
-// - create modify grocery/receipt form
-
-function GroceryForm({ initialValues, onSubmit }: GroceryFormProps) {
+function GroceryForm({
+    id,
+    userId,
+    receiptId,
+    initialValues,
+    onSubmit,
+}: GroceryFormProps) {
     return (
         <Formik
             initialValues={{
@@ -31,7 +48,17 @@ function GroceryForm({ initialValues, onSubmit }: GroceryFormProps) {
             }}
             onSubmit={(values, { resetForm }) => {
                 if (onSubmit) {
-                    onSubmit(values);
+                    if (id && receiptId) {
+                        const finalValues: GroceryItem = {
+                            id,
+                            receiptId,
+                            userId,
+                            ...values,
+                        };
+                        onSubmit(finalValues);
+                    } else {
+                        onSubmit(values);
+                    }
                 }
                 resetForm();
             }}
@@ -103,22 +130,18 @@ function GroceryForm({ initialValues, onSubmit }: GroceryFormProps) {
                     </HStack>
 
                     <DateInputField
-                        date={values.purchaseDate}
-                        error={errors.purchaseDate}
-                        isInvalid={
-                            !!errors.purchaseDate && touched.purchaseDate
-                        }
-                        label="Purchase Date"
-                        setDate={(date) => setFieldValue('purchaseDate', date)}
-                    />
-
-                    <DateInputField
-                        date={values.purchaseDate}
-                        error={errors.purchaseDate}
-                        isInvalid={
-                            !!errors.purchaseDate && touched.purchaseDate
-                        }
+                        date={values.expiryDate}
+                        error={errors.expiryDate}
+                        isInvalid={!!errors.expiryDate && touched.expiryDate}
                         label="Expiry Date"
+                        placeholder={
+                            initialValues?.expiryDate
+                                ? formatDate(
+                                      parseDate(initialValues?.expiryDate),
+                                      DateFormat,
+                                  )
+                                : 'Select a date'
+                        }
                         setDate={(date) => setFieldValue('expiryDate', date)}
                     />
 

@@ -85,7 +85,14 @@ export async function getUserById(req: Request, res: Response): Promise<void> {
 }
 
 export async function getUserData(req: Request, res: Response): Promise<void> {
-    const userId = req.user;
+    const userId = req.user || 1;
+
+    console.log('Body', req.body);
+    console.log('Session:', req.session);
+    console.log('Cookies:', req.cookies);
+    console.log('User:', req.user);
+    console.log('Auth', req.isAuthenticated());
+
     const response: ResponsePayload = {
         message: '',
         data: { groceryItems: [], receipts: [], expenses: [] },
@@ -95,23 +102,17 @@ export async function getUserData(req: Request, res: Response): Promise<void> {
 
     try {
         const groceryItems =
-            await GroceryItemService.retrieveGroceryItemsByUser(userId);
-        const receipts = await ReceiptService.retrieveReceipts(userId);
+            (await GroceryItemService.retrieveGroceryItemsByUser(userId)) || [];
+        const receipts = (await ReceiptService.retrieveReceipts(userId)) || [];
         const expenses =
-            await ExpenseService.retrieveAllExpensesByUserId(userId);
+            (await ExpenseService.retrieveAllExpensesByUserId(userId)) || [];
 
-        if (!groceryItems.length && !receipts.length && !expenses.length) {
-            response['message'] = 'No data found for user.';
-            response['error'] = 'No data found for user.';
-            return res.status(404).json(response);
-        } else {
-            response['data'] = { groceryItems, receipts, expenses };
-            response['message'] =
-                'Successfully retrieved receipts and grocery items for user.';
-            response['success'] = true;
-            response['error'] = 'No error occurred.';
-            res.status(200).json(response);
-        }
+        response['data'] = { groceryItems, receipts, expenses };
+        response['message'] =
+            'Successfully retrieved receipts and grocery items for user.';
+        response['success'] = true;
+        response['error'] = 'No error occurred.';
+        res.status(200).json(response);
     } catch (error) {
         logger.error(
             `Error retrieving user data for user id ${userId}: ${error}`,

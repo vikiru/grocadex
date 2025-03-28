@@ -5,20 +5,17 @@ import { HStack } from '~components/ui/hstack';
 import { Input, InputField } from '~components/ui/input';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
+import { useLogin } from '~hooks/index';
 
-type LoginFormProps = {
-    onSubmit: (values: { username: string; password: string }) => void;
-};
+function LoginForm() {
+    const { login } = useLogin();
 
-function LoginForm({ onSubmit }: LoginFormProps) {
     return (
         <VStack>
             <Formik
                 initialValues={{ username: '', password: '' }}
-                onSubmit={(values, { resetForm }) => {
-                    if (onSubmit) {
-                        onSubmit(values);
-                    }
+                onSubmit={async (values, { resetForm }) => {
+                    await login(values);
                     resetForm();
                 }}
                 validationSchema={loginValidationSchema}

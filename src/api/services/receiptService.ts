@@ -113,6 +113,8 @@ export async function saveReceipt(
             data: {
                 ...receipt,
             },
+
+            include: { groceryItems: true },
         });
         logger.info('Successfully saved receipt to database.');
         return savedReceipt;

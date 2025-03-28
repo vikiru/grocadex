@@ -1,9 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { EXPENSE_ROUTE } from '~constants/Routes';
+import { deleteData, getData, postData, putData } from '~services/general';
 import { Expense } from '~types/index';
 import { RequestPayload, ResponsePayload } from '~types/index';
-
-import { deleteData, getData, postData, putData } from './general';
 
 function useCreateExpenseMutation() {
     const queryClient = useQueryClient();

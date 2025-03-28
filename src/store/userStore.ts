@@ -4,7 +4,7 @@ import { zustandStorage } from '~store/zustandStorage';
 import { User } from '~types/User';
 
 type UserState = {
-    user: null | User;
+    user: User | null;
     getUser: () => null | User;
     setUser: (user: User) => void;
     resetUser: () => void;

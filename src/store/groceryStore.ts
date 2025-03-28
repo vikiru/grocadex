@@ -28,38 +28,36 @@ export const useGroceryStore = create<GroceryState>()(
             setGroceryItems: (items: GroceryItem[]) =>
                 set({ groceryItems: items }),
             addGroceryItem: (item: GroceryItem) => {
-                const currentItems = get().groceryItems;
-                set({ groceryItems: [...currentItems, item] });
+                set((state: GroceryState) => ({
+                    groceryItems: [...state.groceryItems, item],
+                }));
             },
             removeGroceryItem: (id: number) => {
-                const currentItems = get().groceryItems;
-                const updatedItems = currentItems.filter(
-                    (item) => item.id !== id,
-                );
-                if (updatedItems.length === currentItems.length) {
-                    return;
-                }
-                set({ groceryItems: updatedItems });
+                set((state: GroceryState) => ({
+                    groceryItems: state.groceryItems.filter(
+                        (item) => item.id !== id,
+                    ),
+                }));
             },
             updateGroceryItem: (
                 groceryItemId: number,
                 receiptId: number,
                 updatedItem: GroceryItem,
             ) => {
-                const currentItems = get().groceryItems;
-                const index = currentItems.findIndex(
-                    (item) =>
-                        item.id === groceryItemId &&
-                        item.receiptId === receiptId,
-                );
-                if (index === -1) {
-                    return;
-                }
-                const updatedItems = [...currentItems];
-                updatedItems[index] = updatedItem;
-                set({ groceryItems: updatedItems });
+                set((state: GroceryState) => {
+                    const index = state.groceryItems.findIndex(
+                        (item) =>
+                            item.id === groceryItemId &&
+                            item.receiptId === receiptId,
+                    );
+                    if (index !== -1) {
+                        const updatedItems = [...state.groceryItems];
+                        updatedItems[index] = updatedItem;
+                        return { groceryItems: updatedItems };
+                    }
+                    return state;
+                });
             },
-
             resetGroceryItems: () => set({ groceryItems: [] }),
         }),
         {

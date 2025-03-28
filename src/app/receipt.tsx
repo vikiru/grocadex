@@ -1,4 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { ScrollView } from 'react-native';
 import ReceiptCard from '~components/ReceiptCard';
 import { Fab } from '~components/ui/fab';
@@ -6,8 +7,14 @@ import { HStack } from '~components/ui/hstack';
 import { Input, InputField } from '~components/ui/input';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
+import { FRONTEND_RECEIPT_CREATE_ROUTE } from '~constants/Routes';
+import { useReceiptStore } from '~store/receiptStore';
+import { Receipt } from '~types/Receipt';
 
 function ReceiptPage() {
+    const router = useRouter();
+    const receipts = useReceiptStore((state) => state.receipts);
+
     return (
         <VStack className="bg-background-100">
             <HStack className="mx-4 mb-4 mt-2">
@@ -22,19 +29,18 @@ function ReceiptPage() {
 
             <ScrollView className="mx-4 mb-6 mt-4 shadow-sm">
                 <VStack className="gap-3">
-                    <ReceiptCard />
-                    <ReceiptCard />
-                    <ReceiptCard />
-                    <ReceiptCard />
-                    <ReceiptCard />
+                    {receipts.map((receipt: Receipt) => (
+                        <ReceiptCard key={receipt.id} receipt={receipt} />
+                    ))}
                 </VStack>
             </ScrollView>
 
             <Fab
-                className="bg-background-100 hover:bg-background-200 active:bg-background-300"
+                className="fixed bottom-0 right-0 mb-4 mr-4 bg-background-100 hover:bg-background-200 active:bg-background-300"
                 isDisabled={false}
                 isHovered={false}
                 isPressed={false}
+                onPress={() => router.push(FRONTEND_RECEIPT_CREATE_ROUTE)}
                 placement="bottom right"
                 size="md"
             >

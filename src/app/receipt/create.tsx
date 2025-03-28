@@ -10,6 +10,9 @@ import { HStack } from '~components/ui/hstack';
 import { Input, InputField } from '~components/ui/input';
 import { Text } from '~components/ui/text';
 import { VStack } from '~components/ui/vstack';
+import { useCreateReceipt } from '~hooks/useReceiptForm';
+import { useUserStore } from '~store/userStore';
+
 const groceryItems = [
     {
         name: 'Apple',
@@ -84,6 +87,9 @@ const groceryItems = [
 ];
 
 function CreateReceipt() {
+    const { handleCreate } = useCreateReceipt();
+    const user = useUserStore((state) => state.user);
+
     return (
         <VStack className="min-h-screen w-full bg-background-100">
             <HStack className="mx-4 mt-2">
@@ -92,7 +98,9 @@ function CreateReceipt() {
                 </Heading>
             </HStack>
 
-            <ReceiptForm />
+            {user?.id && (
+                <ReceiptForm onSubmit={handleCreate} userId={user.id} />
+            )}
         </VStack>
     );
 }
