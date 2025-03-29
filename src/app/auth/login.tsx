@@ -1,7 +1,5 @@
-import LoginScreen from '~screens/LoginScreen';
+import { LoginScreen } from '~screens';
 
-function Login() {
+export default function Login() {
     return <LoginScreen />;
 }
-
-export default Login;

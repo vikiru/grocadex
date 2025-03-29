@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { LoginForm } from '~components/forms';
+import { LoginForm } from '~components';
 import { Heading, HStack, Link, LinkText, Text, VStack } from '~components/ui';
 import { FRONTEND_REGISTRATION_ROUTE } from '~constants/Routes';
 

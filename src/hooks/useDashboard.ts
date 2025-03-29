@@ -1,7 +1,5 @@
-import useDashboardQuery from '~services/userService';
-import { useExpenseStore } from '~store/expenseStore';
-import { useGroceryStore } from '~store/groceryStore';
-import { useReceiptStore } from '~store/receiptStore';
+import { useDashboardQuery } from '~services';
+import { useExpenseStore, useGroceryStore, useReceiptStore } from '~store';
 
 export default function useDashboard() {
     const { setGroceryItems } = useGroceryStore();

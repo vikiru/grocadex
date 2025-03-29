@@ -1,8 +1,8 @@
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
-import { useCreateUserMutation } from '~services/userService';
+import { useCreateUserMutation } from '~services';
 
-export function useRegistration() {
+export default function useRegistration() {
     const router = useRouter();
     const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
         useCreateUserMutation();

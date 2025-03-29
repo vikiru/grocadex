@@ -1,4 +1,4 @@
-import ReceiptStack from '~navigation/ReceiptStack';
+import { ReceiptStack } from '~navigation';
 
 export default function ReceiptLayout() {
     return <ReceiptStack />;

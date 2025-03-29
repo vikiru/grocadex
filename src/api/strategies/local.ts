@@ -1,4 +1,4 @@
-import { AuthService, UserService } from '~services/';
+import { AuthService, UserService } from '~services';
 
 import { User } from '@prisma/client';
 import passport from 'passport';

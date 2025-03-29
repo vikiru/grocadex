@@ -5,8 +5,8 @@ import {
     useCreateReceiptMutation,
     useDeleteReceiptMutation,
     useUpdateReceiptMutation,
-} from '~services/receiptService';
-import { Receipt } from '~types/Receipt';
+} from '~services';
+import { Receipt } from '~types';
 
 export function useCreateReceipt() {
     const router = useRouter();

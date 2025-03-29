@@ -1,4 +1,4 @@
-import AuthStack from '~navigation/AuthStack';
+import { AuthStack } from '~navigation';
 
 export default function AuthLayout() {
     return <AuthStack />;

@@ -4,15 +4,15 @@ import DateTimePicker, {
     DateType,
     useDefaultStyles,
 } from 'react-native-ui-datepicker';
-import { Heading } from '~components/ui/heading';
 import {
+    Heading,
     Modal,
     ModalBackdrop,
     ModalCloseButton,
     ModalContent,
     ModalHeader,
-} from '~components/ui/modal';
-import { VStack } from '~components/ui/vstack';
+    VStack,
+} from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import { formatDate } from '~utils/date';
 
@@ -24,7 +24,7 @@ type DateSelectorProps = {
     setDateString: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function DateSelector({
+export default function DateSelector({
     title,
     date,
     setDate,
@@ -62,5 +62,3 @@ function DateSelector({
         </Modal>
     );
 }
-
-export default DateSelector;

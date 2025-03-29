@@ -22,7 +22,13 @@ import { Heading } from '~components/ui/heading';
 import { HStack } from '~components/ui/hstack';
 import { Input, InputField } from '~components/ui/input';
 import { Link, LinkText } from '~components/ui/link';
-import { Modal, ModalBackdrop, ModalContent } from '~components/ui/modal';
+import {
+    Modal,
+    ModalBackdrop,
+    ModalCloseButton,
+    ModalContent,
+    ModalHeader,
+} from '~components/ui/modal';
 import { Select } from '~components/ui/select';
 import { Spinner } from '~components/ui/spinner';
 import {
@@ -63,7 +69,9 @@ export {
     LinkText,
     Modal,
     ModalBackdrop,
+    ModalCloseButton,
     ModalContent,
+    ModalHeader,
     Select,
     Spinner,
     Table,

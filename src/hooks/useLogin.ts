@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { FRONTEND_DASHBOARD_ROUTE } from '~constants/Routes';
-import { useLoginMutation } from '~services/userService';
+import { useLoginMutation } from '~services';
 
 export default function useLogin() {
     const router = useRouter();

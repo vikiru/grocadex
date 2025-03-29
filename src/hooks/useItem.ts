@@ -3,8 +3,8 @@ import Toast from 'react-native-toast-message';
 import {
     useDeleteGroceryItemMutation,
     useUpdateGroceryItemMutation,
-} from '~services/groceryService';
-import { GroceryItem } from '~types/GroceryItem';
+} from '~services';
+import { GroceryItem } from '~types';
 
 export function useDeleteItem() {
     const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =

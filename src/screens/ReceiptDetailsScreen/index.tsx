@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ScrollView } from 'react-native';
-import Alert from '~components/Alert';
+import { Alert } from '~components';
 import {
     Button,
     ButtonText,
@@ -21,9 +21,9 @@ import {
     FRONTEND_RECEIPT_MODIFY_ROUTE,
     FRONTEND_RECEIPT_ROUTE,
 } from '~constants/Routes';
-import { useDeleteReceipt } from '~hooks/useReceiptForm';
-import { useReceiptStore } from '~store/index';
-import { Receipt } from '~types/Receipt';
+import { useDeleteReceipt } from '~hooks';
+import { useReceiptStore } from '~store';
+import { Receipt } from '~types';
 import { formatDate, parseDate } from '~utils/date';
 
 export default function ReceiptDetailsScreen() {

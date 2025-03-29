@@ -7,7 +7,7 @@ type IntroDetailsProps = {
     icon: any;
 };
 
-function IntroDetails(props: IntroDetailsProps) {
+export default function IntroDetails(props: IntroDetailsProps) {
     return (
         <View className="mx-auto my-2 flex flex-row items-center">
             <View className="flex h-16 w-16 max-w-[20%] items-center justify-center">
@@ -30,5 +30,3 @@ function IntroDetails(props: IntroDetailsProps) {
         </View>
     );
 }
-
-export default IntroDetails;

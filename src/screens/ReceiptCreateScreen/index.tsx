@@ -1,7 +1,7 @@
-import { ReceiptForm } from '~components/forms';
+import { ReceiptForm } from '~components';
 import { Heading, HStack, VStack } from '~components/ui';
-import { useCreateReceipt } from '~hooks/useReceiptForm';
-import { useUserStore } from '~store/userStore';
+import { useCreateReceipt } from '~hooks';
+import { useUserStore } from '~store';
 
 export default function ReceiptCreateScreen() {
     const { handleCreate } = useCreateReceipt();

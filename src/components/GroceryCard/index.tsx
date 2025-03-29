@@ -1,23 +1,26 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import Alert from '~components/Alert';
-import { Button, ButtonText } from '~components/ui/button';
-import { Card } from '~components/ui/card';
-import { Divider } from '~components/ui/divider';
-import { Heading } from '~components/ui/heading';
-import { HStack } from '~components/ui/hstack';
-import { Text } from '~components/ui/text';
+import { Alert } from '~components';
+import {
+    Button,
+    ButtonText,
+    Card,
+    Divider,
+    Heading,
+    HStack,
+    Text,
+} from '~components/ui/button';
 import { DateFormat } from '~constants/Dates';
 import { FRONTEND_DASHBOARD_ROUTE } from '~constants/Routes';
-import { useDeleteItem } from '~hooks/useItem';
-import { GroceryItem } from '~types/GroceryItem';
+import { useDeleteItem } from '~hooks';
+import { GroceryItem } from '~types';
 import { constructExpiryString, formatDate, parseDate } from '~utils/date';
 
 type GroceryCardProps = {
     groceryItem: GroceryItem;
 };
 
-function GroceryCard({ groceryItem }: GroceryCardProps) {
+export default function GroceryCard({ groceryItem }: GroceryCardProps) {
     const router = useRouter();
     const { handleDelete } = useDeleteItem();
 
@@ -80,5 +83,3 @@ function GroceryCard({ groceryItem }: GroceryCardProps) {
         <></>
     );
 }
-
-export default GroceryCard;
