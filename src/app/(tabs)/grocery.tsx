@@ -1,7 +1,5 @@
-import GroceryViewScreen from '~screens/GroceryViewScreen';
+import { GroceryViewScreen } from '~screens';
 
-function GroceryPage() {
+export default function GroceryPage() {
     return <GroceryViewScreen />;
 }
-
-export default GroceryPage;

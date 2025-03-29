@@ -1,13 +1,18 @@
 import { Formik } from 'formik';
-import DateInputField from '~components/DateInputField';
-import { Button, ButtonText } from '~components/ui/button';
-import { HStack } from '~components/ui/hstack';
-import { Input, InputField } from '~components/ui/input';
-import { Text } from '~components/ui/text';
-import { VStack } from '~components/ui/vstack';
+import { DateInputField } from '~components';
+import {
+    Button,
+    ButtonText,
+    HStack,
+    Input,
+    InputField,
+    Text,
+    VStack,
+} from '~components/ui';
+
 import { DateFormat } from '~constants/Dates';
-import { grocerySchema } from '~schemas/index';
-import { GroceryItem } from '~types/GroceryItem';
+import { grocerySchema } from '~schemas';
+import { GroceryItem } from '~types';
 import { formatDate, parseDate } from '~utils/date';
 
 type GroceryFormProps = {
@@ -29,7 +34,7 @@ type GroceryFormProps = {
     ) => Promise<void>;
 };
 
-function GroceryForm({
+export default function GroceryForm({
     id,
     userId,
     receiptId,
@@ -226,5 +231,3 @@ function GroceryForm({
         </Formik>
     );
 }
-
-export default GroceryForm;

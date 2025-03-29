@@ -1,9 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native';
-import GroceryCard from '~components/GroceryCard';
+import { GroceryCard } from '~components';
 import { HStack, Input, InputField, VStack } from '~components/ui';
-import { useGroceryStore } from '~store/groceryStore';
-import { GroceryItem } from '~types/GroceryItem';
+import { useGroceryStore } from '~store';
+import { GroceryItem } from '~types';
 
 export default function GroceryViewScreen() {
     const groceryItems = useGroceryStore((state) => state.groceryItems);

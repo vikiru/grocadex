@@ -2,19 +2,24 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
-import DateInputField from '~components/DateInputField';
-import GroceryForm from '~components/forms/GroceryForm';
-import { Button, ButtonText } from '~components/ui/button';
-import { Heading } from '~components/ui/heading';
-import { HStack } from '~components/ui/hstack';
-import { Input, InputField } from '~components/ui/input';
-import { Modal, ModalBackdrop, ModalContent } from '~components/ui/modal';
-import { Text } from '~components/ui/text';
-import { VStack } from '~components/ui/vstack';
+import { DateInputField, GroceryForm } from '~components';
+import {
+    Button,
+    ButtonText,
+    Heading,
+    HStack,
+    Input,
+    InputField,
+    Modal,
+    ModalBackdrop,
+    ModalContent,
+    Text,
+    VStack,
+} from '~components/ui';
+
 import { DateFormat } from '~constants/Dates';
-import { receiptSchema } from '~schemas/index';
-import { GroceryItem } from '~types/GroceryItem';
-import { Receipt } from '~types/Receipt';
+import { receiptSchema } from '~schemas';
+import { GroceryItem, Receipt } from '~types';
 import { formatDate, parseDate } from '~utils/date';
 
 type ReceiptFormProps = {
@@ -24,7 +29,7 @@ type ReceiptFormProps = {
     onSubmit?: (values: Receipt | Omit<Receipt, 'id'>) => void;
 };
 
-function ReceiptForm({
+export default function ReceiptForm({
     userId,
     receiptId,
     initialValues,
@@ -424,5 +429,3 @@ function ReceiptForm({
         </Formik>
     );
 }
-
-export default ReceiptForm;

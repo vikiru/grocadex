@@ -1,7 +1,5 @@
-import ReceiptViewScreen from '~screens/ReceiptViewScreen';
+import { ReceiptViewScreen } from '~screens';
 
-function ReceiptPage() {
+export default function ReceiptPage() {
     return <ReceiptViewScreen />;
 }
-
-export default ReceiptPage;

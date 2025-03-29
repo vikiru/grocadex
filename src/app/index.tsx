@@ -1,4 +1,4 @@
-import { SplashScreen } from '~screens/index';
+import { SplashScreen } from '~screens';
 
 export default function Index() {
     return <SplashScreen />;

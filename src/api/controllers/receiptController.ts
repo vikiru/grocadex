@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { logger } from '~config/logger';
-import { GroceryItemService, ReceiptService } from '~services/';
-import { ResponsePayload } from '~types/index';
+import { GroceryItemService, ReceiptService } from '~services';
+import { ResponsePayload } from '~types';
 
 export async function createReceipt(
     req: Request,

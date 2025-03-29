@@ -5,45 +5,11 @@ import {
     LOGOUT_ROUTE,
     USER_ROUTE,
 } from '~constants/Routes';
-import { getData, postData } from '~services/general';
-import { useUserStore } from '~store/index';
-import { RequestPayload, ResponsePayload } from '~types/index';
-import { User } from '~types/index';
-import {} from '~types/ResponsePayload';
+import { getData, postData } from '~services';
+import { useUserStore } from '~store';
+import { RequestPayload, ResponsePayload, User } from '~types';
 
-export default function useDashboardQuery() {
-    const { user } = useUserStore();
-    return useQuery<
-        ResponsePayload<Pick<User, 'groceryItems' | 'receipts' | 'expenses'>>,
-        Error
-    >({
-        queryKey: ['dashboard'],
-        queryFn: async () => {
-            const response = await getData<
-                ResponsePayload<
-                    Pick<User, 'groceryItems' | 'receipts' | 'expenses'>
-                >
-            >({
-                url: DASHBOARD_ROUTE,
-                data: {
-                    userId: user!.id,
-                },
-            });
-
-            if (!response) {
-                throw new Error(
-                    'Failed to fetch dashboard data: No response data.',
-                );
-            }
-
-            return response;
-        },
-        staleTime: Infinity,
-        retry: false,
-    });
-}
-
-function useCreateUserMutation() {
+export function useCreateUserMutation() {
     const mutation = useMutation<
         ResponsePayload<User>,
         Error,
@@ -79,7 +45,39 @@ function useCreateUserMutation() {
     return mutation;
 }
 
-function useLoginMutation() {
+export function useDashboardQuery() {
+    const { user } = useUserStore();
+    return useQuery<
+        ResponsePayload<Pick<User, 'groceryItems' | 'receipts' | 'expenses'>>,
+        Error
+    >({
+        queryKey: ['dashboard'],
+        queryFn: async () => {
+            const response = await getData<
+                ResponsePayload<
+                    Pick<User, 'groceryItems' | 'receipts' | 'expenses'>
+                >
+            >({
+                url: DASHBOARD_ROUTE,
+                data: {
+                    userId: user!.id,
+                },
+            });
+
+            if (!response) {
+                throw new Error(
+                    'Failed to fetch dashboard data: No response data.',
+                );
+            }
+
+            return response;
+        },
+        staleTime: Infinity,
+        retry: false,
+    });
+}
+
+export function useLoginMutation() {
     const { setUser } = useUserStore();
 
     const mutation = useMutation<
@@ -116,7 +114,7 @@ function useLoginMutation() {
     return mutation;
 }
 
-function useLogoutMutation() {
+export function useLogoutMutation() {
     const { resetUser } = useUserStore();
 
     const mutation = useMutation<ResponsePayload<User>, Error, void>({
@@ -139,5 +137,3 @@ function useLogoutMutation() {
     });
     return { mutation };
 }
-
-export { useCreateUserMutation, useLoginMutation, useLogoutMutation };

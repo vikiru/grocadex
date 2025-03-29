@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { zustandStorage } from '~store/zustandStorage';
-import { Expense } from '~types/Expense';
+import { zustandStorage } from '~store';
+import { Expense } from '~types';
 
 type ExpenseState = {
     expenses: Expense[];

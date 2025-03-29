@@ -1,4 +1,4 @@
-import { Receipt } from '~types/index';
+import { Receipt } from '~types';
 import { convertDatetoDateTime } from '~utils/date';
 
 export const sortReceiptsByPurchaseDate = (receipts: Receipt[]): Receipt[] => {

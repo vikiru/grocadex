@@ -1,4 +1,4 @@
-import { Expense, Receipt } from '~types/index';
+import { Expense, Receipt } from '~types';
 import { Months } from '~constants/Dates';
 import { parseDate } from '~utils/date';
 import { filterReceiptsByMonthYear } from '~utils/receipt';

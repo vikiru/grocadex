@@ -1,21 +1,24 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { Button, ButtonText } from '~components/ui/button';
-import { Card } from '~components/ui/card';
-import { Divider } from '~components/ui/divider';
-import { Heading } from '~components/ui/heading';
-import { HStack } from '~components/ui/hstack';
-import { Text } from '~components/ui/text';
+import {
+    Button,
+    ButtonText,
+    Card,
+    Divider,
+    Heading,
+    HStack,
+    Text,
+} from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import { FRONTEND_RECEIPT_ROUTE } from '~constants/Routes';
-import { Receipt } from '~types/Receipt';
+import { Receipt } from '~types';
 import { formatDate, parseDate } from '~utils/date';
 
 type ReceiptCardProps = {
     receipt: Receipt;
 };
 
-function ReceiptCard({ receipt }: ReceiptCardProps) {
+export default function ReceiptCard({ receipt }: ReceiptCardProps) {
     const router = useRouter();
 
     return (
@@ -60,5 +63,3 @@ function ReceiptCard({ receipt }: ReceiptCardProps) {
         </Card>
     );
 }
-
-export default ReceiptCard;

@@ -1,11 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { RECEIPT_ROUTE } from '~constants/Routes';
-import { deleteData, getData, postData, putData } from '~services/general';
-import { useGroceryStore } from '~store/groceryStore';
-import { GroceryItem } from '~types/index';
-import { ResponsePayload } from '~types/index';
+import { deleteData, getData, postData, putData } from '~services';
+import { useGroceryStore } from '~store';
+import { GroceryItem, ResponsePayload } from '~types';
 
-function useCreateGroceryItemMutation() {
+export function useCreateGroceryItemMutation() {
     const queryClient = useQueryClient();
 
     return useMutation<
@@ -42,7 +41,7 @@ function useCreateGroceryItemMutation() {
     });
 }
 
-function useDeleteGroceryItemMutation() {
+export function useDeleteGroceryItemMutation() {
     const queryClient = useQueryClient();
     const { getGroceryItems, setGroceryItems } = useGroceryStore();
 
@@ -77,7 +76,7 @@ function useDeleteGroceryItemMutation() {
     });
 }
 
-function useRetrieveGroceryItemsByReceiptQuery() {
+export function useRetrieveGroceryItemsByReceiptQuery() {
     return useQuery<ResponsePayload<GroceryItem[]>, Error>({
         queryKey: ['groceryItems'],
         queryFn: async () => {
@@ -96,7 +95,7 @@ function useRetrieveGroceryItemsByReceiptQuery() {
     });
 }
 
-function useUpdateGroceryItemMutation() {
+export function useUpdateGroceryItemMutation() {
     const queryClient = useQueryClient();
     const { updateGroceryItem } = useGroceryStore();
 
@@ -132,10 +131,3 @@ function useUpdateGroceryItemMutation() {
         },
     });
 }
-
-export {
-    useCreateGroceryItemMutation,
-    useDeleteGroceryItemMutation,
-    useRetrieveGroceryItemsByReceiptQuery,
-    useUpdateGroceryItemMutation,
-};

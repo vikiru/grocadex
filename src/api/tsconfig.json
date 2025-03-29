@@ -18,8 +18,10 @@
             "~middlewares/*": ["./middlewares/index.ts"],
             "~prisma/*": ["./prisma/*"],
             "~routes/*": ["./routes/index.ts"],
-            "~services/*": ["./services/index.ts"],
+            "~services*": ["./services/index.ts"],
+            "~services/*": ["./services/*"],
             "~strategies/*": ["./strategies/*"],
+            "~types": ["../types/index"],
             "~types/*": ["../types/*"],
             "~utils/*": ["./utils/*"]
         },

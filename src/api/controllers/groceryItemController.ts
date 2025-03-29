@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { GroceryItem } from '@prisma/client';
 import { logger } from '~config/logger';
-import { GroceryItemService } from '~services/';
-import { ResponsePayload } from '~types/index';
+import { GroceryItemService } from '~services';
+import { ResponsePayload } from '~types';
 
 export async function createGroceryItem(
     req: Request,

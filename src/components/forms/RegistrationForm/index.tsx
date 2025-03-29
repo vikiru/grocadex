@@ -1,11 +1,15 @@
 import { Formik } from 'formik';
-import { Button, ButtonText } from '~components/ui/button';
-import { HStack } from '~components/ui/hstack';
-import { Input, InputField } from '~components/ui/input';
-import { Text } from '~components/ui/text';
-import { VStack } from '~components/ui/vstack';
-import { useRegistration } from '~hooks/useRegistration';
-import { signupValidationSchema } from '~schemas/index';
+import {
+    Button,
+    ButtonText,
+    HStack,
+    Input,
+    InputField,
+    Text,
+    VStack,
+} from '~components/ui';
+import { useRegistration } from '~hooks';
+import { signupValidationSchema } from '~schemas';
 
 export default function RegistrationForm() {
     const { register } = useRegistration();

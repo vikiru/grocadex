@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RequestPayload } from '~types/RequestPayload';
+import { RequestPayload } from '~types';
 
 //TODO: fix dashboard/api issues. cannot seem to use auth requests. user undefined/cookies not set
 

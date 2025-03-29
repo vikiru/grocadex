@@ -1,6 +1,9 @@
-import { grocerySchema } from './grocerySchema';
-import { receiptSchema } from './receiptSchema';
-import { loginValidationSchema, signupValidationSchema } from './userSchema';
+import { grocerySchema } from '~schemas/grocerySchema';
+import { receiptSchema } from '~schemas/receiptSchema';
+import {
+    loginValidationSchema,
+    signupValidationSchema,
+} from '~schemas/userSchema';
 
 export {
     grocerySchema,
