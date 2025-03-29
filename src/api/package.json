@@ -1,5 +1,5 @@
 {
-    "name": "groceryapi",
+    "name": "grocadex-api",
     "version": "1.0.0",
     "main": "app.ts",
     "scripts": {

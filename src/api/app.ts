@@ -46,7 +46,7 @@ app.use(UserRouter);
 
 app.listen(port, () =>
     logger.info(
-        `groceryapi started on port: http://localhost:${port}/${apiVersionString}.`,
+        `grocadex-api started on port: http://localhost:${port}/${apiVersionString}.`,
     ),
 );
 
