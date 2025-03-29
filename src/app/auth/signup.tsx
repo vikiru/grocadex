@@ -1,7 +1,5 @@
-import { RegistrationScreen } from '~screens/index';
+import { RegistrationScreen } from '~screens';
 
-function SignUp() {
+export default function SignUp() {
     return <RegistrationScreen />;
 }
-
-export default SignUp;

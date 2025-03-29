@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import passport from 'passport';
 import { logger } from '~config/logger';
-import { ResponsePayload } from '~types/index';
+import { ResponsePayload } from '~types';
 
 export async function loginUser(
     req: Request,

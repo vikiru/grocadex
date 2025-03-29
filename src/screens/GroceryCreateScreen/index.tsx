@@ -1,5 +1,5 @@
 import { ScrollView } from 'react-native';
-import { GroceryForm } from '~components/forms';
+import { GroceryForm } from '~components';
 import { Button, ButtonText, Heading, HStack, VStack } from '~components/ui';
 
 type GroceryCreateScreenProps = {

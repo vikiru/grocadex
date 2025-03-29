@@ -1,5 +1,4 @@
-import GroceryStack from '~navigation/GroceryStack';
-
+import { GroceryStack } from '~navigation';
 export default function GroceryLayout() {
     return <GroceryStack />;
 }

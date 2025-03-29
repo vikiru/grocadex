@@ -1,9 +1,9 @@
 import { useLocalSearchParams } from 'expo-router';
-import { ReceiptForm } from '~components/forms';
+import { ReceiptForm } from '~components';
 import { Heading, HStack, VStack } from '~components/ui';
-import { useUpdateReceipt } from '~hooks/useReceiptForm';
-import { useReceiptStore } from '~store/index';
-import { Receipt } from '~types/index';
+import { useUpdateReceipt } from '~hooks';
+import { useReceiptStore } from '~store';
+import { Receipt } from '~types';
 
 export default function ReceiptEditScreen() {
     const { id } = useLocalSearchParams();

@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
-import GroceryCard from '~components/GroceryCard';
+import { GroceryCard } from '~components';
 import {
     Button,
     ButtonText,
@@ -18,11 +18,9 @@ import {
     VStack,
 } from '~components/ui';
 import { DateFormat } from '~constants/Dates';
-import useDashboard from '~hooks/useDashboard';
-import { useGroceryStore } from '~store/groceryStore';
-import { useReceiptStore } from '~store/receiptStore';
-import { GroceryItem } from '~types/GroceryItem';
-import { Receipt } from '~types/Receipt';
+import { useDashboard } from '~hooks';
+import { useGroceryStore, useReceiptStore } from '~store';
+import { GroceryItem, Receipt } from '~types';
 import { formatDate, parseDate } from '~utils/date';
 
 export default function DashboardScreen() {

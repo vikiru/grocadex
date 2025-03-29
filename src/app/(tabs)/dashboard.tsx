@@ -1,5 +1,4 @@
-import DashboardScreen from '~screens/DashboardScreen';
-
+import { DashboardScreen } from '~screens';
 // TODO: finish cleanup, check for any missing onpress, finish checkup of delete grocery/expense
 // TODO: ensure receipt total changes as needed when grocery items are edited on their own.
 // Update grocery state, receipt state mutually as needed
@@ -8,8 +7,6 @@ import DashboardScreen from '~screens/DashboardScreen';
 // TODO: Finish remaining frontend then fix api auth issues
 // TODO: EAS/Expo Secrets
 
-function Dashboard() {
+export default function Dashboard() {
     return <DashboardScreen />;
 }
-
-export default Dashboard;

@@ -1,5 +1,3 @@
-import { Receipt, User } from '~types/index';
-
 export type GroceryItem = {
     id?: number;
     userId: number;

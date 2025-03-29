@@ -5,11 +5,11 @@ import {
     GroceryItemService,
     ReceiptService,
     UserService,
-} from '~services/';
+} from '~services';
 
 import { User } from '@prisma/client';
 import { logger } from '~config/logger';
-import { ResponsePayload } from '~types/index';
+import { ResponsePayload } from '~types';
 
 export async function createUser(req: Request, res: Response): Promise<void> {
     const user: User = req.body;

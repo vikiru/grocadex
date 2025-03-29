@@ -1,10 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { EXPENSE_ROUTE } from '~constants/Routes';
-import { deleteData, getData, postData, putData } from '~services/general';
-import { Expense } from '~types/index';
-import { RequestPayload, ResponsePayload } from '~types/index';
+import { deleteData, getData, postData, putData } from '~services';
+import { Expense, RequestPayload, ResponsePayload } from '~types';
 
-function useCreateExpenseMutation() {
+export function useCreateExpenseMutation() {
     const queryClient = useQueryClient();
 
     return useMutation<
@@ -35,7 +34,7 @@ function useCreateExpenseMutation() {
     });
 }
 
-function useDeleteExpenseMutation() {
+export function useDeleteExpenseMutation() {
     const queryClient = useQueryClient();
 
     return useMutation<
@@ -65,7 +64,7 @@ function useDeleteExpenseMutation() {
     });
 }
 
-function useRetrieveExpensesQuery() {
+export function useRetrieveExpensesQuery() {
     return useQuery<ResponsePayload<Expense[]>, Error>({
         queryKey: ['expenses'],
         queryFn: async () => {
@@ -84,7 +83,7 @@ function useRetrieveExpensesQuery() {
     });
 }
 
-function useUpdateExpenseMutation() {
+export function useUpdateExpenseMutation() {
     const queryClient = useQueryClient();
 
     return useMutation<
@@ -114,10 +113,3 @@ function useUpdateExpenseMutation() {
         },
     });
 }
-
-export {
-    useCreateExpenseMutation,
-    useDeleteExpenseMutation,
-    useRetrieveExpensesQuery,
-    useUpdateExpenseMutation,
-};

@@ -1,4 +1,4 @@
-import { GroceryItem, Receipt } from '~types/index';
+import { GroceryItem, Receipt } from '~types';
 
 export type UserData = {
     groceryItems: GroceryItem[];

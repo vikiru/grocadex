@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { zustandStorage } from '~store/zustandStorage';
-import { Receipt } from '~types/Receipt';
+import { zustandStorage } from '~store';
+import { Receipt } from '~types';
 
 type ReceiptState = {
     receipts: Receipt[];

@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { GroceryForm } from '~components/forms';
-import { useUpdateItem } from '~hooks/useItem';
-import { useGroceryStore } from '~store/groceryStore';
+import { GroceryForm } from '~components';
+import { useUpdateItem } from '~hooks';
+import { useGroceryStore } from '~store';
 
 export default function GroceryEditScreen() {
     const router = useRouter();

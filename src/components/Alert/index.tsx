@@ -7,10 +7,11 @@ import {
     AlertDialogContent,
     AlertDialogFooter,
     AlertDialogHeader,
-} from '~components/ui/alert-dialog';
-import { Button, ButtonText } from '~components/ui/button';
-import { Heading } from '~components/ui/heading';
-import { Text } from '~components/ui/text';
+    Button,
+    ButtonText,
+    Heading,
+    Text,
+} from '~components/ui';
 
 type AlertProps = {
     alertHeading: string;
@@ -18,7 +19,11 @@ type AlertProps = {
     handleDelete: (id: number, receiptId?: number) => Promise<void>;
 };
 
-function Alert({ alertHeading, alertText, handleDelete }: AlertProps) {
+export default function Alert({
+    alertHeading,
+    alertText,
+    handleDelete,
+}: AlertProps) {
     const [showAlertDialog, setShowAlertDialog] = useState(false);
     const handleClose = () => setShowAlertDialog(false);
 
@@ -78,5 +83,3 @@ function Alert({ alertHeading, alertText, handleDelete }: AlertProps) {
         </>
     );
 }
-
-export default Alert;

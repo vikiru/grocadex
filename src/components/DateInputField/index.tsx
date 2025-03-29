@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { DateType } from 'react-native-ui-datepicker';
-import DateSelector from '~components/DateSelector';
-import { HStack } from '~components/ui/hstack';
-import { Input, InputField } from '~components/ui/input';
-import { Text } from '~components/ui/text';
-import { VStack } from '~components/ui/vstack';
+import { DateSelector } from '~components';
+import { HStack, Input, InputField, Text, VStack } from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import { formatDate } from '~utils/date';
 
@@ -17,7 +14,7 @@ type DateInputFieldProps = {
     isInvalid?: boolean;
 };
 
-function DateInputField({
+export default function DateInputField({
     label,
     placeholder,
     date,
@@ -67,5 +64,3 @@ function DateInputField({
         </VStack>
     );
 }
-
-export default DateInputField;

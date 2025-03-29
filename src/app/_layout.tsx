@@ -6,17 +6,14 @@ import {
     ThemeProvider,
 } from '@react-navigation/native';
 
-import '../../global.css';
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 import Toast from 'react-native-toast-message';
 import { GluestackUIProvider } from '~components/ui/gluestack-ui-provider';
-import { useColorScheme } from '~hooks/useColorScheme';
-import MainNavigation from '~navigation/MainNavigation';
+import { useColorScheme } from '~hooks';
+import { MainNavigation } from '~navigation';
 
 const queryClient = new QueryClient();
 
