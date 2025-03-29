@@ -1,14 +1,11 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native';
 import GroceryCard from '~components/GroceryCard';
-import { HStack } from '~components/ui/hstack';
-import { Input, InputField } from '~components/ui/input';
-import { VStack } from '~components/ui/vstack';
+import { HStack, Input, InputField, VStack } from '~components/ui';
 import { useGroceryStore } from '~store/groceryStore';
+import { GroceryItem } from '~types/GroceryItem';
 
-import { GroceryItem } from '../types/GroceryItem';
-
-function GroceryPage() {
+export default function GroceryViewScreen() {
     const groceryItems = useGroceryStore((state) => state.groceryItems);
 
     return (
@@ -32,5 +29,3 @@ function GroceryPage() {
         </VStack>
     );
 }
-
-export default GroceryPage;

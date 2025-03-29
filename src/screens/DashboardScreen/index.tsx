@@ -2,20 +2,21 @@ import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import GroceryCard from '~components/GroceryCard';
-import { Button, ButtonText } from '~components/ui/button';
-import { Card } from '~components/ui/card';
-import { Heading } from '~components/ui/heading';
-import { HStack } from '~components/ui/hstack';
 import {
+    Button,
+    ButtonText,
+    Card,
+    Heading,
+    HStack,
     Table,
     TableBody,
     TableData,
     TableHead,
     TableHeader,
     TableRow,
-} from '~components/ui/table';
-import { Text } from '~components/ui/text';
-import { VStack } from '~components/ui/vstack';
+    Text,
+    VStack,
+} from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import useDashboard from '~hooks/useDashboard';
 import { useGroceryStore } from '~store/groceryStore';
@@ -24,15 +25,7 @@ import { GroceryItem } from '~types/GroceryItem';
 import { Receipt } from '~types/Receipt';
 import { formatDate, parseDate } from '~utils/date';
 
-// TODO: finish cleanup, check for any missing onpress, finish checkup of delete grocery/expense
-// TODO: ensure receipt total changes as needed when grocery items are edited on their own.
-// Update grocery state, receipt state mutually as needed
-// expense, date hooks (later) - setup tanstack logic for now. add create multiple expense api logic
-// TODO: fix dashboard/api issues. cannot seem to use auth requests. user undefined/cookies not set
-// TODO: Finish remaining frontend then fix api auth issues
-// TODO: EAS/Expo Secrets
-
-function Dashboard() {
+export default function DashboardScreen() {
     const router = useRouter();
     const { retrieveData, isSuccess, data } = useDashboard();
     const receipts = useReceiptStore((state) => state.receipts);
@@ -165,5 +158,3 @@ function Dashboard() {
         </ScrollView>
     );
 }
-
-export default Dashboard;

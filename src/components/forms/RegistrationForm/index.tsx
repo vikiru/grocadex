@@ -7,7 +7,7 @@ import { VStack } from '~components/ui/vstack';
 import { useRegistration } from '~hooks/useRegistration';
 import { signupValidationSchema } from '~schemas/index';
 
-function RegistrationForm() {
+export default function RegistrationForm() {
     const { register } = useRegistration();
 
     return (
@@ -205,5 +205,3 @@ function RegistrationForm() {
         </VStack>
     );
 }
-
-export default RegistrationForm;
