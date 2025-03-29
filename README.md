@@ -1,4 +1,4 @@
-# grocery-tracker
+# Grocadex
 
 A grocery and expense tracker mobile app | React Native, Tesseract, PostgreSQL
 
