@@ -57,6 +57,7 @@ export default tseslint.config(
         rules: {
             'no-unused-vars': 'off',
             'react/react-in-jsx-scope': 'off',
+            'react-hooks/exhaustive-deps': 'off',
             '@typescript-eslint/no-unused-vars': 'off',
             '@typescript-eslint/no-unsafe-argument': 'off',
             '@typescript-eslint/no-unsafe-assignment': 'off',

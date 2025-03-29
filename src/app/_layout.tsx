@@ -16,6 +16,7 @@ import React, { useEffect } from 'react';
 import Toast from 'react-native-toast-message';
 import { GluestackUIProvider } from '~components/ui/gluestack-ui-provider';
 import { useColorScheme } from '~hooks/useColorScheme';
+import MainNavigation from '~navigation/MainNavigation';
 
 const queryClient = new QueryClient();
 
@@ -47,9 +48,7 @@ export default function RootLayout() {
                 <ThemeProvider
                     value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
                 >
-                    <Stack>
-                        <Stack.Screen name="grocery/create" />
-                    </Stack>
+                    <MainNavigation />
                 </ThemeProvider>
             </GluestackUIProvider>
             <Toast />

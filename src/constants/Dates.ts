@@ -20,9 +20,9 @@ export const Months = [
 ];
 export const Days = ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
 
-export const targetExpiryDays = 7;
+export const targetExpiryDays = 7; // Notify user 7 days before expiry, default
 export const ExpiryNotificationThresholds = {
-    low: 1,
-    medium: 3,
-    high: 7,
+    low: 1, // Notify user 1 day before expiry
+    medium: 3, // Notify user 3 days before expiry
+    high: 7, // Notify user 7 days before expiry
 };
