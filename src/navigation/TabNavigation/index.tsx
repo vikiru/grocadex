@@ -48,6 +48,20 @@ export default function TabNavigation() {
                     ),
                 }}
             />
+            <Tabs.Screen
+                name="expense"
+                options={{
+                    title: 'Expenses',
+                    tabBarLabel: '',
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons
+                            color={color}
+                            name="cash"
+                            size={24}
+                        />
+                    ),
+                }}
+            />
         </Tabs>
     );
 }
