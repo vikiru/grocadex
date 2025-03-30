@@ -1,4 +1,5 @@
 import Alert from '~components/Alert';
+import DataTable from '~components/DataTable/index';
 import DateInputField from '~components/DateInputField';
 import DateSelector from '~components/DateSelector';
 import {
@@ -10,9 +11,11 @@ import {
 import GroceryCard from '~components/GroceryCard';
 import IntroDetails from '~components/IntroDetails';
 import ReceiptCard from '~components/ReceiptCard';
+import TablePagination from '~components/TablePagination';
 
 export {
     Alert,
+    DataTable,
     DateInputField,
     DateSelector,
     GroceryCard,
@@ -22,4 +25,5 @@ export {
     ReceiptCard,
     ReceiptForm,
     RegistrationForm,
+    TablePagination,
 };
