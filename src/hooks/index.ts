@@ -8,9 +8,11 @@ import {
     useUpdateReceipt,
 } from '~hooks/useReceiptForm';
 import useRegistration from '~hooks/useRegistration';
+import useTablePagination from '~hooks/useTablePagination';
 import { useThemeColor } from '~hooks/useThemeColor';
 
 export {
+    useTablePagination,
     useColorScheme,
     useCreateReceipt,
     useDashboard,
