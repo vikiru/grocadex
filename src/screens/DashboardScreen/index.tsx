@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
-import { GroceryCard } from '~components';
+import { DataTable, GroceryCard } from '~components';
 import {
     Button,
     ButtonText,
@@ -105,54 +105,17 @@ export default function DashboardScreen() {
                 </Card>
             </HStack>
 
-            <VStack className="mx-4 mb-6 mt-4 bg-background-100 shadow-sm">
-                <Table className="w-full">
-                    <TableHeader>
-                        <TableRow className="bg-background-200/50">
-                            <TableHead className="font-heading text-xl">
-                                Store
-                            </TableHead>
-                            <TableHead className="font-heading text-xl">
-                                Purchased
-                            </TableHead>
-                            <TableHead className="font-heading text-xl">
-                                Total
-                            </TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {receipts
-                            .filter((receipt) => {
-                                const purchaseDate = parseDate(
-                                    receipt.purchaseDate,
-                                );
-                                const currentDate = new Date();
-                                return (
-                                    purchaseDate.getMonth() ===
-                                        currentDate.getMonth() &&
-                                    purchaseDate.getFullYear() ===
-                                        currentDate.getFullYear()
-                                );
-                            })
-                            .map((receipt: Receipt, index) => (
-                                <TableRow key={index}>
-                                    <TableData className="font-body xl:text-lg">
-                                        {receipt.store}
-                                    </TableData>
-                                    <TableData className="font-info xl:text-lg">
-                                        {formatDate(
-                                            parseDate(receipt.purchaseDate),
-                                            DateFormat,
-                                        )}
-                                    </TableData>
-                                    <TableData className="font-info xl:text-lg">
-                                        {Number(receipt.total).toFixed(2)}
-                                    </TableData>
-                                </TableRow>
-                            ))}
-                    </TableBody>
-                </Table>
-            </VStack>
+            <DataTable
+                data={receipts}
+                dataKeys={[
+                    { format: 'date', key: 'purchaseDate' },
+
+                    { format: 'string', key: 'store' },
+                    { format: 'numeric', key: 'total' },
+                ]}
+                dateFormat={DateFormat}
+                headers={['Date', 'Store', 'Total']}
+            />
         </ScrollView>
     );
 }
