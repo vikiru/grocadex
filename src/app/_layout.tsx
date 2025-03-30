@@ -6,6 +6,8 @@ import {
     ThemeProvider,
 } from '@react-navigation/native';
 
+import '../../global.css';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
