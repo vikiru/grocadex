@@ -9,7 +9,7 @@ import {
     Heading,
     HStack,
     Text,
-} from '~components/ui/button';
+} from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import { FRONTEND_DASHBOARD_ROUTE } from '~constants/Routes';
 import { useDeleteItem } from '~hooks';
