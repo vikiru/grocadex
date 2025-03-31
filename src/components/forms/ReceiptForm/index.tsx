@@ -229,7 +229,7 @@ export default function ReceiptForm({
                         </Modal>
                     )}
 
-                    <ScrollView className="mx-4 mt-4 max-h-[14rem] xl:mt-2 xl:max-h-[10rem]">
+                    <ScrollView className="mx-4 mt-4 max-h-[12rem] xl:mt-2 xl:max-h-[18rem]">
                         {values.groceryItems.map((groceryItem, index) => (
                             <VStack className="gap-3 pb-6" key={index}>
                                 <HStack className="flex items-center justify-between">
@@ -238,7 +238,10 @@ export default function ReceiptForm({
                                         {groceryItem.quantity})
                                     </Heading>
                                     <Text className="mt-2 font-info">
-                                        ${groceryItem.totalPrice}
+                                        $
+                                        {Number(groceryItem.totalPrice).toFixed(
+                                            2,
+                                        )}
                                     </Text>
                                 </HStack>
 
@@ -408,7 +411,7 @@ export default function ReceiptForm({
                         ))}
                     </ScrollView>
 
-                    <HStack className="mx-4 mt-4">
+                    <HStack className="fixed bottom-0 left-0 right-0 mx-4 mb-1 mt-4">
                         <VStack className="w-full gap-3">
                             <Button
                                 action="primary"
