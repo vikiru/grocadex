@@ -12,7 +12,7 @@ export const constructExpense = (receipts: Receipt[]): Expense | null => {
     const year = date.getFullYear();
 
     receipts.forEach((receipt) => {
-        total += receipt.total;
+        total += Number(receipt.total);
     });
 
     return {

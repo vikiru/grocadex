@@ -1,5 +1,6 @@
 import { useColorScheme } from '~hooks/useColorScheme';
 import useDashboard from '~hooks/useDashboard';
+import useGraphData from '~hooks/useGraphData';
 import { useDeleteItem, useUpdateItem } from '~hooks/useItem';
 import useLogin from '~hooks/useLogin';
 import {
@@ -14,6 +15,7 @@ import useTablePagination from '~hooks/useTablePagination';
 import { useThemeColor } from '~hooks/useThemeColor';
 
 export {
+    useGraphData,
     useSearchGroceries,
     useSearchReceipts,
     useTablePagination,

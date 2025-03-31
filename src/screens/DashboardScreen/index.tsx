@@ -119,6 +119,7 @@ export default function DashboardScreen() {
                     { format: 'date', key: 'purchaseDate' },
                     { format: 'numeric', key: 'total' },
                 ]}
+                pageSize={2}
                 dateFormat={DateFormat}
                 headers={['Store', 'Date', 'Total']}
             />

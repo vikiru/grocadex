@@ -1,3 +1,4 @@
+export { GraphData } from '~types/GraphData';
 export { Expense } from '~types/Expense';
 
 export { UserRequest } from '~api/types/express.d';
