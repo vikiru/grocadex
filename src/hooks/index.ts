@@ -8,10 +8,14 @@ import {
     useUpdateReceipt,
 } from '~hooks/useReceiptForm';
 import useRegistration from '~hooks/useRegistration';
+import useSearchGroceries from '~hooks/useSearchGroceries';
+import useSearchReceipts from '~hooks/useSearchReceipts';
 import useTablePagination from '~hooks/useTablePagination';
 import { useThemeColor } from '~hooks/useThemeColor';
 
 export {
+    useSearchGroceries,
+    useSearchReceipts,
     useTablePagination,
     useColorScheme,
     useCreateReceipt,
