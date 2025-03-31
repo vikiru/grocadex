@@ -96,7 +96,8 @@
         "tailwindcss-animate": "^1.0.7",
         "victory-native": "^41.16.1",
         "yup": "^1.6.1",
-        "zustand": "^5.0.3"
+        "zustand": "^5.0.3",
+        "@shopify/flash-list": "1.7.3"
     },
     "devDependencies": {
         "@babel/core": "^7.26.0",

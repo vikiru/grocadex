@@ -62,7 +62,7 @@ export default function ReceiptDetailsScreen() {
                 </Text>
             </HStack>
 
-            <ScrollView className="mx-4 mb-6 mt-4 max-h-[20rem] bg-background-100 shadow-sm xl:mt-2 xl:max-h-[28rem]">
+            <ScrollView className="mx-4 mb-6 mt-4 max-h-[40rem] bg-background-100 shadow-sm xl:mt-2">
                 <Table className="w-full">
                     <TableHeader>
                         <TableRow className="bg-background-200/50">
@@ -95,7 +95,7 @@ export default function ReceiptDetailsScreen() {
                 </Table>
             </ScrollView>
 
-            <HStack className="mx-4 mt-2">
+            <HStack className="fixed bottom-0 left-0 right-0 mx-4 mb-14 mt-2">
                 <Button
                     action="primary"
                     className="flex-1"
@@ -117,7 +117,7 @@ export default function ReceiptDetailsScreen() {
                 </Button>
             </HStack>
 
-            <HStack className="mx-4 mt-2">
+            <HStack className="fixed bottom-0 left-0 right-0 mx-4 mb-2 mt-2">
                 <Alert
                     alertHeading="Are you sure you want to delete this receipt?"
                     alertText="Deleting the receipt will remove it and all grocery items, this action cannot be undone. Please confirm if you wish to proceed."

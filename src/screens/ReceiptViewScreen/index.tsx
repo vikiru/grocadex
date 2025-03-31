@@ -1,8 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
 import { ScrollView } from 'react-native';
 import { ReceiptCard, Searchbar } from '~components';
-import { Fab, Text, VStack } from '~components/ui';
+import { Fab, HStack, Text, VStack } from '~components/ui';
 import { FRONTEND_RECEIPT_CREATE_ROUTE } from '~constants/Routes';
 import { useSearchReceipts } from '~hooks';
 import { Receipt } from '~types';
@@ -20,13 +21,26 @@ export default function ReceiptViewScreen() {
             />
 
             {filteredReceipts.length > 0 && (
-                <ScrollView className="mx-4 mb-6 mt-4 shadow-sm">
+                <FlashList
+                    className="mx-4 mb-6 mt-4"
+                    data={filteredReceipts}
+                    estimatedItemSize={
+                        filteredReceipts.length > 0
+                            ? filteredReceipts.length
+                            : 0
+                    }
+                    renderItem={({ item }) => (
+                        <HStack className="my-2">
+                            <ReceiptCard receipt={item} />
+                        </HStack>
+                    )}
+                >
                     <VStack className="gap-3">
                         {filteredReceipts.map((receipt: Receipt) => (
                             <ReceiptCard key={receipt.id} receipt={receipt} />
                         ))}
                     </VStack>
-                </ScrollView>
+                </FlashList>
             )}
 
             {filteredReceipts.length === 0 && (
