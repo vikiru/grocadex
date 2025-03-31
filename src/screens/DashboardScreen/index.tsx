@@ -1,3 +1,4 @@
+import { FlashList } from '@shopify/flash-list';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
@@ -20,15 +21,14 @@ import {
 import { DateFormat } from '~constants/Dates';
 import { useDashboard } from '~hooks';
 import { useGroceryStore, useReceiptStore } from '~store';
-import { GroceryItem, Receipt } from '~types';
-import { parseDate, sortReceipts } from '~utils/date';
+import { parseDate, sortActiveItems, sortReceipts } from '~utils/date';
 
 export default function DashboardScreen() {
     const router = useRouter();
     const { retrieveData, isSuccess, data } = useDashboard();
     const receipts = useReceiptStore((state) => state.receipts);
     const groceryItems = useGroceryStore((state) => state.groceryItems);
-    console.log(groceryItems);
+    sortActiveItems(groceryItems);
     sortReceipts(receipts);
 
     useEffect(() => {
@@ -41,32 +41,40 @@ export default function DashboardScreen() {
         <ScrollView className="w-full bg-background-100">
             <HStack className="mx-4 mb-4 mt-2 flex items-center justify-between">
                 <Heading className="font-semibold xs:text-2xl xl:text-3xl">
-                    Current Grocery Items
+                    Expiring Grocery Items
                 </Heading>
-                <Button
-                    onPress={() => {
-                        router.push('/grocery');
-                    }}
-                    variant="link"
-                >
-                    <ButtonText className="text-lg xl:text-xl">
-                        Show All
-                    </ButtonText>
-                </Button>
+                {groceryItems.length > 0 && (
+                    <Button
+                        onPress={() => {
+                            router.push('/grocery');
+                        }}
+                        variant="link"
+                    >
+                        <ButtonText className="text-lg xl:text-xl">
+                            Show All
+                        </ButtonText>
+                    </Button>
+                )}
             </HStack>
 
-            <ScrollView className="mx-4 max-h-[200px]" horizontal>
-                <HStack className="gap-4">
-                    {groceryItems
-                        .slice(0, 5)
-                        .map((groceryItem: GroceryItem, index) => (
-                            <GroceryCard
-                                groceryItem={groceryItem}
-                                key={index}
-                            />
-                        ))}
-                </HStack>
-            </ScrollView>
+            {groceryItems.length > 0 ? (
+                <FlashList
+                    className="mx-4 grid max-h-[200px]"
+                    data={groceryItems.slice(0, 5)}
+                    estimatedItemSize={groceryItems.length > 0 ? 5 : 0}
+                    horizontal
+                    renderItem={({ item }) => (
+                        <HStack className="mr-2">
+                            <GroceryCard groceryItem={item} />
+                        </HStack>
+                    )}
+                />
+            ) : (
+                <Text className="mx-4 font-body text-lg text-typography-700 xl:text-xl">
+                    You do not have any grocery items. Try creating a receipt to
+                    add items!
+                </Text>
+            )}
 
             <HStack className="mx-4 mt-4">
                 <Heading className="font-semibold xs:text-2xl xl:text-3xl">
