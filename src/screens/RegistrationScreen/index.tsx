@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import { ScrollView } from 'react-native';
 import { RegistrationForm } from '~components';
 import { Heading, HStack, Link, LinkText, Text, VStack } from '~components/ui';
 import { FRONTEND_LOGIN_ROUTE } from '~constants/Routes';
@@ -7,7 +8,7 @@ export default function RegistrationScreen() {
     const router = useRouter();
 
     return (
-        <VStack className="mt-2 min-h-screen w-full bg-background-100 xs:max-w-none md:mx-auto lg:max-w-xl xl:max-w-2xl">
+        <ScrollView className="mt-2 min-h-screen w-full bg-background-100 pb-20 xs:max-w-none md:mx-auto lg:max-w-xl xl:max-w-2xl xl:pb-0">
             <HStack className="mx-4 mt-2">
                 <VStack>
                     <Heading className="font-heading xs:text-3xl xl:text-4xl">
@@ -34,6 +35,6 @@ export default function RegistrationScreen() {
                     <LinkText className="text-lg xl:text-xl">Login</LinkText>
                 </Link>
             </HStack>
-        </VStack>
+        </ScrollView>
     );
 }

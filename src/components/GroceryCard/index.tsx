@@ -72,14 +72,10 @@ export default function GroceryCard({ groceryItem }: GroceryCardProps) {
                             groceryItem.id!,
                             groceryItem.receiptId,
                         );
-                        setTimeout(() => {
-                            router.replace(FRONTEND_DASHBOARD_ROUTE);
-                        }, 0);
+                        router.replace(FRONTEND_DASHBOARD_ROUTE);
                     }}
                 />
             </HStack>
         </Card>
-    ) : (
-        <></>
-    );
+    ) : null;
 }

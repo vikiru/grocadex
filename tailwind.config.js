@@ -184,7 +184,7 @@ module.exports = {
                 },
             },
             fontFamily: {
-                logo: ['Sansita', 'sans-serif'],
+                logo: ['Libre Baskerville', 'serif'],
                 heading: ['Poppins', 'sans-serif'],
                 body: ['Hind', 'sans-serif'],
                 info: ['IBM Plex Sans', 'sans-serif'],
