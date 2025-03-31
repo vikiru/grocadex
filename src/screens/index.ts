@@ -1,4 +1,5 @@
 import DashboardScreen from '~screens/DashboardScreen';
+import ExpenseViewScreen from '~screens/ExpenseViewScreen';
 import GroceryCreateScreen from '~screens/GroceryCreateScreen';
 import GroceryEditScreen from '~screens/GroceryEditScreen/index';
 import GroceryViewScreen from '~screens/GroceryViewScreen';
@@ -11,6 +12,7 @@ import RegistrationScreen from '~screens/RegistrationScreen';
 import SplashScreen from '~screens/SplashScreen';
 
 export {
+    ExpenseViewScreen,
     DashboardScreen,
     GroceryCreateScreen,
     GroceryEditScreen,
