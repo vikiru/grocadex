@@ -11,9 +11,11 @@ import {
 import GroceryCard from '~components/GroceryCard';
 import IntroDetails from '~components/IntroDetails';
 import ReceiptCard from '~components/ReceiptCard';
+import Searchbar from '~components/Searchbar';
 import TablePagination from '~components/TablePagination';
 
 export {
+    Searchbar,
     Alert,
     DataTable,
     DateInputField,
