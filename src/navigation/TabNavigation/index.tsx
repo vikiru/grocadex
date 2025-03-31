@@ -10,6 +10,7 @@ export default function TabNavigation() {
                 name="dashboard"
                 options={{
                     title: 'Home',
+                    headerTitleStyle: { fontSize: 32 },
                     tabBarLabel: '',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons
@@ -25,6 +26,7 @@ export default function TabNavigation() {
                 options={{
                     title: 'Groceries',
                     tabBarLabel: '',
+                    headerTitleStyle: { fontSize: 32 },
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons
                             color={color}
@@ -39,6 +41,7 @@ export default function TabNavigation() {
                 options={{
                     title: 'Receipt',
                     tabBarLabel: '',
+                    headerTitleStyle: { fontSize: 32 },
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons
                             color={color}
@@ -52,6 +55,7 @@ export default function TabNavigation() {
                 name="expense"
                 options={{
                     title: 'Expenses',
+                    headerTitleStyle: { fontSize: 32 },
                     tabBarLabel: '',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons

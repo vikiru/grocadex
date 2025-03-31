@@ -29,6 +29,7 @@ export default function RootLayout() {
         Poppins: require('~assets/fonts/Poppins-Regular.ttf'),
         Sansita: require('~assets/fonts/Sansita-Regular.ttf'),
         'IBM Plex Sans': require('~assets/fonts/IBMPlexSans-VariableFont_wdth,wght.ttf'),
+        'Libre Baskerville': require('~assets/fonts/LibreBaskerville-Regular.ttf'),
     });
 
     useEffect(() => {

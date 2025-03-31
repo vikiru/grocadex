@@ -33,9 +33,14 @@ export function useCreateReceiptMutation() {
         },
         onSuccess: async (data: ResponsePayload<Receipt>) => {
             const groceryItems = data.data.groceryItems as GroceryItem[];
-            addReceipt(data.data);
+            const receipt = data.data;
+            addReceipt(receipt);
             groceryItems.forEach((groceryItem: GroceryItem) => {
                 addGroceryItem(groceryItem);
+            });
+            queryClient.invalidateQueries({
+                queryKey: ['dashboard'],
+                refetchType: 'none',
             });
             queryClient.invalidateQueries({
                 queryKey: ['receipts'],
@@ -73,6 +78,10 @@ export function useDeleteReceiptMutation() {
                     (groceryItem) => groceryItem.receiptId !== variables,
                 ),
             );
+            queryClient.invalidateQueries({
+                queryKey: ['dashboard'],
+                refetchType: 'none',
+            });
             queryClient.invalidateQueries({
                 queryKey: ['receipts'],
             });
@@ -131,6 +140,10 @@ export function useUpdateReceiptMutation() {
             );
             groceryItems.forEach((groceryItem: GroceryItem) => {
                 addGroceryItem(groceryItem);
+            });
+            queryClient.invalidateQueries({
+                queryKey: ['dashboard'],
+                refetchType: 'none',
             });
             queryClient.invalidateQueries({
                 queryKey: ['receipts'],

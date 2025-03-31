@@ -7,7 +7,7 @@ export default function MainNavigation() {
 
     return (
         <>
-            {!user && <AuthStack />}{' '}
+            {!user && <AuthStack />}
             {user && (
                 <Stack>
                     <Stack.Screen
