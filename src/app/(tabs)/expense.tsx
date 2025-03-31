@@ -14,7 +14,7 @@ import {
     VStack,
 } from '~components/ui';
 
-let BarChart;
+let BarChart: any;
 if (Platform.OS === 'web') {
     // For Web
     BarChart = require('react-gifted-charts').BarChart;
@@ -44,8 +44,8 @@ export default function ExpensePage() {
     return (
         <ScrollView className="min-h-screen bg-background-100">
             <HStack className="mx-4 mt-2">
-                <Heading className="font-heading xs:text-3xl xl:text-4xl">
-                    Expenses for 2024
+                <Heading className="font-heading xs:text-2xl xl:text-3xl">
+                    Overview for 2024
                 </Heading>
             </HStack>
             <HStack className="mx-4 mt-2">
@@ -56,7 +56,7 @@ export default function ExpensePage() {
                     hideRule
                     initialSpacing={1}
                     isAnimated
-                    renderTooltip={(item) => (
+                    renderTooltip={(item: any) => (
                         <VStack
                             style={{
                                 marginBottom: 20,

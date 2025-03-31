@@ -21,19 +21,21 @@ import { DateFormat } from '~constants/Dates';
 import { useDashboard } from '~hooks';
 import { useGroceryStore, useReceiptStore } from '~store';
 import { GroceryItem, Receipt } from '~types';
-import { formatDate, parseDate } from '~utils/date';
+import { parseDate, sortReceipts } from '~utils/date';
 
 export default function DashboardScreen() {
     const router = useRouter();
     const { retrieveData, isSuccess, data } = useDashboard();
     const receipts = useReceiptStore((state) => state.receipts);
     const groceryItems = useGroceryStore((state) => state.groceryItems);
+    console.log(groceryItems);
+    sortReceipts(receipts);
 
     useEffect(() => {
         if (isSuccess && data) {
             retrieveData();
         }
-    }, []);
+    }, [isSuccess, data]);
 
     return (
         <ScrollView className="w-full bg-background-100">
@@ -73,7 +75,7 @@ export default function DashboardScreen() {
             </HStack>
 
             <HStack className="mx-4 mt-4">
-                <Card className="w-full max-w-lg rounded-xl bg-background-200/50 p-6 shadow-sm">
+                <Card className="w-full max-w-lg rounded-lg bg-background-200/50 px-6 shadow-sm">
                     <Text className="mb-2 font-heading text-xl text-typography-600">
                         Your Expenses
                     </Text>
@@ -99,22 +101,18 @@ export default function DashboardScreen() {
                             )
                             .toFixed(2)}
                     </Heading>
-                    <Text className="font-body text-xl text-error-500">
-                        40% increase from last month
-                    </Text>
                 </Card>
             </HStack>
 
             <DataTable
                 data={receipts}
                 dataKeys={[
-                    { format: 'date', key: 'purchaseDate' },
-
                     { format: 'string', key: 'store' },
+                    { format: 'date', key: 'purchaseDate' },
                     { format: 'numeric', key: 'total' },
                 ]}
                 dateFormat={DateFormat}
-                headers={['Date', 'Store', 'Total']}
+                headers={['Store', 'Date', 'Total']}
             />
         </ScrollView>
     );

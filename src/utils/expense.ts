@@ -5,8 +5,6 @@ import { filterReceiptsByMonthYear } from '~utils/receipt';
 
 export const constructExpense = (receipts: Receipt[]): Expense | null => {
     if (receipts.length === 0) return null;
-    const receiptIds = new Set<number>();
-    const stores = new Set<string>();
     let total = 0;
     const { purchaseDate } = receipts[0];
     const date = parseDate(purchaseDate);
@@ -14,8 +12,6 @@ export const constructExpense = (receipts: Receipt[]): Expense | null => {
     const year = date.getFullYear();
 
     receipts.forEach((receipt) => {
-        receiptIds.add(receipt.id);
-        stores.add(receipt.store);
         total += receipt.total;
     });
 
@@ -23,8 +19,6 @@ export const constructExpense = (receipts: Receipt[]): Expense | null => {
         month,
         year,
         total,
-        stores: Array.from(stores),
-        receiptIds: Array.from(receiptIds),
     };
 };
 
@@ -64,7 +58,7 @@ export const constructGraphData = (expenses: Expense[]) => {
         const monthNumber = index + 1;
         return {
             label: month,
-            amount: expenseMap.get(monthNumber) || 0,
+            value: expenseMap.get(monthNumber) || 0,
         };
     });
 };

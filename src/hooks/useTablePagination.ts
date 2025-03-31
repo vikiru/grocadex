@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export default function useTablePagination() {
     const [startIndex, setStartIndex] = useState(0);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const pageSize = 5;
 
     const handleSkipToPage = (page: number) => {

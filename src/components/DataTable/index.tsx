@@ -51,6 +51,7 @@ export default function DataTable({
         handleIncrementPage,
         handleDecrementPage,
     } = useTablePagination();
+    const numPages = Math.ceil(data.length / pageSize);
 
     return (
         <VStack className="mx-4 mb-6 mt-4 bg-background-100 shadow-sm">
@@ -59,7 +60,7 @@ export default function DataTable({
                     <TableRow className="bg-background-200/50">
                         {headers.map((header, index) => (
                             <TableHead
-                                className="font-heading text-xl"
+                                className="font-heading text-lg"
                                 key={index}
                             >
                                 {header}
@@ -81,14 +82,16 @@ export default function DataTable({
                                         index: number,
                                     ) => (
                                         <TableData
-                                            className="font-body xl:text-lg"
+                                            className={`${dataKey.format !== 'string' ? 'font-info' : 'font-body'} text-base`}
                                             key={index}
                                         >
-                                            {formatData(
-                                                item[dataKey.key],
-                                                dataKey.format,
-                                                dateFormat,
-                                            )}
+                                            {dataKey.format === 'numeric'
+                                                ? `$${formatData(item[dataKey.key], dataKey.format, dateFormat)}`
+                                                : formatData(
+                                                      item[dataKey.key],
+                                                      dataKey.format,
+                                                      dateFormat,
+                                                  )}
                                         </TableData>
                                     ),
                                 )}
@@ -96,13 +99,15 @@ export default function DataTable({
                         ))}
                 </TableBody>
             </Table>
-            <TablePagination
-                handleDecrementPage={handleDecrementPage}
-                handleIncrementPage={handleIncrementPage}
-                handleSkipToPage={handleSkipToPage}
-                numPages={Math.ceil(data.length / pageSize)}
-                page={page}
-            />{' '}
+            {numPages > 1 && (
+                <TablePagination
+                    handleDecrementPage={handleDecrementPage}
+                    handleIncrementPage={handleIncrementPage}
+                    handleSkipToPage={handleSkipToPage}
+                    numPages={numPages}
+                    page={page}
+                />
+            )}
         </VStack>
     );
 }
