@@ -9,44 +9,32 @@ import {
     VStack,
 } from '~components/ui';
 import { useTablePagination } from '~hooks';
-import { Expense, Receipt } from '~types';
+import { GraphData, Receipt } from '~types';
 import { formatDate } from '~utils/date';
 
 type DataFormat = 'numeric' | 'date' | 'string';
 
 type DataTableProps = {
-    data: (Receipt | Expense)[];
+    data: (Receipt | GraphData)[];
     headers: string[];
     dataKeys: {
         format: DataFormat;
         key: string;
     }[];
     dateFormat: string;
+    pageSize: number;
 };
-
-const test = [
-    { store: 'eBay', purchaseDate: '2024-11-27', total: 237.02 },
-    { store: 'Apple', purchaseDate: '2024-08-20', total: 415.75 },
-    { store: 'Costco', purchaseDate: '2024-10-26', total: 175.6 },
-    { store: 'Costco', purchaseDate: '2024-10-23', total: 322.69 },
-    { store: 'Amazon', purchaseDate: '2024-08-26', total: 265.51 },
-    { store: 'Costco', purchaseDate: '2024-10-28', total: 330.88 },
-    { store: 'Costco', purchaseDate: '2025-03-03', total: 17.38 },
-    { store: 'Amazon', purchaseDate: '2024-09-06', total: 353.6 },
-    { store: 'Amazon', purchaseDate: '2024-04-20', total: 467.44 },
-    { store: 'Walmart', purchaseDate: '2024-05-03', total: 27.74 },
-];
 
 export default function DataTable({
     data,
     headers,
     dataKeys,
     dateFormat,
+    pageSize,
 }: DataTableProps) {
     const {
         startIndex,
         page,
-        pageSize,
         handleSkipToPage,
         handleIncrementPage,
         handleDecrementPage,
@@ -55,12 +43,12 @@ export default function DataTable({
 
     return (
         <VStack className="mx-4 mb-6 mt-4 bg-background-100 shadow-sm">
-            <Table className="w-full">
+            <Table className="max-h-[2rem] w-full">
                 <TableHeader>
                     <TableRow className="bg-background-200/50">
                         {headers.map((header, index) => (
                             <TableHead
-                                className="font-heading text-lg"
+                                className={`font-heading text-lg ${dataKeys[index].format === 'numeric' ? 'text-right' : ''}`}
                                 key={index}
                             >
                                 {header}
@@ -82,7 +70,7 @@ export default function DataTable({
                                         index: number,
                                     ) => (
                                         <TableData
-                                            className={`${dataKey.format !== 'string' ? 'font-info' : 'font-body'} text-base`}
+                                            className={`${dataKey.format !== 'string' ? 'font-info' : 'font-body'} text-base ${dataKey.format === 'numeric' ? 'text-right' : ''}`}
                                             key={index}
                                         >
                                             {dataKey.format === 'numeric'
@@ -106,6 +94,7 @@ export default function DataTable({
                     handleSkipToPage={handleSkipToPage}
                     numPages={numPages}
                     page={page}
+                    pageSize={pageSize}
                 />
             )}
         </VStack>

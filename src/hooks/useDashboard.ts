@@ -12,7 +12,6 @@ export default function useDashboard() {
         try {
             if (isSuccess && data) {
                 const { groceryItems, receipts, expenses } = data.data;
-                console.log('Retrieve', groceryItems);
                 setGroceryItems(groceryItems || []);
                 setReceipts(receipts || []);
                 setExpenses(expenses || []);

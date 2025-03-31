@@ -12,7 +12,6 @@ export default function Searchbar({
     query,
     setQuery,
 }: SearchbarProps) {
-    console.log(query);
     return (
         <HStack className="mx-4 mb-4 mt-2">
             <Input className="flex w-full items-center bg-background-0">
