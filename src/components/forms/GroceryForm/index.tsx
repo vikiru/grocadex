@@ -1,15 +1,6 @@
 import { Formik } from 'formik';
-import { DateInputField } from '~components';
-import {
-    Button,
-    ButtonText,
-    HStack,
-    Input,
-    InputField,
-    Text,
-    VStack,
-} from '~components/ui';
-
+import { DateInputField, FormInput } from '~components';
+import { Button, ButtonText, HStack, VStack } from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import { grocerySchema } from '~schemas';
 import { GroceryItem } from '~types';
@@ -20,7 +11,7 @@ type GroceryFormProps = {
     userId: number;
     receiptId?: number;
     initialValues?: Partial<GroceryItem>;
-    onSubmit?: (
+    onSubmit: (
         values:
             | GroceryItem
             | Pick<
@@ -50,21 +41,27 @@ export default function GroceryForm({
                 expiryDate: initialValues?.expiryDate || new Date(),
                 unitPrice: initialValues?.unitPrice || 1,
                 totalPrice: initialValues?.totalPrice || 1,
+                isActive: initialValues?.isActive || true,
             }}
             onSubmit={(values, { resetForm }) => {
-                if (onSubmit) {
-                    if (id && receiptId) {
-                        const finalValues: GroceryItem = {
-                            id,
-                            receiptId,
-                            userId,
-                            ...values,
-                        };
-                        onSubmit(finalValues);
-                    } else {
-                        onSubmit(values);
-                    }
+                const totalPrice =
+                    values.quantity && values.unitPrice
+                        ? values.quantity * values.unitPrice
+                        : values.totalPrice;
+                values.totalPrice = totalPrice;
+
+                if (id && receiptId) {
+                    const finalValues: GroceryItem = {
+                        id,
+                        receiptId,
+                        userId,
+                        ...values,
+                    };
+                    onSubmit(finalValues);
+                } else {
+                    onSubmit(values);
                 }
+
                 resetForm();
             }}
             validationSchema={grocerySchema}
@@ -80,59 +77,25 @@ export default function GroceryForm({
                 isSubmitting,
             }) => (
                 <VStack>
-                    <HStack className="mx-4 mt-1">
-                        <VStack className="w-full">
-                            <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                Name
-                            </Text>
-                            <Input
-                                className="w-full bg-background-0 font-body"
-                                size="xl"
-                                variant="outline"
-                            >
-                                <InputField
-                                    isInvalid={!!errors.name && touched.name}
-                                    onBlur={handleBlur('name')}
-                                    onChangeText={handleChange('name')}
-                                    placeholder="Enter name of grocery item"
-                                    value={String(values.name)}
-                                />
-                            </Input>
-                            {!!errors.name && touched.name && (
-                                <Text className="text-error-500">
-                                    {errors.name}
-                                </Text>
-                            )}
-                        </VStack>
-                    </HStack>
+                    <FormInput
+                        error={errors.name}
+                        label="Name"
+                        onBlur={handleBlur('name')}
+                        onChangeText={handleChange('name')}
+                        placeholder="Enter item name"
+                        touched={touched.name}
+                        value={String(values.name)}
+                    />
 
-                    <HStack className="mx-4 mt-1">
-                        <VStack className="w-full">
-                            <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                Quantity
-                            </Text>
-                            <Input
-                                className="w-full bg-background-0 font-body"
-                                size="xl"
-                                variant="outline"
-                            >
-                                <InputField
-                                    isInvalid={
-                                        !!errors.quantity && touched.quantity
-                                    }
-                                    onBlur={handleBlur('quantity')}
-                                    onChangeText={handleChange('quantity')}
-                                    placeholder="Enter quantity"
-                                    value={String(values.quantity)}
-                                />
-                            </Input>
-                            {!!errors.quantity && touched.quantity && (
-                                <Text className="text-error-500">
-                                    {errors.quantity}
-                                </Text>
-                            )}
-                        </VStack>
-                    </HStack>
+                    <FormInput
+                        error={errors.quantity}
+                        label="Quantity"
+                        onBlur={handleBlur('quantity')}
+                        onChangeText={handleChange('quantity')}
+                        placeholder="Enter quantity"
+                        touched={touched.quantity}
+                        value={values.quantity}
+                    />
 
                     <DateInputField
                         date={values.expiryDate}
@@ -150,73 +113,43 @@ export default function GroceryForm({
                         setDate={(date) => setFieldValue('expiryDate', date)}
                     />
 
-                    <HStack className="mx-4 mt-1">
-                        <VStack className="w-full">
-                            <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                Unit Price
-                            </Text>
-                            <Input
-                                className="w-full bg-background-0 font-body"
-                                size="xl"
-                                variant="outline"
-                            >
-                                <InputField
-                                    isInvalid={
-                                        !!errors.unitPrice && touched.unitPrice
-                                    }
-                                    onBlur={handleBlur('unitPrice')}
-                                    onChangeText={(value: string) => {
-                                        setFieldValue('unitPrice', value);
-                                    }}
-                                    placeholder="Enter unit price"
-                                    value={values.unitPrice}
-                                />
-                            </Input>
-                            {errors.unitPrice && touched.unitPrice && (
-                                <Text className="text-error-500">
-                                    {errors.unitPrice}
-                                </Text>
-                            )}
-                        </VStack>
-                    </HStack>
+                    <FormInput
+                        error={errors.unitPrice}
+                        label="Unit Price"
+                        onBlur={() => {
+                            handleChange('unitPrice')(
+                                Number(values.unitPrice).toFixed(2),
+                            );
+                        }}
+                        onChangeText={(value) =>
+                            setFieldValue('unitPrice', value)
+                        }
+                        placeholder="Enter unit price"
+                        touched={touched.unitPrice}
+                        value={values.unitPrice}
+                    />
 
-                    <HStack className="mx-4 mt-1">
-                        <VStack className="w-full">
-                            <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                Total Price
-                            </Text>
-                            <Input
-                                className="w-full bg-background-0 font-body"
-                                size="xl"
-                                variant="outline"
-                            >
-                                <InputField
-                                    isInvalid={
-                                        !!errors.totalPrice &&
-                                        touched.totalPrice
-                                    }
-                                    keyboardType="numeric"
-                                    onBlur={handleBlur('totalPrice')}
-                                    onChangeText={(value: string) => {
-                                        setFieldValue('totalPrice', value);
-                                    }}
-                                    placeholder="Enter total price of the item"
-                                    value={values.totalPrice}
-                                />
-                            </Input>
-                            {errors.totalPrice && touched.totalPrice && (
-                                <Text className="text-error-500">
-                                    {errors.totalPrice}
-                                </Text>
-                            )}
-                        </VStack>
-                    </HStack>
+                    <FormInput
+                        error={errors.totalPrice}
+                        label="Total Price"
+                        onBlur={() => {
+                            handleChange('totalPrice')(
+                                Number(values.totalPrice).toFixed(2),
+                            );
+                        }}
+                        onChangeText={(value) =>
+                            setFieldValue('totalPrice', value)
+                        }
+                        placeholder="Enter total price of the item"
+                        touched={touched.totalPrice}
+                        value={values.totalPrice}
+                    />
 
                     <HStack className="mx-4 mt-4">
                         <VStack className="w-full gap-3">
                             <Button
                                 action="primary"
-                                disabled={isSubmitting}
+                                isDisabled={isSubmitting}
                                 onPress={handleSubmit}
                                 variant="solid"
                             >

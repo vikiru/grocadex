@@ -8,4 +8,5 @@ export type GroceryItem = {
     totalPrice: number;
     purchaseDate: Date | string;
     expiryDate: Date | string;
+    isActive: boolean;
 };

@@ -74,7 +74,14 @@ export default function Alert({
                         >
                             <ButtonText>Cancel</ButtonText>
                         </Button>
-                        <Button onPress={handleDelete} size="sm">
+                        <Button
+                            onPress={(id: number, receiptId?: number) => {
+                                if (receiptId) handleDelete(id, receiptId);
+                                else handleDelete(id);
+                                setShowAlertDialog(false);
+                            }}
+                            size="sm"
+                        >
                             <ButtonText>Delete</ButtonText>
                         </Button>
                     </AlertDialogFooter>

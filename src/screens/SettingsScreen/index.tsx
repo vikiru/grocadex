@@ -9,10 +9,13 @@ import {
     VStack,
 } from '~components/ui';
 import { APP_VERSION } from '~constants/Version';
+import { useLogout } from '~hooks';
+import { useUserStore } from '~store';
 
 export default function SettingsScreen() {
     const user = useUserStore((state) => state.user);
     const { handleLogout } = useLogout();
+
     return (
         <VStack className="min-h-screen bg-background-100">
             <HStack className="mx-4 mt-2">

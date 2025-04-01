@@ -9,13 +9,13 @@ import {
     VStack,
 } from '~components/ui';
 import { useTablePagination } from '~hooks';
-import { GraphData, Receipt } from '~types';
+import { GraphData, GroceryItem, Receipt } from '~types';
 import { formatDate } from '~utils/date';
 
 type DataFormat = 'numeric' | 'date' | 'string';
 
 type DataTableProps = {
-    data: (Receipt | GraphData)[];
+    data: (Receipt | GraphData | GroceryItem)[];
     headers: string[];
     dataKeys: {
         format: DataFormat;
