@@ -3,6 +3,7 @@ import useDashboard from '~hooks/useDashboard';
 import useGraphData from '~hooks/useGraphData';
 import { useDeleteItem, useUpdateItem } from '~hooks/useItem';
 import useLogin from '~hooks/useLogin';
+import useLogout from '~hooks/useLogout';
 import {
     useCreateReceipt,
     useDeleteReceipt,
@@ -15,6 +16,7 @@ import useTablePagination from '~hooks/useTablePagination';
 import { useThemeColor } from '~hooks/useThemeColor';
 
 export {
+    useLogout,
     useGraphData,
     useSearchGroceries,
     useSearchReceipts,

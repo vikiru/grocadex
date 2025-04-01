@@ -6,7 +6,12 @@ import {
     USER_ROUTE,
 } from '~constants/Routes';
 import { getData, postData } from '~services';
-import { useUserStore } from '~store';
+import {
+    useExpenseStore,
+    useGroceryStore,
+    useReceiptStore,
+    useUserStore,
+} from '~store';
 import { RequestPayload, ResponsePayload, User } from '~types';
 
 export function useCreateUserMutation() {
@@ -116,6 +121,9 @@ export function useLoginMutation() {
 
 export function useLogoutMutation() {
     const { resetUser } = useUserStore();
+    const { resetGroceryItems } = useGroceryStore();
+    const { resetReceipts } = useReceiptStore();
+    const { resetExpenses } = useExpenseStore();
 
     const mutation = useMutation<ResponsePayload<User>, Error, void>({
         mutationFn: async () => {
@@ -130,10 +138,13 @@ export function useLogoutMutation() {
         },
         onSuccess: () => {
             resetUser();
+            resetGroceryItems();
+            resetReceipts();
+            resetExpenses();
         },
         onError: (error: Error) => {
             console.error('Error during logout:', error.message);
         },
     });
-    return { mutation };
+    return mutation;
 }
