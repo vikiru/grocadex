@@ -4,11 +4,12 @@ import { GroceryItem } from '~types';
 
 export default function useSearchReceipts() {
     const groceries = useGroceryStore((state) => state.groceryItems);
+    const activeGroceries = groceries.filter((grocery) => grocery.isActive);
     const [filteredGroceries, setFilteredGroceries] = useState(groceries);
     const [query, setQuery] = useState('');
 
     useEffect(() => {
-        const filtered = groceries.filter((grocery: GroceryItem) => {
+        const filtered = activeGroceries.filter((grocery: GroceryItem) => {
             return (
                 grocery.name.toLowerCase().includes(query.toLowerCase()) ||
                 grocery.name === query

@@ -57,13 +57,18 @@ export default function DashboardScreen() {
 
             {filteredGroceryItems.length > 0 ? (
                 <FlashList
-                    className="mx-4 grid max-h-[200px]"
+                    className="mx-4 max-h-[8rem]"
                     data={filteredGroceryItems.slice(0, 5)}
-                    estimatedItemSize={filteredGroceryItems.length > 0 ? 5 : 0}
+                    estimatedItemSize={5}
                     horizontal
                     renderItem={({ item }) => (
                         <HStack className="mr-2">
-                            <GroceryCard groceryItem={item} />
+                            <GroceryCard
+                                deletable={false}
+                                editable={false}
+                                groceryItem={item}
+                                markable={false}
+                            />
                         </HStack>
                     )}
                 />
@@ -86,7 +91,7 @@ export default function DashboardScreen() {
                         Your Expenses
                     </Text>
                     <Heading className="text-primary mb-2 font-info font-bold text-typography-950 xs:text-3xl xl:text-4xl">
-                        ${expenseTotal}
+                        ${expenseTotal.toFixed(2)}
                     </Heading>
                 </Card>
             </HStack>

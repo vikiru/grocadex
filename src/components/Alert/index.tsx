@@ -16,12 +16,18 @@ import {
 type AlertProps = {
     alertHeading: string;
     alertText: string;
+    buttonText: string;
+    buttonAction: string;
+    iconName: string;
     handleDelete: (id: number, receiptId?: number) => Promise<void>;
 };
 
 export default function Alert({
     alertHeading,
     alertText,
+    buttonText,
+    buttonAction,
+    iconName,
     handleDelete,
 }: AlertProps) {
     const [showAlertDialog, setShowAlertDialog] = useState(false);
@@ -30,17 +36,19 @@ export default function Alert({
     return (
         <>
             <Button
-                action="negative"
+                action={`${buttonAction !== 'negative' ? buttonAction : 'negative'}`}
                 className="flex-1"
                 onPress={() => setShowAlertDialog(true)}
                 size="md"
                 variant="solid"
             >
-                <ButtonText className="font-body text-lg">Delete</ButtonText>
+                <ButtonText className="font-body text-lg">
+                    {buttonText}
+                </ButtonText>
                 <MaterialCommunityIcons
                     className="mb-1 ml-2"
                     color="white"
-                    name="trash-can"
+                    name={`${iconName !== 'trash-can' ? iconName : 'trash-can'}`}
                     size={24}
                 />
             </Button>
@@ -82,7 +90,7 @@ export default function Alert({
                             }}
                             size="sm"
                         >
-                            <ButtonText>Delete</ButtonText>
+                            <ButtonText>{buttonText}</ButtonText>
                         </Button>
                     </AlertDialogFooter>
                 </AlertDialogContent>
