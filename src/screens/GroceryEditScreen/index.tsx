@@ -4,7 +4,6 @@ import { useUpdateItem } from '~hooks';
 import { useGroceryStore } from '~store';
 
 export default function GroceryEditScreen() {
-    const router = useRouter();
     const { id } = useLocalSearchParams();
     const groceryItem = useGroceryStore((state) =>
         state.getGroceryItemById(Number(id)),

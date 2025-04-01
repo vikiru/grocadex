@@ -1,13 +1,6 @@
 import { Formik } from 'formik';
-import {
-    Button,
-    ButtonText,
-    HStack,
-    Input,
-    InputField,
-    Text,
-    VStack,
-} from '~components/ui';
+import { FormInput } from '~components';
+import { Button, ButtonText, HStack, VStack } from '~components/ui';
 import { useRegistration } from '~hooks';
 import { signupValidationSchema } from '~schemas';
 
@@ -39,156 +32,52 @@ export default function RegistrationForm() {
                     touched,
                 }) => (
                     <>
-                        <HStack className="mx-4 mt-1">
-                            <VStack className="w-full">
-                                <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                    First Name
-                                </Text>
-                                <HStack>
-                                    <Input
-                                        className="w-full bg-background-0 font-body"
-                                        size="xl"
-                                        variant="outline"
-                                    >
-                                        <InputField
-                                            className="font-body"
-                                            onBlur={handleBlur('firstName')}
-                                            onChangeText={handleChange(
-                                                'firstName',
-                                            )}
-                                            placeholder="Enter your first name"
-                                            value={values.firstName}
-                                        />
-                                    </Input>
-                                </HStack>
-                                {touched.firstName && errors.firstName && (
-                                    <Text className="text-sm text-error-500">
-                                        {errors.firstName}
-                                    </Text>
-                                )}
-                            </VStack>
-                        </HStack>
-
-                        <HStack className="mx-4 mt-1">
-                            <VStack className="w-full">
-                                <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                    Last Name
-                                </Text>
-                                <HStack>
-                                    <Input
-                                        className="w-full bg-background-0 font-body"
-                                        size="xl"
-                                        variant="outline"
-                                    >
-                                        <InputField
-                                            className="font-body"
-                                            onBlur={handleBlur('lastName')}
-                                            onChangeText={handleChange(
-                                                'lastName',
-                                            )}
-                                            placeholder="Enter your last name"
-                                            value={values.lastName}
-                                        />
-                                    </Input>
-                                </HStack>
-                                {touched.lastName && errors.lastName && (
-                                    <Text className="text-sm text-error-500">
-                                        {errors.lastName}
-                                    </Text>
-                                )}
-                            </VStack>
-                        </HStack>
-
-                        <HStack className="mx-4 mt-1">
-                            <VStack className="w-full">
-                                <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                    Username
-                                </Text>
-                                <HStack>
-                                    <Input
-                                        className="w-full bg-background-0 font-body"
-                                        size="xl"
-                                        variant="outline"
-                                    >
-                                        <InputField
-                                            className="font-body"
-                                            onBlur={handleBlur('username')}
-                                            onChangeText={handleChange(
-                                                'username',
-                                            )}
-                                            placeholder="Enter username"
-                                            value={values.username}
-                                        />
-                                    </Input>
-                                </HStack>
-                                {touched.username && errors.username && (
-                                    <Text className="text-sm text-error-500">
-                                        {errors.username}
-                                    </Text>
-                                )}
-                            </VStack>
-                        </HStack>
-
-                        <HStack className="mx-4 mt-1">
-                            <VStack className="w-full">
-                                <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                    Email
-                                </Text>
-                                <HStack>
-                                    <Input
-                                        className="w-full bg-background-0 font-body"
-                                        size="xl"
-                                        variant="outline"
-                                    >
-                                        <InputField
-                                            autoCapitalize="none"
-                                            className="font-body"
-                                            keyboardType="email-address"
-                                            onBlur={handleBlur('email')}
-                                            onChangeText={handleChange('email')}
-                                            placeholder="Enter email"
-                                            value={values.email}
-                                        />
-                                    </Input>
-                                </HStack>
-                                {touched.email && errors.email && (
-                                    <Text className="text-sm text-error-500">
-                                        {errors.email}
-                                    </Text>
-                                )}
-                            </VStack>
-                        </HStack>
-
-                        <HStack className="mx-4 mt-1">
-                            <VStack className="w-full">
-                                <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                    Password
-                                </Text>
-                                <HStack>
-                                    <Input
-                                        className="w-full bg-background-0"
-                                        size="xl"
-                                        variant="outline"
-                                    >
-                                        <InputField
-                                            className="font-body"
-                                            onBlur={handleBlur('password')}
-                                            onChangeText={handleChange(
-                                                'password',
-                                            )}
-                                            placeholder="Enter password"
-                                            secureTextEntry
-                                            value={values.password}
-                                        />
-                                    </Input>
-                                </HStack>
-                                {touched.password && errors.password && (
-                                    <Text className="text-sm text-error-500">
-                                        {errors.password}
-                                    </Text>
-                                )}
-                            </VStack>
-                        </HStack>
+                        <FormInput
+                            error={errors.firstName}
+                            label="First Name"
+                            onBlur={handleBlur('firstName')}
+                            onChangeText={handleChange('firstName')}
+                            placeholder="Enter your first name"
+                            touched={touched.firstName}
+                            value={values.firstName}
+                        />
+                        <FormInput
+                            error={errors.lastName}
+                            label="Last Name"
+                            onBlur={handleBlur('lastName')}
+                            onChangeText={handleChange('lastName')}
+                            placeholder="Enter your last name"
+                            touched={touched.lastName}
+                            value={values.lastName}
+                        />
+                        <FormInput
+                            error={errors.username}
+                            label="Username"
+                            onBlur={handleBlur('username')}
+                            onChangeText={handleChange('username')}
+                            placeholder="Enter your username"
+                            touched={touched.username}
+                            value={values.username}
+                        />
+                        <FormInput
+                            error={errors.email}
+                            label="Email"
+                            onBlur={handleBlur('email')}
+                            onChangeText={handleChange('email')}
+                            placeholder="Enter your email"
+                            touched={touched.email}
+                            value={values.email}
+                        />
+                        <FormInput
+                            error={errors.password}
+                            label="Password"
+                            onBlur={handleBlur('password')}
+                            onChangeText={handleChange('password')}
+                            placeholder="Enter your password"
+                            secure={true}
+                            touched={touched.password}
+                            value={values.password}
+                        />
 
                         <HStack className="mx-4 mt-4">
                             <VStack className="w-full gap-3">

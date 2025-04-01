@@ -3,6 +3,7 @@ import { RECEIPT_ROUTE } from '~constants/Routes';
 import { deleteData, getData, postData, putData } from '~services';
 import { useGroceryStore, useReceiptStore, useUserStore } from '~store';
 import { GroceryItem, Receipt, ResponsePayload } from '~types';
+import { sortActiveItems, sortReceipts } from '~utils/date';
 
 export function useCreateReceiptMutation() {
     const queryClient = useQueryClient();
@@ -38,6 +39,8 @@ export function useCreateReceiptMutation() {
             groceryItems.forEach((groceryItem: GroceryItem) => {
                 addGroceryItem(groceryItem);
             });
+            sortActiveItems(useGroceryStore.getState().groceryItems);
+            sortReceipts(useReceiptStore.getState().receipts);
             queryClient.invalidateQueries({
                 queryKey: ['dashboard'],
                 refetchType: 'none',

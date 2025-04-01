@@ -12,6 +12,7 @@ export default function ReceiptEditScreen() {
         (receipt: Receipt) => receipt.id === Number(id),
     );
     const { handleUpdate } = useUpdateReceipt();
+
     return (
         <VStack className="min-h-screen w-full bg-background-100">
             <HStack className="mx-4 mt-2">

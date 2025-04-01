@@ -1,15 +1,8 @@
-import { loginValidationSchema } from '~schemas';
 import { Formik } from 'formik';
-import {
-    Button,
-    ButtonText,
-    HStack,
-    Input,
-    InputField,
-    Text,
-    VStack,
-} from '~components/ui';
+import { FormInput } from '~components';
+import { Button, ButtonText, HStack, VStack } from '~components/ui';
 import { useLogin } from '~hooks';
+import { loginValidationSchema } from '~schemas';
 
 export default function LoginForm() {
     const { login } = useLogin();
@@ -33,68 +26,26 @@ export default function LoginForm() {
                     touched,
                 }) => (
                     <VStack>
-                        <HStack className="mx-4 mt-1">
-                            <VStack className="w-full">
-                                <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                    Username
-                                </Text>
-                                <HStack>
-                                    <Input
-                                        className="w-full bg-background-0 font-body"
-                                        size="xl"
-                                        variant="outline"
-                                    >
-                                        <InputField
-                                            autoCapitalize="none"
-                                            className="font-body"
-                                            keyboardType="default"
-                                            onBlur={handleBlur('username')}
-                                            onChangeText={handleChange(
-                                                'username',
-                                            )}
-                                            placeholder="Enter username"
-                                            value={values.username}
-                                        />
-                                    </Input>
-                                </HStack>
-                                {touched.username && errors.username && (
-                                    <Text className="text-sm text-error-500">
-                                        {errors.username}
-                                    </Text>
-                                )}
-                            </VStack>
-                        </HStack>
+                        <FormInput
+                            error={errors.username}
+                            label="Username"
+                            onBlur={handleBlur('username')}
+                            onChangeText={handleChange('username')}
+                            placeholder="Enter username"
+                            touched={touched.username}
+                            value={values.username}
+                        />
 
-                        <HStack className="mx-4 mt-4">
-                            <VStack className="w-full">
-                                <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                    Password
-                                </Text>
-                                <HStack>
-                                    <Input
-                                        className="w-full bg-background-0"
-                                        size="xl"
-                                        variant="outline"
-                                    >
-                                        <InputField
-                                            className="font-body"
-                                            onBlur={handleBlur('password')}
-                                            onChangeText={handleChange(
-                                                'password',
-                                            )}
-                                            placeholder="Enter password"
-                                            secureTextEntry
-                                            value={values.password}
-                                        />
-                                    </Input>
-                                </HStack>
-                                {touched.password && errors.password && (
-                                    <Text className="text-sm text-error-500">
-                                        {errors.password}
-                                    </Text>
-                                )}
-                            </VStack>
-                        </HStack>
+                        <FormInput
+                            error={errors.password}
+                            label="Password"
+                            onBlur={handleBlur('password')}
+                            onChangeText={handleChange('password')}
+                            placeholder="Enter password"
+                            secure
+                            touched={touched.password}
+                            value={values.password}
+                        />
 
                         <HStack className="mx-4 mt-4">
                             <VStack className="w-full gap-3">
