@@ -12,16 +12,25 @@ import {
 } from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import { FRONTEND_DASHBOARD_ROUTE } from '~constants/Routes';
-import { useDeleteItem } from '~hooks';
+import { useDeleteItem, useUpdateItem } from '~hooks';
 import { GroceryItem } from '~types';
 import { constructExpiryString, formatDate, parseDate } from '~utils/date';
 
 type GroceryCardProps = {
     groceryItem: GroceryItem;
+    editable: boolean;
+    deletable: boolean;
+    markable: boolean;
 };
 
-export default function GroceryCard({ groceryItem }: GroceryCardProps) {
+export default function GroceryCard({
+    groceryItem,
+    editable = true,
+    deletable = true,
+    markable = false,
+}: GroceryCardProps) {
     const router = useRouter();
+    const { handleUpdate } = useUpdateItem();
     const { handleDelete } = useDeleteItem();
 
     if (!groceryItem) return null;
@@ -48,35 +57,59 @@ export default function GroceryCard({ groceryItem }: GroceryCardProps) {
             </HStack>
 
             <HStack className="mt-2 justify-between gap-4">
-                <Button
-                    action="primary"
-                    className="flex-1"
-                    onPress={() =>
-                        router.push(`/grocery/modify/${groceryItem.id}`)
-                    }
-                    size="md"
-                    variant="solid"
-                >
-                    <ButtonText className="font-body text-lg">Edit</ButtonText>
-                    <MaterialCommunityIcons
-                        className="mb-1 ml-2"
-                        color="white"
-                        name="pencil"
-                        size={24}
+                {markable && (
+                    <Alert
+                        alertHeading="Are you sure you want to mark this item as expired?"
+                        alertText="Marking this item will remove it from your active items and cannot be undone. This is not a permanent delete, it will still be available in your receipt."
+                        buttonAction="primary"
+                        buttonText="Consume"
+                        handleDelete={async () => {
+                            const updatedItem = {
+                                ...groceryItem,
+                                isActive: false,
+                            };
+                            await handleUpdate(updatedItem);
+                        }}
+                        iconName="food-fork-drink"
                     />
-                </Button>
+                )}
+                {editable && (
+                    <Button
+                        action="primary"
+                        className="flex-1"
+                        onPress={() =>
+                            router.push(`/grocery/modify/${groceryItem.id}`)
+                        }
+                        size="md"
+                        variant="solid"
+                    >
+                        <ButtonText className="font-body text-lg">
+                            Edit
+                        </ButtonText>
+                        <MaterialCommunityIcons
+                            className="mb-1 ml-2"
+                            color="white"
+                            name="pencil"
+                            size={24}
+                        />
+                    </Button>
+                )}
 
-                <Alert
-                    alertHeading="Are you sure you want to delete this item?"
-                    alertText="Deleting this item will remove it permanently and cannot be undone. Please confirm if you wish to proceed."
-                    handleDelete={async () => {
-                        await handleDelete(
-                            groceryItem.id!,
-                            groceryItem.receiptId,
-                        );
-                        router.replace(FRONTEND_DASHBOARD_ROUTE);
-                    }}
-                />
+                {deletable && (
+                    <Alert
+                        alertHeading="Are you sure you want to delete this item?"
+                        alertText="Deleting this item will remove it permanently and cannot be undone. Please confirm if you wish to proceed."
+                        buttonAction="negative"
+                        handleDelete={async () => {
+                            await handleDelete(
+                                groceryItem.id!,
+                                groceryItem.receiptId,
+                            );
+                            router.replace(FRONTEND_DASHBOARD_ROUTE);
+                        }}
+                        iconName="trash-can"
+                    />
+                )}
             </HStack>
         </Card>
     ) : null;

@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import { FormInput } from '~components';
 import { Button, ButtonText, HStack, VStack } from '~components/ui';
@@ -54,6 +55,10 @@ export default function LoginForm() {
                                     onPress={handleSubmit}
                                     variant="solid"
                                 >
+                                    <MaterialCommunityIcons
+                                        name="login"
+                                        size={24}
+                                    />
                                     <ButtonText className="font-body xs:text-base xl:text-lg">
                                         Login
                                     </ButtonText>
