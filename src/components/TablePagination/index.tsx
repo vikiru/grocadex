@@ -10,6 +10,8 @@ type TablePaginationProps = {
     handleDecrementPage: (pageSize: number) => void;
 };
 
+// TODO: settings pg with logout and reset state, update receipt when changes occur to grocery item/s,. split components as needed
+// mark grocery as active
 export default function TablePagination({
     page,
     pageSize,
