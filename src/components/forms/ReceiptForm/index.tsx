@@ -2,22 +2,17 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
-import { DateInputField, GroceryForm } from '~components';
+import { DateInputField, FormInput, GroceryItemModal } from '~components';
 import {
     Button,
     ButtonText,
     Heading,
     HStack,
-    Input,
-    InputField,
-    Modal,
-    ModalBackdrop,
-    ModalContent,
     Text,
     VStack,
 } from '~components/ui';
-
 import { DateFormat } from '~constants/Dates';
+import { useGroceryModal } from '~hooks';
 import { receiptSchema } from '~schemas';
 import { GroceryItem, Receipt } from '~types';
 import { formatDate, parseDate } from '~utils/date';
@@ -35,10 +30,15 @@ export default function ReceiptForm({
     initialValues,
     onSubmit,
 }: ReceiptFormProps) {
-    const [createGroceryVisible, setCreateGroceryVisible] = useState(false);
-    const [modifyGroceryItemVisible, setModifyGroceryItemVisible] =
-        useState(false);
-    const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
+    const {
+        createGroceryVisible,
+        setCreateGroceryVisible,
+        modifyGroceryItemVisible,
+        setModifyGroceryItemVisible,
+        editItemIndex,
+        setEditItemIndex,
+        handleGroceryItemSubmit,
+    } = useGroceryModal();
 
     return (
         <Formik
@@ -52,7 +52,7 @@ export default function ReceiptForm({
             onSubmit={async (values, { resetForm }) => {
                 const finalValues: Receipt = { userId, ...values };
                 let calculatedTotal = 0;
-                values.groceryItems.map((item, index) => {
+                values.groceryItems.forEach((item) => {
                     calculatedTotal += Number(item.totalPrice!);
                     item.purchaseDate = finalValues.purchaseDate;
                 });
@@ -75,31 +75,15 @@ export default function ReceiptForm({
                 setFieldValue,
             }) => (
                 <VStack>
-                    <HStack className="mx-4 mt-1">
-                        <VStack className="w-full">
-                            <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                Name
-                            </Text>
-                            <Input
-                                className="w-full bg-background-0 font-body"
-                                size="xl"
-                                variant="outline"
-                            >
-                                <InputField
-                                    isInvalid={!!errors.store && touched.store}
-                                    onBlur={handleBlur('store')}
-                                    onChangeText={handleChange('store')}
-                                    placeholder="Enter store name"
-                                    value={String(values.store)}
-                                />
-                            </Input>
-                            {!!errors.store && touched.store && (
-                                <Text className="text-error-500">
-                                    {errors.store}
-                                </Text>
-                            )}
-                        </VStack>
-                    </HStack>
+                    <FormInput
+                        error={errors.store}
+                        label="Store Name"
+                        onBlur={handleBlur('store')}
+                        onChangeText={handleChange('store')}
+                        placeholder="Enter store name"
+                        touched={touched.store}
+                        value={String(values.store)}
+                    />
 
                     <DateInputField
                         date={values.purchaseDate}
@@ -119,115 +103,53 @@ export default function ReceiptForm({
                         setDate={(date) => setFieldValue('purchaseDate', date)}
                     />
 
-                    <HStack className="mx-4 mt-1">
-                        <VStack className="w-full">
-                            <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                                Total ($)
-                            </Text>
-                            <Input
-                                className="w-full bg-background-0 font-body"
-                                size="xl"
-                                variant="outline"
-                            >
-                                <InputField
-                                    isInvalid={!!errors.total && touched.total}
-                                    onBlur={() => {
-                                        handleChange('total')(
-                                            Number(values.total).toFixed(2),
-                                        );
-                                    }}
-                                    onChangeText={handleChange('total')}
-                                    placeholder="Enter total spent"
-                                    value={values.total}
-                                />
-                            </Input>
-                            {!!errors.total && touched.total && (
-                                <Text className="text-error-500">
-                                    {errors.total}
-                                </Text>
-                            )}
-                        </VStack>
-                    </HStack>
+                    <FormInput
+                        error={errors.total}
+                        label="Total ($)"
+                        onBlur={() => {
+                            handleChange('total')(
+                                Number(values.total).toFixed(2),
+                            );
+                        }}
+                        onChangeText={handleChange('total')}
+                        placeholder="Enter total spent"
+                        touched={touched.total}
+                        value={String(values.total)}
+                    />
 
                     <HStack className="mx-4 mt-2 flex items-center justify-between">
                         <Heading className="font-heading font-semibold xs:text-2xl xl:text-3xl">
                             Grocery Items
                         </Heading>
-                        <Button variant="link">
-                            <ButtonText
-                                className="mt-2 font-body text-lg text-typography-600"
-                                onPress={() =>
-                                    setCreateGroceryVisible(
-                                        !createGroceryVisible,
-                                    )
-                                }
-                            >
+                        <Button
+                            onPress={() =>
+                                setCreateGroceryVisible(!createGroceryVisible)
+                            }
+                            variant="link"
+                        >
+                            <ButtonText className="mt-2 font-body text-lg text-typography-600">
                                 Add Item
                             </ButtonText>
                         </Button>
                     </HStack>
 
-                    {createGroceryVisible && (
-                        <Modal
-                            isOpen={createGroceryVisible}
-                            onClose={() => setCreateGroceryVisible(false)}
-                        >
-                            <ModalBackdrop
-                                onClick={() => setCreateGroceryVisible(false)}
-                            />
-                            <ModalContent>
-                                <GroceryForm
-                                    initialValues={{
-                                        purchaseDate:
-                                            values.purchaseDate || new Date(),
-                                    }}
-                                    onSubmit={(groceryValues) => {
-                                        const name = groceryValues.name;
-                                        const quantity = Number(
-                                            groceryValues.quantity,
-                                        );
-                                        const unitPrice: number =
-                                            Number(groceryValues.unitPrice) ||
-                                            Number(
-                                                (
-                                                    Number(
-                                                        groceryValues.totalPrice,
-                                                    ) /
-                                                    Number(
-                                                        groceryValues.quantity,
-                                                    )
-                                                ).toFixed(2),
-                                            );
-                                        const totalPrice = Number(
-                                            groceryValues.totalPrice,
-                                        );
-                                        const purchaseDate = new Date(
-                                            values.purchaseDate,
-                                        ).toISOString();
-                                        const expiryDate = new Date(
-                                            groceryValues.expiryDate,
-                                        ).toISOString();
-
-                                        const newGroceryItem: Partial<GroceryItem> =
-                                            {
-                                                name,
-                                                quantity,
-                                                unitPrice,
-                                                totalPrice,
-                                                purchaseDate,
-                                                expiryDate,
-                                            };
-                                        setFieldValue('groceryItems', [
-                                            ...values.groceryItems,
-                                            newGroceryItem,
-                                        ]);
-                                        setCreateGroceryVisible(false);
-                                    }}
-                                    userId={userId}
-                                />
-                            </ModalContent>
-                        </Modal>
-                    )}
+                    <GroceryItemModal
+                        initialValues={{
+                            purchaseDate: values.purchaseDate || new Date(),
+                        }}
+                        isOpen={createGroceryVisible}
+                        onClose={() => setCreateGroceryVisible(false)}
+                        onSubmit={(groceryValues) => {
+                            handleGroceryItemSubmit(
+                                groceryValues,
+                                -1,
+                                values,
+                                setFieldValue,
+                            );
+                            setCreateGroceryVisible(false);
+                        }}
+                        userId={userId}
+                    />
 
                     <ScrollView className="mx-4 mt-4 max-h-[12rem] xl:mt-2 xl:max-h-[18rem]">
                         {values.groceryItems.map((groceryItem, index) => (
@@ -247,7 +169,14 @@ export default function ReceiptForm({
 
                                 <HStack>
                                     <Text className="font-info">
-                                        Expires on {groceryItem.expiryDate}.
+                                        Expires on{' '}
+                                        {formatDate(
+                                            parseDate(
+                                                groceryItem.expiryDate as Date,
+                                            ),
+                                            DateFormat,
+                                        )}
+                                        .
                                     </Text>
                                 </HStack>
 
@@ -270,118 +199,30 @@ export default function ReceiptForm({
                                         />
                                     </Button>
 
-                                    {modifyGroceryItemVisible &&
-                                        editItemIndex === index && (
-                                            <Modal
-                                                isOpen={
-                                                    modifyGroceryItemVisible
-                                                }
-                                                onClose={() =>
-                                                    setModifyGroceryItemVisible(
-                                                        false,
-                                                    )
-                                                }
-                                            >
-                                                <ModalBackdrop
-                                                    onClick={() =>
-                                                        setModifyGroceryItemVisible(
-                                                            false,
-                                                        )
-                                                    }
-                                                />
-                                                <ModalContent>
-                                                    <GroceryForm
-                                                        id={groceryItem.id}
-                                                        initialValues={{
-                                                            purchaseDate:
-                                                                values.purchaseDate ||
-                                                                new Date(),
-                                                            name: values
-                                                                .groceryItems[
-                                                                index
-                                                            ].name,
-                                                            quantity:
-                                                                values
-                                                                    .groceryItems[
-                                                                    index
-                                                                ].quantity,
-                                                            unitPrice:
-                                                                values
-                                                                    .groceryItems[
-                                                                    index
-                                                                ].unitPrice,
-                                                            totalPrice:
-                                                                values
-                                                                    .groceryItems[
-                                                                    index
-                                                                ].totalPrice,
-                                                            expiryDate:
-                                                                values
-                                                                    .groceryItems[
-                                                                    index
-                                                                ].expiryDate,
-                                                        }}
-                                                        onSubmit={(
-                                                            groceryValues,
-                                                        ) => {
-                                                            const name =
-                                                                groceryValues.name;
-                                                            const quantity =
-                                                                Number(
-                                                                    groceryValues.quantity,
-                                                                );
-                                                            const unitPrice: number =
-                                                                Number(
-                                                                    groceryValues.unitPrice,
-                                                                ) ||
-                                                                Number(
-                                                                    (
-                                                                        Number(
-                                                                            groceryValues.totalPrice,
-                                                                        ) /
-                                                                        Number(
-                                                                            groceryValues.quantity,
-                                                                        )
-                                                                    ).toFixed(
-                                                                        2,
-                                                                    ),
-                                                                );
-                                                            const totalPrice =
-                                                                Number(
-                                                                    groceryValues.totalPrice,
-                                                                );
-                                                            const purchaseDate =
-                                                                new Date(
-                                                                    values.purchaseDate,
-                                                                ).toISOString();
-                                                            const expiryDate =
-                                                                new Date(
-                                                                    groceryValues.expiryDate,
-                                                                ).toISOString();
-
-                                                            const updatedGroceryItem: Partial<GroceryItem> =
-                                                                {
-                                                                    name,
-                                                                    quantity,
-                                                                    unitPrice,
-                                                                    totalPrice,
-                                                                    purchaseDate,
-                                                                    expiryDate,
-                                                                };
-                                                            setFieldValue(
-                                                                `groceryItems.${index}`,
-                                                                updatedGroceryItem,
-                                                            );
-                                                            setModifyGroceryItemVisible(
-                                                                false,
-                                                            );
-                                                        }}
-                                                        receiptId={receiptId}
-                                                        userId={userId}
-                                                    />
-                                                </ModalContent>
-                                            </Modal>
-                                        )}
+                                    <GroceryItemModal
+                                        id={groceryItem.id}
+                                        initialValues={groceryItem}
+                                        isOpen={
+                                            modifyGroceryItemVisible &&
+                                            editItemIndex === index
+                                        }
+                                        onClose={() =>
+                                            setModifyGroceryItemVisible(false)
+                                        }
+                                        onSubmit={(
+                                            groceryValues: GroceryItem,
+                                        ) => {
+                                            handleGroceryItemSubmit(
+                                                groceryValues,
+                                                index,
+                                                values,
+                                                setFieldValue,
+                                            );
+                                            setModifyGroceryItemVisible(false);
+                                        }}
+                                        receiptId={receiptId}
+                                        userId={userId}
+                                    />
 
                                     <Button
                                         action="negative"
@@ -416,9 +257,7 @@ export default function ReceiptForm({
                             <Button
                                 action="primary"
                                 className="w-full"
-                                onPress={() => {
-                                    handleSubmit();
-                                }}
+                                onPress={handleSubmit}
                                 variant="solid"
                             >
                                 <ButtonText className="font-body xs:text-base xl:text-lg">

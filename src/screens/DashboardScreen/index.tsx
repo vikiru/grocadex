@@ -19,23 +19,21 @@ import {
     VStack,
 } from '~components/ui';
 import { DateFormat } from '~constants/Dates';
-import { useDashboard } from '~hooks';
+import { useDashboard, useDashboardData } from '~hooks';
 import { useGroceryStore, useReceiptStore } from '~store';
 import { parseDate, sortActiveItems, sortReceipts } from '~utils/date';
 
 export default function DashboardScreen() {
     const router = useRouter();
     const { retrieveData, isSuccess, data } = useDashboard();
-    const receipts = useReceiptStore((state) => state.receipts);
-    const groceryItems = useGroceryStore((state) => state.groceryItems);
-    sortActiveItems(groceryItems);
-    sortReceipts(receipts);
-
     useEffect(() => {
         if (isSuccess && data) {
             retrieveData();
         }
     }, [isSuccess, data]);
+
+    const { filteredGroceryItems, filteredReceipts, expenseTotal } =
+        useDashboardData();
 
     return (
         <ScrollView className="w-full bg-background-100">
@@ -43,7 +41,7 @@ export default function DashboardScreen() {
                 <Heading className="font-semibold xs:text-2xl xl:text-3xl">
                     Expiring Grocery Items
                 </Heading>
-                {groceryItems.length > 0 && (
+                {filteredGroceryItems.length > 0 && (
                     <Button
                         onPress={() => {
                             router.push('/grocery');
@@ -57,11 +55,11 @@ export default function DashboardScreen() {
                 )}
             </HStack>
 
-            {groceryItems.length > 0 ? (
+            {filteredGroceryItems.length > 0 ? (
                 <FlashList
                     className="mx-4 grid max-h-[200px]"
-                    data={groceryItems.slice(0, 5)}
-                    estimatedItemSize={groceryItems.length > 0 ? 5 : 0}
+                    data={filteredGroceryItems.slice(0, 5)}
+                    estimatedItemSize={filteredGroceryItems.length > 0 ? 5 : 0}
                     horizontal
                     renderItem={({ item }) => (
                         <HStack className="mr-2">
@@ -88,32 +86,13 @@ export default function DashboardScreen() {
                         Your Expenses
                     </Text>
                     <Heading className="text-primary mb-2 font-info font-bold text-typography-950 xs:text-3xl xl:text-4xl">
-                        $
-                        {receipts
-                            .filter((receipt) => {
-                                const purchaseDate = parseDate(
-                                    receipt.purchaseDate,
-                                );
-                                const currentDate = new Date();
-                                return (
-                                    purchaseDate.getMonth() ===
-                                        currentDate.getMonth() &&
-                                    purchaseDate.getFullYear() ===
-                                        currentDate.getFullYear()
-                                );
-                            })
-                            .reduce(
-                                (total, receipt) =>
-                                    total + Number(receipt.total),
-                                0,
-                            )
-                            .toFixed(2)}
+                        ${expenseTotal}
                     </Heading>
                 </Card>
             </HStack>
 
             <DataTable
-                data={receipts}
+                data={filteredReceipts}
                 dataKeys={[
                     { format: 'string', key: 'store' },
                     { format: 'date', key: 'purchaseDate' },

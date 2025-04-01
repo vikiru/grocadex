@@ -24,6 +24,8 @@ export default function GroceryCard({ groceryItem }: GroceryCardProps) {
     const router = useRouter();
     const { handleDelete } = useDeleteItem();
 
+    if (!groceryItem) return null;
+
     return groceryItem ? (
         <Card className="h-fit w-full bg-background-200 p-5" size="md">
             <HStack className="flex items-center justify-between">

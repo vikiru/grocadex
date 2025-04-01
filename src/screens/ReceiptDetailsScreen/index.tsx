@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ScrollView } from 'react-native';
-import { Alert } from '~components';
+import { Alert, DataTable } from '~components';
 import {
     Button,
     ButtonText,
@@ -62,38 +62,16 @@ export default function ReceiptDetailsScreen() {
                 </Text>
             </HStack>
 
-            <ScrollView className="mx-4 mb-6 mt-4 max-h-[40rem] bg-background-100 shadow-sm xl:mt-2">
-                <Table className="w-full">
-                    <TableHeader>
-                        <TableRow className="bg-background-200/50">
-                            <TableHead className="font-heading text-xl">
-                                Item
-                            </TableHead>
-                            <TableHead className="font-heading text-xl">
-                                Quantity
-                            </TableHead>
-                            <TableHead className="font-heading text-xl">
-                                Total
-                            </TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {receipt.groceryItems.map((item, index) => (
-                            <TableRow key={index}>
-                                <TableData className="font-body xl:text-lg">
-                                    {item.name}
-                                </TableData>
-                                <TableData className="font-info xl:text-lg">
-                                    {item.quantity}
-                                </TableData>
-                                <TableData className="font-info xl:text-lg">
-                                    ${Number(item.totalPrice).toFixed(2)}
-                                </TableData>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </ScrollView>
+            <DataTable
+                data={receipt.groceryItems}
+                dataKeys={[
+                    { format: 'string', key: 'name' },
+                    { format: 'string', key: 'quantity' },
+                    { format: 'numeric', key: 'totalPrice' },
+                ]}
+                headers={['Name', 'Quantity', 'Total']}
+                pageSize={5}
+            />
 
             <HStack className="fixed bottom-0 left-0 right-0 mx-4 mb-14 mt-2">
                 <Button
