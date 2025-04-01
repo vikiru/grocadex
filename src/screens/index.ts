@@ -9,9 +9,11 @@ import ReceiptDetailsScreen from '~screens/ReceiptDetailsScreen';
 import ReceiptEditScreen from '~screens/ReceiptEditScreen';
 import ReceiptViewScreen from '~screens/ReceiptViewScreen';
 import RegistrationScreen from '~screens/RegistrationScreen';
+import SettingsScreen from '~screens/SettingsScreen';
 import SplashScreen from '~screens/SplashScreen';
 
 export {
+    SettingsScreen,
     ExpenseViewScreen,
     DashboardScreen,
     GroceryCreateScreen,
