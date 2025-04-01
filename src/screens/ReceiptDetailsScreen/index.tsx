@@ -23,7 +23,7 @@ import {
 } from '~constants/Routes';
 import { useDeleteReceipt } from '~hooks';
 import { useReceiptStore } from '~store';
-import { Receipt } from '~types';
+import { GroceryItem, Receipt } from '~types';
 import { formatDate, parseDate } from '~utils/date';
 
 export default function ReceiptDetailsScreen() {
@@ -63,12 +63,13 @@ export default function ReceiptDetailsScreen() {
             </HStack>
 
             <DataTable
-                data={receipt.groceryItems}
+                data={receipt.groceryItems as GroceryItem[]}
                 dataKeys={[
                     { format: 'string', key: 'name' },
                     { format: 'string', key: 'quantity' },
                     { format: 'numeric', key: 'totalPrice' },
                 ]}
+                dateFormat={DateFormat}
                 headers={['Name', 'Quantity', 'Total']}
                 pageSize={5}
             />
@@ -99,6 +100,9 @@ export default function ReceiptDetailsScreen() {
                 <Alert
                     alertHeading="Are you sure you want to delete this receipt?"
                     alertText="Deleting the receipt will remove it and all grocery items, this action cannot be undone. Please confirm if you wish to proceed."
+                    buttonAction="negative"
+                    buttonText="Delete"
+                    iconName="trash-can"
                     handleDelete={async () => {
                         await handleDelete(receipt.id!);
                         router.replace(FRONTEND_RECEIPT_ROUTE);

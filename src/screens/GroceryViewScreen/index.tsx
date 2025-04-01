@@ -27,7 +27,12 @@ export default function GroceryViewScreen() {
                     }
                     renderItem={({ item }) => (
                         <HStack className="my-2">
-                            <GroceryCard groceryItem={item} />
+                            <GroceryCard
+                                deletable={false}
+                                editable={false}
+                                groceryItem={item}
+                                markable={true}
+                            />
                         </HStack>
                     )}
                 ></FlashList>

@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { useGroceryStore, useReceiptStore } from '~store';
+import { GroceryItem, Receipt } from '~types';
 import { parseDate, sortActiveItems, sortReceipts } from '~utils/date';
 
 export default function useDashboardData() {
@@ -12,19 +14,32 @@ export default function useDashboardData() {
     const month = date.getMonth();
     const year = date.getFullYear();
 
-    const filteredGroceryItems = groceryItems.filter(
-        (groceryItem) => groceryItem.isActive,
-    );
+    const [filteredGroceryItems, setFilteredGroceryItems] = useState<
+        GroceryItem[]
+    >([]);
+    const [filteredReceipts, setFilteredReceipts] = useState<Receipt[]>([]);
+    const [expenseTotal, setExpenseTotal] = useState<number>(0);
 
-    const filteredReceipts = receipts.filter(
-        (receipt) =>
-            parseDate(receipt.purchaseDate).getMonth() === month &&
-            parseDate(receipt.purchaseDate).getFullYear() === year,
-    );
+    useEffect(() => {
+        const filteredItems = groceryItems.filter(
+            (groceryItem) => groceryItem.isActive,
+        );
 
-    const expenseTotal = filteredReceipts
-        .reduce((total, receipt) => total + Number(receipt.total), 0)
-        .toFixed(2);
+        const filteredReceiptsData = receipts.filter(
+            (receipt) =>
+                parseDate(receipt.purchaseDate).getMonth() === month &&
+                parseDate(receipt.purchaseDate).getFullYear() === year,
+        );
+
+        const totalExpense = filteredReceiptsData.reduce(
+            (total, receipt) => total + Number(receipt.total),
+            0,
+        );
+
+        setFilteredGroceryItems(filteredItems);
+        setFilteredReceipts(filteredReceiptsData);
+        setExpenseTotal(totalExpense);
+    }, [receipts, groceryItems, month, year]);
 
     return {
         filteredGroceryItems,

@@ -13,7 +13,7 @@ export const DASHBOARD_ROUTE = `${USER_ROUTE}/dashboard`;
 
 // Frontend Routes
 export const FRONTEND_DASHBOARD_ROUTE = '/dashboard';
-export const FRONTEND_EXPIRY_ROUTE = '/expiry';
+export const FRONTEND_EXPIRY_ROUTE = '/grocery';
 export const FRONTEND_EXPENSE_ROUTE = '/expense';
 export const FRONTEND_RECEIPT_ROUTE = '/receipt';
 
