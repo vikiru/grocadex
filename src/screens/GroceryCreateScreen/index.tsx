@@ -1,6 +1,7 @@
 import { ScrollView } from 'react-native';
 import { GroceryForm } from '~components';
 import { Button, ButtonText, Heading, HStack, VStack } from '~components/ui';
+import { useCreateItem } from '~hooks';
 
 type GroceryCreateScreenProps = {
     userId: number;
@@ -11,6 +12,7 @@ export default function GroceryCreateScreen({
     userId,
     receiptId,
 }: GroceryCreateScreenProps) {
+    const { handleCreate } = useCreateItem();
     return (
         <ScrollView className="w-full bg-background-100">
             <HStack className="mx-4 mt-2">
@@ -19,7 +21,11 @@ export default function GroceryCreateScreen({
                 </Heading>
             </HStack>
 
-            <GroceryForm receiptId={receiptId} userId={userId} />
+            <GroceryForm
+                onSubmit={handleCreate}
+                receiptId={receiptId}
+                userId={userId}
+            />
 
             <HStack className="mx-4 mt-2">
                 <VStack className="w-full gap-3">
