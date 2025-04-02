@@ -51,5 +51,5 @@ jobs:
       - name: Commit prettier formatting changes via GitHub Actions, if changes exist
         if: steps.changes.outputs.changes_exist == 'true'
         run: |
-          git commit -m "Commit file formatting changes via GitHub Actions"
+          git commit -m "chore: Prettier format files via GitHub Actions"
           git push
