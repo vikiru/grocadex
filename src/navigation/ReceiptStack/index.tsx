@@ -8,8 +8,13 @@ export default function ReceiptStack() {
                 options={{ headerShown: false }}
             />
             <Stack.Screen name="create" options={{ headerTitle: '' }} />
+            <Stack.Screen name="receipt/[id]" options={{ headerTitle: '' }} />
             <Stack.Screen name="[id]" options={{ headerTitle: '' }} />
             <Stack.Screen name="modify/[id]" options={{ headerTitle: '' }} />
+            <Stack.Screen
+                name="receipt/modify/[id]"
+                options={{ headerTitle: '' }}
+            />
         </Stack>
     );
 }

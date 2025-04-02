@@ -7,6 +7,7 @@ export async function createReceipt(
     req: Request,
     res: Response,
 ): Promise<void> {
+    const userId = req.user.id;
     const data = req.body;
     const { groceryItems, ...receiptData } = data;
 
@@ -22,10 +23,10 @@ export async function createReceipt(
         await GroceryItemService.saveGroceryItem(
             groceryItems,
             receipt.id,
-            receipt.userId,
+            userId,
         );
         const updatedReceipt = await ReceiptService.retrieveReceiptByReceiptId(
-            receipt.userId,
+            userId,
             receipt.id,
         );
 
@@ -46,7 +47,7 @@ export async function deleteReceiptById(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const receiptId = parseInt(req.params.id, 10);
     const response: ResponsePayload = {
         message: '',
@@ -73,7 +74,7 @@ export async function getReceiptById(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const receiptId = parseInt(req.params.id, 10);
     const response: ResponsePayload = {
         message: '',
@@ -111,7 +112,7 @@ export async function getReceiptsByMonth(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const { startMonth, endMonth } = req.params;
     const response: ResponsePayload = {
         message: '',
@@ -153,7 +154,7 @@ export async function getReceiptsByUserId(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const response: ResponsePayload = {
         message: '',
         data: [],
@@ -187,7 +188,7 @@ export async function getReceiptsByYear(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const { year } = req.params;
     const response: ResponsePayload = {
         message: '',
@@ -228,6 +229,7 @@ export async function updateReceipt(
     req: Request,
     res: Response,
 ): Promise<void> {
+    const userId = req.user.id;
     const receiptData = req.body;
     const response: ResponsePayload = {
         message: '',
@@ -238,7 +240,7 @@ export async function updateReceipt(
 
     try {
         const updatedReceipt = await ReceiptService.updateReceiptById(
-            receiptData.userId,
+            userId,
             receiptData.id,
             receiptData,
             receiptData.groceryItems,

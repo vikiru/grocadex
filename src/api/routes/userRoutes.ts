@@ -1,7 +1,7 @@
 import express from 'express';
+import passport from 'passport';
 import { apiVersionString } from '~config/index';
 import { UserController } from '~controllers/';
-import { ensureAuthenticated } from '~middlewares/';
 
 const UserRouter = express.Router();
 const baseUrl = `/${apiVersionString}/users`;
@@ -9,7 +9,7 @@ const baseUrl = `/${apiVersionString}/users`;
 UserRouter.post(baseUrl, UserController.createUser);
 UserRouter.get(
     `${baseUrl}/dashboard`,
-    ensureAuthenticated,
+    passport.authenticate('jwt', { session: false }),
     UserController.getUserData,
 );
 

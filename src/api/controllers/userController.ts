@@ -53,7 +53,7 @@ export async function createUser(req: Request, res: Response): Promise<void> {
 }
 
 export async function getUserById(req: Request, res: Response): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -85,14 +85,7 @@ export async function getUserById(req: Request, res: Response): Promise<void> {
 }
 
 export async function getUserData(req: Request, res: Response): Promise<void> {
-    const userId = req.user || 1;
-
-    console.log('Body', req.body);
-    console.log('Session:', req.session);
-    console.log('Cookies:', req.cookies);
-    console.log('User:', req.user);
-    console.log('Auth', req.isAuthenticated());
-
+    const userId = req.user.id;
     const response: ResponsePayload = {
         message: '',
         data: { groceryItems: [], receipts: [], expenses: [] },

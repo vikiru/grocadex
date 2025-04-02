@@ -20,6 +20,7 @@ import {
 import {
     useCreateUserMutation,
     useDashboardQuery,
+    useForceLogout,
     useLoginMutation,
     useLogoutMutation,
 } from '~services/userService';
@@ -37,6 +38,7 @@ export {
     useDeleteExpenseMutation,
     useDeleteGroceryItemMutation,
     useDeleteReceiptMutation,
+    useForceLogout,
     useLoginMutation,
     useLogoutMutation,
     useRetrieveExpensesQuery,
