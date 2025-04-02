@@ -1,11 +1,20 @@
 {
     "name": "grocadex",
     "version": "0.1.0",
-    "description": "",
+    "description": "A React Native mobile app to track grocery expiry dates and expenses.",
     "author": "Visakan Kirubakaran",
     "private": true,
     "license": "MIT",
-    "keywords": [],
+    "keywords": [
+        "react native",
+        "expo",
+        "gluestack",
+        "nativewind",
+        "zustand",
+        "tanstack",
+        "prisma",
+        "postgresql"
+    ],
     "main": "expo-router/entry",
     "scripts": {
         "start": "expo start",

@@ -45,10 +45,10 @@ This application was created using [create-expo-app](https://www.npmjs.com/packa
 
 ## 🌟 Features
 
-- Create, edit, and delete receipts along with their corresponding grocery items for easy tracking
-- Mark items as inactive once they’ve expired or have been fully consumed
-- Track your expenses for the current month and year to monitor your grocery spending
-- Search grocery items by name and easily find receipts by store name for quick reference
+- Create, edit, and delete receipts along with their corresponding grocery items for easy tracking.
+- Mark items as inactive once they’ve expired or have been fully consumed.
+- Track your expenses for the current month and year to monitor your grocery spending.
+- Search grocery items by name and easily find receipts by store name for quick reference.
 
 ## 🛠️ Tech Stack
 
@@ -113,6 +113,7 @@ JWT_SECRET=""
 4. Generate the Prisma client based on the [`schema.prisma`](./src/api/prisma/schema.prisma) file.
 
 ```bash
+cd src/api
 npx prisma generate
 ```
 
@@ -124,7 +125,7 @@ npx prisma generate
 npm run start
 ```
 
-2. Start the development server for the frontend and start the backend concurrently.
+2. Start the development server for the frontend and the backend concurrently.
 
 ```bash
 npm run dev
@@ -133,7 +134,7 @@ npm run dev
 The frontend will be available at:
 
 ```bash
-http://localhost:8081/
+http://localhost:8081
 ```
 
 The backend will be available at:
@@ -163,7 +164,7 @@ npm run web
 The application will be available at:
 
 ```bash
-http://localhost:8081/
+http://localhost:8081
 ```
 
 6. Lint all files and check if there are any issues with [ESLint](https://eslint.org/).
