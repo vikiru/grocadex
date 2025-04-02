@@ -12,7 +12,8 @@ export default function MainNavigation() {
         if (key !== 'isAuthenticated') return;
         else if (
             key === 'isAuthenticated' &&
-            tokenStorage.getBoolean(key) === false
+            tokenStorage.getBoolean(key) === false &&
+            tokenStorage.getBoolean('normalLogout') === false
         ) {
             console.log(`Value for "${key}" changed!`);
             handleForceLogout();
