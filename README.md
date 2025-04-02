@@ -1,54 +1,203 @@
-# Grocadex
+<div align="center">
+    <img src="./src/assets/images/grocadex-logo.png" alt="Grocadex Logo"/>
+</div>
 
-A grocery and expense tracker mobile app | React Native, Tesseract, PostgreSQL
+<div align="left" id="badges">
+    <a href="https://vikiru.github.io/grocadex">
+        <img src="https://img.shields.io/badge/documentation-docs-orange" alt="Documentation"/>
+    </a>
+    <a href="https://github.com/vikiru/grocadex/blob/main/LICENSE">
+        <img src="https://img.shields.io/badge/license-MIT-aqua" alt="MIT License Badge"/>
+    </a>
+    <a href="https://github.com/prettier/prettier">
+        <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="Code Style - Prettier"/>
+    </a>
+    <a href="https://wakatime.com/badge/user/5e62f99d-3a1e-4fd2-8f37-77919d626a67/project/8f4e14f5-887c-4eae-a03c-8d1e780d3132">
+        <img src="https://wakatime.com/badge/user/5e62f99d-3a1e-4fd2-8f37-77919d626a67/project/8f4e14f5-887c-4eae-a03c-8d1e780d3132.svg" alt="WakaTime Stats for Grocadex"/>
+    </a>
+    <a href="https://github.com/vikiru/grocadex/releases">
+        <img src="https://img.shields.io/github/v/release/vikiru/grocadex" alt="Release"/>
+    </a>
+    <a href="https://github.com/vikiru/grocadex/issues?q=is%3Aissue+is%3Aclosed">
+        <img src="https://img.shields.io/github/issues-closed/vikiru/grocadex" alt="Closed Issues"/>
+    </a>
+    <a href="https://github.com/vikiru/grocadex/pulls?q=is%3Apr+is%3Aclosed">
+        <img src="https://img.shields.io/github/issues-pr-closed/vikiru/grocadex?label=closed%20prs" alt="Closed PRs"/>
+    </a>
+</div>
 
-# Welcome to your Expo app 👋
+---
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Grocadex** is a React Native mobile app designed to help users track their grocery expenses and monitor expiry dates. The app aims to reduce food waste while keeping spending under control, making it easier to manage your household budget and minimize unnecessary waste.
 
-## Get started
+This application was created using [create-expo-app](https://www.npmjs.com/package/create-expo-app).
 
-1. Install dependencies
+## 📖 Table of Contents
 
-    ```bash
-    npm install
-    ```
+- [📖 Table of Contents](#-table-of-contents)
+- [🌟 Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📝 Prerequisites](#-prerequisites)
+- [⚡ Setup Instructions](#-setup-instructions)
+- [📜 Available Scripts](#-available-scripts)
+- [✨ Acknowledgments](#-acknowledgments)
+- [©️ License](#️-license)
 
-2. Start the app
+## 🌟 Features
 
-    ```bash
-     npx expo start
-    ```
+- Create, edit, and delete receipts along with their corresponding grocery items for easy tracking.
+- Mark items as inactive once they’ve expired or have been fully consumed.
+- Track your expenses for the current month and year to monitor your grocery spending.
+- Search grocery items by name and easily find receipts by store name for quick reference.
 
-In the output, you'll find options to open the app in a
+## 🛠️ Tech Stack
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+**Frontend:**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- [React Native](https://reactnative.dev/)
+- [NativeWind](https://www.nativewind.dev/)
+- [Gluestack UI](https://gluestack.io/)
+- [Tanstack Query](https://github.com/TanStack/query)
+- [Zustand](https://github.com/pmndrs/zustand)
+- [React Native MMKV](https://github.com/mrousavy/react-native-mmkv)
+- [Formik](https://formik.org/)
+- [Yup](https://github.com/jquense/yup)
 
-## Get a fresh project
+**Backend:**
 
-When you're ready, run:
+- [Express](https://expressjs.com/)
+- [Passport](https://www.passportjs.org/)
+- [passport-local](https://github.com/jaredhanson/passport-local)
+- [passport-jwt](https://github.com/mikenicholson/passport-jwt)
+- [Prisma](https://www.prisma.io/)
+- [PostgresSQL](https://www.postgresql.org/)
+
+## 📝 Prerequisites
+
+Ensure that the following dependencies are installed onto your machine by following the [Setup Instructions](#-setup-instructions).
+
+- [Node.js](https://nodejs.org/en/download)
+
+## ⚡ Setup Instructions
+
+1. Clone this repository to your local machine.
 
 ```bash
-npm run reset-project
+git clone https://github.com/vikiru/grocadex.git
+cd grocadex
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Download and install all required dependencies.
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Configure your `.env` file with the required values.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```env
+NODE_ENV=development
+EXPRESS_PORT=3000
 
-## Join the community
+# Replace these with your database username, password, host, port, and database name.
+DATABASE_URL='postgresql://<username>:<password>@<host>:<port>/<database name>'
 
-Join our community of developers creating universal apps.
+# During development, you can set this to the IPV4 Address of your machine.
+# e.g. "http://<IPV4 Address>:<EXPRESS_PORT>"
+EXPO_PUBLIC_API_URL=""
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+# Used for passport-jwt auth, set this to a secure random string.
+JWT_SECRET=""
+```
+
+4. Generate the Prisma client based on the [`schema.prisma`](./src/api/prisma/schema.prisma) file.
+
+```bash
+cd src/api
+npx prisma generate
+```
+
+## 📜 Available Scripts
+
+1. Start the development server for the frontend.
+
+```bash
+npm run start
+```
+
+2. Start the development server for the frontend and the backend concurrently.
+
+```bash
+npm run dev
+```
+
+The frontend will be available at:
+
+```bash
+http://localhost:8081
+```
+
+The backend will be available at:
+
+```bash
+http://localhost:3000
+```
+
+3. Start the development server for the frontend and launch the application on an Android device.
+
+```bash
+npm run android
+```
+
+4. Start the development server for the frontend and launch the application on an iOS device.
+
+```bash
+npm run ios
+```
+
+5. Start the development server for the frontend and launch the application on the web.
+
+```bash
+npm run web
+```
+
+The application will be available at:
+
+```bash
+http://localhost:8081
+```
+
+6. Lint all files and check if there are any issues with [ESLint](https://eslint.org/).
+
+```bash
+npm run lint
+```
+
+7. Fix all ESLint issues and then format the files with [Prettier](https://prettier.io/).
+
+```bash
+npm run prettier
+```
+
+## ✨ Acknowledgments
+
+- [React Native Gifted Charts](https://github.com/Abhinandan-Kushwaha/react-native-gifted-charts)
+- [react-native-ui-datepicker](https://github.com/farhoudshapouran/react-native-ui-datepicker)
+- [react-native-toast-message](https://github.com/calintamas/react-native-toast-message)
+- [flash-list](https://github.com/Shopify/flash-list)
+- [Axios Documentation](https://axios-http.com/)
+- [Formik Documentation](https://formik.org/docs/overview)
+- [Yup Documentation](https://github.com/jquense/yup)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [Expo Documentation](https://docs.expo.dev/)
+- [GluestackUI Documentation](https://gluestack.io/ui/docs/home/overview/introduction)
+- [Tanstack Query Documentation](https://tanstack.com/query/latest/docs/framework/react/overview)
+- [Zustand Documentation](https://zustand.docs.pmnd.rs/)
+- [Shields Badges](https://github.com/badges/shields)
+- [Semantic Release](https://github.com/semantic-release/semantic-release)
+
+## ©️ License
+
+The contents of this repository are licensed under the terms and conditions of the [MIT](https://choosealicense.com/licenses/mit/) license.
+
+[MIT](./LICENSE) © 2024-present Visakan Kirubakaran.
