@@ -4,10 +4,12 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-//  Steps for making changes to schema.
+// Personal Notes:
+// Steps for making changes to schema.
 // 1. Generate prisma client (if not already done): `npx primsa generate`
 // 2. Create new migration: `npx prisma migrate dev --name your_migration_name`
-//
+
+// Optionally view database with Prisma Studio: npm run studio
 
 generator client {
     provider = "prisma-client-js"

@@ -10,8 +10,6 @@ type TablePaginationProps = {
     handleDecrementPage: (pageSize: number) => void;
 };
 
-// TODO:  update receipt when changes occur to grocery item/s,. split components as needed
-// mark grocery as active
 export default function TablePagination({
     page,
     pageSize,
