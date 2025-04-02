@@ -136,7 +136,9 @@ export function useLogoutMutation() {
             return response;
         },
         onSuccess: () => {
+            tokenStorage.set('normalLogout', true);
             resetData();
+            tokenStorage.set('normalLogout', false);
         },
         onError: (error: Error) => {
             console.error('Error during logout:', error.message);
