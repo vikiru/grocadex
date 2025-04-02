@@ -1,8 +1,32 @@
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
+import { useResetData } from '~hooks';
 import { useLogoutMutation } from '~services';
 
-export default function useLogout() {
+export function useForceLogout() {
+    const router = useRouter();
+    const { resetData } = useResetData();
+
+    const handleForceLogout = () => {
+        try {
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Session expired',
+                text2: 'Your session has expired. Please log in again.',
+                autoHide: true,
+                visibilityTime: 2000,
+            });
+            setTimeout(() => router.push('/'), 1500);
+            resetData();
+        } catch (error) {
+            console.error('Error during force logout:', error);
+        }
+    };
+    return { handleForceLogout };
+}
+
+export function useLogout() {
     const router = useRouter();
     const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
         useLogoutMutation();

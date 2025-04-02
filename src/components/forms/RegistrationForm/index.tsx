@@ -88,6 +88,7 @@ export default function RegistrationForm() {
                                     variant="solid"
                                 >
                                     <MaterialCommunityIcons
+                                        color="white"
                                         name="account-plus"
                                         size={24}
                                     />

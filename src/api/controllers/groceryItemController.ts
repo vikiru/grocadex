@@ -8,7 +8,7 @@ export async function createGroceryItem(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const groceryItem: GroceryItem = req.body;
     const response: ResponsePayload = {
         message: '',
@@ -39,11 +39,9 @@ export async function deleteGroceryItem(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const { receiptId, groceryItemId } = req.params;
 
-    console.log(req.params);
-    console.log(req.body);
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -72,7 +70,7 @@ export async function deleteGroceryItem(
 }
 
 export async function getActiveGroceryItems(req: Request, res: Response) {
-    const userId = req.user;
+    const userId = req.user.id;
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -109,7 +107,7 @@ export async function getGroceryItemById(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const { receiptId, groceryItemId } = req.params;
     const response: ResponsePayload = {
         message: '',
@@ -153,7 +151,7 @@ export async function getGroceryItemsByReceiptId(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const receiptId = parseInt(req.params.receiptId, 10);
     const response: ResponsePayload = {
         message: '',
@@ -195,7 +193,7 @@ export async function updateGroceryItem(
     req: Request,
     res: Response,
 ): Promise<void> {
-    const userId = req.user;
+    const userId = req.user.id;
     const { receiptId, groceryItemId } = req.params;
     const groceryItem = req.body;
     const response: ResponsePayload = {

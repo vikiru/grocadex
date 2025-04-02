@@ -56,6 +56,7 @@ export default function LoginForm() {
                                     variant="solid"
                                 >
                                     <MaterialCommunityIcons
+                                        color="white"
                                         name="login"
                                         size={24}
                                     />

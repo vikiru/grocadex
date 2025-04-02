@@ -3,4 +3,6 @@ export type ResponsePayload<T = any> = {
     data: T;
     success: boolean;
     error: string;
+    access_token?: string;
+    refresh_token?: string;
 };

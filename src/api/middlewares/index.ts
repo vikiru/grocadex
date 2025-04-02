@@ -8,7 +8,7 @@ import { body } from 'express-validator';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import favicon from 'serve-favicon';
-import { env } from '~config/index';
+import { env, secret } from '~config/index';
 import { logger } from '~config/logger';
 
 const morganStream = {
@@ -24,25 +24,12 @@ const morganMiddleware = morgan('dev', {
     skip,
 });
 
-const secret = crypto.randomBytes(32).toString('hex');
-
 const sessionMiddleware = session({
     secret: secret,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: env === 'production' },
+    cookie: { httpOnly: true, secure: env === 'production' },
 });
-
-export function ensureAuthenticated(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-) {
-    if (req.isAuthenticated() || !req.isAuthenticated()) {
-        return next();
-    }
-    res.status(401).json({ error: 'User is not authenticated' });
-}
 
 export {
     body,

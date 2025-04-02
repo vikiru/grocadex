@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-
+import * as jwt from 'jsonwebtoken';
 import passport from 'passport';
+import { secret } from '~config/index';
 import { logger } from '~config/logger';
 import { ResponsePayload } from '~types';
 
@@ -39,8 +40,16 @@ export async function loginUser(
                 return res.status(500).json(response);
             }
             const { password, ...userData } = user;
+            const accessToken = jwt.sign({ id: user.id }, secret, {
+                expiresIn: '1d',
+            });
+            const refreshToken = jwt.sign({ id: user.id }, secret, {
+                expiresIn: '7d',
+            });
             response['message'] = 'User successfully logged in.';
             response['data'] = userData;
+            response['access_token'] = accessToken;
+            response['refresh_token'] = refreshToken;
             response['success'] = true;
             response['error'] = 'No error occured.';
             res.status(200).json(response);
@@ -87,5 +96,40 @@ export async function logoutUser(req: Request, res: Response): Promise<void> {
         response['message'] = 'Internal server error.';
         response['error'] = 'An unexpected error occurred';
         res.status(500).json(response);
+    }
+}
+
+export async function refreshToken(req: Request, res: Response): Promise<void> {
+    const response: ResponsePayload = {
+        message: '',
+        data: null,
+        success: false,
+        error: '',
+    };
+
+    const refreshToken = req.body.refresh_token;
+    if (!refreshToken) {
+        response['message'] = 'Refresh token is required.';
+        response['error'] = 'Refresh token is required.';
+        return res.status(400).json(response);
+    }
+
+    try {
+        const decoded = jwt.verify(refreshToken, secret);
+        const userId = (decoded as { id: number }).id;
+
+        const accessToken = jwt.sign({ id: userId }, secret, {
+            expiresIn: '1d',
+        });
+
+        response['message'] = 'Access token refreshed successfully.';
+        response['data'] = { access_token: accessToken };
+        response['success'] = true;
+        res.status(200).json(response);
+    } catch (error) {
+        logger.error(`Error verifying refresh token: ${error.message}`);
+        response['message'] = 'Invalid refresh token or expired.';
+        response['error'] = 'Refresh token verification failed.';
+        res.status(401).json(response);
     }
 }
