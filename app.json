@@ -1,80 +1,77 @@
 {
-  "name": "grocadex",
-  "slug": "grocadex",
-  "version": "1.0.0",
-  "orientation": "portrait",
-  "icon": "./src/assets/images/icon.png",
-  "scheme": "grocadex",
-  "userInterfaceStyle": "automatic",
-  "newArchEnabled": true,
-  "splash": {
-    "image": "./src/assets/images/splash.png",
-    "resizeMode": "contain",
-    "backgroundColor": "#ffffff"
-  },
-  "ios": {
-    "supportsTablet": true
-  },
-  "android": {
-    "adaptiveIcon": {
-      "foregroundImage": "./src/assets/images/adaptive-icon.png",
-      "backgroundColor": "#ffffff"
-    }
-  },
-  "web": {
-    "bundler": "metro",
-    "output": "static",
-    "favicon": ""
-  },
-  "plugins": [
-    "expo-router",
-    "expo-font"
-  ],
-  "experiments": {
-    "typedRoutes": true,
-    "turboModules": true
-  },
-  "extra": {
-    "router": {
-      "origin": false
-    },
-    "eas": {
-      "projectId": "4e3de6f7-8a98-4e18-b4f0-962f7e0bf1da"
-    }
-  },
-  "owner": "vikiru",
-  "expo": {
-    "android": {
-      "package": "com.vikiru.grocadex"
-    },
+    "name": "grocadex",
+    "slug": "grocadex",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/icon.png",
+    "scheme": "grocadex",
     "userInterfaceStyle": "automatic",
-    "plugins": [
-      "expo-router",
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "newArchEnabled": true
-          },
-          "ios": {
-            "newArchEnabled": true
-          }
-        }
-      ]
-    ],
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "4e3de6f7-8a98-4e18-b4f0-962f7e0bf1da"
-      }
+    "newArchEnabled": true,
+    "splash": {
+        "image": "./src/assets/images/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
     },
     "ios": {
-      "bundleIdentifier": "com.vikiru.grocadex",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
+        "supportsTablet": true
+    },
+    "android": {
+        "adaptiveIcon": {
+            "foregroundImage": "./src/assets/images/adaptive-icon.png",
+            "backgroundColor": "#ffffff"
+        }
+    },
+    "web": {
+        "bundler": "metro",
+        "output": "static",
+        "favicon": ""
+    },
+    "plugins": ["expo-router", "expo-font"],
+    "experiments": {
+        "typedRoutes": true,
+        "turboModules": true
+    },
+    "extra": {
+        "router": {
+            "origin": false
+        },
+        "eas": {
+            "projectId": "4e3de6f7-8a98-4e18-b4f0-962f7e0bf1da"
+        }
+    },
+    "owner": "vikiru",
+    "expo": {
+        "android": {
+            "package": "com.vikiru.grocadex"
+        },
+        "userInterfaceStyle": "automatic",
+        "plugins": [
+            "expo-router",
+            [
+                "expo-build-properties",
+                {
+                    "android": {
+                        "newArchEnabled": true
+                    },
+                    "ios": {
+                        "newArchEnabled": true
+                    }
+                }
+            ]
+        ],
+        "extra": {
+            "router": {
+                "origin": false
+            },
+            "eas": {
+                "projectId": "4e3de6f7-8a98-4e18-b4f0-962f7e0bf1da"
+            }
+        },
+        "ios": {
+            "bundleIdentifier": "com.vikiru.grocadex",
+            "infoPlist": {
+                "ITSAppUsesNonExemptEncryption": false
+            }
+        }
     }
-  }
 }
