@@ -82,101 +82,101 @@ Ensure that the following dependencies are installed onto your machine by follow
 
 1. Clone this repository to your local machine.
 
-    ```bash
-    git clone https://github.com/vikiru/grocadex.git
-    cd grocadex
-    ```
+```bash
+git clone https://github.com/vikiru/grocadex.git
+cd grocadex
+```
 
 2. Download and install all required dependencies.
 
-    ```bash
-    npm install
-    ```
+```bash
+npm install
+```
 
 3. Configure your `.env` file with the required values.
 
-    ```env
-    NODE_ENV=development
-    EXPRESS_PORT=3000
+```env
+NODE_ENV=development
+EXPRESS_PORT=3000
 
-    # Replace these with your database username, password, host, port, and database name.
-    DATABASE_URL='postgresql://<username>:<password>@<host>:<port>/<database name>'
+# Replace these with your database username, password, host, port, and database name.
+DATABASE_URL='postgresql://<username>:<password>@<host>:<port>/<database name>'
 
-    # During development, you can set this to the IPV4 Address of your machine.
-    # e.g. "http://<IPV4 Address>:<EXPRESS_PORT>"
-    EXPO_PUBLIC_API_URL=""
+# During development, you can set this to the IPV4 Address of your machine.
+# e.g. "http://<IPV4 Address>:<EXPRESS_PORT>"
+EXPO_PUBLIC_API_URL=""
 
-    # Used for passport-jwt auth, set this to a secure random string.
-    JWT_SECRET=""
-    ```
+# Used for passport-jwt auth, set this to a secure random string.
+JWT_SECRET=""
+```
 
 4. Generate the Prisma client based on the [`schema.prisma`](./src/api/prisma/schema.prisma) file.
 
-    ```bash
-    npx prisma generate
-    ```
+```bash
+npx prisma generate
+```
 
 ## 📜 Available Scripts
 
 1. Start the development server for the frontend.
 
-    ```bash
-    npm run start
-    ```
+```bash
+npm run start
+```
 
 2. Start the development server for the frontend and start the backend concurrently.
 
-    ```bash
-    npm run dev
-    ```
+```bash
+npm run dev
+```
 
-    The frontend will be available at:
+The frontend will be available at:
 
-    ```bash
-    http://localhost:8081/
-    ```
+```bash
+http://localhost:8081/
+```
 
-    and the backend will be available at:
+The backend will be available at:
 
-    ```bash
-    http://localhost:3000
-    ```
+```bash
+http://localhost:3000
+```
 
 3. Start the development server for the frontend and launch the application on an Android device.
 
-    ```bash
-    npm run android
-    ```
+```bash
+npm run android
+```
 
 4. Start the development server for the frontend and launch the application on an iOS device.
 
-    ```bash
-    npm run ios
-    ```
+```bash
+npm run ios
+```
 
 5. Start the development server for the frontend and launch the application on the web.
 
-    ```bash
-    npm run web
-    ```
+```bash
+npm run web
+```
 
-    The application will be available at:
+The application will be available at:
 
-    ```bash
-    http://localhost:8081/
-    ```
+```bash
+http://localhost:8081/
+```
 
 6. Lint all files and check if there are any issues with [ESLint](https://eslint.org/).
 
-    ```bash
-    npm run lint
-    ```
+```bash
+npm run lint
+```
 
 7. Fix all ESLint issues and then format the files with [Prettier](https://prettier.io/).
 
-    ```bash
-    npm run prettier
-    ```
+```bash
+npm run prettier
+```
 
 ## ✨ Acknowledgments
 
