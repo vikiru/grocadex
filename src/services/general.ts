@@ -1,16 +1,66 @@
 import axios from 'axios';
+import { BASE_URL } from '~constants/Routes';
+import { tokenStorage } from '~store';
 import { RequestPayload } from '~types';
-
-//TODO: fix dashboard/api issues. cannot seem to use auth requests. user undefined/cookies not set
 
 const axiosInstance = axios.create({
     withCredentials: true,
-    baseURL: 'http://localhost:3000',
-    headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-    },
 });
+
+axiosInstance.interceptors.request.use(
+    async (config) => {
+        const token = tokenStorage.getString('accessToken');
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        console.error(error);
+        return Promise.reject(
+            new Error('Request failed, invalid access token'),
+        );
+    },
+);
+
+axiosInstance.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        const originalRequest = error.config;
+        const statusCode = error.response?.status;
+
+        if (statusCode === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
+            const refreshToken = tokenStorage.getString('refreshToken');
+            if (refreshToken) {
+                try {
+                    const response = await axiosInstance.post(
+                        `${BASE_URL}/auth/refresh`,
+                        { refresh_token: refreshToken },
+                    );
+                    const data = response.data;
+                    const { access_token } = data.data;
+                    tokenStorage.set('accessToken', access_token);
+                    originalRequest.headers['Authorization'] =
+                        `Bearer ${access_token}`;
+                    return axiosInstance(originalRequest);
+                } catch (refreshError) {
+                    console.error('Error refreshing token:', refreshError);
+                    tokenStorage.delete('accessToken');
+                    tokenStorage.delete('refreshToken');
+                    tokenStorage.set('isAuthenticated', false);
+                    return Promise.reject(
+                        new Error(
+                            'Failed to refresh access token, please log in again',
+                        ),
+                    );
+                }
+            }
+        }
+        console.error(error);
+        return Promise.reject(new Error('Request failed'));
+    },
+);
 
 export async function deleteData<T>(
     payload: RequestPayload,
@@ -28,9 +78,7 @@ export async function deleteData<T>(
 
 export async function getData<T>(payload: RequestPayload): Promise<T | null> {
     try {
-        const response = await axiosInstance.get<T>(payload.url, {
-            params: payload.data,
-        });
+        const response = await axiosInstance.get<T>(payload.url);
         return response.data;
     } catch (error: any) {
         console.error(

@@ -1,5 +1,6 @@
 import 'module-alias/register';
 import '~strategies/local';
+import '~strategies/jwt';
 
 import * as middlewares from '~middlewares/';
 
@@ -18,8 +19,6 @@ import { logger } from '~config/logger';
 
 const app = express();
 
-// TODO: fix session issues with cookies in local dev/cross-origin etc
-
 app.use(middlewares.session);
 app.use(passport.initialize());
 app.use(passport.session());
@@ -28,7 +27,15 @@ app.use(
     middlewares.cors({
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        origin: 'http://localhost:8081',
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+        origin: (origin, callback) => {
+            const allowedOrigins = ['http://localhost:8081'];
+            if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
     }),
 );
 app.use(express.json());

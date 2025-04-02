@@ -5,13 +5,9 @@ import {
     LOGOUT_ROUTE,
     USER_ROUTE,
 } from '~constants/Routes';
+import { useResetData } from '~hooks';
 import { getData, postData } from '~services';
-import {
-    useExpenseStore,
-    useGroceryStore,
-    useReceiptStore,
-    useUserStore,
-} from '~store';
+import { tokenStorage, useUserStore } from '~store';
 import { RequestPayload, ResponsePayload, User } from '~types';
 
 export function useCreateUserMutation() {
@@ -106,7 +102,13 @@ export function useLoginMutation() {
         },
         onSuccess: async (data: ResponsePayload<User>) => {
             if (data.success && data.data) {
-                setUser(data.data);
+                const user = data.data;
+                const accessToken = data.access_token!;
+                const refreshToken = data.refresh_token!;
+                setUser(user);
+                tokenStorage.set('isAuthenticated', true);
+                tokenStorage.set('accessToken', accessToken);
+                tokenStorage.set('refreshToken', refreshToken);
             } else {
                 console.error('Login failed:', data.error);
             }
@@ -120,10 +122,7 @@ export function useLoginMutation() {
 }
 
 export function useLogoutMutation() {
-    const { resetUser } = useUserStore();
-    const { resetGroceryItems } = useGroceryStore();
-    const { resetReceipts } = useReceiptStore();
-    const { resetExpenses } = useExpenseStore();
+    const { resetData } = useResetData();
 
     const mutation = useMutation<ResponsePayload<User>, Error, void>({
         mutationFn: async () => {
@@ -137,10 +136,7 @@ export function useLogoutMutation() {
             return response;
         },
         onSuccess: () => {
-            resetUser();
-            resetGroceryItems();
-            resetReceipts();
-            resetExpenses();
+            resetData();
         },
         onError: (error: Error) => {
             console.error('Error during logout:', error.message);

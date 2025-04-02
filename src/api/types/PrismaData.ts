@@ -1,4 +1,5 @@
 import {
+    Expense as PrismaExpense,
     GroceryItem as PrismaGroceryItem,
     Receipt as PrismaReceipt,
     User as PrismaUser,
@@ -10,6 +11,8 @@ export type PrismaData = {
         | PrismaGroceryItem[]
         | PrismaReceipt
         | PrismaReceipt[]
+        | PrismaExpense
+        | PrismaExpense[]
         | PrismaUser
         | PrismaUser[];
 };

@@ -13,10 +13,8 @@ AuthRouter.post(
     AuthController.loginUser,
 );
 
-AuthRouter.post(
-    `${baseUrl}/logout`,
+AuthRouter.post(`${baseUrl}/refresh`, AuthController.refreshToken);
 
-    AuthController.logoutUser,
-);
+AuthRouter.post(`${baseUrl}/logout`, AuthController.logoutUser);
 
 export { AuthRouter };

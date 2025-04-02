@@ -1,9 +1,23 @@
 import { Stack } from 'expo-router';
+import { useMMKVListener } from 'react-native-mmkv';
+import { useForceLogout } from '~hooks';
 import { AuthStack } from '~navigation';
-import { useUserStore } from '~store';
+import { tokenStorage, useUserStore } from '~store';
 
 export default function MainNavigation() {
     const user = useUserStore((state) => state.user);
+    const { handleForceLogout } = useForceLogout();
+
+    useMMKVListener((key) => {
+        if (key !== 'isAuthenticated') return;
+        else if (
+            key === 'isAuthenticated' &&
+            tokenStorage.getBoolean(key) === false
+        ) {
+            console.log(`Value for "${key}" changed!`);
+            handleForceLogout();
+        }
+    }, tokenStorage);
 
     return (
         <>

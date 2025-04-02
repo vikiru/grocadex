@@ -14,7 +14,7 @@ export async function deleteExpenseById(
         success: false,
         error: '',
     };
-    const userId = req.user;
+    const userId = req.user.id;
     const expenseId = parseInt(req.params.expenseId, 10);
 
     try {
@@ -54,7 +54,7 @@ export async function getExpenses(
         error: '',
     };
 
-    const userId = req.user;
+    const userId = req.user.id;
 
     try {
         const expenses =
@@ -90,7 +90,7 @@ export async function retrieveAllExpenses(
         success: false,
         error: '',
     };
-    const userId = req.user;
+    const userId = req.user.id;
 
     try {
         const expenses =
@@ -126,7 +126,7 @@ export async function retrieveExpenseById(
         success: false,
         error: '',
     };
-    const userId = req.user;
+    const userId = req.user.id;
     const expenseId = parseInt(req.params.expenseId, 10);
 
     try {
@@ -166,7 +166,7 @@ export async function saveExpense(
         success: false,
         error: '',
     };
-    const userId = req.user;
+    const userId = req.user.id;
     const { newExpense } = req.body;
 
     try {
@@ -205,7 +205,7 @@ export async function updateExpenseById(
         success: false,
         error: '',
     };
-    const userId = req.user;
+    const userId = req.user.id;
     const { expenseId } = req.params;
     const { updatedExpense } = req.body;
 
