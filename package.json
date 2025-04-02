@@ -1,6 +1,6 @@
 {
   "name": "grocadex",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A React Native mobile app to track grocery expiry dates and expenses.",
   "author": "Visakan Kirubakaran",
   "private": true,
