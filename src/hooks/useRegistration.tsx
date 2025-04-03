@@ -33,18 +33,16 @@ export default function useRegistration() {
                     visibilityTime: 2000,
                 });
                 setTimeout(() => router.push('/'), 1500);
-            } else {
-                Toast.show({
-                    type: 'error',
-                    position: 'top',
-                    text1: 'Signup failed',
-                    text2: 'An error occurred during signup. Please try again.',
-                    autoHide: true,
-                    visibilityTime: 2000,
-                });
-                console.error('Signup failed:', error);
             }
         } catch (error) {
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Signup failed',
+                text2: 'An error occurred during signup. Please try again.',
+                autoHide: true,
+                visibilityTime: 2000,
+            });
             console.error('Error during signup:', error);
         }
     };

@@ -26,18 +26,16 @@ export function useCreateReceipt() {
                     visibilityTime: 2000,
                 });
                 setTimeout(() => router.replace(FRONTEND_RECEIPT_ROUTE), 1500);
-            } else {
-                Toast.show({
-                    type: 'error',
-                    position: 'top',
-                    text1: 'Receipt creation failed',
-                    text2: 'An error occurred during receipt creation.',
-                    autoHide: true,
-                    visibilityTime: 2000,
-                });
-                console.error('Receipt creation failed:', error);
             }
         } catch (error) {
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Receipt creation failed',
+                text2: 'An error occurred during receipt creation.',
+                autoHide: true,
+                visibilityTime: 2000,
+            });
             console.error('Failed to create receipt:', error);
         }
     };
@@ -61,18 +59,16 @@ export function useDeleteReceipt() {
                     autoHide: true,
                     visibilityTime: 2000,
                 });
-            } else {
-                Toast.show({
-                    type: 'error',
-                    position: 'top',
-                    text1: 'Receipt delete failed',
-                    text2: 'An error occurred during receipt deletion.',
-                    autoHide: true,
-                    visibilityTime: 2000,
-                });
-                console.error('Receipt delete failed:', error);
             }
         } catch (error) {
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Receipt delete failed',
+                text2: 'An error occurred during receipt deletion.',
+                autoHide: true,
+                visibilityTime: 2000,
+            });
             console.error('Failed to delete receipt:', error);
         }
     };
@@ -99,18 +95,16 @@ export function useUpdateReceipt() {
                     visibilityTime: 2000,
                 });
                 setTimeout(() => router.replace(FRONTEND_RECEIPT_ROUTE), 1500);
-            } else {
-                Toast.show({
-                    type: 'error',
-                    position: 'top',
-                    text1: 'Receipt update failed',
-                    text2: 'An error occurred during receipt update.',
-                    autoHide: true,
-                    visibilityTime: 2000,
-                });
-                console.error('Receipt update failed:', error);
             }
         } catch (error) {
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Receipt update failed',
+                text2: 'An error occurred during receipt update.',
+                autoHide: true,
+                visibilityTime: 2000,
+            });
             console.error('Failed to update receipt:', error);
         }
     };

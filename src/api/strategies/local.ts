@@ -24,8 +24,8 @@ passport.use(
         try {
             const user = await AuthService.validateUser(username, password);
             if (!user) {
-                throw new Error(
-                    `Invalid credentials provided, please try again.`,
+                console.error(
+                    'Invalid credentials provided. Please try again.',
                 );
             }
             done(null, user);
