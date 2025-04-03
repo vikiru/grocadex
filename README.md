@@ -11,8 +11,8 @@
     <a href="https://github.com/prettier/prettier">
         <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="Code Style - Prettier"/>
     </a>
-    <a href="https://wakatime.com/badge/user/5e62f99d-3a1e-4fd2-8f37-77919d626a67/project/8f4e14f5-887c-4eae-a03c-8d1e780d3132">
-        <img src="https://wakatime.com/badge/user/5e62f99d-3a1e-4fd2-8f37-77919d626a67/project/8f4e14f5-887c-4eae-a03c-8d1e780d3132.svg" alt="WakaTime Stats for Grocadex"/>
+    <a href="https://wakatime.com/@vikiru/projects/nsgyjubogr">
+        <img src="https://wakatime.com/badge/user/5e62f99d-3a1e-4fd2-8f37-77919d626a67/project/8f4e14f5-887c-4eae-a03c-8d1e780d3132.svg" alt="WakaTime Stats for Grocadex">
     </a>
     <br/>
     <a href="https://github.com/vikiru/grocadex/releases">
