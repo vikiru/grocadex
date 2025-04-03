@@ -1,11 +1,10 @@
 <div align="center">
-    <img src="./src/assets/images/grocadex-logo.png" alt="Grocadex Logo"/>
+    <a href="/">
+        <img src="./src/assets/images/grocadex-logo.png" alt="Grocadex Logo"/>
+    </a>
 </div>
 
-<div align="left" id="badges">
-    <a href="https://vikiru.github.io/grocadex">
-        <img src="https://img.shields.io/badge/documentation-docs-orange" alt="Documentation"/>
-    </a>
+<div align="center" id="badges">
     <a href="https://github.com/vikiru/grocadex/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/license-MIT-aqua" alt="MIT License Badge"/>
     </a>
@@ -15,6 +14,7 @@
     <a href="https://wakatime.com/badge/user/5e62f99d-3a1e-4fd2-8f37-77919d626a67/project/8f4e14f5-887c-4eae-a03c-8d1e780d3132">
         <img src="https://wakatime.com/badge/user/5e62f99d-3a1e-4fd2-8f37-77919d626a67/project/8f4e14f5-887c-4eae-a03c-8d1e780d3132.svg" alt="WakaTime Stats for Grocadex"/>
     </a>
+    <br/>
     <a href="https://github.com/vikiru/grocadex/releases">
         <img src="https://img.shields.io/github/v/release/vikiru/grocadex" alt="Release"/>
     </a>
