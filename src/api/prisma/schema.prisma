@@ -8,7 +8,8 @@
 // Steps for making changes to schema.
 // 1. Generate prisma client (if not already done): `npx primsa generate`
 // 2. Create new migration: `npx prisma migrate dev --name your_migration_name`
-
+// 3. Reset database and reseed: `npx prisma migrate reset` (only for local dev)
+//     - specified prisma.seed in package.json
 // Optionally view database with Prisma Studio: npm run studio
 
 generator client {

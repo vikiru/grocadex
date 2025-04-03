@@ -1,6 +1,8 @@
 const path = require('path');
 const dotenv = require('dotenv');
-dotenv.config({ path: path.join(__dirname, '../../../.env') });
+dotenv.config({
+    path: path.resolve(__dirname, '../../.env'),
+});
 
 export const databaseUrl = process.env.DATABASE_URL;
 export const apiVersion = 'v1';
