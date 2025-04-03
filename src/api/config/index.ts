@@ -10,5 +10,3 @@ export const apiVersionString = `api/${apiVersion}`;
 export const port = process.env.EXPRESS_PORT || 3000;
 export const env = process.env.NODE_ENV || 'development';
 export const secret = process.env.JWT_SECRET;
-
-console.log(path.resolve(__dirname, '../../.env'));
