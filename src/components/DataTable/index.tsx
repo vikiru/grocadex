@@ -1,6 +1,6 @@
-import { Table } from '@expo/html-elements';
 import TablePagination from '~components/TablePagination';
 import {
+    Table,
     TableBody,
     TableData,
     TableHead,
