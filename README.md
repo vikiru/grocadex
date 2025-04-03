@@ -30,7 +30,7 @@
 
 **Grocadex** is a React Native mobile app designed to help users track their grocery expenses and monitor expiry dates. The app aims to reduce food waste while keeping spending under control, making it easier to manage your household budget and minimize unnecessary waste.
 
-This application was created using [create-expo-app](https://www.npmjs.com/package/create-expo-app).
+This application was created using [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## 📖 Table of Contents
 
