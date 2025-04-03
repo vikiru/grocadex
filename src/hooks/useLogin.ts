@@ -15,6 +15,8 @@ export default function useLogin() {
                 password: values.password,
             });
 
+            console.log(data.message);
+
             if (data.success) {
                 const responseData = data.data;
                 Toast.show({
@@ -26,18 +28,16 @@ export default function useLogin() {
                     visibilityTime: 2000,
                 });
                 setTimeout(() => router.push(FRONTEND_DASHBOARD_ROUTE), 1500);
-            } else {
-                Toast.show({
-                    type: 'error',
-                    position: 'top',
-                    text1: 'Login failed',
-                    text2: 'An error occurred during login. Please verify your credentials.',
-                    autoHide: true,
-                    visibilityTime: 2000,
-                });
-                console.error('Login failed:', error);
             }
         } catch (error) {
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Login failed',
+                text2: 'An error occurred during login. Please verify your credentials.',
+                autoHide: true,
+                visibilityTime: 2000,
+            });
             console.error('Login failed:', error);
         }
     };

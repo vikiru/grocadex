@@ -44,18 +44,16 @@ export function useLogout() {
                     visibilityTime: 2000,
                 });
                 setTimeout(() => router.push('/'), 1500);
-            } else {
-                Toast.show({
-                    type: 'error',
-                    position: 'top',
-                    text1: 'Logout failed',
-                    text2: 'An error occurred during logout. Please try again.',
-                    autoHide: true,
-                    visibilityTime: 2000,
-                });
-                console.error('Logout failed:', error);
             }
         } catch (error) {
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Logout failed',
+                text2: 'An error occurred during logout. Please try again.',
+                autoHide: true,
+                visibilityTime: 2000,
+            });
             console.error('Error during logout:', error);
         }
     };

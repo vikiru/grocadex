@@ -1,4 +1,5 @@
 import 'module-alias/register';
+import { hashPassword } from '~utils/hashPassword';
 import { users } from '~prisma/seed/data/user';
 import { receipts } from '~prisma/seed/data/receipt';
 import { groceries } from '~prisma/seed/data/groceries';
@@ -25,8 +26,12 @@ async function seedReceiptData(userId: number) {
 
 async function seedUserData() {
     users.forEach(async (user) => {
+        const hashedPassword = await hashPassword(user.password);
         const newUser = await prisma.user.create({
-            data: user,
+            data: {
+                ...user,
+                password: hashedPassword,
+            },
         });
         const id = newUser.id;
         await seedReceiptData(id);

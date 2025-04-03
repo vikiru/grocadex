@@ -25,17 +25,16 @@ export function useCreateItem() {
                     autoHide: true,
                     visibilityTime: 2000,
                 });
-            } else {
-                Toast.show({
-                    type: 'error',
-                    position: 'top',
-                    text1: 'Create Item failed',
-                    text2: 'An error occurred during creating item.',
-                    autoHide: true,
-                    visibilityTime: 2000,
-                });
             }
         } catch (error) {
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Create Item failed',
+                text2: 'An error occurred during creating item.',
+                autoHide: true,
+                visibilityTime: 2000,
+            });
             console.error('Failed to create item:', error);
         }
     };
@@ -70,17 +69,16 @@ export function useDeleteItem() {
                     autoHide: true,
                     visibilityTime: 2000,
                 });
-            } else {
-                Toast.show({
-                    type: 'error',
-                    position: 'top',
-                    text1: 'Delete Item failed',
-                    text2: 'An error occurred during deleting item.',
-                    autoHide: true,
-                    visibilityTime: 2000,
-                });
             }
         } catch (error) {
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Delete Item failed',
+                text2: 'An error occurred during deleting item.',
+                autoHide: true,
+                visibilityTime: 2000,
+            });
             console.error('Failed to delete item:', error);
         }
     };
@@ -114,18 +112,16 @@ export function useUpdateItem() {
                     visibilityTime: 2000,
                 });
                 setTimeout(() => router.back(), 1500);
-            } else {
-                Toast.show({
-                    type: 'error',
-                    position: 'top',
-                    text1: 'Update Item failed',
-                    text2: 'An error occurred during updating item.',
-                    autoHide: true,
-                    visibilityTime: 2000,
-                });
-                console.error('Update failed:', error);
             }
         } catch (error) {
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Update Item failed',
+                text2: 'An error occurred during updating item.',
+                autoHide: true,
+                visibilityTime: 2000,
+            });
             console.error('Failed to update item:', error);
         }
     };
