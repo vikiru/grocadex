@@ -47,7 +47,7 @@ function SplashScreen() {
                 />
             </VStack>
 
-            <VStack className="fixed bottom-0 left-0 right-0 mb-8">
+            <VStack className="md:mb-18 fixed bottom-0 left-0 right-0 xs:mb-8">
                 <HStack className="mt-4 xs:mx-4 md:max-w-[450px] lg:mx-auto lg:w-1/2 xl:max-w-[650px] 4xl:max-w-[800px]">
                     <VStack className="w-full gap-3">
                         <Button

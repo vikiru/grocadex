@@ -16,8 +16,8 @@ export default function GroceryViewScreen() {
                 setQuery={setQuery}
             />
             {filteredGroceries.length > 0 ? (
-                <ScrollView className="mx-4 mb-6 max-h-[25rem] pb-16">
-                    <VStack className="mt-4 gap-3">
+                <ScrollView className="mx-4 mb-6 pb-16 xs:max-h-[25rem] md:max-h-[40rem] lg:mt-8 lg:max-h-none">
+                    <VStack className="mt-4 grid gap-3 xs:grid-cols-1 lg:grid-cols-3">
                         {filteredGroceries.map(
                             (item: GroceryItem, index: number) => (
                                 <GroceryCard

@@ -62,7 +62,7 @@ export default function ExpenseViewScreen() {
                 ]}
                 dateFormat={DateFormat}
                 headers={['Date', 'Total']}
-                pageSize={width >= 768 ? 4 : 2}
+                pageSize={height >= 1280 ? 4 : 2}
             />
         </ScrollView>
     );
