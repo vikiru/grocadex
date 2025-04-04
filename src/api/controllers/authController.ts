@@ -1,12 +1,13 @@
+import { User } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { secret } from '~config/index';
 import { logger } from '~config/logger';
-import { ResponsePayload } from '~types';
+import { ResponsePayload, UserRequest } from '~types';
 
 export async function loginUser(
-    req: Request,
+    req: UserRequest,
     res: Response,
     next: NextFunction,
 ): Promise<void> {
@@ -17,27 +18,27 @@ export async function loginUser(
         error: '',
     };
 
-    passport.authenticate('local', (err, user) => {
+    passport.authenticate('local', (err: Error, user: User) => {
         if (err) {
             logger.error(`An error occurred during authentication: ${err}`);
             response['message'] = 'Internal server error.';
             response['error'] = 'An error occurred during authentication';
-            return res.status(500).json(response);
+            res.status(500).json(response);
         }
 
         if (!user) {
             response['message'] = 'Invalid credentials.';
             response['error'] =
                 'There was an error authenticating the given user with the provided credentials. Please try again.';
-            return res.status(401).json(response);
+            res.status(401).json(response);
         }
 
-        req.logIn(user, (err) => {
+        req.logIn(user, (err: Error) => {
             if (err) {
                 logger.error(`An error occurred while logging in: ${err}`);
                 response['message'] = 'Internal server error.';
                 response['error'] = 'An error occurred while logging in';
-                return res.status(500).json(response);
+                res.status(500).json(response);
             }
             const { password, ...userData } = user;
             const accessToken = jwt.sign({ id: user.id }, secret, {
@@ -57,7 +58,10 @@ export async function loginUser(
     })(req, res, next);
 }
 
-export async function logoutUser(req: Request, res: Response): Promise<void> {
+export async function logoutUser(
+    req: UserRequest,
+    res: Response,
+): Promise<void> {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -66,20 +70,20 @@ export async function logoutUser(req: Request, res: Response): Promise<void> {
     };
 
     try {
-        req.logout((err) => {
+        req.logout((err: Error) => {
             if (err) {
                 logger.error(`Error during logout: ${err}`);
                 response['message'] = 'Internal server error.';
                 response['error'] = 'Failed to log out';
-                return res.status(500).json(response);
+                res.status(500).json(response);
             }
 
-            req.session?.destroy((err) => {
+            req.session?.destroy((err: Error) => {
                 if (err) {
                     logger.error(`Error destroying session: ${err}`);
                     response['message'] = 'Internal server error.';
                     response['error'] = 'Failed to destroy session';
-                    return res.status(500).json(response);
+                    res.status(500).json(response);
                 }
 
                 res.clearCookie('connect.sid');
@@ -99,7 +103,10 @@ export async function logoutUser(req: Request, res: Response): Promise<void> {
     }
 }
 
-export async function refreshToken(req: Request, res: Response): Promise<void> {
+export async function refreshToken(
+    req: UserRequest,
+    res: Response,
+): Promise<void> {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -111,7 +118,7 @@ export async function refreshToken(req: Request, res: Response): Promise<void> {
     if (!refreshToken) {
         response['message'] = 'Refresh token is required.';
         response['error'] = 'Refresh token is required.';
-        return res.status(400).json(response);
+        res.status(400).json(response);
     }
 
     try {
@@ -126,7 +133,7 @@ export async function refreshToken(req: Request, res: Response): Promise<void> {
         response['data'] = { access_token: accessToken };
         response['success'] = true;
         res.status(200).json(response);
-    } catch (error) {
+    } catch (error: any) {
         logger.error(`Error verifying refresh token: ${error.message}`);
         response['message'] = 'Invalid refresh token or expired.';
         response['error'] = 'Refresh token verification failed.';

@@ -26,16 +26,23 @@ export async function checkIfEmailExists(email: string): Promise<boolean> {
 export async function validateUser(
     username: string,
     password: string,
-): Promise<User> {
+): Promise<User | null> {
     try {
         const user = await prisma.user.findUnique({ where: { username } });
-        const isValidPassword = await validPassword(password, user.password);
 
-        if (!isValidPassword || !user) {
+        if (!user) {
             return null;
         }
+
+        const isValidPassword = await validPassword(password, user.password);
+
+        if (!isValidPassword) {
+            return null;
+        }
+
         return user;
     } catch (error) {
         console.error(`Error validating user: ${error}`);
+        return null;
     }
 }

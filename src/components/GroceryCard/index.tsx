@@ -36,7 +36,7 @@ export default function GroceryCard({
     if (!groceryItem) return null;
 
     return groceryItem ? (
-        <Card className="h-fit w-full bg-background-200 p-5" size="md">
+        <Card className="h-fit max-w-2xl bg-background-200 p-5" size="md">
             <HStack className="flex items-center justify-between">
                 <Heading className="mb-1 font-heading text-xl text-typography-800">
                     {groceryItem.name}

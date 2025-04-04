@@ -77,6 +77,7 @@ export async function retrieveReceiptsByMonth(
         logger.error(
             `Error retrieving monthly receipts from ${startDate} to ${endDate} for ${userId}: ${error}`,
         );
+        return [];
     }
 }
 
@@ -102,6 +103,7 @@ export async function retrieveReceiptsByYear(
         logger.error(
             `Error retrieving yearly receipts for the year ${year} for ${userId}: ${error}`,
         );
+        return [];
     }
 }
 
@@ -134,7 +136,9 @@ export async function updateReceiptById(
         const existingGroceryItems = await prisma.groceryItem.findMany({
             where: { receiptId: receiptId },
         });
+
         const newGroceryItems = updatedGroceryItems.filter((item) => !item.id);
+
         const deletedItemIds = existingGroceryItems
             .filter(
                 (item) =>
@@ -153,24 +157,18 @@ export async function updateReceiptById(
                 ...updatedReceipt,
                 groceryItems: {
                     update: updatedGroceryItems
-                        .map((item) => {
-                            if (item.id) {
-                                return {
-                                    where: { id: item.id },
-                                    data: {
-                                        name: item.name,
-                                        quantity: item.quantity,
-                                        unitPrice: item.unitPrice,
-                                        totalPrice: item.totalPrice,
-                                        purchaseDate:
-                                            updatedReceipt.purchaseDate,
-                                        expiryDate: item.expiryDate,
-                                    },
-                                };
-                            }
-                            return null;
-                        })
-                        .filter(Boolean),
+                        .filter((item) => item.id)
+                        .map((item) => ({
+                            where: { id: item.id },
+                            data: {
+                                name: item.name,
+                                quantity: item.quantity,
+                                unitPrice: item.unitPrice,
+                                totalPrice: item.totalPrice,
+                                purchaseDate: updatedReceipt.purchaseDate,
+                                expiryDate: item.expiryDate,
+                            },
+                        })),
                     create: newGroceryItems.map((item) => ({
                         name: item.name,
                         quantity: item.quantity,

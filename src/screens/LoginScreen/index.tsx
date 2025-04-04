@@ -24,7 +24,7 @@ export default function LoginScreen() {
             <HStack className="mx-4 mt-2 flex justify-center">
                 <Text className="text-lg xl:text-xl">
                     Don&apos;t have an account?{' '}
-                </Text>{' '}
+                </Text>
                 <Link
                     onPress={() => {
                         router.replace(FRONTEND_REGISTRATION_ROUTE);

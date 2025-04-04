@@ -1,6 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ScrollView } from 'react-native';
 import { Alert, DataTable } from '~components';
 import {
     Button,
@@ -74,7 +73,7 @@ export default function ReceiptDetailsScreen() {
                 pageSize={5}
             />
 
-            <HStack className="fixed bottom-0 left-0 right-0 mx-4 mb-14 mt-2">
+            <HStack className="mx-4 mt-2">
                 <Button
                     action="primary"
                     className="flex-1"
@@ -96,7 +95,7 @@ export default function ReceiptDetailsScreen() {
                 </Button>
             </HStack>
 
-            <HStack className="fixed bottom-0 left-0 right-0 mx-4 mb-2 mt-2">
+            <HStack className="mx-4 mb-2 mt-2">
                 <Alert
                     alertHeading="Are you sure you want to delete this receipt?"
                     alertText="Deleting the receipt will remove it and all grocery items, this action cannot be undone. Please confirm if you wish to proceed."

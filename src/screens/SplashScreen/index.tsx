@@ -43,7 +43,7 @@ function SplashScreen() {
                 <IntroDetails
                     heading="Reduce Waste"
                     icon="leaf"
-                    subtext="Never waste unused food again due to missed expiry dates. Keep your kitchen waste-free!"
+                    subtext="Prevent food waste by tracking expiry dates and keeping your kitchen waste-free!"
                 />
             </VStack>
 

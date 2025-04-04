@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from '~constants/Routes';
 import { tokenStorage } from '~store';
-import { RequestPayload } from '~types';
+import { RequestPayload, ResponsePayload } from '~types';
 
 const axiosInstance = axios.create({
     withCredentials: true,
@@ -34,7 +34,7 @@ axiosInstance.interceptors.response.use(
             const refreshToken = tokenStorage.getString('refreshToken');
             if (refreshToken) {
                 try {
-                    const response = await axiosInstance.post(
+                    const response: ResponsePayload = await axiosInstance.post(
                         `${BASE_URL}/auth/refresh`,
                         { refresh_token: refreshToken },
                     );

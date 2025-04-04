@@ -1,5 +1,4 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FlashList } from '@shopify/flash-list';
 import { ScrollView } from 'react-native';
 import { GroceryCard, Searchbar } from '~components';
 import { HStack, Text, VStack } from '~components/ui';
@@ -17,25 +16,21 @@ export default function GroceryViewScreen() {
                 setQuery={setQuery}
             />
             {filteredGroceries.length > 0 ? (
-                <FlashList
-                    className="mx-4 mb-6 mt-4"
-                    data={filteredGroceries}
-                    estimatedItemSize={
-                        filteredGroceries.length > 0
-                            ? filteredGroceries.length
-                            : 0
-                    }
-                    renderItem={({ item }) => (
-                        <HStack className="my-2">
-                            <GroceryCard
-                                deletable={false}
-                                editable={false}
-                                groceryItem={item}
-                                markable={true}
-                            />
-                        </HStack>
-                    )}
-                ></FlashList>
+                <ScrollView className="mx-4 mb-6 max-h-[25rem] pb-16">
+                    <VStack className="mt-4 gap-3">
+                        {filteredGroceries.map(
+                            (item: GroceryItem, index: number) => (
+                                <GroceryCard
+                                    deletable={false}
+                                    editable={false}
+                                    groceryItem={item}
+                                    key={index}
+                                    markable={true}
+                                />
+                            ),
+                        )}
+                    </VStack>
+                </ScrollView>
             ) : (
                 <Text className="mx-4 font-body text-lg text-typography-700 xl:text-xl">
                     No grocery items found.

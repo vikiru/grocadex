@@ -1,7 +1,6 @@
+export { UserRequest } from '~api/types/UserRequest';
 export { GraphData } from '~types/GraphData';
 export { Expense } from '~types/Expense';
-
-export { UserRequest } from '~api/types/express.d';
 
 export { PrismaData } from '~api/types/PrismaData';
 export { GroceryItem } from '~types/GroceryItem';

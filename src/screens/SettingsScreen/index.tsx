@@ -78,7 +78,7 @@ export default function SettingsScreen() {
                 </HStack>
             </VStack>
 
-            <HStack className="fixed bottom-0 left-0 right-0 mx-4 mb-4">
+            <HStack className="mx-4 mt-4">
                 <Button
                     action="negative"
                     className="w-full"

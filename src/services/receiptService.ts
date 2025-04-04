@@ -21,7 +21,9 @@ export function useCreateReceiptMutation() {
                 newReceipt.userId = user.id!;
             }
 
-            const response = await postData<ResponsePayload<Receipt>>({
+            const response: ResponsePayload = await postData<
+                ResponsePayload<Receipt>
+            >({
                 url: RECEIPT_ROUTE,
                 data: newReceipt,
             });
@@ -62,7 +64,9 @@ export function useDeleteReceiptMutation() {
 
     return useMutation<ResponsePayload<null>, Error, number>({
         mutationFn: async (id: number) => {
-            const response = await deleteData<ResponsePayload<null>>({
+            const response: ResponsePayload = await deleteData<
+                ResponsePayload<null>
+            >({
                 url: `${RECEIPT_ROUTE}/${id}`,
             });
 
@@ -99,7 +103,9 @@ export function useRetrieveReceiptsQuery() {
     return useQuery<ResponsePayload<Receipt[]>, Error>({
         queryKey: ['receipts'],
         queryFn: async () => {
-            const response = await getData<ResponsePayload<Receipt[]>>({
+            const response: ResponsePayload = await getData<
+                ResponsePayload<Receipt[]>
+            >({
                 url: RECEIPT_ROUTE,
             });
 
@@ -122,7 +128,9 @@ export function useUpdateReceiptMutation() {
 
     return useMutation<ResponsePayload<Receipt>, Error, Receipt>({
         mutationFn: async (updatedReceipt: Receipt) => {
-            const response = await putData<ResponsePayload<Receipt>>({
+            const response: ResponsePayload = await putData<
+                ResponsePayload<Receipt>
+            >({
                 url: `${RECEIPT_ROUTE}/${updatedReceipt.id}`,
                 data: updatedReceipt,
             });

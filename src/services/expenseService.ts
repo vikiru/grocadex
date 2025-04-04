@@ -12,7 +12,9 @@ export function useCreateExpenseMutation() {
         RequestPayload<Expense>
     >({
         mutationFn: async (newExpense) => {
-            const response = await postData<ResponsePayload<Expense>>({
+            const response: ResponsePayload = await postData<
+                ResponsePayload<Expense>
+            >({
                 url: EXPENSE_ROUTE,
                 data: newExpense,
             });
@@ -43,7 +45,9 @@ export function useDeleteExpenseMutation() {
         RequestPayload<{ id: string }>
     >({
         mutationFn: async ({ id }) => {
-            const response = await deleteData<ResponsePayload<null>>({
+            const response: ResponsePayload = await deleteData<
+                ResponsePayload<null>
+            >({
                 url: `${EXPENSE_ROUTE}/${id}`,
             });
 
@@ -68,7 +72,9 @@ export function useRetrieveExpensesQuery() {
     return useQuery<ResponsePayload<Expense[]>, Error>({
         queryKey: ['expenses'],
         queryFn: async () => {
-            const response = await getData<ResponsePayload<Expense[]>>({
+            const response: ResponsePayload = await getData<
+                ResponsePayload<Expense[]>
+            >({
                 url: EXPENSE_ROUTE,
             });
 
@@ -92,7 +98,9 @@ export function useUpdateExpenseMutation() {
         RequestPayload<Expense>
     >({
         mutationFn: async (updatedExpense) => {
-            const response = await putData<ResponsePayload<Expense>>({
+            const response: ResponsePayload = await putData<
+                ResponsePayload<Expense>
+            >({
                 url: `${EXPENSE_ROUTE}/${updatedExpense.data!.id}`,
                 data: updatedExpense.data,
             });

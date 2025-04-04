@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 
 import compression from 'compression';
 import cors from 'cors';
-import crypto from 'crypto';
 import session from 'express-session';
 import { body } from 'express-validator';
 import helmet from 'helmet';
@@ -12,7 +11,7 @@ import { env, secret } from '~config/index';
 import { logger } from '~config/logger';
 
 const morganStream = {
-    write: (message) => logger.http(message),
+    write: (message: any) => logger.http(message),
 };
 
 const skip = () => {

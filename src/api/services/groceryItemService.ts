@@ -13,6 +13,7 @@ export async function retrieveActiveItems(
         return activeItems;
     } catch (error) {
         logger.error('Error retrieving active items from database: ${error}');
+        return [];
     }
 }
 
@@ -37,7 +38,7 @@ export async function retrieveGroceryItemById(
     userId: number,
     receiptId: number,
     groceryItemId: number,
-): Promise<GroceryItem> {
+): Promise<GroceryItem | null> {
     try {
         const groceryItem = await prisma.groceryItem.findUnique({
             where: { userId, receiptId, id: groceryItemId },
@@ -48,6 +49,7 @@ export async function retrieveGroceryItemById(
         return groceryItem;
     } catch (error) {
         logger.error(`Error retrieving grocery item from database: ${error}`);
+        return null;
     }
 }
 
@@ -67,8 +69,9 @@ export async function retrieveGroceryItemsByReceiptId(
         }
 
         return groceryItems;
-    } catch (error) {
+    } catch (error: any) {
         logger.error(`Error retrieving grocery items from database: ${error}`);
+        return [];
     }
 }
 
@@ -87,6 +90,7 @@ export async function retrieveGroceryItemsByUser(
         return groceryItems;
     } catch (error) {
         logger.error(`Error retrieving grocery items from database: ${error}`);
+        return [];
     }
 }
 

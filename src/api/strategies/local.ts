@@ -1,10 +1,8 @@
 import { AuthService, UserService } from '~services';
-
-import { User } from '@prisma/client';
 import passport from 'passport';
 import { Strategy } from 'passport-local';
 
-passport.serializeUser((user: User, done) => {
+passport.serializeUser((user: any, done) => {
     done(null, user.id);
 });
 
@@ -27,10 +25,11 @@ passport.use(
                 console.error(
                     'Invalid credentials provided. Please try again.',
                 );
+                return done(null, false);
             }
             done(null, user);
         } catch (error) {
-            done(error, null);
+            done(error, false);
         }
     }),
 );

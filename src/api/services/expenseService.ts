@@ -85,10 +85,11 @@ export async function saveExpense(
     newExpense: Expense,
 ): Promise<Expense | null> {
     try {
+        const { userId: _, ...expense } = newExpense;
         const savedExpense = await prisma.expense.create({
             data: {
-                userId: userId,
-                ...newExpense,
+                userId,
+                ...expense,
             },
         });
 

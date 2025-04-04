@@ -4,7 +4,7 @@ type InputFieldProps = {
     label: string;
     value: string | number;
     secure?: boolean;
-    onChangeText: (e: string | React.ChangeEvent<any>) => void;
+    onChangeText: (e: any | React.ChangeEvent<any>) => void;
     onBlur: (e: any) => void;
     error?: string;
     touched?: boolean;
