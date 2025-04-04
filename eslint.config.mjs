@@ -58,6 +58,7 @@ export default tseslint.config(
             'no-unused-vars': 'off',
             'react/react-in-jsx-scope': 'off',
             'react-hooks/exhaustive-deps': 'off',
+            '@/no-undef': 'warn',
             '@typescript-eslint/no-unused-vars': 'off',
             '@typescript-eslint/no-unsafe-argument': 'off',
             '@typescript-eslint/no-unsafe-assignment': 'off',
@@ -73,7 +74,7 @@ export default tseslint.config(
             '@typescript-eslint/require-await': 'off',
             'unused-imports/no-unused-imports': 'error',
             'unused-imports/no-unused-vars': [
-                'off',
+                'error',
                 {
                     vars: 'all',
                     varsIgnorePattern: '^_',

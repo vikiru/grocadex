@@ -38,14 +38,21 @@
             "@/*": ["./*"],
             "tailwind.config": ["./tailwind.config.js"]
         },
-        "typeRoots": ["./node_modules/@types", "./src/types", "./api/types"]
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/types",
+            "./src/api/types",
+            "./src/api/node_modules/@types"
+        ]
     },
     "include": [
         "src/**/*",
         "src/**/*.ts",
         "src/**/*.tsx",
         "src/app/**/*.ts",
-        "api/**/*.ts",
-        "nativewind-env.d.ts"
+        "src/api/**/*.ts",
+        "nativewind-env.d.ts",
+        ".expo/types/**/*.ts",
+        "expo-env.d.ts"
     ]
 }

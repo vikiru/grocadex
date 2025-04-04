@@ -15,8 +15,6 @@ export default function useLogin() {
                 password: values.password,
             });
 
-            console.log(data.message);
-
             if (data.success) {
                 const responseData = data.data;
                 Toast.show({

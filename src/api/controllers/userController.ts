@@ -9,9 +9,12 @@ import {
 
 import { User } from '@prisma/client';
 import { logger } from '~config/logger';
-import { ResponsePayload } from '~types';
+import { ResponsePayload, UserRequest } from '~types';
 
-export async function createUser(req: Request, res: Response): Promise<void> {
+export async function createUser(
+    req: UserRequest,
+    res: Response,
+): Promise<void> {
     const user: User = req.body;
     const response: ResponsePayload = {
         message: '',
@@ -24,13 +27,13 @@ export async function createUser(req: Request, res: Response): Promise<void> {
         if (await AuthService.checkIfUserExists(user.username)) {
             response['message'] = 'Username is already taken.';
             response['error'] = 'Username is already taken.';
-            return res.status(400).json(response);
+            res.status(400).json(response);
         }
 
         if (await AuthService.checkIfEmailExists(user.email)) {
             response['message'] = 'Email is already taken.';
             response['error'] = 'Email is already taken.';
-            return res.status(400).json(response);
+            res.status(400).json(response);
         }
 
         const newUser = await UserService.saveUser(user);
@@ -52,7 +55,10 @@ export async function createUser(req: Request, res: Response): Promise<void> {
     }
 }
 
-export async function getUserById(req: Request, res: Response): Promise<void> {
+export async function getUserById(
+    req: UserRequest,
+    res: Response,
+): Promise<void> {
     const userId = req.user.id;
     const response: ResponsePayload = {
         message: '',
@@ -65,8 +71,8 @@ export async function getUserById(req: Request, res: Response): Promise<void> {
         const user = await UserService.retrieveUserById(userId);
 
         if (user) {
-            delete user.password;
-            response['data'] = user;
+            const { password: _, ...userData } = user;
+            response['data'] = userData;
             response['success'] = true;
             response['message'] = 'Successfully retrieved user.';
             response['error'] = 'No error occurred.';
@@ -84,7 +90,10 @@ export async function getUserById(req: Request, res: Response): Promise<void> {
     }
 }
 
-export async function getUserData(req: Request, res: Response): Promise<void> {
+export async function getUserData(
+    req: UserRequest,
+    res: Response,
+): Promise<void> {
     const userId = req.user.id;
     const response: ResponsePayload = {
         message: '',

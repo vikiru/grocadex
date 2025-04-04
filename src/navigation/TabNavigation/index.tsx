@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Tabs, useRouter } from 'expo-router';
 import { Button } from '~components/ui';
+import { FRONTEND_RECEIPT_CREATE_ROUTE } from '~constants/Routes';
 
 export default function TabNavigation() {
     const router = useRouter();
@@ -59,6 +60,23 @@ export default function TabNavigation() {
                     title: 'Receipt',
                     tabBarLabel: '',
                     headerTitleStyle: { fontSize: 32 },
+                    headerRight: () => (
+                        <Button
+                            action="primary"
+                            className="data-[active=true]:bg-backgroound-0 bg-background-0 data-[hover=true]:bg-background-0"
+                            onPress={() =>
+                                router.push(FRONTEND_RECEIPT_CREATE_ROUTE)
+                            }
+                            variant="solid"
+                        >
+                            <MaterialCommunityIcons
+                                color="black"
+                                name="plus"
+                                size={24}
+                                style={{ marginRight: 24 }}
+                            />
+                        </Button>
+                    ),
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons
                             color={color}

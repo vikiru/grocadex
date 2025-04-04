@@ -1,16 +1,8 @@
 import { Prisma, GroceryItem } from '@prisma/client';
 
-export const groceries:
-    | Omit<
-          GroceryItem,
-          | 'id'
-          | 'userId'
-          | 'receiptId'
-          | 'createdAt'
-          | 'updatedAt'
-          | 'purchaseDate'
-      >[]
-    | Partial<GroceryItem>[] = [
+const today = new Date();
+
+export const groceries = [
     {
         name: 'Pasta',
         isActive: true,
@@ -18,6 +10,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(1.99),
         totalPrice: new Prisma.Decimal(5.97),
         expiryDate: new Date('2026-12-05T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Rice',
@@ -26,6 +21,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(3.49),
         totalPrice: new Prisma.Decimal(6.98),
         expiryDate: new Date('2027-03-01T12:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Tomatoes',
@@ -34,6 +32,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(0.79),
         totalPrice: new Prisma.Decimal(3.95),
         expiryDate: new Date('2025-06-15T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Spinach',
@@ -42,6 +43,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(2.49),
         totalPrice: new Prisma.Decimal(2.49),
         expiryDate: new Date('2025-04-20T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Carrots',
@@ -50,6 +54,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(0.99),
         totalPrice: new Prisma.Decimal(3.96),
         expiryDate: new Date('2025-05-01T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Lettuce',
@@ -58,6 +65,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(1.79),
         totalPrice: new Prisma.Decimal(1.79),
         expiryDate: new Date('2025-04-30T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Apples',
@@ -66,6 +76,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(1.29),
         totalPrice: new Prisma.Decimal(7.74),
         expiryDate: new Date('2025-07-10T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Bananas',
@@ -74,6 +87,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(0.59),
         totalPrice: new Prisma.Decimal(3.54),
         expiryDate: new Date('2025-04-25T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Bell Peppers',
@@ -82,6 +98,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(1.49),
         totalPrice: new Prisma.Decimal(4.47),
         expiryDate: new Date('2025-05-15T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Zucchini',
@@ -90,6 +109,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(1.29),
         totalPrice: new Prisma.Decimal(2.58),
         expiryDate: new Date('2025-05-12T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Potatoes',
@@ -98,6 +120,9 @@ export const groceries:
         unitPrice: new Prisma.Decimal(0.79),
         totalPrice: new Prisma.Decimal(3.95),
         expiryDate: new Date('2025-08-20T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
     {
         name: 'Broccoli',
@@ -106,5 +131,8 @@ export const groceries:
         unitPrice: new Prisma.Decimal(1.99),
         totalPrice: new Prisma.Decimal(1.99),
         expiryDate: new Date('2025-04-18T10:00:00Z'),
+        userId: 1,
+        receiptId: 1,
+        purchaseDate: today,
     },
 ];

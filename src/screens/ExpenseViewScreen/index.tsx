@@ -35,7 +35,7 @@ export default function ExpenseViewScreen() {
                     renderTooltip={(item: any) => (
                         <VStack
                             style={{
-                                marginBottom: 20,
+                                marginBottom: width > 768 ? 20 : 0,
                                 paddingHorizontal: 10,
                                 paddingVertical: 4,
                                 borderRadius: 4,
@@ -62,7 +62,7 @@ export default function ExpenseViewScreen() {
                 ]}
                 dateFormat={DateFormat}
                 headers={['Date', 'Total']}
-                pageSize={width >= 768 ? 4 : 3}
+                pageSize={width >= 768 ? 4 : 2}
             />
         </ScrollView>
     );

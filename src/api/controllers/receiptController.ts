@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { logger } from '~config/logger';
 import { GroceryItemService, ReceiptService } from '~services';
-import { ResponsePayload } from '~types';
+import { ResponsePayload, UserRequest } from '~types';
 
 export async function createReceipt(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -44,7 +44,7 @@ export async function createReceipt(
 }
 
 export async function deleteReceiptById(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -71,7 +71,7 @@ export async function deleteReceiptById(
 }
 
 export async function getReceiptById(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -109,7 +109,7 @@ export async function getReceiptById(
 }
 
 export async function getReceiptsByMonth(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -151,7 +151,7 @@ export async function getReceiptsByMonth(
 }
 
 export async function getReceiptsByUserId(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -185,7 +185,7 @@ export async function getReceiptsByUserId(
 }
 
 export async function getReceiptsByYear(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -226,7 +226,7 @@ export async function getReceiptsByYear(
 }
 
 export async function updateReceipt(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;

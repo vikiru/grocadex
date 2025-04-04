@@ -33,7 +33,8 @@ export function useCreateUserMutation() {
                     password,
                 },
             };
-            const response = await postData<ResponsePayload<User>>(payload);
+            const response: ResponsePayload =
+                await postData<ResponsePayload<User>>(payload);
             if (!response) {
                 throw new Error('User creation failed: No response data.');
             }
@@ -54,7 +55,7 @@ export function useDashboardQuery() {
     >({
         queryKey: ['dashboard'],
         queryFn: async () => {
-            const response = await getData<
+            const response: ResponsePayload = await getData<
                 ResponsePayload<
                     Pick<User, 'groceryItems' | 'receipts' | 'expenses'>
                 >
@@ -94,7 +95,8 @@ export function useLoginMutation() {
                     password,
                 },
             };
-            const response = await postData<ResponsePayload<User>>(payload);
+            const response: ResponsePayload =
+                await postData<ResponsePayload<User>>(payload);
             if (response?.success !== true) {
                 throw new Error('Login failed: No response data.');
             }
@@ -126,7 +128,9 @@ export function useLogoutMutation() {
 
     const mutation = useMutation<ResponsePayload<User>, Error, void>({
         mutationFn: async () => {
-            const response = await postData<ResponsePayload<User>>({
+            const response: ResponsePayload = await postData<
+                ResponsePayload<User>
+            >({
                 url: LOGOUT_ROUTE,
                 data: [],
             });

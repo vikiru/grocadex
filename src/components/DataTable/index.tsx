@@ -42,8 +42,8 @@ export default function DataTable({
     const numPages = Math.ceil(data.length / pageSize);
 
     return (
-        <VStack className="mx-4 mb-6 mt-4 bg-background-100 shadow-sm">
-            <Table className="max-h-[2rem] w-full">
+        <VStack className="mx-4 mt-4 bg-background-100 shadow-sm">
+            <Table className="max-h-[20rem] w-full">
                 <TableHeader>
                     <TableRow className="bg-background-200/50">
                         {headers.map((header, index) => (
@@ -70,7 +70,7 @@ export default function DataTable({
                                         index: number,
                                     ) => (
                                         <TableData
-                                            className={`${dataKey.format !== 'string' ? 'font-info' : 'font-body'} text-base ${dataKey.format === 'numeric' ? 'text-right' : ''}`}
+                                            className={`font-info ${dataKey.format === 'numeric' ? 'text-right' : ''} xs:text-base lg:text-lg`}
                                             key={index}
                                         >
                                             {dataKey.format === 'numeric'

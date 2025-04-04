@@ -16,7 +16,9 @@ export function useCreateGroceryItemMutation() {
             const receiptId = Array.isArray(newGroceryItems)
                 ? newGroceryItems[0].receiptId
                 : newGroceryItems.receiptId;
-            const response = await postData<ResponsePayload<GroceryItem>>({
+            const response: ResponsePayload = await postData<
+                ResponsePayload<GroceryItem>
+            >({
                 url: `${RECEIPT_ROUTE}/${receiptId}/groceries`,
                 data: newGroceryItems,
             });
@@ -51,7 +53,9 @@ export function useDeleteGroceryItemMutation() {
         Pick<GroceryItem, 'id' | 'receiptId'>
     >({
         mutationFn: async ({ id, receiptId }) => {
-            const response = await deleteData<ResponsePayload<null>>({
+            const response: ResponsePayload = await deleteData<
+                ResponsePayload<null>
+            >({
                 url: `${RECEIPT_ROUTE}/${receiptId}/groceries/${id}`,
             });
             if (!response) {
@@ -80,7 +84,9 @@ export function useRetrieveGroceryItemsByReceiptQuery() {
     return useQuery<ResponsePayload<GroceryItem[]>, Error>({
         queryKey: ['groceryItems'],
         queryFn: async () => {
-            const response = await getData<ResponsePayload<GroceryItem[]>>({
+            const response: ResponsePayload = await getData<
+                ResponsePayload<GroceryItem[]>
+            >({
                 url: `${RECEIPT_ROUTE}/groceries`,
             });
 
@@ -101,7 +107,9 @@ export function useUpdateGroceryItemMutation() {
 
     return useMutation<ResponsePayload<GroceryItem>, Error, GroceryItem>({
         mutationFn: async (updatedGroceryItem: GroceryItem) => {
-            const response = await putData<ResponsePayload<GroceryItem>>({
+            const response: ResponsePayload = await putData<
+                ResponsePayload<GroceryItem>
+            >({
                 url: `${RECEIPT_ROUTE}/${updatedGroceryItem.receiptId}/groceries/${updatedGroceryItem.id}`,
                 data: updatedGroceryItem,
             });

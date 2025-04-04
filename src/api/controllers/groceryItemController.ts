@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import { GroceryItem } from '@prisma/client';
 import { logger } from '~config/logger';
 import { GroceryItemService } from '~services';
-import { ResponsePayload } from '~types';
+import { ResponsePayload, UserRequest } from '~types';
 
 export async function createGroceryItem(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -36,7 +36,7 @@ export async function createGroceryItem(
 }
 
 export async function deleteGroceryItem(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -69,7 +69,7 @@ export async function deleteGroceryItem(
     }
 }
 
-export async function getActiveGroceryItems(req: Request, res: Response) {
+export async function getActiveGroceryItems(req: UserRequest, res: Response) {
     const userId = req.user.id;
     const response: ResponsePayload = {
         message: '',
@@ -104,7 +104,7 @@ export async function getActiveGroceryItems(req: Request, res: Response) {
 }
 
 export async function getGroceryItemById(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -148,7 +148,7 @@ export async function getGroceryItemById(
 }
 
 export async function getGroceryItemsByReceiptId(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -190,7 +190,7 @@ export async function getGroceryItemsByReceiptId(
 }
 
 export async function updateGroceryItem(
-    req: Request,
+    req: UserRequest,
     res: Response,
 ): Promise<void> {
     const userId = req.user.id;
@@ -212,12 +212,12 @@ export async function updateGroceryItem(
             response['message'] = 'Successfully updated grocery item.';
             response['data'] = updatedItem;
             response['error'] = 'No error occurred.';
-            return res.status(200).json(response);
+            res.status(200).json(response);
         } else {
             response['message'] = 'No grocery item found for the given id.';
             response['error'] =
                 'There was an error retrieving the grocery item for the given id.';
-            return res.status(404).json(response);
+            res.status(404).json(response);
         }
     } catch (error) {
         logger.error(
@@ -225,6 +225,6 @@ export async function updateGroceryItem(
         );
         response['message'] = 'Internal server error.';
         response['error'] = 'There was an error updating the grocery item.';
-        return res.status(500).json(response);
+        res.status(500).json(response);
     }
 }

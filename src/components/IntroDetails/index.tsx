@@ -17,7 +17,7 @@ export default function IntroDetails(props: IntroDetailsProps) {
                     size={40}
                 />
             </View>
-            <View className="ml-4 flex max-w-[300px] flex-col md:max-w-[400px] xl:max-w-[600px] 4xl:max-w-[800px]">
+            <View className="ml-4 flex flex-col xs:max-w-[300px] md:max-w-[400px] xl:max-w-[600px] 4xl:max-w-[800px]">
                 <Text className="font-heading font-bold text-typography-950 xs:text-xl lg:text-2xl">
                     {props.heading}
                 </Text>

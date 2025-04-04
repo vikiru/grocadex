@@ -91,9 +91,15 @@ export default function GroceryForm({
                     <FormInput
                         error={errors.quantity}
                         label="Quantity"
-                        onBlur={handleBlur('quantity')}
-                        onChangeText={handleChange('quantity')}
-                        placeholder="Enter quantity"
+                        onBlur={() => {
+                            handleChange('quantity')(
+                                Number(values.quantity).toFixed(0),
+                            );
+                        }}
+                        onChangeText={(value) =>
+                            setFieldValue('quantity', value)
+                        }
+                        placeholder={`${initialValues?.quantity !== undefined ? initialValues.quantity : 'Enter quantity'}`}
                         touched={touched.quantity}
                         value={values.quantity}
                     />
@@ -141,7 +147,7 @@ export default function GroceryForm({
                         onChangeText={(value) =>
                             setFieldValue('totalPrice', value)
                         }
-                        placeholder="Enter total price of the item"
+                        placeholder="Enter total price"
                         touched={touched.totalPrice}
                         value={values.totalPrice}
                     />

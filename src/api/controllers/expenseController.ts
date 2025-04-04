@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import { logger } from '~config/logger';
 import { ExpenseService } from '~services';
-import { ResponsePayload } from '~types';
+import { ResponsePayload, UserRequest } from '~types';
 
 export async function deleteExpenseById(
-    req: Request,
+    req: UserRequest,
     res: Response,
     next: NextFunction,
 ) {
-    const response = {
+    const response: ResponsePayload = {
         message: '',
         data: null,
         success: false,
@@ -43,7 +43,7 @@ export async function deleteExpenseById(
 }
 
 export async function getExpenses(
-    req: Request,
+    req: UserRequest,
     res: Response,
     next: NextFunction,
 ) {
@@ -65,26 +65,26 @@ export async function getExpenses(
             response.data = expenses;
             response.success = true;
             response.error = '';
-            return res.status(200).json(response);
+            res.status(200).json(response);
         } else {
             response.message = 'No expenses found for the user.';
             response.error = 'No expenses found.';
-            return res.status(404).json(response);
+            res.status(404).json(response);
         }
     } catch (error) {
         logger.error(`Error retrieving expenses from database: ${error}`);
         response.message = 'Internal server error.';
         response.error = 'There was an error retrieving expenses.';
-        return res.status(500).json(response);
+        res.status(500).json(response);
     }
 }
 
 export async function retrieveAllExpenses(
-    req: Request,
+    req: UserRequest,
     res: Response,
     next: NextFunction,
 ) {
-    const response = {
+    const response: ResponsePayload = {
         message: '',
         data: null,
         success: false,
@@ -116,11 +116,11 @@ export async function retrieveAllExpenses(
 }
 
 export async function retrieveExpenseById(
-    req: Request,
+    req: UserRequest,
     res: Response,
     next: NextFunction,
 ) {
-    const response = {
+    const response: ResponsePayload = {
         message: '',
         data: null,
         success: false,
@@ -156,11 +156,11 @@ export async function retrieveExpenseById(
 }
 
 export async function saveExpense(
-    req: Request,
+    req: UserRequest,
     res: Response,
     next: NextFunction,
 ) {
-    const response = {
+    const response: ResponsePayload = {
         message: '',
         data: null,
         success: false,
@@ -195,11 +195,11 @@ export async function saveExpense(
 }
 
 export async function updateExpenseById(
-    req: Request,
+    req: UserRequest,
     res: Response,
     next: NextFunction,
 ) {
-    const response = {
+    const response: ResponsePayload = {
         message: '',
         data: null,
         success: false,
