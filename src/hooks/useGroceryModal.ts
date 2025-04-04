@@ -32,10 +32,8 @@ export default function useGroceryModal() {
             quantity: Number(quantity),
             unitPrice: Number(unitPrice),
             totalPrice: Number(totalPrice),
-            purchaseDate:
-                new Date(values.purchaseDate).toISOString() ||
-                purchaseDate.toISOString(),
-            expiryDate: expiryDate.toISOString(),
+            purchaseDate,
+            expiryDate,
         };
 
         if (index === -1) {

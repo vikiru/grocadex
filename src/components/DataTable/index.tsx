@@ -92,6 +92,7 @@ export default function DataTable({
                     handleDecrementPage={handleDecrementPage}
                     handleIncrementPage={handleIncrementPage}
                     handleSkipToPage={handleSkipToPage}
+                    itemSize={data.length}
                     numPages={numPages}
                     page={page}
                     pageSize={pageSize}

@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useWindowDimensions } from 'react-native';
 import { Alert, DataTable } from '~components';
 import {
     Button,
@@ -33,6 +34,7 @@ export default function ReceiptDetailsScreen() {
     );
     const router = useRouter();
     const { handleDelete } = useDeleteReceipt();
+    const { height } = useWindowDimensions();
 
     if (!receipt) {
         return (
@@ -70,7 +72,7 @@ export default function ReceiptDetailsScreen() {
                 ]}
                 dateFormat={DateFormat}
                 headers={['Name', 'Quantity', 'Total']}
-                pageSize={5}
+                pageSize={height >= 1080 ? 5 : 3}
             />
 
             <HStack className="mx-4 mt-2">

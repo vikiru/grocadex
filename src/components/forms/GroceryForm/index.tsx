@@ -44,13 +44,6 @@ export default function GroceryForm({
                 isActive: initialValues?.isActive || true,
             }}
             onSubmit={(values, { resetForm }) => {
-                const totalPrice =
-                    values.quantity && values.unitPrice
-                        ? Number(values.quantity * values.unitPrice)
-                        : Number(values.totalPrice);
-                values.unitPrice = Number(values.unitPrice);
-                values.totalPrice = Number(totalPrice);
-
                 if (id && receiptId) {
                     const finalValues: GroceryItem = {
                         id,
