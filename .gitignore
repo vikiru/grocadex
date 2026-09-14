@@ -1,3 +1,7 @@
+todos.md
+*.md
+plans
+
 # Node.js
 node_modules/
 .expo/
@@ -16,6 +20,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+.pnpm-store/
 
 # Diagnostic reports
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -129,6 +134,17 @@ dist
 # VSCode versions
 .vscode-test
 .vscode
+.agents
+.agent
+.serena
+.codanna
+.codannaignore
+.fastembed_cache
+.zvec-grep
+.codex
+.opencode
+.claude
+.cursor
 
 # yarn v2
 .yarn/cache
@@ -151,3 +167,53 @@ dist
 expo-env.d.ts
 .idea
 # @end expo-cli
+
+
+openspec
+.agents
+.agent
+.serena
+.codanna
+.codannaignore
+.fastembed_cache
+.impeccable
+skills-lock.json
+.github/prompts
+.github/hooks/impeccable.json
+.github/skills
+.cospec
+.gemini
+.qwen
+.vscode/
+.kilocode
+.opencode
+.hermes
+.devin
+.forge
+.zcode
+.bob
+.codeartsdoer
+.kimi-code
+.lingma
+.omp
+.windsurf
+.vibe
+.junie
+.claude
+.continue
+.trae
+.cline 
+.agent
+.amazonq
+.augment
+.clinerules
+.pi
+.kiro
+.codebuddy
+.codex
+.crush
+.cursor
+.factory
+.iflow
+.qoder
+.roo
