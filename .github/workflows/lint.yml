@@ -31,6 +31,8 @@ jobs:
               run: pnpm install --frozen-lockfile --ignore-scripts
             - name: Install API dependencies
               run: pnpm --dir src/api install --ignore-scripts
+            - name: Generate Prisma Client
+              run: pnpm --dir src/api exec prisma generate
             - name: Lint files
               run: pnpm lint
             - name: Check formatting

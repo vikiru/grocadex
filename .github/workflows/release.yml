@@ -37,6 +37,8 @@ jobs:
                   version: 11.20.0
             - name: Install dependencies
               run: pnpm install --frozen-lockfile --ignore-scripts
+            - name: Generate Prisma Client
+              run: pnpm --dir src/api exec prisma generate
             - name: Release
               env:
                   GH_TOKEN: ${{ github.token }}
