@@ -1,4 +1,4 @@
-import { Prisma, GroceryItem } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
 const today = new Date();
 

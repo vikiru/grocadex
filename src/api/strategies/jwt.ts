@@ -1,6 +1,7 @@
 import passport from 'passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { secret } from '~config/index';
+
+import { secret } from '@/api/config/index';
 
 passport.use(
     new Strategy(
@@ -15,7 +16,7 @@ passport.use(
                 }
                 return done(null, payload);
             } catch (error) {
-                console.error(error);
+                console.error('JWT authentication failed.');
                 return done(error, false);
             }
         },

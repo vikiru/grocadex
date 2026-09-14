@@ -40,6 +40,8 @@
         "no-var": "error",
         "prefer-const": "warn",
         "no-duplicate-imports": "warn",
+        "import/no-unassigned-import": "off",
+        "jsx-a11y/heading-has-content": "off",
         "unicorn/prefer-string-replace-all": "warn",
         "no-unused-vars": "warn",
         "no-console": ["warn", { "allow": ["warn", "error", "info"] }],

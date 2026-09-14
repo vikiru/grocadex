@@ -1,12 +1,13 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { Alert } from '~components';
-import { Button, ButtonText, Card, Divider, Heading, HStack, Text } from '~components/ui';
-import { DateFormat } from '~constants/Dates';
-import { FRONTEND_DASHBOARD_ROUTE } from '~constants/Routes';
-import { useDeleteItem, useUpdateItem } from '~hooks';
-import { GroceryItem } from '~types';
-import { constructExpiryString, formatDate, parseDate } from '~utils/date';
+
+import { Alert } from '@/components';
+import { Button, ButtonText, Card, Divider, Heading, HStack, Text } from '@/components/ui';
+import { DateFormat } from '@/constants/Dates';
+import { FRONTEND_DASHBOARD_ROUTE } from '@/constants/Routes';
+import { useDeleteItem, useUpdateItem } from '@/hooks';
+import { GroceryItem } from '@/types';
+import { constructExpiryString, formatDate, parseDate } from '@/utils/date';
 
 type GroceryCardProps = {
     groceryItem: GroceryItem;
@@ -79,6 +80,7 @@ export default function GroceryCard({
                     <Alert
                         alertHeading="Are you sure you want to delete this item?"
                         alertText="Deleting this item will remove it permanently and cannot be undone. Please confirm if you wish to proceed."
+                        buttonText="Delete"
                         buttonAction="negative"
                         handleDelete={async () => {
                             await handleDelete(groceryItem.id!, groceryItem.receiptId);

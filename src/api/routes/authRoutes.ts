@@ -1,7 +1,8 @@
 import express from 'express';
 import passport from 'passport';
-import { apiVersionString } from '~config/index';
-import { AuthController } from '~controllers/';
+
+import { apiVersionString } from '@/api/config/index';
+import { AuthController } from '@/api/controllers/';
 
 const baseUrl = `/${apiVersionString}/auth`;
 

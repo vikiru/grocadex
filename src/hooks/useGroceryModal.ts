@@ -1,6 +1,14 @@
 import { FormikErrors } from 'formik';
 import { useState } from 'react';
-import { GroceryItem } from '~types';
+
+import { GroceryItem } from '@/types';
+
+type GroceryFormValues = Partial<GroceryItem> & {
+    quantity?: string | number;
+    unitPrice?: string | number;
+    totalPrice?: string | number;
+    groceryItems?: Partial<GroceryItem>[];
+};
 
 export default function useGroceryModal() {
     const [createGroceryVisible, setCreateGroceryVisible] = useState(false);
@@ -8,10 +16,14 @@ export default function useGroceryModal() {
     const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
 
     const handleGroceryItemSubmit = (
-        groceryValues: any,
+        groceryValues: GroceryFormValues,
         index: number = -1,
-        values: any,
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<any>>,
+        values: GroceryFormValues,
+        setFieldValue: (
+            field: string,
+            value: unknown,
+            shouldValidate?: boolean,
+        ) => Promise<void | FormikErrors<GroceryFormValues>>,
     ) => {
         const { name, quantity, unitPrice, totalPrice, purchaseDate, expiryDate } = groceryValues;
 
@@ -25,7 +37,7 @@ export default function useGroceryModal() {
         };
 
         if (index === -1) {
-            setFieldValue('groceryItems', [...values.groceryItems, newItem]);
+            setFieldValue('groceryItems', [...(values.groceryItems ?? []), newItem]);
         } else {
             setFieldValue(`groceryItems.${index}`, newItem);
         }

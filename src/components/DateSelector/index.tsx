@@ -1,9 +1,10 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import DateTimePicker, { DateType, useDefaultStyles } from 'react-native-ui-datepicker';
-import { Heading, Modal, ModalBackdrop, ModalCloseButton, ModalContent, ModalHeader, VStack } from '~components/ui';
-import { DateFormat } from '~constants/Dates';
-import { formatDate } from '~utils/date';
+
+import { Heading, Modal, ModalBackdrop, ModalCloseButton, ModalContent, ModalHeader, VStack } from '@/components/ui';
+import { DateFormat } from '@/constants/Dates';
+import { formatDate } from '@/utils/date';
 
 type DateSelectorProps = {
     title: string;

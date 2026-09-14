@@ -1,7 +1,7 @@
-import { Months } from '~constants/Dates';
-import { Expense, Receipt } from '~types';
-import { parseDate } from '~utils/date';
-import { filterReceiptsByMonthYear } from '~utils/receipt';
+import { Months } from '@/constants/Dates';
+import { Expense, Receipt } from '@/types';
+import { parseDate } from '@/utils/date';
+import { filterReceiptsByMonthYear } from '@/utils/receipt';
 
 export const constructExpense = (receipts: Receipt[]): Expense | null => {
     if (receipts.length === 0) return null;

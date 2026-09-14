@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { DateType } from 'react-native-ui-datepicker';
-import { DateSelector } from '~components';
-import { HStack, Input, InputField, Text, VStack } from '~components/ui';
-import { DateFormat } from '~constants/Dates';
-import { formatDate } from '~utils/date';
+
+import { DateSelector } from '@/components';
+import { HStack, Input, InputField, Text, VStack } from '@/components/ui';
 
 type DateInputFieldProps = {
     label: string;

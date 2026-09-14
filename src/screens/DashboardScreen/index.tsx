@@ -1,27 +1,12 @@
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { ScrollView, useWindowDimensions } from 'react-native';
-import { DataTable, GroceryCard } from '~components';
-import {
-    Button,
-    ButtonText,
-    Card,
-    Heading,
-    HStack,
-    Table,
-    TableBody,
-    TableData,
-    TableHead,
-    TableHeader,
-    TableRow,
-    Text,
-    VStack,
-} from '~components/ui';
-import { DateFormat, ShortDateFormat } from '~constants/Dates';
-import { useDashboard, useDashboardData } from '~hooks';
-import { useGroceryStore, useReceiptStore } from '~store';
-import { GroceryItem } from '~types';
-import { parseDate, sortActiveItems, sortReceipts } from '~utils/date';
+
+import { DataTable, GroceryCard } from '@/components';
+import { Button, ButtonText, Card, Heading, HStack, TableHead, Text } from '@/components/ui';
+import { DateFormat, ShortDateFormat } from '@/constants/Dates';
+import { useDashboard, useDashboardData } from '@/hooks';
+import { GroceryItem } from '@/types';
 
 export default function DashboardScreen() {
     const router = useRouter();
@@ -32,7 +17,7 @@ export default function DashboardScreen() {
         if (isSuccess && data) {
             retrieveData();
         }
-    }, [isSuccess, data]);
+    }, [isSuccess, data, retrieveData]);
 
     const { filteredGroceryItems, filteredReceipts, expenseTotal } = useDashboardData();
 

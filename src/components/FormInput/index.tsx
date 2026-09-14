@@ -1,11 +1,11 @@
-import { HStack, Input, InputField, Text, VStack } from '~components/ui';
+import { HStack, Input, InputField, Text, VStack } from '@/components/ui';
 
 type InputFieldProps = {
     label: string;
     value: string | number;
     secure?: boolean;
-    onChangeText: (e: any | React.ChangeEvent<any>) => void;
-    onBlur: (e: any) => void;
+    onChangeText: (value: string) => void;
+    onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
     error?: string;
     touched?: boolean;
     placeholder: string;

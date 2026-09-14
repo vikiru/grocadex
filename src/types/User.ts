@@ -1,4 +1,4 @@
-import { Expense, GroceryItem, Receipt } from '~types';
+import { Expense, GroceryItem, Receipt } from '@/types';
 
 export type User = {
     id?: number;

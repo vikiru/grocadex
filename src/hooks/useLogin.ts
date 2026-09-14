@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
-import { FRONTEND_DASHBOARD_ROUTE } from '~constants/Routes';
-import { useLoginMutation } from '~services';
+
+import { FRONTEND_DASHBOARD_ROUTE } from '@/constants/Routes';
+import { useLoginMutation } from '@/services';
 
 export default function useLogin() {
     const router = useRouter();
@@ -26,7 +27,7 @@ export default function useLogin() {
                 });
                 setTimeout(() => router.push(FRONTEND_DASHBOARD_ROUTE), 1500);
             }
-        } catch (error) {
+        } catch {
             Toast.show({
                 type: 'error',
                 position: 'top',
@@ -35,7 +36,7 @@ export default function useLogin() {
                 autoHide: true,
                 visibilityTime: 2000,
             });
-            console.error('Login failed:', error);
+            console.error('Login failed.');
         }
     };
 

@@ -1,6 +1,7 @@
 import { GroceryItem } from '@prisma/client';
-import { logger } from '~config/logger';
-import { prisma } from '~data/';
+
+import { logger } from '@/api/config/logger';
+import { prisma } from '@/api/data/';
 
 export async function retrieveActiveItems(userId: number): Promise<GroceryItem[]> {
     try {
@@ -9,8 +10,8 @@ export async function retrieveActiveItems(userId: number): Promise<GroceryItem[]
         });
 
         return activeItems;
-    } catch (error) {
-        logger.error('Error retrieving active items from database: ${error}');
+    } catch {
+        logger.error('Error retrieving active items from database.');
         return [];
     }
 }
@@ -21,8 +22,8 @@ export async function removeGroceryItemById(userId: number, receiptId: number, g
             where: { userId, receiptId, id: groceryItemId },
         });
         logger.info(`Successfully removed grocery item with id ${groceryItemId}.`);
-    } catch (error) {
-        logger.error(`Error removing grocery item from database: ${error}`);
+    } catch {
+        logger.error('Error removing grocery item from database.');
     }
 }
 
@@ -37,8 +38,8 @@ export async function retrieveGroceryItemById(
         });
         logger.info(`Successfully retrieved grocery item with id ${groceryItemId}.`);
         return groceryItem;
-    } catch (error) {
-        logger.error(`Error retrieving grocery item from database: ${error}`);
+    } catch {
+        logger.error('Error retrieving grocery item from database.');
         return null;
     }
 }
@@ -54,8 +55,8 @@ export async function retrieveGroceryItemsByReceiptId(userId: number, receiptId:
         }
 
         return groceryItems;
-    } catch (error: any) {
-        logger.error(`Error retrieving grocery items from database: ${error}`);
+    } catch {
+        logger.error('Error retrieving grocery items from database.');
         return [];
     }
 }
@@ -69,8 +70,8 @@ export async function retrieveGroceryItemsByUser(userId: number): Promise<Grocer
             logger.info(`Successfully retrieved grocery items belonging to user ${userId}.`);
         }
         return groceryItems;
-    } catch (error) {
-        logger.error(`Error retrieving grocery items from database: ${error}`);
+    } catch {
+        logger.error('Error retrieving grocery items from database.');
         return [];
     }
 }
@@ -97,8 +98,8 @@ export async function saveGroceryItem(
             });
             logger.info('Successfully saved grocery item to the database.');
         }
-    } catch (error) {
-        logger.error(`Error saving grocery item(s) to database: ${error}`);
+    } catch {
+        logger.error('Error saving grocery item(s) to database.');
     }
 }
 
@@ -122,8 +123,8 @@ export async function updateGroceryItems(
 
         logger.info('Successfully updated grocery item(s) in the database.');
         return updatedItems.length === 1 ? updatedItems[0] : updatedItems;
-    } catch (error) {
-        logger.error(`Error updating grocery item(s) in database: ${error}`);
+    } catch {
+        logger.error('Error updating grocery item(s) in database.');
         return null;
     }
 }

@@ -1,4 +1,4 @@
-import { GroceryEditScreen } from '~screens';
+import { GroceryEditScreen } from '@/screens';
 
 function ModifyGrocery() {
     return <GroceryEditScreen />;

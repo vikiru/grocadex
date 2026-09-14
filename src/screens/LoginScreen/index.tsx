@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
-import { LoginForm } from '~components';
-import { Heading, HStack, Link, LinkText, Text, VStack } from '~components/ui';
-import { FRONTEND_REGISTRATION_ROUTE } from '~constants/Routes';
+
+import { LoginForm } from '@/components';
+import { Heading, HStack, Link, LinkText, Text, VStack } from '@/components/ui';
+import { FRONTEND_REGISTRATION_ROUTE } from '@/constants/Routes';
 
 export default function LoginScreen() {
     const router = useRouter();

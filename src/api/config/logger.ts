@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import winston from 'winston';
 
-const { env } = require('~config/index');
+const { env } = require('@/api/config/index');
 
 const logDir = path.join(__dirname, '../logs');
 
@@ -37,6 +37,12 @@ const loggingColours = {
     http: 'cyan',
     debug: 'white',
 };
+
+const sanitizeLogMessage = (message: string): string =>
+    message
+        .replace(/(authorization|password|token|secret|cookie)\s*[:=]\s*[^\s,;]+/gi, '$1=[REDACTED]')
+        .replace(/bearer\s+[^\s]+/gi, 'Bearer [REDACTED]')
+        .slice(0, 500);
 
 const consoleFormat = winston.format.combine(
     winston.format.colorize({ all: true }),
@@ -85,13 +91,13 @@ const requestLogger = winston.createLogger({
 
 const logger = {
     info: (parameters: string) => {
-        return infoLogger.info(parameters);
+        return infoLogger.info(sanitizeLogMessage(parameters));
     },
     error: (parameters: string) => {
-        return errorLogger.error(parameters);
+        return errorLogger.error(sanitizeLogMessage(parameters));
     },
     http: (parameters: string) => {
-        return requestLogger.http(parameters);
+        return requestLogger.http(sanitizeLogMessage(parameters));
     },
 };
 

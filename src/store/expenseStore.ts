@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { zustandStorage } from '~store';
-import { Expense } from '~types';
+
+import { zustandStorage } from '@/store';
+import { Expense } from '@/types';
 
 type ExpenseState = {
     expenses: Expense[];
@@ -37,7 +38,7 @@ export const useExpenseStore = create<ExpenseState>()(
             getExpensesByMonthYear: (month: number, year: number) =>
                 get().expenses.filter((expense) => expense.month === month && expense.year === year),
             getExpenseIdFromReceiptId: (receiptId: number) =>
-                get().expenses.find((expense) => expense.receiptIds.includes(receiptId))?.id,
+                get().expenses.find((expense) => (expense.receiptIds ?? []).includes(receiptId))?.id,
             setExpenses: (expenses: Expense[]) => set({ expenses }),
             addExpense: (expense: Expense) => {
                 set({ expenses: [...get().expenses, expense] });
@@ -66,8 +67,8 @@ export const useExpenseStore = create<ExpenseState>()(
             addReceiptToExpenses: (expenseId: number, receiptId: number, receiptTotal: number) => {
                 const expense = get().getExpenseFromId(expenseId);
 
-                if (expense && !expense.receiptIds.includes(receiptId)) {
-                    const updatedReceiptIds = [...expense.receiptIds, receiptId];
+                if (expense && !(expense.receiptIds ?? []).includes(receiptId)) {
+                    const updatedReceiptIds = [...(expense.receiptIds ?? []), receiptId];
                     const updatedTotal = expense.total + receiptTotal;
                     const updatedExpense = {
                         ...expense,
@@ -88,7 +89,7 @@ export const useExpenseStore = create<ExpenseState>()(
             ) => {
                 const expense = get().getExpenseFromId(expenseId);
 
-                if (expense && expense.receiptIds.includes(receiptId)) {
+                if (expense && (expense.receiptIds ?? []).includes(receiptId)) {
                     const updatedTotal = expense.total - previousReceiptTotal + newReceiptTotal;
                     const updatedExpense = { ...expense, total: updatedTotal };
 
@@ -100,8 +101,8 @@ export const useExpenseStore = create<ExpenseState>()(
             removeReceiptFromExpenses: (expenseId: number, receiptId: number, receiptTotal: number) => {
                 const expense = get().getExpenseFromId(expenseId);
 
-                if (expense && expense.receiptIds.includes(receiptId)) {
-                    const updatedReceiptIds = expense.receiptIds.filter((id) => id !== receiptId);
+                if (expense && (expense.receiptIds ?? []).includes(receiptId)) {
+                    const updatedReceiptIds = (expense.receiptIds ?? []).filter((id) => id !== receiptId);
                     const updatedTotal = expense.total - receiptTotal;
                     const updatedExpense = {
                         ...expense,

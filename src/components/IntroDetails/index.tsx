@@ -1,10 +1,12 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 
+type IconName = React.ComponentProps<typeof MaterialCommunityIcons>['name'];
+
 type IntroDetailsProps = {
     heading: string;
     subtext: string;
-    icon: any;
+    icon: IconName;
 };
 
 export default function IntroDetails(props: IntroDetailsProps) {

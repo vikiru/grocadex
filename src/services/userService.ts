@@ -1,9 +1,10 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { DASHBOARD_ROUTE, LOGIN_ROUTE, LOGOUT_ROUTE, USER_ROUTE } from '~constants/Routes';
-import { useResetData } from '~hooks';
-import { getData, postData } from '~services';
-import { tokenStorage, useUserStore } from '~store';
-import { RequestPayload, ResponsePayload, User } from '~types';
+
+import { DASHBOARD_ROUTE, LOGIN_ROUTE, LOGOUT_ROUTE, USER_ROUTE } from '@/constants/Routes';
+import { useResetData } from '@/hooks';
+import { getData, postData } from '@/services';
+import { tokenStorage, useUserStore } from '@/store';
+import { RequestPayload, ResponsePayload, User } from '@/types';
 
 export function useCreateUserMutation() {
     const mutation = useMutation<
@@ -29,7 +30,7 @@ export function useCreateUserMutation() {
             return response;
         },
         onError: (error: Error) => {
-            console.error('Error during user creation:', error.message);
+            console.error('User creation failed.');
         },
     });
     return mutation;
@@ -88,11 +89,11 @@ export function useLoginMutation() {
                 tokenStorage.set('accessToken', accessToken);
                 tokenStorage.set('refreshToken', refreshToken);
             } else {
-                console.error('Login failed:', data.error);
+                console.error('Login failed.');
             }
         },
         onError: async (error: Error) => {
-            console.error('Error during login:', error.message);
+            console.error('Login failed.');
         },
     });
 
@@ -119,7 +120,7 @@ export function useLogoutMutation() {
             tokenStorage.set('normalLogout', false);
         },
         onError: (error: Error) => {
-            console.error('Error during logout:', error.message);
+            console.error('Logout failed.');
         },
     });
     return mutation;

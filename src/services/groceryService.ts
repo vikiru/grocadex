@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { RECEIPT_ROUTE } from '~constants/Routes';
-import { deleteData, getData, postData, putData } from '~services';
-import { useGroceryStore } from '~store';
-import { GroceryItem, ResponsePayload } from '~types';
+
+import { RECEIPT_ROUTE } from '@/constants/Routes';
+import { deleteData, getData, postData, putData } from '@/services';
+import { useGroceryStore } from '@/store';
+import { GroceryItem, ResponsePayload } from '@/types';
 
 export function useCreateGroceryItemMutation() {
     const queryClient = useQueryClient();
@@ -27,8 +28,8 @@ export function useCreateGroceryItemMutation() {
                 queryKey: ['groceryItems'],
             });
         },
-        onError: (error) => {
-            console.error('Failed to create grocery item:', error.message);
+        onError: (_error) => {
+            console.error('Failed to create grocery item.');
         },
     });
 }
@@ -48,14 +49,13 @@ export function useDeleteGroceryItemMutation() {
             return response;
         },
         onSuccess: async (data: ResponsePayload<null>, variables) => {
-            const items = getGroceryItems();
             setGroceryItems(getGroceryItems().filter((item) => item.id !== variables.id));
             queryClient.invalidateQueries({
                 queryKey: ['groceryItems'],
             });
         },
-        onError: (error) => {
-            console.error('Failed to delete grocery item:', error.message);
+        onError: (_error) => {
+            console.error('Failed to delete grocery item.');
         },
     });
 }
@@ -102,8 +102,8 @@ export function useUpdateGroceryItemMutation() {
                 queryKey: ['groceryItems'],
             });
         },
-        onError: (error) => {
-            console.error('Failed to update grocery item:', error.message);
+        onError: (_error) => {
+            console.error('Failed to update grocery item.');
         },
     });
 }

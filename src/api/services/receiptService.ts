@@ -1,6 +1,7 @@
 import { GroceryItem, Receipt } from '@prisma/client';
-import { logger } from '~config/logger';
-import { prisma } from '~data/';
+
+import { logger } from '@/api/config/logger';
+import { prisma } from '@/api/data/';
 
 export async function removeReceiptById(userId: number, receiptId: number): Promise<void> {
     try {

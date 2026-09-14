@@ -1,10 +1,11 @@
-import { Request, Response } from 'express';
-import { logger } from '~config/logger';
-import { GroceryItemService, ReceiptService } from '~services';
-import { ResponsePayload, UserRequest } from '~types';
+import { Response } from 'express';
+
+import { logger } from '@/api/config/logger';
+import { GroceryItemService, ReceiptService } from '@/api/services';
+import { getUserId, ResponsePayload, UserRequest } from '@/types';
 
 export async function createReceipt(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const data = req.body;
     const { groceryItems, ...receiptData } = data;
 
@@ -34,7 +35,7 @@ export async function createReceipt(req: UserRequest, res: Response): Promise<vo
 }
 
 export async function deleteReceiptById(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const receiptId = parseInt(req.params.id, 10);
     const response: ResponsePayload = {
         message: '',
@@ -58,7 +59,7 @@ export async function deleteReceiptById(req: UserRequest, res: Response): Promis
 }
 
 export async function getReceiptById(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const receiptId = parseInt(req.params.id, 10);
     const response: ResponsePayload = {
         message: '',
@@ -90,7 +91,7 @@ export async function getReceiptById(req: UserRequest, res: Response): Promise<v
 }
 
 export async function getReceiptsByMonth(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const { startMonth, endMonth } = req.params;
     const response: ResponsePayload = {
         message: '',
@@ -122,7 +123,7 @@ export async function getReceiptsByMonth(req: UserRequest, res: Response): Promi
 }
 
 export async function getReceiptsByUserId(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const response: ResponsePayload = {
         message: '',
         data: [],
@@ -153,7 +154,7 @@ export async function getReceiptsByUserId(req: UserRequest, res: Response): Prom
 }
 
 export async function getReceiptsByYear(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const { year } = req.params;
     const response: ResponsePayload = {
         message: '',
@@ -185,7 +186,7 @@ export async function getReceiptsByYear(req: UserRequest, res: Response): Promis
 }
 
 export async function updateReceipt(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const receiptData = req.body;
     const response: ResponsePayload = {
         message: '',

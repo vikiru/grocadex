@@ -1,5 +1,5 @@
-import { useDashboardQuery } from '~services';
-import { useExpenseStore, useGroceryStore, useReceiptStore } from '~store';
+import { useDashboardQuery } from '@/services';
+import { useExpenseStore, useGroceryStore, useReceiptStore } from '@/store';
 
 export default function useDashboard() {
     const { setGroceryItems } = useGroceryStore();
@@ -15,8 +15,8 @@ export default function useDashboard() {
                 setReceipts(receipts || []);
                 setExpenses(expenses || []);
             }
-        } catch (error) {
-            console.error('Error retrieving data:', error);
+        } catch {
+            console.error('Dashboard data retrieval failed.');
         }
     };
 

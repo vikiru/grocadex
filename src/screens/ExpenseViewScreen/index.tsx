@@ -1,9 +1,10 @@
 import { Platform, ScrollView } from 'react-native';
 import { useWindowDimensions } from 'react-native';
-import { DataTable } from '~components';
-import { Heading, HStack, Text, VStack } from '~components/ui';
-import { DateFormat } from '~constants/Dates';
-import { useGraphData } from '~hooks';
+
+import { DataTable } from '@/components';
+import { Heading, HStack, Text, VStack } from '@/components/ui';
+import { DateFormat } from '@/constants/Dates';
+import { useGraphData } from '@/hooks';
 
 let BarChart: any;
 

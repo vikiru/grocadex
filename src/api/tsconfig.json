@@ -3,19 +3,12 @@
     "skipLibCheck": true,
     "compilerOptions": {
         "paths": {
-            "~config/*": ["./config/*"],
-            "~controllers/*": ["./controllers/index.ts"],
-            "~data/*": ["./data/index.ts"],
-            "~middlewares/*": ["./middlewares/index.ts"],
-            "~prisma/*": ["./prisma/*"],
-            "~routes/*": ["./routes/index.ts"],
-            "~services": ["./services/index.ts"],
-            "~services/*": ["./services/*"],
-            "~strategies/*": ["./strategies/*"],
-            "~types": ["../types/index"],
-            "~types/*": ["../types/*"],
-            "~utils/*": ["./utils/*"]
+            "@/api/*": ["./*"],
+            "@/types": ["../../src/types/index"],
+            "@/types/*": ["../../src/types/*"]
         },
         "baseUrl": "."
-    }
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules", "dist"]
 }

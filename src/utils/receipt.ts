@@ -1,8 +1,8 @@
-import { Receipt } from '~types';
-import { convertDatetoDateTime } from '~utils/date';
+import { Receipt } from '@/types';
+import { convertDatetoDateTime } from '@/utils/date';
 
 export const sortReceiptsByPurchaseDate = (receipts: Receipt[]): Receipt[] => {
-    return receipts.sort((a, b) => {
+    return receipts.toSorted((a, b) => {
         const firstDate = convertDatetoDateTime(a.purchaseDate);
         const secondDate = convertDatetoDateTime(b.purchaseDate);
         return secondDate.diff(firstDate).toMillis();

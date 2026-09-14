@@ -1,4 +1,4 @@
-import { ReceiptCreateScreen } from '~screens';
+import { ReceiptCreateScreen } from '@/screens';
 
 function CreateReceipt() {
     return <ReceiptCreateScreen />;

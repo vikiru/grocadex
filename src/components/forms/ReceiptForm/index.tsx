@@ -1,14 +1,14 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik } from 'formik';
-import { useState } from 'react';
 import { ScrollView } from 'react-native';
-import { DateInputField, FormInput, GroceryItemModal } from '~components';
-import { Button, ButtonText, Heading, HStack, Text, VStack } from '~components/ui';
-import { DateFormat } from '~constants/Dates';
-import { useGroceryModal } from '~hooks';
-import { receiptSchema } from '~schemas';
-import { GroceryItem, Receipt } from '~types';
-import { formatDate, parseDate } from '~utils/date';
+
+import { DateInputField, FormInput, GroceryItemModal } from '@/components';
+import { Button, ButtonText, Heading, HStack, Text, VStack } from '@/components/ui';
+import { DateFormat } from '@/constants/Dates';
+import { useGroceryModal } from '@/hooks';
+import { receiptSchema } from '@/schema';
+import { GroceryItem, Receipt } from '@/types';
+import { formatDate, parseDate } from '@/utils/date';
 
 type ReceiptFormProps = {
     userId: number;
@@ -102,7 +102,7 @@ export default function ReceiptForm({ userId, receiptId, initialValues, onSubmit
                         }}
                         isOpen={createGroceryVisible}
                         onClose={() => setCreateGroceryVisible(false)}
-                        onSubmit={(groceryValues) => {
+                        onSubmit={async (groceryValues) => {
                             handleGroceryItemSubmit(groceryValues, -1, values, setFieldValue);
                             setCreateGroceryVisible(false);
                         }}
@@ -149,8 +149,8 @@ export default function ReceiptForm({ userId, receiptId, initialValues, onSubmit
                                         initialValues={groceryItem}
                                         isOpen={modifyGroceryItemVisible && editItemIndex === index}
                                         onClose={() => setModifyGroceryItemVisible(false)}
-                                        onSubmit={(groceryValues: GroceryItem) => {
-                                            handleGroceryItemSubmit(groceryValues, index, values, setFieldValue);
+                                        onSubmit={async (groceryValues) => {
+                                            await handleGroceryItemSubmit(groceryValues, index, values, setFieldValue);
                                             setModifyGroceryItemVisible(false);
                                         }}
                                         receiptId={receiptId}

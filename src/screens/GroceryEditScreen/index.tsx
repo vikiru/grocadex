@@ -1,7 +1,8 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { GroceryForm } from '~components';
-import { useUpdateItem } from '~hooks';
-import { useGroceryStore } from '~store';
+import { useLocalSearchParams } from 'expo-router';
+
+import { GroceryForm } from '@/components';
+import { useUpdateItem } from '@/hooks';
+import { useGroceryStore } from '@/store';
 
 export default function GroceryEditScreen() {
     const { id } = useLocalSearchParams();
@@ -12,7 +13,19 @@ export default function GroceryEditScreen() {
         <GroceryForm
             id={Number(id)}
             initialValues={groceryItem}
-            onSubmit={handleUpdate}
+            onSubmit={(values) => {
+                const purchaseDate = 'purchaseDate' in values ? values.purchaseDate : undefined;
+                const isActive = 'isActive' in values ? values.isActive : undefined;
+                return handleUpdate({
+                    ...groceryItem!,
+                    ...values,
+                    id: groceryItem!.id,
+                    userId: groceryItem!.userId,
+                    receiptId: groceryItem!.receiptId,
+                    purchaseDate: purchaseDate ?? groceryItem!.purchaseDate,
+                    isActive: isActive ?? groceryItem!.isActive,
+                });
+            }}
             receiptId={groceryItem!.receiptId}
             userId={groceryItem!.userId}
         />

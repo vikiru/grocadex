@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { zustandStorage } from '~store';
-import { User } from '~types';
+
+import { zustandStorage } from '@/store';
+import { User } from '@/types';
 
 type UserState = {
     user: User | null;

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useGroceryStore, useReceiptStore } from '~store';
-import { GroceryItem, Receipt } from '~types';
-import { parseDate, sortActiveItems, sortReceipts } from '~utils/date';
+
+import { useGroceryStore, useReceiptStore } from '@/store';
+import { GroceryItem, Receipt } from '@/types';
+import { parseDate, sortActiveItems, sortReceipts } from '@/utils/date';
 
 export default function useDashboardData() {
     const receipts = useReceiptStore((state) => state.receipts);

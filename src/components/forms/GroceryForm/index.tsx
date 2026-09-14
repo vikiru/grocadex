@@ -1,10 +1,11 @@
 import { Formik } from 'formik';
-import { DateInputField, FormInput } from '~components';
-import { Button, ButtonText, HStack, VStack } from '~components/ui';
-import { DateFormat } from '~constants/Dates';
-import { grocerySchema } from '~schemas';
-import { GroceryItem } from '~types';
-import { formatDate, parseDate } from '~utils/date';
+
+import { DateInputField, FormInput } from '@/components';
+import { Button, ButtonText, HStack, VStack } from '@/components/ui';
+import { DateFormat } from '@/constants/Dates';
+import { grocerySchema } from '@/schema';
+import { GroceryItem } from '@/types';
+import { formatDate, parseDate } from '@/utils/date';
 
 type GroceryFormProps = {
     id?: number;
@@ -28,7 +29,7 @@ export default function GroceryForm({ id, userId, receiptId, initialValues, onSu
                 totalPrice: initialValues?.totalPrice || 1,
                 isActive: initialValues?.isActive || true,
             }}
-            onSubmit={(values, { resetForm }) => {
+            onSubmit={async (values, { resetForm }) => {
                 if (id && receiptId) {
                     const finalValues: GroceryItem = {
                         id,
@@ -36,9 +37,9 @@ export default function GroceryForm({ id, userId, receiptId, initialValues, onSu
                         userId,
                         ...values,
                     };
-                    onSubmit(finalValues);
+                    await onSubmit(finalValues);
                 } else {
-                    onSubmit(values);
+                    await onSubmit(values);
                 }
 
                 resetForm();

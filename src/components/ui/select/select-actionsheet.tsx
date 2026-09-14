@@ -405,6 +405,7 @@ const ActionsheetVirtualizedList = React.forwardRef<
     IActionsheetVirtualizedListProps
 >(function ActionsheetVirtualizedList({ className, ...props }, ref) {
     return (
+        // @ts-expect-error Gluestack's generated list type requires renderer props already represented by props.
         <UIActionsheet.VirtualizedList
             className={actionsheetVirtualizedListStyle({
                 class: className,
@@ -420,6 +421,7 @@ const ActionsheetFlatList = React.forwardRef<
     IActionsheetFlatListProps
 >(function ActionsheetFlatList({ className, ...props }, ref) {
     return (
+        // @ts-expect-error Gluestack's generated list type conflicts with React Native's forwarded ref type.
         <UIActionsheet.FlatList
             className={actionsheetFlatListStyle({
                 class: className,
@@ -435,6 +437,7 @@ const ActionsheetSectionList = React.forwardRef<
     IActionsheetSectionListProps
 >(function ActionsheetSectionList({ className, ...props }, ref) {
     return (
+        // @ts-expect-error Gluestack's generated list type conflicts with React Native's forwarded ref type.
         <UIActionsheet.SectionList
             className={actionsheetSectionListStyle({
                 class: className,

@@ -1,4 +1,4 @@
-import { tokenStorage, useExpenseStore, useGroceryStore, useReceiptStore, useUserStore } from '~store';
+import { tokenStorage, useExpenseStore, useGroceryStore, useReceiptStore, useUserStore } from '@/store';
 
 export default function useResetData() {
     const { resetUser } = useUserStore();

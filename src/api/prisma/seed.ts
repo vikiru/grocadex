@@ -1,9 +1,9 @@
 import 'module-alias/register';
-import { prisma } from '~data/';
-import { groceries } from '~prisma/seed/data/groceries';
-import { receipts } from '~prisma/seed/data/receipt';
-import { users } from '~prisma/seed/data/user';
-import { hashPassword } from '~utils/hashPassword';
+import { prisma } from '@/api/data/';
+import { groceries } from '@/api/prisma/seed/data/groceries';
+import { receipts } from '@/api/prisma/seed/data/receipt';
+import { users } from '@/api/prisma/seed/data/user';
+import { hashPassword } from '@/api/utils/hashPassword';
 
 async function seedReceiptData(userId: number) {
     receipts.forEach(async (receipt) => {
@@ -35,7 +35,6 @@ async function seedUserData() {
         });
         const id = newUser.id;
         await seedReceiptData(id);
-        console.log(`Successfully seeded user with id ${id}`);
     });
 }
 

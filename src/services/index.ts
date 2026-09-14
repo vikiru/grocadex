@@ -1,29 +1,24 @@
+import { useForceLogout } from '@/hooks/useLogout';
 import {
     useCreateExpenseMutation,
     useDeleteExpenseMutation,
     useRetrieveExpensesQuery,
     useUpdateExpenseMutation,
-} from '~services/expenseService';
-import { deleteData, getData, postData, putData } from '~services/general';
+} from '@/services/expenseService';
+import { deleteData, getData, postData, putData } from '@/services/general';
 import {
     useCreateGroceryItemMutation,
     useDeleteGroceryItemMutation,
     useRetrieveGroceryItemsByReceiptQuery,
     useUpdateGroceryItemMutation,
-} from '~services/groceryService';
+} from '@/services/groceryService';
 import {
     useCreateReceiptMutation,
     useDeleteReceiptMutation,
     useRetrieveReceiptsQuery,
     useUpdateReceiptMutation,
-} from '~services/receiptService';
-import {
-    useCreateUserMutation,
-    useDashboardQuery,
-    useForceLogout,
-    useLoginMutation,
-    useLogoutMutation,
-} from '~services/userService';
+} from '@/services/receiptService';
+import { useCreateUserMutation, useDashboardQuery, useLoginMutation, useLogoutMutation } from '@/services/userService';
 
 export {
     deleteData,

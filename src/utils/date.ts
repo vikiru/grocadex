@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
-import { GroceryItem, Receipt } from '~types';
+
+import { GroceryItem, Receipt } from '@/types';
 
 export const parseDate = (date: Date | string): Date => {
     if (typeof date === 'string') {

@@ -1,8 +1,8 @@
-import TablePagination from '~components/TablePagination';
-import { Table, TableBody, TableData, TableHead, TableHeader, TableRow, VStack } from '~components/ui';
-import { useTablePagination } from '~hooks';
-import { GraphData, GroceryItem, Receipt } from '~types';
-import { formatDate } from '~utils/date';
+import TablePagination from '@/components/TablePagination';
+import { Table, TableBody, TableData, TableHead, TableHeader, TableRow, VStack } from '@/components/ui';
+import { useTablePagination } from '@/hooks';
+import { GraphData, GroceryItem, Receipt } from '@/types';
+import { formatDate } from '@/utils/date';
 
 type DataFormat = 'numeric' | 'date' | 'string';
 
@@ -37,28 +37,34 @@ export default function DataTable({ data, headers, dataKeys, dateFormat, pageSiz
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {data.slice(startIndex, startIndex + pageSize).map((item: any, index: number) => (
-                        <TableRow key={index}>
-                            {dataKeys.map(
-                                (
-                                    dataKey: {
-                                        key: string;
-                                        format: DataFormat;
-                                    },
-                                    index: number,
-                                ) => (
-                                    <TableData
-                                        className={`font-info ${dataKey.format === 'numeric' ? 'text-right' : ''} xs:text-base lg:text-lg`}
-                                        key={index}
-                                    >
-                                        {dataKey.format === 'numeric'
-                                            ? `$${formatData(item[dataKey.key], dataKey.format, dateFormat)}`
-                                            : formatData(item[dataKey.key], dataKey.format, dateFormat)}
-                                    </TableData>
-                                ),
-                            )}
-                        </TableRow>
-                    ))}
+                    {data.slice(startIndex, startIndex + pageSize).map((item, index: number) =>
+                        (() => {
+                            const itemValues = Object.fromEntries(Object.entries(item));
+
+                            return (
+                                <TableRow key={index}>
+                                    {dataKeys.map(
+                                        (
+                                            dataKey: {
+                                                key: string;
+                                                format: DataFormat;
+                                            },
+                                            dataKeyIndex: number,
+                                        ) => (
+                                            <TableData
+                                                className={`font-info ${dataKey.format === 'numeric' ? 'text-right' : ''} xs:text-base lg:text-lg`}
+                                                key={dataKeyIndex}
+                                            >
+                                                {dataKey.format === 'numeric'
+                                                    ? `$${formatData(itemValues[dataKey.key], dataKey.format, dateFormat)}`
+                                                    : formatData(itemValues[dataKey.key], dataKey.format, dateFormat)}
+                                            </TableData>
+                                        ),
+                                    )}
+                                </TableRow>
+                            );
+                        })(),
+                    )}
                 </TableBody>
             </Table>
             {numPages > 1 && (

@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { RECEIPT_ROUTE } from '~constants/Routes';
-import { deleteData, getData, postData, putData } from '~services';
-import { useGroceryStore, useReceiptStore, useUserStore } from '~store';
-import { GroceryItem, Receipt, ResponsePayload } from '~types';
+
+import { RECEIPT_ROUTE } from '@/constants/Routes';
+import { deleteData, getData, postData, putData } from '@/services';
+import { useGroceryStore, useReceiptStore, useUserStore } from '@/store';
+import { GroceryItem, Receipt, ResponsePayload } from '@/types';
 
 export function useCreateReceiptMutation() {
     const queryClient = useQueryClient();
@@ -42,8 +43,8 @@ export function useCreateReceiptMutation() {
                 queryKey: ['receipts'],
             });
         },
-        onError: (error) => {
-            console.error('Failed to create receipt:', error.message);
+        onError: (_error) => {
+            console.error('Failed to create receipt.');
         },
     });
 }
@@ -76,8 +77,8 @@ export function useDeleteReceiptMutation() {
                 queryKey: ['receipts'],
             });
         },
-        onError: async (error) => {
-            console.error('Failed to delete receipt:', error.message);
+        onError: async (_error) => {
+            console.error('Failed to delete receipt.');
         },
     });
 }
@@ -132,8 +133,8 @@ export function useUpdateReceiptMutation() {
                 queryKey: ['receipts'],
             });
         },
-        onError: (error) => {
-            console.error('Failed to update receipt:', error.message);
+        onError: (_error) => {
+            console.error('Failed to update receipt.');
         },
     });
 }
