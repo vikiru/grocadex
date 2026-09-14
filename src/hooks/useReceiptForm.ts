@@ -1,8 +1,9 @@
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
-import { FRONTEND_RECEIPT_ROUTE } from '~constants/Routes';
-import { useCreateReceiptMutation, useDeleteReceiptMutation, useUpdateReceiptMutation } from '~services';
-import { Receipt } from '~types';
+
+import { FRONTEND_RECEIPT_ROUTE } from '@/constants/Routes';
+import { useCreateReceiptMutation, useDeleteReceiptMutation, useUpdateReceiptMutation } from '@/services';
+import { Receipt } from '@/types';
 
 export function useCreateReceipt() {
     const router = useRouter();
@@ -22,7 +23,7 @@ export function useCreateReceipt() {
                 });
                 setTimeout(() => router.replace(FRONTEND_RECEIPT_ROUTE), 1500);
             }
-        } catch (error) {
+        } catch {
             Toast.show({
                 type: 'error',
                 position: 'top',
@@ -31,14 +32,13 @@ export function useCreateReceipt() {
                 autoHide: true,
                 visibilityTime: 2000,
             });
-            console.error('Failed to create receipt:', error);
+            console.error('Failed to create receipt.');
         }
     };
     return { handleCreate, error, isIdle, isPending, isError, isSuccess };
 }
 
 export function useDeleteReceipt() {
-    const router = useRouter();
     const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useDeleteReceiptMutation();
 
     const handleDelete = async (id: number) => {
@@ -54,7 +54,7 @@ export function useDeleteReceipt() {
                     visibilityTime: 2000,
                 });
             }
-        } catch (error) {
+        } catch {
             Toast.show({
                 type: 'error',
                 position: 'top',
@@ -63,7 +63,7 @@ export function useDeleteReceipt() {
                 autoHide: true,
                 visibilityTime: 2000,
             });
-            console.error('Failed to delete receipt:', error);
+            console.error('Failed to delete receipt.');
         }
     };
     return { handleDelete, error, isIdle, isPending, isError, isSuccess };
@@ -87,7 +87,7 @@ export function useUpdateReceipt() {
                 });
                 setTimeout(() => router.replace(FRONTEND_RECEIPT_ROUTE), 1500);
             }
-        } catch (error) {
+        } catch {
             Toast.show({
                 type: 'error',
                 position: 'top',
@@ -96,7 +96,7 @@ export function useUpdateReceipt() {
                 autoHide: true,
                 visibilityTime: 2000,
             });
-            console.error('Failed to update receipt:', error);
+            console.error('Failed to update receipt.');
         }
     };
     return { handleUpdate, error, isIdle, isPending, isError, isSuccess };

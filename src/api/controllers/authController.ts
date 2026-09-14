@@ -1,10 +1,11 @@
 import { User } from '@prisma/client';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import passport from 'passport';
-import { secret } from '~config/index';
-import { logger } from '~config/logger';
-import { ResponsePayload, UserRequest } from '~types';
+
+import { secret } from '@/api/config/index';
+import { logger } from '@/api/config/logger';
+import { ResponsePayload, UserRequest } from '@/types';
 
 export async function loginUser(req: UserRequest, res: Response, next: NextFunction): Promise<void> {
     const response: ResponsePayload = {
@@ -36,7 +37,7 @@ export async function loginUser(req: UserRequest, res: Response, next: NextFunct
                 response['error'] = 'An error occurred while logging in';
                 res.status(500).json(response);
             }
-            const { password, ...userData } = user;
+            const { ...userData } = user;
             const accessToken = jwt.sign({ id: user.id }, secret, {
                 expiresIn: '1d',
             });
@@ -123,8 +124,8 @@ export async function refreshToken(req: UserRequest, res: Response): Promise<voi
         response['data'] = { access_token: accessToken };
         response['success'] = true;
         res.status(200).json(response);
-    } catch (error: any) {
-        logger.error(`Error verifying refresh token: ${error.message}`);
+    } catch (error) {
+        logger.error(`Error verifying refresh token: ${error instanceof Error ? error.message : String(error)}`);
         response['message'] = 'Invalid refresh token or expired.';
         response['error'] = 'Refresh token verification failed.';
         res.status(401).json(response);

@@ -1,12 +1,13 @@
 import 'module-alias/register';
-import '~strategies/local';
-import '~strategies/jwt';
+import '@/api/strategies/local';
+import '@/api/strategies/jwt';
 import express from 'express';
 import passport from 'passport';
-import { apiVersionString, port } from '~config/index';
-import { logger } from '~config/logger';
-import * as middlewares from '~middlewares/';
-import { AuthRouter, ExpenseRouter, GroceryItemRouter, ReceiptRouter, UserRouter } from '~routes/';
+
+import { apiVersionString, port } from '@/api/config/index';
+import { logger } from '@/api/config/logger';
+import * as middlewares from '@/api/middlewares/';
+import { AuthRouter, ExpenseRouter, GroceryItemRouter, ReceiptRouter, UserRouter } from '@/api/routes/';
 
 const app = express();
 

@@ -1,10 +1,11 @@
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
-import { useCreateUserMutation } from '~services';
+
+import { useCreateUserMutation } from '@/services';
 
 export default function useRegistration() {
     const router = useRouter();
-    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useCreateUserMutation();
+    const { mutateAsync, isIdle, isPending, isError, isSuccess } = useCreateUserMutation();
 
     const register = async (values: {
         firstName: string;
@@ -33,7 +34,7 @@ export default function useRegistration() {
                 });
                 setTimeout(() => router.push('/'), 1500);
             }
-        } catch (error) {
+        } catch {
             Toast.show({
                 type: 'error',
                 position: 'top',
@@ -42,7 +43,7 @@ export default function useRegistration() {
                 autoHide: true,
                 visibilityTime: 2000,
             });
-            console.error('Error during signup:', error);
+            console.error('Signup failed.');
         }
     };
 

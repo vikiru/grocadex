@@ -1,7 +1,8 @@
 import express from 'express';
 import passport from 'passport';
-import { apiVersionString } from '~config/index';
-import { ReceiptController } from '~controllers/';
+
+import { apiVersionString } from '@/api/config/index';
+import { ReceiptController } from '@/api/controllers/';
 
 const ReceiptRouter = express.Router();
 const baseUrl = `/${apiVersionString}/receipts`;

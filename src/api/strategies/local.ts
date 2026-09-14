@@ -1,8 +1,9 @@
 import passport from 'passport';
 import { Strategy } from 'passport-local';
-import { AuthService, UserService } from '~services';
 
-passport.serializeUser((user: { id: number }, done) => {
+import { AuthService, UserService } from '@/api/services';
+
+passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
@@ -10,7 +11,7 @@ passport.deserializeUser(async (id: number, done) => {
     try {
         const user = await UserService.retrieveUserById(id);
         if (!user) throw new Error(`User not found with the id: ${id}`);
-        done(null, user.id);
+        done(null, user);
     } catch (error) {
         done(error, null);
     }

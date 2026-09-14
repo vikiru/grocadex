@@ -1,9 +1,10 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { IntroDetails } from '~components';
-import { Button, ButtonText, Heading, HStack, Text, VStack } from '~components/ui';
-import { FRONTEND_LOGIN_ROUTE, FRONTEND_REGISTRATION_ROUTE } from '~constants/Routes';
+
+import { IntroDetails } from '@/components';
+import { Button, ButtonText, Heading, HStack, Text, VStack } from '@/components/ui';
+import { FRONTEND_LOGIN_ROUTE, FRONTEND_REGISTRATION_ROUTE } from '@/constants/Routes';
 
 function SplashScreen() {
     const router = useRouter();

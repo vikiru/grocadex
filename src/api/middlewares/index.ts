@@ -1,13 +1,13 @@
 import compression from 'compression';
 import cors from 'cors';
-import { NextFunction, Request, Response } from 'express';
 import session from 'express-session';
 import { body } from 'express-validator';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import favicon from 'serve-favicon';
-import { env, secret } from '~config/index';
-import { logger } from '~config/logger';
+
+import { env, secret } from '@/api/config/index';
+import { logger } from '@/api/config/logger';
 
 const morganStream = {
     write: (message: string) => logger.http(message),

@@ -1,8 +1,9 @@
 import { User } from '@prisma/client';
-import { Request, Response } from 'express';
-import { logger } from '~config/logger';
-import { AuthService, ExpenseService, GroceryItemService, ReceiptService, UserService } from '~services';
-import { ResponsePayload, UserRequest } from '~types';
+import { Response } from 'express';
+
+import { logger } from '@/api/config/logger';
+import { AuthService, ExpenseService, GroceryItemService, ReceiptService, UserService } from '@/api/services';
+import { getUserId, ResponsePayload, UserRequest } from '@/types';
 
 export async function createUser(req: UserRequest, res: Response): Promise<void> {
     const user: User = req.body;
@@ -46,7 +47,7 @@ export async function createUser(req: UserRequest, res: Response): Promise<void>
 }
 
 export async function getUserById(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -78,7 +79,7 @@ export async function getUserById(req: UserRequest, res: Response): Promise<void
 }
 
 export async function getUserData(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const response: ResponsePayload = {
         message: '',
         data: { groceryItems: [], receipts: [], expenses: [] },

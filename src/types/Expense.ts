@@ -3,4 +3,5 @@ export type Expense = {
     month: number;
     year: number;
     total: number;
+    receiptIds?: number[];
 };

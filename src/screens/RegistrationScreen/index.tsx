@@ -1,8 +1,9 @@
 import { useRouter } from 'expo-router';
 import { ScrollView } from 'react-native';
-import { RegistrationForm } from '~components';
-import { Heading, HStack, Link, LinkText, Text, VStack } from '~components/ui';
-import { FRONTEND_LOGIN_ROUTE } from '~constants/Routes';
+
+import { RegistrationForm } from '@/components';
+import { Heading, HStack, Link, LinkText, Text, VStack } from '@/components/ui';
+import { FRONTEND_LOGIN_ROUTE } from '@/constants/Routes';
 
 export default function RegistrationScreen() {
     const router = useRouter();

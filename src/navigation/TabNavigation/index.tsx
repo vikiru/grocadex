@@ -1,7 +1,8 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Tabs, useRouter } from 'expo-router';
-import { Button } from '~components/ui';
-import { FRONTEND_RECEIPT_CREATE_ROUTE } from '~constants/Routes';
+
+import { Button } from '@/components/ui';
+import { FRONTEND_RECEIPT_CREATE_ROUTE } from '@/constants/Routes';
 
 export default function TabNavigation() {
     const router = useRouter();

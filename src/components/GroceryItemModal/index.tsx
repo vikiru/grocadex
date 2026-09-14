@@ -1,6 +1,6 @@
-import { GroceryForm } from '~components';
-import { Modal, ModalBackdrop, ModalContent } from '~components/ui';
-import { GroceryItem } from '~types';
+import { GroceryForm } from '@/components';
+import { Modal, ModalBackdrop, ModalContent } from '@/components/ui';
+import { GroceryItem } from '@/types';
 
 type GroceryItemModalProps = {
     isOpen: boolean;

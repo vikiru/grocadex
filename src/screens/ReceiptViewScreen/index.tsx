@@ -1,14 +1,12 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { ScrollView } from 'react-native';
-import { ReceiptCard, Searchbar } from '~components';
-import { Fab, HStack, Text, VStack } from '~components/ui';
-import { FRONTEND_RECEIPT_CREATE_ROUTE } from '~constants/Routes';
-import { useSearchReceipts } from '~hooks';
-import { Receipt } from '~types';
+
+import { ReceiptCard, Searchbar } from '@/components';
+import { Text, VStack } from '@/components/ui';
+import { useSearchReceipts } from '@/hooks';
+import { Receipt } from '@/types';
 
 export default function ReceiptViewScreen() {
-    const router = useRouter();
     const { query, setQuery, filteredReceipts } = useSearchReceipts();
 
     return (

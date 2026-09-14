@@ -1,7 +1,8 @@
 import express from 'express';
 import passport from 'passport';
-import { apiVersionString } from '~config/index';
-import { ExpenseController } from '~controllers/';
+
+import { apiVersionString } from '@/api/config/index';
+import { ExpenseController } from '@/api/controllers/';
 
 const baseUrl = `/${apiVersionString}/expenses`;
 

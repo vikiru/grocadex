@@ -1,14 +1,15 @@
 import { User } from '@prisma/client';
-import { logger } from '~config/logger';
-import { prisma } from '~data/';
-import { validPassword } from '~utils/hashPassword';
+
+import { logger } from '@/api/config/logger';
+import { prisma } from '@/api/data/';
+import { validPassword } from '@/api/utils/hashPassword';
 
 export async function checkIfUserExists(username: string): Promise<boolean> {
     try {
         const user = await prisma.user.findUnique({ where: { username } });
         return user !== null;
     } catch (error) {
-        logger.error(`Error checking if user exists: ${error}`);
+        logger.error('Error checking if user exists.');
         throw error;
     }
 }
@@ -18,7 +19,7 @@ export async function checkIfEmailExists(email: string): Promise<boolean> {
         const user = await prisma.user.findUnique({ where: { email } });
         return user !== null;
     } catch (error) {
-        logger.error(`Error checking if email exists: ${error}`);
+        logger.error('Error checking if email exists.');
         throw error;
     }
 }
@@ -39,7 +40,7 @@ export async function validateUser(username: string, password: string): Promise<
 
         return user;
     } catch (error) {
-        console.error(`Error validating user: ${error}`);
+        console.error('Error validating user.');
         return null;
     }
 }

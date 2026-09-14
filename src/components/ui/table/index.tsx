@@ -116,8 +116,10 @@ const TableHead = React.forwardRef<React.ComponentRef<typeof Text | typeof View>
     ref,
 ) {
     if (useRNView) {
+        // @ts-expect-error Expo HTML element refs are incompatible with React Native view refs.
         return <View className={tableHeadStyle({ class: className })} ref={ref} {...props} />;
     } else {
+        // @ts-expect-error Expo HTML element refs are incompatible with React Native text refs.
         return <Text className={tableHeadStyle({ class: className })} ref={ref} {...props} />;
     }
 });
@@ -148,8 +150,10 @@ const TableData = React.forwardRef<React.ComponentRef<typeof Text | typeof View>
     ref,
 ) {
     if (useRNView) {
+        // @ts-expect-error Expo HTML element refs are incompatible with React Native view refs.
         return <View className={tableDataStyle({ class: className })} ref={ref} {...props} />;
     } else {
+        // @ts-expect-error Expo HTML element refs are incompatible with React Native text refs.
         return <Text className={tableDataStyle({ class: className })} ref={ref} {...props} />;
     }
 });

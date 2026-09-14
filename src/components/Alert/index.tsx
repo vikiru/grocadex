@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
+
 import {
     AlertDialog,
     AlertDialogBackdrop,
@@ -11,14 +12,14 @@ import {
     ButtonText,
     Heading,
     Text,
-} from '~components/ui';
+} from '@/components/ui';
 
 type AlertProps = {
     alertHeading: string;
     alertText: string;
     buttonText: string;
     buttonAction: string;
-    iconName: string;
+    iconName: keyof typeof MaterialCommunityIcons.glyphMap;
     handleDelete: (id: number, receiptId?: number) => Promise<void>;
 };
 
@@ -43,12 +44,7 @@ export default function Alert({
                 variant="solid"
             >
                 <ButtonText className="font-body text-lg">{buttonText}</ButtonText>
-                <MaterialCommunityIcons
-                    className="mb-1 ml-2"
-                    color="white"
-                    name={`${iconName !== 'trash-can' ? iconName : 'trash-can'}`}
-                    size={24}
-                />
+                <MaterialCommunityIcons className="mb-1 ml-2" color="white" name={iconName} size={24} />
             </Button>
             <AlertDialog isOpen={showAlertDialog} onClose={handleClose} size="md">
                 <AlertDialogBackdrop />

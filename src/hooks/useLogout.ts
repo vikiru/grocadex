@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
-import { useResetData } from '~hooks';
-import { useLogoutMutation } from '~services';
+
+import { useResetData } from '@/hooks';
+import { useLogoutMutation } from '@/services';
 
 export function useForceLogout() {
     const router = useRouter();
@@ -19,8 +20,8 @@ export function useForceLogout() {
             });
             setTimeout(() => router.push('/'), 1500);
             resetData();
-        } catch (error) {
-            console.error('Error during force logout:', error);
+        } catch {
+            console.error('Force logout failed.');
         }
     };
     return { handleForceLogout };
@@ -44,7 +45,7 @@ export function useLogout() {
                 });
                 setTimeout(() => router.push('/'), 1500);
             }
-        } catch (error) {
+        } catch {
             Toast.show({
                 type: 'error',
                 position: 'top',
@@ -53,7 +54,7 @@ export function useLogout() {
                 autoHide: true,
                 visibilityTime: 2000,
             });
-            console.error('Error during logout:', error);
+            console.error('Logout failed.');
         }
     };
 

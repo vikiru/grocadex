@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { HStack, Text } from '~components/ui';
+
+import { HStack, Text } from '@/components/ui';
 
 type TablePaginationProps = {
     page: number;

@@ -1,5 +1,8 @@
 minimumReleaseAge: 10080
 
+packages:
+    - src/api
+
 allowBuilds:
     unrs-resolver: true
     lefthook: true

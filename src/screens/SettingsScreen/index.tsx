@@ -1,8 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Button, ButtonText, Divider, Heading, HStack, Text, VStack } from '~components/ui';
-import { APP_VERSION } from '~constants/Version';
-import { useLogout } from '~hooks';
-import { useUserStore } from '~store';
+
+import { Button, ButtonText, Divider, Heading, HStack, Text, VStack } from '@/components/ui';
+import { APP_VERSION } from '@/constants/Version';
+import { useLogout } from '@/hooks';
+import { useUserStore } from '@/store';
 
 export default function SettingsScreen() {
     const user = useUserStore((state) => state.user);

@@ -9,7 +9,7 @@ module.exports = function (api) {
                 {
                     root: ['./'],
                     alias: {
-                        '@': './',
+                        '@': './src',
                         'tailwind.config': './tailwind.config.js',
                     },
                 },

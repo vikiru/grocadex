@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useReceiptStore } from '~store';
+
+import { useReceiptStore } from '@/store';
 
 export default function useSearchReceipts() {
     const receipts = useReceiptStore((state) => state.receipts);

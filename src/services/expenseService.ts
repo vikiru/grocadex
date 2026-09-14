@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { EXPENSE_ROUTE } from '~constants/Routes';
-import { deleteData, getData, postData, putData } from '~services';
-import { Expense, RequestPayload, ResponsePayload } from '~types';
+
+import { EXPENSE_ROUTE } from '@/constants/Routes';
+import { deleteData, getData, postData, putData } from '@/services';
+import { Expense, RequestPayload, ResponsePayload } from '@/types';
 
 export function useCreateExpenseMutation() {
     const queryClient = useQueryClient();
@@ -24,8 +25,8 @@ export function useCreateExpenseMutation() {
                 queryKey: ['expenses'],
             });
         },
-        onError: (error) => {
-            console.error('Failed to create expense:', error.message);
+        onError: (_error) => {
+            console.error('Failed to create expense.');
         },
     });
 }
@@ -50,8 +51,8 @@ export function useDeleteExpenseMutation() {
                 queryKey: ['expenses'],
             });
         },
-        onError: (error) => {
-            console.error('Failed to delete expense:', error.message);
+        onError: (_error) => {
+            console.error('Failed to delete expense.');
         },
     });
 }
@@ -94,8 +95,8 @@ export function useUpdateExpenseMutation() {
                 queryKey: ['expenses'],
             });
         },
-        onError: (error) => {
-            console.error('Failed to update expense:', error.message);
+        onError: (_error) => {
+            console.error('Failed to update expense.');
         },
     });
 }

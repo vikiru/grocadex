@@ -1,6 +1,7 @@
 import { Expense } from '@prisma/client';
-import { logger } from '~config/logger';
-import { prisma } from '~data/';
+
+import { logger } from '@/api/config/logger';
+import { prisma } from '@/api/data/';
 
 export async function deleteExpenseById(userId: number, expenseId: number): Promise<boolean> {
     try {

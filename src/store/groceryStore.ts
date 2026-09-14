@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { zustandStorage } from '~store';
-import { GroceryItem } from '~types';
+
+import { zustandStorage } from '@/store';
+import { GroceryItem } from '@/types';
 
 type GroceryState = {
     groceryItems: GroceryItem[];

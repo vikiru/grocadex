@@ -1,7 +1,8 @@
 import express from 'express';
 import passport from 'passport';
-import { apiVersionString } from '~config/index';
-import { UserController } from '~controllers/';
+
+import { apiVersionString } from '@/api/config/index';
+import { UserController } from '@/api/controllers/';
 
 const UserRouter = express.Router();
 const baseUrl = `/${apiVersionString}/users`;

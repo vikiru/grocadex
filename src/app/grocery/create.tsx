@@ -1,5 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
-import { GroceryCreateScreen } from '~screens';
+
+import { GroceryCreateScreen } from '@/screens';
 
 function CreateGrocery() {
     const { userId, receiptId } = useLocalSearchParams();

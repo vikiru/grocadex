@@ -1,7 +1,8 @@
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
-import { useCreateGroceryItemMutation, useDeleteGroceryItemMutation, useUpdateGroceryItemMutation } from '~services';
-import { GroceryItem } from '~types';
+
+import { useCreateGroceryItemMutation, useDeleteGroceryItemMutation, useUpdateGroceryItemMutation } from '@/services';
+import { GroceryItem } from '@/types';
 
 export function useCreateItem() {
     const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useCreateGroceryItemMutation();
@@ -19,7 +20,7 @@ export function useCreateItem() {
                     visibilityTime: 2000,
                 });
             }
-        } catch (error) {
+        } catch {
             Toast.show({
                 type: 'error',
                 position: 'top',
@@ -28,7 +29,7 @@ export function useCreateItem() {
                 autoHide: true,
                 visibilityTime: 2000,
             });
-            console.error('Failed to create item:', error);
+            console.error('Failed to create item.');
         }
     };
 
@@ -59,7 +60,7 @@ export function useDeleteItem() {
                     visibilityTime: 2000,
                 });
             }
-        } catch (error) {
+        } catch {
             Toast.show({
                 type: 'error',
                 position: 'top',
@@ -68,7 +69,7 @@ export function useDeleteItem() {
                 autoHide: true,
                 visibilityTime: 2000,
             });
-            console.error('Failed to delete item:', error);
+            console.error('Failed to delete item.');
         }
     };
 
@@ -101,7 +102,7 @@ export function useUpdateItem() {
                 });
                 setTimeout(() => router.back(), 1500);
             }
-        } catch (error) {
+        } catch {
             Toast.show({
                 type: 'error',
                 position: 'top',
@@ -110,7 +111,7 @@ export function useUpdateItem() {
                 autoHide: true,
                 visibilityTime: 2000,
             });
-            console.error('Failed to update item:', error);
+            console.error('Failed to update item.');
         }
     };
 

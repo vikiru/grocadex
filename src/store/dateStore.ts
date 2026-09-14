@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { zustandStorage } from '~store';
+
+import { zustandStorage } from '@/store';
 
 type DateState = {
     date: Date | number;

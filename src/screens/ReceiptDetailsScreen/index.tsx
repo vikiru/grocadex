@@ -1,27 +1,15 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useWindowDimensions } from 'react-native';
-import { Alert, DataTable } from '~components';
-import {
-    Button,
-    ButtonText,
-    Heading,
-    HStack,
-    Table,
-    TableBody,
-    TableData,
-    TableHead,
-    TableHeader,
-    TableRow,
-    Text,
-    VStack,
-} from '~components/ui';
-import { DateFormat } from '~constants/Dates';
-import { FRONTEND_RECEIPT_MODIFY_ROUTE, FRONTEND_RECEIPT_ROUTE } from '~constants/Routes';
-import { useDeleteReceipt } from '~hooks';
-import { useReceiptStore } from '~store';
-import { GroceryItem, Receipt } from '~types';
-import { formatDate, parseDate } from '~utils/date';
+
+import { Alert, DataTable } from '@/components';
+import { Button, ButtonText, Heading, HStack, TableHead, Text, VStack } from '@/components/ui';
+import { DateFormat } from '@/constants/Dates';
+import { FRONTEND_RECEIPT_MODIFY_ROUTE, FRONTEND_RECEIPT_ROUTE } from '@/constants/Routes';
+import { useDeleteReceipt } from '@/hooks';
+import { useReceiptStore } from '@/store';
+import { GroceryItem, Receipt } from '@/types';
+import { formatDate, parseDate } from '@/utils/date';
 
 export default function ReceiptDetailsScreen() {
     const { id } = useLocalSearchParams();

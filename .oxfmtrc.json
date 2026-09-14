@@ -19,10 +19,5 @@
             ["value-parent", "value-sibling", "value-index"],
             "unknown"
         ]
-    },
-    "sortTailwindcss": {
-        "stylesheet": "./global.css",
-        "functions": ["clsx", "cn", "cva"],
-        "preserveWhitespace": true
     }
 }

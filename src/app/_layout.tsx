@@ -9,9 +9,10 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 import Toast from 'react-native-toast-message';
-import { GluestackUIProvider } from '~components/ui/gluestack-ui-provider';
-import { useColorScheme } from '~hooks';
-import { MainNavigation } from '~navigation';
+
+import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+import { useColorScheme } from '@/hooks';
+import { MainNavigation } from '@/navigation';
 
 const queryClient = new QueryClient();
 
@@ -21,11 +22,11 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
     const colorScheme = useColorScheme();
     const [loaded] = useFonts({
-        Hind: require('~assets/fonts/Hind-Regular.ttf'),
-        Poppins: require('~assets/fonts/Poppins-Regular.ttf'),
-        Sansita: require('~assets/fonts/Sansita-Regular.ttf'),
-        'IBM Plex Sans': require('~assets/fonts/IBMPlexSans-VariableFont_wdth,wght.ttf'),
-        'Libre Baskerville': require('~assets/fonts/LibreBaskerville-Regular.ttf'),
+        Hind: require('@/assets/fonts/Hind-Regular.ttf'),
+        Poppins: require('@/assets/fonts/Poppins-Regular.ttf'),
+        Sansita: require('@/assets/fonts/Sansita-Regular.ttf'),
+        'IBM Plex Sans': require('@/assets/fonts/IBMPlexSans-VariableFont_wdth,wght.ttf'),
+        'Libre Baskerville': require('@/assets/fonts/LibreBaskerville-Regular.ttf'),
     });
 
     useEffect(() => {

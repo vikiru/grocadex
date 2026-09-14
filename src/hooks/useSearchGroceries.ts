@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useGroceryStore } from '~store';
-import { GroceryItem } from '~types';
+
+import { useGroceryStore } from '@/store';
+import { GroceryItem } from '@/types';
 
 export default function useSearchReceipts() {
     const groceries = useGroceryStore((state) => state.groceryItems);
@@ -13,7 +14,7 @@ export default function useSearchReceipts() {
             return grocery.name.toLowerCase().includes(query.toLowerCase()) || grocery.name === query;
         });
         setFilteredGroceries(filtered);
-    }, [query, groceries]);
+    }, [query, groceries, activeGroceries]);
 
     return { filteredGroceries, query, setQuery };
 }

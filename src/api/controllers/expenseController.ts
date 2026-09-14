@@ -1,16 +1,17 @@
-import { NextFunction, Request, Response } from 'express';
-import { logger } from '~config/logger';
-import { ExpenseService } from '~services';
-import { ResponsePayload, UserRequest } from '~types';
+import { NextFunction, Response } from 'express';
 
-export async function deleteExpenseById(req: UserRequest, res: Response, next: NextFunction) {
+import { logger } from '@/api/config/logger';
+import { ExpenseService } from '@/api/services';
+import { getUserId, ResponsePayload, UserRequest } from '@/types';
+
+export async function deleteExpenseById(req: UserRequest, res: Response, _next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
         success: false,
         error: '',
     };
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const expenseId = parseInt(req.params.expenseId, 10);
 
     try {
@@ -34,7 +35,7 @@ export async function deleteExpenseById(req: UserRequest, res: Response, next: N
     }
 }
 
-export async function getExpenses(req: UserRequest, res: Response, next: NextFunction) {
+export async function getExpenses(req: UserRequest, res: Response, _next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -42,7 +43,7 @@ export async function getExpenses(req: UserRequest, res: Response, next: NextFun
         error: '',
     };
 
-    const userId = req.user.id;
+    const userId = getUserId(req);
 
     try {
         const expenses = await ExpenseService.retrieveAllExpensesByUserId(userId);
@@ -66,14 +67,14 @@ export async function getExpenses(req: UserRequest, res: Response, next: NextFun
     }
 }
 
-export async function retrieveAllExpenses(req: UserRequest, res: Response, next: NextFunction) {
+export async function retrieveAllExpenses(req: UserRequest, res: Response, _next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
         success: false,
         error: '',
     };
-    const userId = req.user.id;
+    const userId = getUserId(req);
 
     try {
         const expenses = await ExpenseService.retrieveAllExpensesByUserId(userId);
@@ -97,14 +98,14 @@ export async function retrieveAllExpenses(req: UserRequest, res: Response, next:
     }
 }
 
-export async function retrieveExpenseById(req: UserRequest, res: Response, next: NextFunction) {
+export async function retrieveExpenseById(req: UserRequest, res: Response, _next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
         success: false,
         error: '',
     };
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const expenseId = parseInt(req.params.expenseId, 10);
 
     try {
@@ -129,14 +130,14 @@ export async function retrieveExpenseById(req: UserRequest, res: Response, next:
     }
 }
 
-export async function saveExpense(req: UserRequest, res: Response, next: NextFunction) {
+export async function saveExpense(req: UserRequest, res: Response, _next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
         success: false,
         error: '',
     };
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const { newExpense } = req.body;
 
     try {
@@ -161,19 +162,19 @@ export async function saveExpense(req: UserRequest, res: Response, next: NextFun
     }
 }
 
-export async function updateExpenseById(req: UserRequest, res: Response, next: NextFunction) {
+export async function updateExpenseById(req: UserRequest, res: Response, _next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
         success: false,
         error: '',
     };
-    const userId = req.user.id;
+
     const { expenseId } = req.params;
     const { updatedExpense } = req.body;
 
     try {
-        const updated = await ExpenseService.updateExpenseById(expenseId, updatedExpense);
+        const updated = await ExpenseService.updateExpenseById(Number(expenseId), updatedExpense);
 
         if (updated) {
             response['message'] = `Successfully updated expense with id ${expenseId}.`;

@@ -1,7 +1,8 @@
 import { User } from '@prisma/client';
-import { logger } from '~config/logger';
-import { prisma } from '~data/';
-import { hashPassword } from '~utils/hashPassword';
+
+import { logger } from '@/api/config/logger';
+import { prisma } from '@/api/data/';
+import { hashPassword } from '@/api/utils/hashPassword';
 
 export async function saveUser(user: Omit<User, 'id'>): Promise<User | null> {
     try {
@@ -18,7 +19,7 @@ export async function saveUser(user: Omit<User, 'id'>): Promise<User | null> {
         return savedUser;
     } catch (error) {
         logger.error(`Error saving user to the database: ${error}`);
-        throw new Error('Failed to save user to the database.');
+        throw new Error('Failed to save user to the database.', { cause: error });
     }
 }
 
@@ -38,6 +39,6 @@ export async function retrieveUserById(userId: number): Promise<User | null> {
         }
     } catch (error) {
         logger.error(`Error retrieving user with id ${userId} from the database: ${error}`);
-        throw new Error(`Error retrieving user with id ${userId}.`);
+        throw new Error(`Error retrieving user with id ${userId}.`, { cause: error });
     }
 }

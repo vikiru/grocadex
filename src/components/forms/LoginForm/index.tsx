@@ -1,9 +1,10 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik } from 'formik';
-import { FormInput } from '~components';
-import { Button, ButtonText, HStack, VStack } from '~components/ui';
-import { useLogin } from '~hooks';
-import { loginValidationSchema } from '~schemas';
+
+import { FormInput } from '@/components';
+import { Button, ButtonText, HStack, VStack } from '@/components/ui';
+import { useLogin } from '@/hooks';
+import { loginValidationSchema } from '@/schema';
 
 export default function LoginForm() {
     const { login } = useLogin();

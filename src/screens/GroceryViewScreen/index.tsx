@@ -1,10 +1,9 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native';
-import { GroceryCard, Searchbar } from '~components';
-import { HStack, Text, VStack } from '~components/ui';
-import { useSearchGroceries } from '~hooks';
-import { useGroceryStore } from '~store';
-import { GroceryItem } from '~types';
+
+import { GroceryCard, Searchbar } from '@/components';
+import { Text, VStack } from '@/components/ui';
+import { useSearchGroceries } from '@/hooks';
+import { GroceryItem } from '@/types';
 
 export default function GroceryViewScreen() {
     const { query, setQuery, filteredGroceries } = useSearchGroceries();

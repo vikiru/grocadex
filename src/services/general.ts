@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { BASE_URL } from '~constants/Routes';
-import { tokenStorage } from '~store';
-import { RequestPayload, ResponsePayload } from '~types';
+
+import { BASE_URL } from '@/constants/Routes';
+import { tokenStorage } from '@/store';
+import { RequestPayload, ResponsePayload } from '@/types';
 
 const axiosInstance = axios.create({
     withCredentials: true,
@@ -15,8 +16,8 @@ axiosInstance.interceptors.request.use(
         }
         return config;
     },
-    (error) => {
-        console.error(error);
+    (_error) => {
+        console.error('Request failed.');
         return Promise.reject(new Error('Request failed, invalid access token'));
     },
 );
@@ -40,8 +41,8 @@ axiosInstance.interceptors.response.use(
                     tokenStorage.set('accessToken', access_token);
                     originalRequest.headers['Authorization'] = `Bearer ${access_token}`;
                     return axiosInstance(originalRequest);
-                } catch (refreshError) {
-                    console.error('Error refreshing token:', refreshError);
+                } catch {
+                    console.error('Token refresh failed.');
                     tokenStorage.delete('accessToken');
                     tokenStorage.delete('refreshToken');
                     tokenStorage.set('isAuthenticated', false);
@@ -49,47 +50,55 @@ axiosInstance.interceptors.response.use(
                 }
             }
         }
-        console.error(error);
+        console.error('Request failed.');
         return Promise.reject(new Error('Request failed'));
     },
 );
 
-export async function deleteData<T>(payload: RequestPayload): Promise<T | null> {
+export async function deleteData<T>(payload: RequestPayload): Promise<T> {
     try {
         const response = await axiosInstance.delete<T>(payload.url);
         return response.data;
-    } catch (error: any) {
-        console.error(`An error occurred while deleting data at ${payload.url}.\nError: ${error.message}`);
-        return null;
+    } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        throw new Error(`An error occurred while deleting data at ${payload.url}.\nError: ${message}`, {
+            cause: error,
+        });
     }
 }
 
-export async function getData<T>(payload: RequestPayload): Promise<T | null> {
+export async function getData<T>(payload: RequestPayload): Promise<T> {
     try {
         const response = await axiosInstance.get<T>(payload.url);
         return response.data;
-    } catch (error: any) {
-        console.error(`An error occurred while retrieving data at ${payload.url}.\nError: ${error.message}`);
-        return null;
+    } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        throw new Error(`An error occurred while retrieving data at ${payload.url}.\nError: ${message}`, {
+            cause: error,
+        });
     }
 }
 
-export async function postData<T>(payload: RequestPayload): Promise<T | null> {
+export async function postData<T>(payload: RequestPayload): Promise<T> {
     try {
         const response = await axiosInstance.post<T>(payload.url, payload.data);
         return response.data;
-    } catch (error: any) {
-        console.error(`An error occurred while creating data at ${payload.url}.\nError: ${error.message}`);
-        return null;
+    } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        throw new Error(`An error occurred while creating data at ${payload.url}.\nError: ${message}`, {
+            cause: error,
+        });
     }
 }
 
-export async function putData<T>(payload: RequestPayload): Promise<T | null> {
+export async function putData<T>(payload: RequestPayload): Promise<T> {
     try {
         const response = await axiosInstance.put<T>(payload.url, payload.data);
         return response.data;
-    } catch (error: any) {
-        console.error(`An error occurred while updating data at ${payload.url}.\nError: ${error.message}`);
-        return null;
+    } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        throw new Error(`An error occurred while updating data at ${payload.url}.\nError: ${message}`, {
+            cause: error,
+        });
     }
 }

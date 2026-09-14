@@ -336,6 +336,8 @@ const ButtonGroup = React.forwardRef<React.ComponentRef<typeof UIButton.Group>, 
     ref,
 ) {
     return (
+        // Gluestack's Group type incorrectly requires children on the native View wrapper.
+        // @ts-expect-error Gluestack Group's generated prop type requires unavailable children.
         <UIButton.Group
             className={buttonGroupStyle({
                 class: className,

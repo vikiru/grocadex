@@ -1,9 +1,10 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik } from 'formik';
-import { FormInput } from '~components';
-import { Button, ButtonText, HStack, VStack } from '~components/ui';
-import { useRegistration } from '~hooks';
-import { signupValidationSchema } from '~schemas';
+
+import { FormInput } from '@/components';
+import { Button, ButtonText, HStack, VStack } from '@/components/ui';
+import { useRegistration } from '@/hooks';
+import { signupValidationSchema } from '@/schema';
 
 export default function RegistrationForm() {
     const { register } = useRegistration();

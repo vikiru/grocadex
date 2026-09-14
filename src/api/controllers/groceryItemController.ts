@@ -1,11 +1,12 @@
 import { GroceryItem } from '@prisma/client';
-import { Request, Response } from 'express';
-import { logger } from '~config/logger';
-import { GroceryItemService } from '~services';
-import { ResponsePayload, UserRequest } from '~types';
+import { Response } from 'express';
+
+import { logger } from '@/api/config/logger';
+import { GroceryItemService } from '@/api/services';
+import { getUserId, ResponsePayload, UserRequest } from '@/types';
 
 export async function createGroceryItem(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const groceryItem: GroceryItem = req.body;
     const response: ResponsePayload = {
         message: '',
@@ -29,7 +30,7 @@ export async function createGroceryItem(req: UserRequest, res: Response): Promis
 }
 
 export async function deleteGroceryItem(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const { receiptId, groceryItemId } = req.params;
 
     const response: ResponsePayload = {
@@ -54,7 +55,7 @@ export async function deleteGroceryItem(req: UserRequest, res: Response): Promis
 }
 
 export async function getActiveGroceryItems(req: UserRequest, res: Response) {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -85,7 +86,7 @@ export async function getActiveGroceryItems(req: UserRequest, res: Response) {
 }
 
 export async function getGroceryItemById(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const { receiptId, groceryItemId } = req.params;
     const response: ResponsePayload = {
         message: '',
@@ -121,7 +122,7 @@ export async function getGroceryItemById(req: UserRequest, res: Response): Promi
 }
 
 export async function getGroceryItemsByReceiptId(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
+    const userId = getUserId(req);
     const receiptId = parseInt(req.params.receiptId, 10);
     const response: ResponsePayload = {
         message: '',
@@ -153,7 +154,6 @@ export async function getGroceryItemsByReceiptId(req: UserRequest, res: Response
 }
 
 export async function updateGroceryItem(req: UserRequest, res: Response): Promise<void> {
-    const userId = req.user.id;
     const { receiptId, groceryItemId } = req.params;
     const groceryItem = req.body;
     const response: ResponsePayload = {

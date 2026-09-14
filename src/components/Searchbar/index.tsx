@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { HStack, Input, InputField } from '~components/ui';
+
+import { HStack, Input, InputField } from '@/components/ui';
 
 type SearchbarProps = {
     placeholder: string;
