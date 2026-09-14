@@ -8,9 +8,6 @@
     <a href="https://github.com/vikiru/grocadex/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/license-MIT-aqua" alt="MIT License Badge"/>
     </a>
-    <a href="https://github.com/prettier/prettier">
-        <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" alt="Code Style - Prettier"/>
-    </a>
     <a href="https://wakatime.com/@vikiru/projects/nsgyjubogr">
         <img src="https://wakatime.com/badge/user/5e62f99d-3a1e-4fd2-8f37-77919d626a67/project/8f4e14f5-887c-4eae-a03c-8d1e780d3132.svg" alt="WakaTime Stats for Grocadex">
     </a>
@@ -52,25 +49,11 @@ This application was created using [`create-expo-app`](https://www.npmjs.com/pac
 
 ## 🛠️ Tech Stack
 
-**Frontend:**
+**Frontend**: [React Native](https://reactnative.dev/), [NativeWind](https://www.nativewind.dev/), [Gluestack UI](https://gluestack.io/), [TanStack Query](https://github.com/TanStack/query), [Zustand](https://github.com/pmndrs/zustand), [React Native MMKV](https://github.com/mrousavy/react-native-mmkv), [Formik](https://formik.org/), [Yup](https://github.com/jquense/yup/)
 
-- [React Native](https://reactnative.dev/)
-- [NativeWind](https://www.nativewind.dev/)
-- [Gluestack UI](https://gluestack.io/)
-- [Tanstack Query](https://github.com/TanStack/query)
-- [Zustand](https://github.com/pmndrs/zustand)
-- [React Native MMKV](https://github.com/mrousavy/react-native-mmkv)
-- [Formik](https://formik.org/)
-- [Yup](https://github.com/jquense/yup)
+**Backend**: [Express](https://expressjs.com/), [Passport](https://www.passportjs.org/), [passport-local](https://github.com/jaredhanson/passport-local), [passport-jwt](https://github.com/mikenicholson/passport-jwt), [Prisma](https://www.prisma.io/), [PostgreSQL](https://www.postgresql.org/)
 
-**Backend:**
-
-- [Express](https://expressjs.com/)
-- [Passport](https://www.passportjs.org/)
-- [passport-local](https://github.com/jaredhanson/passport-local)
-- [passport-jwt](https://github.com/mikenicholson/passport-jwt)
-- [Prisma](https://www.prisma.io/)
-- [PostgresSQL](https://www.postgresql.org/)
+**Development Tools**: [pnpm](https://pnpm.io/), [Oxlint](https://oxc.rs/docs/guide/usage/linter), [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html), [Lefthook](https://github.com/evilmartians/lefthook)
 
 ## 📝 Prerequisites
 
@@ -90,7 +73,7 @@ cd grocadex
 2. Download and install all required dependencies.
 
 ```bash
-npm install
+pnpm install
 ```
 
 3. Configure your `.env` file with the required values.
@@ -114,7 +97,7 @@ JWT_SECRET=""
 
 ```bash
 cd src/api
-npx prisma generate
+pnpm exec prisma generate
 ```
 
 ## 📜 Available Scripts
@@ -122,13 +105,13 @@ npx prisma generate
 1. Start the development server for the frontend.
 
 ```bash
-npm run start
+pnpm run start
 ```
 
 2. Start the development server for the frontend and the backend concurrently.
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 The frontend will be available at:
@@ -146,19 +129,19 @@ http://localhost:3000
 3. Start the development server for the frontend and launch the application on an Android device.
 
 ```bash
-npm run android
+pnpm run android
 ```
 
 4. Start the development server for the frontend and launch the application on an iOS device.
 
 ```bash
-npm run ios
+pnpm run ios
 ```
 
 5. Start the development server for the frontend and launch the application on the web.
 
 ```bash
-npm run web
+pnpm run web
 ```
 
 The application will be available at:
@@ -167,16 +150,16 @@ The application will be available at:
 http://localhost:8081
 ```
 
-6. Lint all files and check if there are any issues with [ESLint](https://eslint.org/).
+6. Lint all files with [Oxlint](https://oxc.rs/docs/guide/usage/linter).
 
 ```bash
-npm run lint
+pnpm run lint
 ```
 
-7. Fix all ESLint issues and then format the files with [Prettier](https://prettier.io/).
+7. Format the project with [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html).
 
 ```bash
-npm run prettier
+pnpm run format
 ```
 
 ## ✨ Acknowledgments
