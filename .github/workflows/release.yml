@@ -41,5 +41,5 @@ jobs:
               run: pnpm --dir src/api exec prisma generate
             - name: Release
               env:
-                  GH_TOKEN: ${{ github.token }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: pnpm exec semantic-release
