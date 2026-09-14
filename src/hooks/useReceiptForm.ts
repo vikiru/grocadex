@@ -1,17 +1,12 @@
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { FRONTEND_RECEIPT_ROUTE } from '~constants/Routes';
-import {
-    useCreateReceiptMutation,
-    useDeleteReceiptMutation,
-    useUpdateReceiptMutation,
-} from '~services';
+import { useCreateReceiptMutation, useDeleteReceiptMutation, useUpdateReceiptMutation } from '~services';
 import { Receipt } from '~types';
 
 export function useCreateReceipt() {
     const router = useRouter();
-    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
-        useCreateReceiptMutation();
+    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useCreateReceiptMutation();
 
     const handleCreate = async (newReceipt: Receipt | Omit<Receipt, 'id'>) => {
         try {
@@ -44,8 +39,7 @@ export function useCreateReceipt() {
 
 export function useDeleteReceipt() {
     const router = useRouter();
-    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
-        useDeleteReceiptMutation();
+    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useDeleteReceiptMutation();
 
     const handleDelete = async (id: number) => {
         try {
@@ -77,12 +71,9 @@ export function useDeleteReceipt() {
 
 export function useUpdateReceipt() {
     const router = useRouter();
-    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
-        useUpdateReceiptMutation();
+    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useUpdateReceiptMutation();
 
-    const handleUpdate = async (
-        updatedReceipt: Receipt | Omit<Receipt, 'id'>,
-    ) => {
+    const handleUpdate = async (updatedReceipt: Receipt | Omit<Receipt, 'id'>) => {
         try {
             const data = await mutateAsync(updatedReceipt);
             if (data.success) {

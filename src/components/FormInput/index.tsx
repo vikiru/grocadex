@@ -24,14 +24,8 @@ export const FormInput = ({
     return (
         <HStack className="mx-4 mt-1">
             <VStack className="w-full">
-                <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                    {label}
-                </Text>
-                <Input
-                    className="w-full bg-background-0 font-body"
-                    size="xl"
-                    variant="outline"
-                >
+                <Text className="font-heading text-lg text-typography-900 xl:text-xl">{label}</Text>
+                <Input className="w-full bg-background-0 font-body" size="xl" variant="outline">
                     <InputField
                         isInvalid={!!error && touched}
                         onBlur={onBlur}
@@ -41,9 +35,7 @@ export const FormInput = ({
                         value={value}
                     />
                 </Input>
-                {error && touched && (
-                    <Text className="text-error-500">{error}</Text>
-                )}
+                {error && touched && <Text className="text-error-500">{error}</Text>}
             </VStack>
         </HStack>
     );

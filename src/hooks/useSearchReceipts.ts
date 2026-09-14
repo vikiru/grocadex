@@ -8,10 +8,7 @@ export default function useSearchReceipts() {
 
     useEffect(() => {
         const filtered = receipts.filter((receipt) => {
-            return (
-                receipt.store.toLowerCase().includes(query.toLowerCase()) ||
-                receipt.store === query
-            );
+            return receipt.store.toLowerCase().includes(query.toLowerCase()) || receipt.store === query;
         });
         setFilteredReceipts(filtered);
     }, [query, receipts]);

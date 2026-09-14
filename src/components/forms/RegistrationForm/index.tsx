@@ -24,14 +24,7 @@ export default function RegistrationForm() {
                 }}
                 validationSchema={signupValidationSchema}
             >
-                {({
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    values,
-                    errors,
-                    touched,
-                }) => (
+                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                     <>
                         <FormInput
                             error={errors.firstName}
@@ -82,19 +75,9 @@ export default function RegistrationForm() {
 
                         <HStack className="mx-4 mt-4">
                             <VStack className="w-full gap-3">
-                                <Button
-                                    action="primary"
-                                    onPress={handleSubmit}
-                                    variant="solid"
-                                >
-                                    <MaterialCommunityIcons
-                                        color="white"
-                                        name="account-plus"
-                                        size={24}
-                                    />
-                                    <ButtonText className="font-body xs:text-base xl:text-lg">
-                                        Sign Up
-                                    </ButtonText>
+                                <Button action="primary" onPress={handleSubmit} variant="solid">
+                                    <MaterialCommunityIcons color="white" name="account-plus" size={24} />
+                                    <ButtonText className="font-body xs:text-base xl:text-lg">Sign Up</ButtonText>
                                 </Button>
                             </VStack>
                         </HStack>

@@ -6,11 +6,7 @@ import useGroceryModal from '~hooks/useGroceryModal';
 import { useCreateItem, useDeleteItem, useUpdateItem } from '~hooks/useItem';
 import useLogin from '~hooks/useLogin';
 import { useForceLogout, useLogout } from '~hooks/useLogout';
-import {
-    useCreateReceipt,
-    useDeleteReceipt,
-    useUpdateReceipt,
-} from '~hooks/useReceiptForm';
+import { useCreateReceipt, useDeleteReceipt, useUpdateReceipt } from '~hooks/useReceiptForm';
 import useRegistration from '~hooks/useRegistration';
 import useResetData from '~hooks/useResetData';
 import useSearchGroceries from '~hooks/useSearchGroceries';

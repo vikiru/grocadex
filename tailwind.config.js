@@ -97,11 +97,9 @@ module.exports = {
                     900: 'rgb(var(--color-background-900)/<alpha-value>)',
                     950: 'rgb(var(--color-background-950)/<alpha-value>)',
                     error: 'rgb(var(--color-background-error)/<alpha-value>)',
-                    warning:
-                        'rgb(var(--color-background-warning)/<alpha-value>)',
+                    warning: 'rgb(var(--color-background-warning)/<alpha-value>)',
                     muted: 'rgb(var(--color-background-muted)/<alpha-value>)',
-                    success:
-                        'rgb(var(--color-background-success)/<alpha-value>)',
+                    success: 'rgb(var(--color-background-success)/<alpha-value>)',
                     info: 'rgb(var(--color-background-info)/<alpha-value>)',
                     light: '#FBFBFB',
                     dark: '#181719',
@@ -177,8 +175,7 @@ module.exports = {
                     950: 'rgb(var(--color-outline-950)/<alpha-value>)',
                 },
                 indicator: {
-                    primary:
-                        'rgb(var(--color-indicator-primary)/<alpha-value>)',
+                    primary: 'rgb(var(--color-indicator-primary)/<alpha-value>)',
                     info: 'rgb(var(--color-indicator-info)/<alpha-value>)',
                     error: 'rgb(var(--color-indicator-error)/<alpha-value>)',
                 },

@@ -42,9 +42,7 @@ export default function Alert({
                 size="md"
                 variant="solid"
             >
-                <ButtonText className="font-body text-lg">
-                    {buttonText}
-                </ButtonText>
+                <ButtonText className="font-body text-lg">{buttonText}</ButtonText>
                 <MaterialCommunityIcons
                     className="mb-1 ml-2"
                     color="white"
@@ -52,18 +50,11 @@ export default function Alert({
                     size={24}
                 />
             </Button>
-            <AlertDialog
-                isOpen={showAlertDialog}
-                onClose={handleClose}
-                size="md"
-            >
+            <AlertDialog isOpen={showAlertDialog} onClose={handleClose} size="md">
                 <AlertDialogBackdrop />
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <Heading
-                            className="font-semibold text-typography-950"
-                            size="md"
-                        >
+                        <Heading className="font-semibold text-typography-950" size="md">
                             {alertHeading}
                         </Heading>
                     </AlertDialogHeader>

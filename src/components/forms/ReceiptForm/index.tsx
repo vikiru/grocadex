@@ -3,14 +3,7 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 import { ScrollView } from 'react-native';
 import { DateInputField, FormInput, GroceryItemModal } from '~components';
-import {
-    Button,
-    ButtonText,
-    Heading,
-    HStack,
-    Text,
-    VStack,
-} from '~components/ui';
+import { Button, ButtonText, Heading, HStack, Text, VStack } from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import { useGroceryModal } from '~hooks';
 import { receiptSchema } from '~schemas';
@@ -24,12 +17,7 @@ type ReceiptFormProps = {
     onSubmit?: (values: Receipt | Omit<Receipt, 'id'>) => void;
 };
 
-export default function ReceiptForm({
-    userId,
-    receiptId,
-    initialValues,
-    onSubmit,
-}: ReceiptFormProps) {
+export default function ReceiptForm({ userId, receiptId, initialValues, onSubmit }: ReceiptFormProps) {
     const {
         createGroceryVisible,
         setCreateGroceryVisible,
@@ -46,8 +34,7 @@ export default function ReceiptForm({
                 store: initialValues?.store || '',
                 purchaseDate: initialValues?.purchaseDate || new Date(),
                 total: initialValues?.total || 1,
-                groceryItems:
-                    initialValues?.groceryItems || ([] as GroceryItem[]),
+                groceryItems: initialValues?.groceryItems || ([] as GroceryItem[]),
             }}
             onSubmit={async (values, { resetForm }) => {
                 const finalValues: Receipt = { userId, ...values };
@@ -65,15 +52,7 @@ export default function ReceiptForm({
             }}
             validationSchema={receiptSchema}
         >
-            {({
-                handleSubmit,
-                handleBlur,
-                handleChange,
-                values,
-                errors,
-                touched,
-                setFieldValue,
-            }) => (
+            {({ handleSubmit, handleBlur, handleChange, values, errors, touched, setFieldValue }) => (
                 <VStack>
                     <FormInput
                         error={errors.store}
@@ -88,16 +67,11 @@ export default function ReceiptForm({
                     <DateInputField
                         date={values.purchaseDate}
                         error={errors.purchaseDate}
-                        isInvalid={
-                            !!errors.purchaseDate && touched.purchaseDate
-                        }
+                        isInvalid={!!errors.purchaseDate && touched.purchaseDate}
                         label="Purchase Date"
                         placeholder={
                             initialValues?.purchaseDate
-                                ? formatDate(
-                                      parseDate(initialValues?.purchaseDate),
-                                      DateFormat,
-                                  )
+                                ? formatDate(parseDate(initialValues?.purchaseDate), DateFormat)
                                 : 'Select a date'
                         }
                         setDate={(date) => setFieldValue('purchaseDate', date)}
@@ -107,9 +81,7 @@ export default function ReceiptForm({
                         error={errors.total}
                         label="Total ($)"
                         onBlur={() => {
-                            handleChange('total')(
-                                Number(values.total).toFixed(2),
-                            );
+                            handleChange('total')(Number(values.total).toFixed(2));
                         }}
                         onChangeText={handleChange('total')}
                         placeholder="Enter total spent"
@@ -118,18 +90,9 @@ export default function ReceiptForm({
                     />
 
                     <HStack className="mx-4 mt-2 flex items-center justify-between">
-                        <Heading className="font-heading font-semibold xs:text-2xl xl:text-3xl">
-                            Grocery Items
-                        </Heading>
-                        <Button
-                            onPress={() =>
-                                setCreateGroceryVisible(!createGroceryVisible)
-                            }
-                            variant="link"
-                        >
-                            <ButtonText className="mt-2 font-body text-lg text-typography-600">
-                                Add Item
-                            </ButtonText>
+                        <Heading className="font-heading font-semibold xs:text-2xl xl:text-3xl">Grocery Items</Heading>
+                        <Button onPress={() => setCreateGroceryVisible(!createGroceryVisible)} variant="link">
+                            <ButtonText className="mt-2 font-body text-lg text-typography-600">Add Item</ButtonText>
                         </Button>
                     </HStack>
 
@@ -140,12 +103,7 @@ export default function ReceiptForm({
                         isOpen={createGroceryVisible}
                         onClose={() => setCreateGroceryVisible(false)}
                         onSubmit={(groceryValues) => {
-                            handleGroceryItemSubmit(
-                                groceryValues,
-                                -1,
-                                values,
-                                setFieldValue,
-                            );
+                            handleGroceryItemSubmit(groceryValues, -1, values, setFieldValue);
                             setCreateGroceryVisible(false);
                         }}
                         userId={userId}
@@ -156,27 +114,14 @@ export default function ReceiptForm({
                             <VStack className="gap-3 pb-6" key={index}>
                                 <HStack className="flex items-center justify-between">
                                     <Heading className="mt-2 font-heading font-medium">
-                                        {groceryItem.name} (
-                                        {groceryItem.quantity})
+                                        {groceryItem.name} ({groceryItem.quantity})
                                     </Heading>
-                                    <Text className="mt-2 font-info">
-                                        $
-                                        {Number(groceryItem.totalPrice).toFixed(
-                                            2,
-                                        )}
-                                    </Text>
+                                    <Text className="mt-2 font-info">${Number(groceryItem.totalPrice).toFixed(2)}</Text>
                                 </HStack>
 
                                 <HStack>
                                     <Text className="font-info">
-                                        Expires on{' '}
-                                        {formatDate(
-                                            parseDate(
-                                                groceryItem.expiryDate as Date,
-                                            ),
-                                            DateFormat,
-                                        )}
-                                        .
+                                        Expires on {formatDate(parseDate(groceryItem.expiryDate as Date), DateFormat)}.
                                     </Text>
                                 </HStack>
 
@@ -202,22 +147,10 @@ export default function ReceiptForm({
                                     <GroceryItemModal
                                         id={groceryItem.id}
                                         initialValues={groceryItem}
-                                        isOpen={
-                                            modifyGroceryItemVisible &&
-                                            editItemIndex === index
-                                        }
-                                        onClose={() =>
-                                            setModifyGroceryItemVisible(false)
-                                        }
-                                        onSubmit={(
-                                            groceryValues: GroceryItem,
-                                        ) => {
-                                            handleGroceryItemSubmit(
-                                                groceryValues,
-                                                index,
-                                                values,
-                                                setFieldValue,
-                                            );
+                                        isOpen={modifyGroceryItemVisible && editItemIndex === index}
+                                        onClose={() => setModifyGroceryItemVisible(false)}
+                                        onSubmit={(groceryValues: GroceryItem) => {
+                                            handleGroceryItemSubmit(groceryValues, index, values, setFieldValue);
                                             setModifyGroceryItemVisible(false);
                                         }}
                                         receiptId={receiptId}
@@ -228,14 +161,8 @@ export default function ReceiptForm({
                                         action="negative"
                                         className="w-28"
                                         onPress={() => {
-                                            const filteredItems =
-                                                values.groceryItems.filter(
-                                                    (_, i) => i !== index,
-                                                );
-                                            setFieldValue(
-                                                'groceryItems',
-                                                filteredItems,
-                                            );
+                                            const filteredItems = values.groceryItems.filter((_, i) => i !== index);
+                                            setFieldValue('groceryItems', filteredItems);
                                         }}
                                         size="md"
                                         variant="solid"
@@ -254,15 +181,8 @@ export default function ReceiptForm({
 
                     <HStack className="fixed bottom-0 left-0 right-0 mx-4 mb-1 mt-4">
                         <VStack className="w-full gap-3">
-                            <Button
-                                action="primary"
-                                className="w-full"
-                                onPress={handleSubmit}
-                                variant="solid"
-                            >
-                                <ButtonText className="font-body xs:text-base xl:text-lg">
-                                    Submit
-                                </ButtonText>
+                            <Button action="primary" className="w-full" onPress={handleSubmit} variant="solid">
+                                <ButtonText className="font-body xs:text-base xl:text-lg">Submit</ButtonText>
                             </Button>
                         </VStack>
                     </HStack>

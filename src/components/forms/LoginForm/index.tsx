@@ -18,14 +18,7 @@ export default function LoginForm() {
                 }}
                 validationSchema={loginValidationSchema}
             >
-                {({
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    values,
-                    errors,
-                    touched,
-                }) => (
+                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                     <VStack>
                         <FormInput
                             error={errors.username}
@@ -50,19 +43,9 @@ export default function LoginForm() {
 
                         <HStack className="mx-4 mt-4">
                             <VStack className="w-full gap-3">
-                                <Button
-                                    action="primary"
-                                    onPress={handleSubmit}
-                                    variant="solid"
-                                >
-                                    <MaterialCommunityIcons
-                                        color="white"
-                                        name="login"
-                                        size={24}
-                                    />
-                                    <ButtonText className="font-body xs:text-base xl:text-lg">
-                                        Login
-                                    </ButtonText>
+                                <Button action="primary" onPress={handleSubmit} variant="solid">
+                                    <MaterialCommunityIcons color="white" name="login" size={24} />
+                                    <ButtonText className="font-body xs:text-base xl:text-lg">Login</ButtonText>
                                 </Button>
                             </VStack>
                         </HStack>

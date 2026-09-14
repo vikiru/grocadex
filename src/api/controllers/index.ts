@@ -4,10 +4,4 @@ import * as GroceryItemController from './groceryItemController';
 import * as ReceiptController from './receiptController';
 import * as UserController from './userController';
 
-export {
-    AuthController,
-    ExpenseController,
-    GroceryItemController,
-    ReceiptController,
-    UserController,
-};
+export { AuthController, ExpenseController, GroceryItemController, ReceiptController, UserController };

@@ -14,23 +14,14 @@ type DateInputFieldProps = {
     isInvalid?: boolean;
 };
 
-export default function DateInputField({
-    label,
-    placeholder,
-    date,
-    setDate,
-    error,
-    isInvalid,
-}: DateInputFieldProps) {
+export default function DateInputField({ label, placeholder, date, setDate, error, isInvalid }: DateInputFieldProps) {
     const [open, setOpen] = useState(false);
     const [dateString, setDateString] = useState('');
 
     return (
         <VStack className="w-full">
             <HStack className="mx-4 mt-1">
-                <Text className="font-heading text-lg text-typography-900 xl:text-xl">
-                    {label}
-                </Text>
+                <Text className="font-heading text-lg text-typography-900 xl:text-xl">{label}</Text>
             </HStack>
             <HStack className="mx-4 mt-1">
                 <Input
@@ -58,9 +49,7 @@ export default function DateInputField({
                 />
             )}
 
-            {isInvalid && error && (
-                <Text className="text-error-500">{error}</Text>
-            )}
+            {isInvalid && error && <Text className="text-error-500">{error}</Text>}
         </VStack>
     );
 }

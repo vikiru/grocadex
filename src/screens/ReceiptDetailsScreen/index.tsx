@@ -17,10 +17,7 @@ import {
     VStack,
 } from '~components/ui';
 import { DateFormat } from '~constants/Dates';
-import {
-    FRONTEND_RECEIPT_MODIFY_ROUTE,
-    FRONTEND_RECEIPT_ROUTE,
-} from '~constants/Routes';
+import { FRONTEND_RECEIPT_MODIFY_ROUTE, FRONTEND_RECEIPT_ROUTE } from '~constants/Routes';
 import { useDeleteReceipt } from '~hooks';
 import { useReceiptStore } from '~store';
 import { GroceryItem, Receipt } from '~types';
@@ -29,9 +26,7 @@ import { formatDate, parseDate } from '~utils/date';
 export default function ReceiptDetailsScreen() {
     const { id } = useLocalSearchParams();
     const receipts = useReceiptStore((state) => state.receipts);
-    const receipt = receipts.find(
-        (receipt: Receipt) => receipt.id === Number(id),
-    );
+    const receipt = receipts.find((receipt: Receipt) => receipt.id === Number(id));
     const router = useRouter();
     const { handleDelete } = useDeleteReceipt();
     const { height } = useWindowDimensions();
@@ -39,18 +34,14 @@ export default function ReceiptDetailsScreen() {
     if (!receipt) {
         return (
             <HStack className="mx-4 mt-2">
-                <Text className="font-body text-lg text-typography-600">
-                    Receipt not found.
-                </Text>
+                <Text className="font-body text-lg text-typography-600">Receipt not found.</Text>
             </HStack>
         );
     }
     return (
         <VStack className="bg-background-100">
             <HStack className="mx-4 mt-2 flex items-center justify-between">
-                <Heading className="font-heading xs:text-3xl xl:text-4xl">
-                    {receipt.store}
-                </Heading>
+                <Heading className="font-heading xs:text-3xl xl:text-4xl">{receipt.store}</Heading>
                 <Heading className="font-info font-medium xs:text-2xl xl:text-3xl">
                     ${Number(receipt.total).toFixed(2)}
                 </Heading>
@@ -79,21 +70,12 @@ export default function ReceiptDetailsScreen() {
                 <Button
                     action="primary"
                     className="flex-1"
-                    onPress={() =>
-                        router.push(
-                            `${FRONTEND_RECEIPT_MODIFY_ROUTE}/${receipt.id}`,
-                        )
-                    }
+                    onPress={() => router.push(`${FRONTEND_RECEIPT_MODIFY_ROUTE}/${receipt.id}`)}
                     size="md"
                     variant="solid"
                 >
                     <ButtonText className="font-body text-lg">Edit</ButtonText>
-                    <MaterialCommunityIcons
-                        className="mb-1 ml-2"
-                        color="white"
-                        name="pencil"
-                        size={24}
-                    />
+                    <MaterialCommunityIcons className="mb-1 ml-2" color="white" name="pencil" size={24} />
                 </Button>
             </HStack>
 

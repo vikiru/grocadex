@@ -1,6 +1,10 @@
 {
     "name": "grocadex-api",
     "version": "1.0.0",
+    "description": "",
+    "keywords": [],
+    "license": "MIT",
+    "author": "Visakan Kirubakaran",
     "main": "app.ts",
     "scripts": {
         "build": "tsc",
@@ -8,10 +12,6 @@
         "dev": "nodemon",
         "studio": "prisma studio"
     },
-    "keywords": [],
-    "author": "Visakan Kirubakaran",
-    "license": "MIT",
-    "description": "",
     "dependencies": {
         "@prisma/client": "^5.18.0",
         "bcrypt": "^5.1.1",
@@ -71,6 +71,9 @@
         "ts-node": "^10.9.2",
         "typescript": "^5.8.2"
     },
+    "prisma": {
+        "seed": "ts-node prisma/seed.ts"
+    },
     "_moduleAliases": {
         "~config": "config",
         "~controllers": "controllers",
@@ -82,8 +85,5 @@
         "~strategies": "strategies",
         "~types": "types",
         "~utils": "utils"
-    },
-    "prisma": {
-        "seed": "ts-node prisma/seed.ts"
     }
 }

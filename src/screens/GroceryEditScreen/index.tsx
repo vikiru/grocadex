@@ -5,9 +5,7 @@ import { useGroceryStore } from '~store';
 
 export default function GroceryEditScreen() {
     const { id } = useLocalSearchParams();
-    const groceryItem = useGroceryStore((state) =>
-        state.getGroceryItemById(Number(id)),
-    );
+    const groceryItem = useGroceryStore((state) => state.getGroceryItemById(Number(id)));
     const { handleUpdate } = useUpdateItem();
 
     return (

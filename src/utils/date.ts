@@ -49,10 +49,7 @@ export const sortReceipts = (receipts: Partial<Receipt>[]): void => {
     });
 };
 
-export const daysBetweenDates = (
-    startDate: Date | string,
-    endDate: Date | string,
-): number => {
+export const daysBetweenDates = (startDate: Date | string, endDate: Date | string): number => {
     const start = convertDatetoDateTime(startDate);
     const end = convertDatetoDateTime(endDate);
     return end.diff(start, 'days').days;

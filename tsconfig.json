@@ -4,7 +4,9 @@
         "target": "ESNext",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
+        "noEmit": true,
         "incremental": true,
+        "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo",
         "allowJs": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
@@ -38,12 +40,7 @@
             "@/*": ["./*"],
             "tailwind.config": ["./tailwind.config.js"]
         },
-        "typeRoots": [
-            "./node_modules/@types",
-            "./src/types",
-            "./src/api/types",
-            "./src/api/node_modules/@types"
-        ]
+        "typeRoots": ["./node_modules/@types", "./src/types", "./src/api/types", "./src/api/node_modules/@types"]
     },
     "include": [
         "src/**/*",
@@ -54,5 +51,6 @@
         "nativewind-env.d.ts",
         ".expo/types/**/*.ts",
         "expo-env.d.ts"
-    ]
+    ],
+    "exclude": ["node_modules", "dist", ".expo"]
 }

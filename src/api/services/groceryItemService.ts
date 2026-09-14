@@ -2,9 +2,7 @@ import { GroceryItem } from '@prisma/client';
 import { logger } from '~config/logger';
 import { prisma } from '~data/';
 
-export async function retrieveActiveItems(
-    userId: number,
-): Promise<GroceryItem[]> {
+export async function retrieveActiveItems(userId: number): Promise<GroceryItem[]> {
     try {
         const activeItems = await prisma.groceryItem.findMany({
             where: { userId, isActive: true },
@@ -17,18 +15,12 @@ export async function retrieveActiveItems(
     }
 }
 
-export async function removeGroceryItemById(
-    userId: number,
-    receiptId: number,
-    groceryItemId: number,
-): Promise<void> {
+export async function removeGroceryItemById(userId: number, receiptId: number, groceryItemId: number): Promise<void> {
     try {
         await prisma.groceryItem.delete({
             where: { userId, receiptId, id: groceryItemId },
         });
-        logger.info(
-            `Successfully removed grocery item with id ${groceryItemId}.`,
-        );
+        logger.info(`Successfully removed grocery item with id ${groceryItemId}.`);
     } catch (error) {
         logger.error(`Error removing grocery item from database: ${error}`);
     }
@@ -43,9 +35,7 @@ export async function retrieveGroceryItemById(
         const groceryItem = await prisma.groceryItem.findUnique({
             where: { userId, receiptId, id: groceryItemId },
         });
-        logger.info(
-            `Successfully retrieved grocery item with id ${groceryItemId}.`,
-        );
+        logger.info(`Successfully retrieved grocery item with id ${groceryItemId}.`);
         return groceryItem;
     } catch (error) {
         logger.error(`Error retrieving grocery item from database: ${error}`);
@@ -53,19 +43,14 @@ export async function retrieveGroceryItemById(
     }
 }
 
-export async function retrieveGroceryItemsByReceiptId(
-    userId: number,
-    receiptId: number,
-): Promise<GroceryItem[]> {
+export async function retrieveGroceryItemsByReceiptId(userId: number, receiptId: number): Promise<GroceryItem[]> {
     try {
         const groceryItems = await prisma.groceryItem.findMany({
             where: { userId, receiptId },
         });
 
         if (groceryItems.length > 0) {
-            logger.info(
-                `Successfully retrieved grocery items belonging to receipt ${receiptId}.`,
-            );
+            logger.info(`Successfully retrieved grocery items belonging to receipt ${receiptId}.`);
         }
 
         return groceryItems;
@@ -75,17 +60,13 @@ export async function retrieveGroceryItemsByReceiptId(
     }
 }
 
-export async function retrieveGroceryItemsByUser(
-    userId: number,
-): Promise<GroceryItem[]> {
+export async function retrieveGroceryItemsByUser(userId: number): Promise<GroceryItem[]> {
     try {
         const groceryItems = await prisma.groceryItem.findMany({
             where: { userId },
         });
         if (groceryItems.length > 0) {
-            logger.info(
-                `Successfully retrieved grocery items belonging to user ${userId}.`,
-            );
+            logger.info(`Successfully retrieved grocery items belonging to user ${userId}.`);
         }
         return groceryItems;
     } catch (error) {
@@ -109,9 +90,7 @@ export async function saveGroceryItem(
                 })),
                 skipDuplicates: true,
             });
-            logger.info(
-                'Successfully saved multiple grocery items to the database.',
-            );
+            logger.info('Successfully saved multiple grocery items to the database.');
         } else {
             await prisma.groceryItem.create({
                 data: { ...groceryItem, receiptId },
@@ -127,9 +106,7 @@ export async function updateGroceryItems(
     groceryItems: GroceryItem | GroceryItem[],
 ): Promise<GroceryItem[] | GroceryItem | null> {
     try {
-        const itemsToUpdate = Array.isArray(groceryItems)
-            ? groceryItems
-            : [groceryItems];
+        const itemsToUpdate = Array.isArray(groceryItems) ? groceryItems : [groceryItems];
         const updatedItems = await Promise.all(
             itemsToUpdate.map(async (groceryItem) => {
                 return await prisma.groceryItem.update({

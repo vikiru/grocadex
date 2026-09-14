@@ -1,20 +1,10 @@
-import { Request, Response } from 'express';
-import {
-    AuthService,
-    ExpenseService,
-    GroceryItemService,
-    ReceiptService,
-    UserService,
-} from '~services';
-
 import { User } from '@prisma/client';
+import { Request, Response } from 'express';
 import { logger } from '~config/logger';
+import { AuthService, ExpenseService, GroceryItemService, ReceiptService, UserService } from '~services';
 import { ResponsePayload, UserRequest } from '~types';
 
-export async function createUser(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function createUser(req: UserRequest, res: Response): Promise<void> {
     const user: User = req.body;
     const response: ResponsePayload = {
         message: '',
@@ -55,10 +45,7 @@ export async function createUser(
     }
 }
 
-export async function getUserById(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function getUserById(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const response: ResponsePayload = {
         message: '',
@@ -90,10 +77,7 @@ export async function getUserById(
     }
 }
 
-export async function getUserData(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function getUserData(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const response: ResponsePayload = {
         message: '',
@@ -103,22 +87,17 @@ export async function getUserData(
     };
 
     try {
-        const groceryItems =
-            (await GroceryItemService.retrieveGroceryItemsByUser(userId)) || [];
+        const groceryItems = (await GroceryItemService.retrieveGroceryItemsByUser(userId)) || [];
         const receipts = (await ReceiptService.retrieveReceipts(userId)) || [];
-        const expenses =
-            (await ExpenseService.retrieveAllExpensesByUserId(userId)) || [];
+        const expenses = (await ExpenseService.retrieveAllExpensesByUserId(userId)) || [];
 
         response['data'] = { groceryItems, receipts, expenses };
-        response['message'] =
-            'Successfully retrieved receipts and grocery items for user.';
+        response['message'] = 'Successfully retrieved receipts and grocery items for user.';
         response['success'] = true;
         response['error'] = 'No error occurred.';
         res.status(200).json(response);
     } catch (error) {
-        logger.error(
-            `Error retrieving user data for user id ${userId}: ${error}`,
-        );
+        logger.error(`Error retrieving user data for user id ${userId}: ${error}`);
         response['message'] = 'Internal server error.';
         response['error'] = 'Failed to retrieve user data.';
         res.status(500).json(response);

@@ -7,11 +7,7 @@ const baseUrl = `/${apiVersionString}/auth`;
 
 const AuthRouter = express.Router();
 
-AuthRouter.post(
-    `${baseUrl}/login`,
-    passport.authenticate('local'),
-    AuthController.loginUser,
-);
+AuthRouter.post(`${baseUrl}/login`, passport.authenticate('local'), AuthController.loginUser);
 
 AuthRouter.post(`${baseUrl}/refresh`, AuthController.refreshToken);
 

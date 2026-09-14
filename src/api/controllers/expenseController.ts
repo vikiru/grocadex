@@ -3,11 +3,7 @@ import { logger } from '~config/logger';
 import { ExpenseService } from '~services';
 import { ResponsePayload, UserRequest } from '~types';
 
-export async function deleteExpenseById(
-    req: UserRequest,
-    res: Response,
-    next: NextFunction,
-) {
+export async function deleteExpenseById(req: UserRequest, res: Response, next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -18,14 +14,10 @@ export async function deleteExpenseById(
     const expenseId = parseInt(req.params.expenseId, 10);
 
     try {
-        const success = await ExpenseService.deleteExpenseById(
-            userId,
-            expenseId,
-        );
+        const success = await ExpenseService.deleteExpenseById(userId, expenseId);
 
         if (success) {
-            response['message'] =
-                `Successfully deleted expense with id ${expenseId}.`;
+            response['message'] = `Successfully deleted expense with id ${expenseId}.`;
             response['success'] = true;
             response['error'] = 'No error occurred.';
             res.status(200).json(response);
@@ -42,11 +34,7 @@ export async function deleteExpenseById(
     }
 }
 
-export async function getExpenses(
-    req: UserRequest,
-    res: Response,
-    next: NextFunction,
-) {
+export async function getExpenses(req: UserRequest, res: Response, next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -57,8 +45,7 @@ export async function getExpenses(
     const userId = req.user.id;
 
     try {
-        const expenses =
-            await ExpenseService.retrieveAllExpensesByUserId(userId);
+        const expenses = await ExpenseService.retrieveAllExpensesByUserId(userId);
 
         if (expenses) {
             response.message = 'Successfully retrieved expenses.';
@@ -79,11 +66,7 @@ export async function getExpenses(
     }
 }
 
-export async function retrieveAllExpenses(
-    req: UserRequest,
-    res: Response,
-    next: NextFunction,
-) {
+export async function retrieveAllExpenses(req: UserRequest, res: Response, next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -93,8 +76,7 @@ export async function retrieveAllExpenses(
     const userId = req.user.id;
 
     try {
-        const expenses =
-            await ExpenseService.retrieveAllExpensesByUserId(userId);
+        const expenses = await ExpenseService.retrieveAllExpensesByUserId(userId);
 
         if (expenses) {
             response['message'] = 'Successfully retrieved all expenses.';
@@ -115,11 +97,7 @@ export async function retrieveAllExpenses(
     }
 }
 
-export async function retrieveExpenseById(
-    req: UserRequest,
-    res: Response,
-    next: NextFunction,
-) {
+export async function retrieveExpenseById(req: UserRequest, res: Response, next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -130,14 +108,10 @@ export async function retrieveExpenseById(
     const expenseId = parseInt(req.params.expenseId, 10);
 
     try {
-        const expense = await ExpenseService.retrieveExpenseById(
-            userId,
-            expenseId,
-        );
+        const expense = await ExpenseService.retrieveExpenseById(userId, expenseId);
 
         if (expense) {
-            response['message'] =
-                `Successfully retrieved expense with id ${expenseId}.`;
+            response['message'] = `Successfully retrieved expense with id ${expenseId}.`;
             response['data'] = expense;
             response['success'] = true;
             response['error'] = 'No error occurred.';
@@ -155,11 +129,7 @@ export async function retrieveExpenseById(
     }
 }
 
-export async function saveExpense(
-    req: UserRequest,
-    res: Response,
-    next: NextFunction,
-) {
+export async function saveExpense(req: UserRequest, res: Response, next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -170,10 +140,7 @@ export async function saveExpense(
     const { newExpense } = req.body;
 
     try {
-        const savedExpense = await ExpenseService.saveExpense(
-            userId,
-            newExpense,
-        );
+        const savedExpense = await ExpenseService.saveExpense(userId, newExpense);
 
         if (savedExpense) {
             response['message'] = 'Successfully saved expense.';
@@ -194,11 +161,7 @@ export async function saveExpense(
     }
 }
 
-export async function updateExpenseById(
-    req: UserRequest,
-    res: Response,
-    next: NextFunction,
-) {
+export async function updateExpenseById(req: UserRequest, res: Response, next: NextFunction) {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -210,14 +173,10 @@ export async function updateExpenseById(
     const { updatedExpense } = req.body;
 
     try {
-        const updated = await ExpenseService.updateExpenseById(
-            expenseId,
-            updatedExpense,
-        );
+        const updated = await ExpenseService.updateExpenseById(expenseId, updatedExpense);
 
         if (updated) {
-            response['message'] =
-                `Successfully updated expense with id ${expenseId}.`;
+            response['message'] = `Successfully updated expense with id ${expenseId}.`;
             response['data'] = updated;
             response['success'] = true;
             response['error'] = 'No error occurred.';

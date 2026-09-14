@@ -14,16 +14,12 @@ export default function useDashboardData() {
     const month = date.getMonth();
     const year = date.getFullYear();
 
-    const [filteredGroceryItems, setFilteredGroceryItems] = useState<
-        GroceryItem[]
-    >([]);
+    const [filteredGroceryItems, setFilteredGroceryItems] = useState<GroceryItem[]>([]);
     const [filteredReceipts, setFilteredReceipts] = useState<Receipt[]>([]);
     const [expenseTotal, setExpenseTotal] = useState<number>(0);
 
     useEffect(() => {
-        const filteredItems = groceryItems.filter(
-            (groceryItem) => groceryItem.isActive,
-        );
+        const filteredItems = groceryItems.filter((groceryItem) => groceryItem.isActive);
 
         const filteredReceiptsData = receipts.filter(
             (receipt) =>
@@ -31,10 +27,7 @@ export default function useDashboardData() {
                 parseDate(receipt.purchaseDate).getFullYear() === year,
         );
 
-        const totalExpense = filteredReceiptsData.reduce(
-            (total, receipt) => total + Number(receipt.total),
-            0,
-        );
+        const totalExpense = filteredReceiptsData.reduce((total, receipt) => total + Number(receipt.total), 0);
 
         setFilteredGroceryItems(filteredItems);
         setFilteredReceipts(filteredReceiptsData);

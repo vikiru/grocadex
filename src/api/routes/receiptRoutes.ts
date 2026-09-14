@@ -12,22 +12,10 @@ ReceiptRouter.get(
     ReceiptController.getReceiptsByUserId,
 );
 
-ReceiptRouter.post(
-    `${baseUrl}`,
-    passport.authenticate('jwt', { session: false }),
-    ReceiptController.createReceipt,
-);
+ReceiptRouter.post(`${baseUrl}`, passport.authenticate('jwt', { session: false }), ReceiptController.createReceipt);
 
-ReceiptRouter.get(
-    `${baseUrl}/:id`,
-    passport.authenticate('jwt', { session: false }),
-    ReceiptController.getReceiptById,
-);
-ReceiptRouter.put(
-    `${baseUrl}/:id`,
-    passport.authenticate('jwt', { session: false }),
-    ReceiptController.updateReceipt,
-);
+ReceiptRouter.get(`${baseUrl}/:id`, passport.authenticate('jwt', { session: false }), ReceiptController.getReceiptById);
+ReceiptRouter.put(`${baseUrl}/:id`, passport.authenticate('jwt', { session: false }), ReceiptController.updateReceipt);
 ReceiptRouter.delete(
     `${baseUrl}/:id`,
     passport.authenticate('jwt', { session: false }),

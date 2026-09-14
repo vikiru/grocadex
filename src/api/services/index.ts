@@ -4,10 +4,4 @@ import * as GroceryItemService from './groceryItemService';
 import * as ReceiptService from './receiptService';
 import * as UserService from './userService';
 
-export {
-    ExpenseService,
-    AuthService,
-    GroceryItemService,
-    ReceiptService,
-    UserService,
-};
+export { ExpenseService, AuthService, GroceryItemService, ReceiptService, UserService };

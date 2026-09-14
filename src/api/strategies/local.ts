@@ -1,8 +1,8 @@
-import { AuthService, UserService } from '~services';
 import passport from 'passport';
 import { Strategy } from 'passport-local';
+import { AuthService, UserService } from '~services';
 
-passport.serializeUser((user: any, done) => {
+passport.serializeUser((user: { id: number }, done) => {
     done(null, user.id);
 });
 
@@ -22,9 +22,7 @@ passport.use(
         try {
             const user = await AuthService.validateUser(username, password);
             if (!user) {
-                console.error(
-                    'Invalid credentials provided. Please try again.',
-                );
+                console.error('Invalid credentials provided. Please try again.');
                 return done(null, false);
             }
             done(null, user);

@@ -10,14 +10,10 @@ export default function ReceiptCreateScreen() {
     return (
         <VStack className="min-h-screen w-full bg-background-100">
             <HStack className="mx-4 mt-2">
-                <Heading className="font-heading xs:text-3xl xl:text-4xl">
-                    Create Receipt
-                </Heading>
+                <Heading className="font-heading xs:text-3xl xl:text-4xl">Create Receipt</Heading>
             </HStack>
 
-            {user?.id && (
-                <ReceiptForm onSubmit={handleCreate} userId={user.id} />
-            )}
+            {user?.id && <ReceiptForm onSubmit={handleCreate} userId={user.id} />}
         </VStack>
     );
 }

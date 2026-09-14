@@ -4,8 +4,7 @@ import { useCreateUserMutation } from '~services';
 
 export default function useRegistration() {
     const router = useRouter();
-    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
-        useCreateUserMutation();
+    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useCreateUserMutation();
 
     const register = async (values: {
         firstName: string;

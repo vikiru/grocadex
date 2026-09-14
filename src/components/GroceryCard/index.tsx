@@ -1,15 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Alert } from '~components';
-import {
-    Button,
-    ButtonText,
-    Card,
-    Divider,
-    Heading,
-    HStack,
-    Text,
-} from '~components/ui';
+import { Button, ButtonText, Card, Divider, Heading, HStack, Text } from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import { FRONTEND_DASHBOARD_ROUTE } from '~constants/Routes';
 import { useDeleteItem, useUpdateItem } from '~hooks';
@@ -38,9 +30,7 @@ export default function GroceryCard({
     return groceryItem ? (
         <Card className="h-fit max-w-2xl bg-background-200 p-5" size="md">
             <HStack className="flex items-center justify-between">
-                <Heading className="mb-1 font-heading text-xl text-typography-800">
-                    {groceryItem.name}
-                </Heading>
+                <Heading className="mb-1 font-heading text-xl text-typography-800">{groceryItem.name}</Heading>
                 <Text className="mt-auto font-info text-2xl text-typography-950">
                     ${Number(groceryItem.totalPrice).toFixed(2)}
                 </Text>
@@ -50,8 +40,7 @@ export default function GroceryCard({
 
             <HStack className="mt-2 flex w-full justify-between">
                 <Text className="text-center font-info text-typography-700">
-                    {groceryItem.quantity} purchased on{' '}
-                    {formatDate(groceryItem.purchaseDate, DateFormat)}.{' '}
+                    {groceryItem.quantity} purchased on {formatDate(groceryItem.purchaseDate, DateFormat)}.{' '}
                     {constructExpiryString(parseDate(groceryItem.expiryDate))}
                 </Text>
             </HStack>
@@ -77,21 +66,12 @@ export default function GroceryCard({
                     <Button
                         action="primary"
                         className="flex-1"
-                        onPress={() =>
-                            router.push(`/grocery/modify/${groceryItem.id}`)
-                        }
+                        onPress={() => router.push(`/grocery/modify/${groceryItem.id}`)}
                         size="md"
                         variant="solid"
                     >
-                        <ButtonText className="font-body text-lg">
-                            Edit
-                        </ButtonText>
-                        <MaterialCommunityIcons
-                            className="mb-1 ml-2"
-                            color="white"
-                            name="pencil"
-                            size={24}
-                        />
+                        <ButtonText className="font-body text-lg">Edit</ButtonText>
+                        <MaterialCommunityIcons className="mb-1 ml-2" color="white" name="pencil" size={24} />
                     </Button>
                 )}
 
@@ -101,10 +81,7 @@ export default function GroceryCard({
                         alertText="Deleting this item will remove it permanently and cannot be undone. Please confirm if you wish to proceed."
                         buttonAction="negative"
                         handleDelete={async () => {
-                            await handleDelete(
-                                groceryItem.id!,
-                                groceryItem.receiptId,
-                            );
+                            await handleDelete(groceryItem.id!, groceryItem.receiptId);
                             router.replace(FRONTEND_DASHBOARD_ROUTE);
                         }}
                         iconName="trash-can"

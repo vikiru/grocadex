@@ -5,8 +5,7 @@ export default function useDashboard() {
     const { setGroceryItems } = useGroceryStore();
     const { setReceipts } = useReceiptStore();
     const { setExpenses } = useExpenseStore();
-    const { data, error, isLoading, isPending, isError, isSuccess } =
-        useDashboardQuery();
+    const { data, error, isLoading, isPending, isError, isSuccess } = useDashboardQuery();
 
     const retrieveData = async () => {
         try {

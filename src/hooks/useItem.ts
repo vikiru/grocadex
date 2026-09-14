@@ -1,19 +1,12 @@
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
-import {
-    useCreateGroceryItemMutation,
-    useDeleteGroceryItemMutation,
-    useUpdateGroceryItemMutation,
-} from '~services';
+import { useCreateGroceryItemMutation, useDeleteGroceryItemMutation, useUpdateGroceryItemMutation } from '~services';
 import { GroceryItem } from '~types';
 
 export function useCreateItem() {
-    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
-        useCreateGroceryItemMutation();
+    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useCreateGroceryItemMutation();
 
-    const handleCreate = async (
-        newGroceryItems: GroceryItem | GroceryItem[],
-    ): Promise<void> => {
+    const handleCreate = async (newGroceryItems: GroceryItem | GroceryItem[]): Promise<void> => {
         try {
             const data = await mutateAsync(newGroceryItems);
             if (data.success) {
@@ -51,13 +44,9 @@ export function useCreateItem() {
 }
 
 export function useDeleteItem() {
-    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
-        useDeleteGroceryItemMutation();
+    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useDeleteGroceryItemMutation();
 
-    const handleDelete = async (
-        id: number,
-        receiptId: number,
-    ): Promise<void> => {
+    const handleDelete = async (id: number, receiptId: number): Promise<void> => {
         try {
             const data = await mutateAsync({ id, receiptId });
             if (data.success) {
@@ -96,8 +85,7 @@ export function useDeleteItem() {
 
 export function useUpdateItem() {
     const router = useRouter();
-    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
-        useUpdateGroceryItemMutation();
+    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useUpdateGroceryItemMutation();
 
     const handleUpdate = async (updatedItem: GroceryItem): Promise<void> => {
         try {

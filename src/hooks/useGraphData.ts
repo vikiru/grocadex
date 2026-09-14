@@ -8,9 +8,7 @@ export default function useGraphData() {
     const date = new Date();
     const year = date.getFullYear();
     const receipts = useReceiptStore((state) => state.receipts);
-    const filteredReceipts = receipts.filter(
-        (receipt) => parseDate(receipt.purchaseDate).getFullYear() == year,
-    );
+    const filteredReceipts = receipts.filter((receipt) => parseDate(receipt.purchaseDate).getFullYear() == year);
     const [graphData, setGraphData] = useState<GraphData[]>([]);
 
     useEffect(() => {

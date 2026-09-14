@@ -2,18 +2,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { IntroDetails } from '~components';
-import {
-    Button,
-    ButtonText,
-    Heading,
-    HStack,
-    Text,
-    VStack,
-} from '~components/ui';
-import {
-    FRONTEND_LOGIN_ROUTE,
-    FRONTEND_REGISTRATION_ROUTE,
-} from '~constants/Routes';
+import { Button, ButtonText, Heading, HStack, Text, VStack } from '~components/ui';
+import { FRONTEND_LOGIN_ROUTE, FRONTEND_REGISTRATION_ROUTE } from '~constants/Routes';
 
 function SplashScreen() {
     const router = useRouter();
@@ -50,19 +40,9 @@ function SplashScreen() {
             <VStack className="md:mb-18 fixed bottom-0 left-0 right-0 xs:mb-8">
                 <HStack className="mt-4 xs:mx-4 md:max-w-[450px] lg:mx-auto lg:w-1/2 xl:max-w-[650px] 4xl:max-w-[800px]">
                     <VStack className="w-full gap-3">
-                        <Button
-                            action="primary"
-                            onPress={() => router.push(FRONTEND_LOGIN_ROUTE)}
-                            variant="solid"
-                        >
-                            <MaterialCommunityIcons
-                                color="white"
-                                name="login"
-                                size={24}
-                            />
-                            <ButtonText className="font-body xs:text-base xl:text-lg">
-                                Login
-                            </ButtonText>
+                        <Button action="primary" onPress={() => router.push(FRONTEND_LOGIN_ROUTE)} variant="solid">
+                            <MaterialCommunityIcons color="white" name="login" size={24} />
+                            <ButtonText className="font-body xs:text-base xl:text-lg">Login</ButtonText>
                         </Button>
                     </VStack>
                 </HStack>
@@ -71,18 +51,11 @@ function SplashScreen() {
                     <VStack className="w-full gap-3">
                         <Button
                             action="secondary"
-                            onPress={() =>
-                                router.push(FRONTEND_REGISTRATION_ROUTE)
-                            }
+                            onPress={() => router.push(FRONTEND_REGISTRATION_ROUTE)}
                             variant="solid"
                         >
-                            <MaterialCommunityIcons
-                                name="account-plus"
-                                size={24}
-                            />
-                            <ButtonText className="font-body xs:text-base xl:text-lg">
-                                Sign Up
-                            </ButtonText>
+                            <MaterialCommunityIcons name="account-plus" size={24} />
+                            <ButtonText className="font-body xs:text-base xl:text-lg">Sign Up</ButtonText>
                         </Button>
                     </VStack>
                 </HStack>
