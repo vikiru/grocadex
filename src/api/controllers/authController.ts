@@ -6,11 +6,7 @@ import { secret } from '~config/index';
 import { logger } from '~config/logger';
 import { ResponsePayload, UserRequest } from '~types';
 
-export async function loginUser(
-    req: UserRequest,
-    res: Response,
-    next: NextFunction,
-): Promise<void> {
+export async function loginUser(req: UserRequest, res: Response, next: NextFunction): Promise<void> {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -58,10 +54,7 @@ export async function loginUser(
     })(req, res, next);
 }
 
-export async function logoutUser(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function logoutUser(req: UserRequest, res: Response): Promise<void> {
     const response: ResponsePayload = {
         message: '',
         data: null,
@@ -103,10 +96,7 @@ export async function logoutUser(
     }
 }
 
-export async function refreshToken(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function refreshToken(req: UserRequest, res: Response): Promise<void> {
     const response: ResponsePayload = {
         message: '',
         data: null,

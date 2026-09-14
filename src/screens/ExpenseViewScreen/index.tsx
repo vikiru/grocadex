@@ -20,9 +20,7 @@ export default function ExpenseViewScreen() {
     return (
         <ScrollView className="min-h-screen bg-background-100">
             <HStack className="mx-4 mt-2">
-                <Heading className="font-heading xs:text-2xl xl:text-3xl">
-                    Overview for 2024
-                </Heading>
+                <Heading className="font-heading xs:text-2xl xl:text-3xl">Overview for 2024</Heading>
             </HStack>
             <HStack className="mx-4 mt-2">
                 <BarChart

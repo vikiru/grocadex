@@ -1,12 +1,8 @@
 import { GroceryItem, Receipt } from '@prisma/client';
-
 import { logger } from '~config/logger';
 import { prisma } from '~data/';
 
-export async function removeReceiptById(
-    userId: number,
-    receiptId: number,
-): Promise<void> {
+export async function removeReceiptById(userId: number, receiptId: number): Promise<void> {
     try {
         await prisma.receipt.delete({ where: { userId, id: receiptId } });
         logger.info('Successfully removed receipt from the database.');
@@ -16,10 +12,7 @@ export async function removeReceiptById(
     }
 }
 
-export async function retrieveReceiptByReceiptId(
-    userId: number,
-    receiptId: number,
-): Promise<null | Receipt> {
+export async function retrieveReceiptByReceiptId(userId: number, receiptId: number): Promise<null | Receipt> {
     try {
         const receipt = await prisma.receipt.findUnique({
             where: { userId, id: receiptId },
@@ -51,11 +44,7 @@ export async function retrieveReceipts(userId: number): Promise<Receipt[]> {
     }
 }
 
-export async function retrieveReceiptsByMonth(
-    startDate: string,
-    endDate: string,
-    userId: number,
-): Promise<Receipt[]> {
+export async function retrieveReceiptsByMonth(startDate: string, endDate: string, userId: number): Promise<Receipt[]> {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
@@ -74,17 +63,12 @@ export async function retrieveReceiptsByMonth(
         );
         return receipts;
     } catch (error) {
-        logger.error(
-            `Error retrieving monthly receipts from ${startDate} to ${endDate} for ${userId}: ${error}`,
-        );
+        logger.error(`Error retrieving monthly receipts from ${startDate} to ${endDate} for ${userId}: ${error}`);
         return [];
     }
 }
 
-export async function retrieveReceiptsByYear(
-    year: number,
-    userId: number,
-): Promise<Receipt[]> {
+export async function retrieveReceiptsByYear(year: number, userId: number): Promise<Receipt[]> {
     try {
         const receipts = await prisma.receipt.findMany({
             where: {
@@ -95,21 +79,15 @@ export async function retrieveReceiptsByYear(
                 },
             },
         });
-        logger.info(
-            `Successfully retrieved ${receipts.length} receipts for the year ${year} for ${userId}.`,
-        );
+        logger.info(`Successfully retrieved ${receipts.length} receipts for the year ${year} for ${userId}.`);
         return receipts;
     } catch (error) {
-        logger.error(
-            `Error retrieving yearly receipts for the year ${year} for ${userId}: ${error}`,
-        );
+        logger.error(`Error retrieving yearly receipts for the year ${year} for ${userId}: ${error}`);
         return [];
     }
 }
 
-export async function saveReceipt(
-    receipt: Omit<Receipt, 'id'>,
-): Promise<Receipt> {
+export async function saveReceipt(receipt: Omit<Receipt, 'id'>): Promise<Receipt> {
     try {
         const savedReceipt = await prisma.receipt.create({
             data: {
@@ -140,12 +118,7 @@ export async function updateReceiptById(
         const newGroceryItems = updatedGroceryItems.filter((item) => !item.id);
 
         const deletedItemIds = existingGroceryItems
-            .filter(
-                (item) =>
-                    !updatedGroceryItems.some(
-                        (updatedItem) => updatedItem.id === item.id,
-                    ),
-            )
+            .filter((item) => !updatedGroceryItems.some((updatedItem) => updatedItem.id === item.id))
             .map((item) => item.id);
 
         const receipt = await prisma.receipt.update({

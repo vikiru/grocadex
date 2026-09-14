@@ -1,10 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-    DASHBOARD_ROUTE,
-    LOGIN_ROUTE,
-    LOGOUT_ROUTE,
-    USER_ROUTE,
-} from '~constants/Routes';
+import { DASHBOARD_ROUTE, LOGIN_ROUTE, LOGOUT_ROUTE, USER_ROUTE } from '~constants/Routes';
 import { useResetData } from '~hooks';
 import { getData, postData } from '~services';
 import { tokenStorage, useUserStore } from '~store';
@@ -16,13 +11,7 @@ export function useCreateUserMutation() {
         Error,
         Pick<User, 'firstName' | 'lastName' | 'email' | 'username' | 'password'>
     >({
-        mutationFn: async ({
-            firstName,
-            lastName,
-            email,
-            username,
-            password,
-        }) => {
+        mutationFn: async ({ firstName, lastName, email, username, password }) => {
             const payload: RequestPayload<Partial<User>> = {
                 url: USER_ROUTE,
                 data: {
@@ -33,8 +22,7 @@ export function useCreateUserMutation() {
                     password,
                 },
             };
-            const response: ResponsePayload =
-                await postData<ResponsePayload<User>>(payload);
+            const response: ResponsePayload = await postData<ResponsePayload<User>>(payload);
             if (!response) {
                 throw new Error('User creation failed: No response data.');
             }
@@ -49,16 +37,11 @@ export function useCreateUserMutation() {
 
 export function useDashboardQuery() {
     const { user } = useUserStore();
-    return useQuery<
-        ResponsePayload<Pick<User, 'groceryItems' | 'receipts' | 'expenses'>>,
-        Error
-    >({
+    return useQuery<ResponsePayload<Pick<User, 'groceryItems' | 'receipts' | 'expenses'>>, Error>({
         queryKey: ['dashboard'],
         queryFn: async () => {
             const response: ResponsePayload = await getData<
-                ResponsePayload<
-                    Pick<User, 'groceryItems' | 'receipts' | 'expenses'>
-                >
+                ResponsePayload<Pick<User, 'groceryItems' | 'receipts' | 'expenses'>>
             >({
                 url: DASHBOARD_ROUTE,
                 data: {
@@ -67,9 +50,7 @@ export function useDashboardQuery() {
             });
 
             if (!response) {
-                throw new Error(
-                    'Failed to fetch dashboard data: No response data.',
-                );
+                throw new Error('Failed to fetch dashboard data: No response data.');
             }
 
             return response;
@@ -82,11 +63,7 @@ export function useDashboardQuery() {
 export function useLoginMutation() {
     const { setUser } = useUserStore();
 
-    const mutation = useMutation<
-        ResponsePayload<User>,
-        Error,
-        Pick<User, 'username' | 'password'>
-    >({
+    const mutation = useMutation<ResponsePayload<User>, Error, Pick<User, 'username' | 'password'>>({
         mutationFn: async ({ username, password }) => {
             const payload: RequestPayload<Partial<User>> = {
                 url: LOGIN_ROUTE,
@@ -95,8 +72,7 @@ export function useLoginMutation() {
                     password,
                 },
             };
-            const response: ResponsePayload =
-                await postData<ResponsePayload<User>>(payload);
+            const response: ResponsePayload = await postData<ResponsePayload<User>>(payload);
             if (response?.success !== true) {
                 throw new Error('Login failed: No response data.');
             }
@@ -128,9 +104,7 @@ export function useLogoutMutation() {
 
     const mutation = useMutation<ResponsePayload<User>, Error, void>({
         mutationFn: async () => {
-            const response: ResponsePayload = await postData<
-                ResponsePayload<User>
-            >({
+            const response: ResponsePayload = await postData<ResponsePayload<User>>({
                 url: LOGOUT_ROUTE,
                 data: [],
             });

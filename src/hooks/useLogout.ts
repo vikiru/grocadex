@@ -28,8 +28,7 @@ export function useForceLogout() {
 
 export function useLogout() {
     const router = useRouter();
-    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
-        useLogoutMutation();
+    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useLogoutMutation();
 
     const handleLogout = async () => {
         try {

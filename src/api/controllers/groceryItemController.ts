@@ -1,13 +1,10 @@
-import { Request, Response } from 'express';
 import { GroceryItem } from '@prisma/client';
+import { Request, Response } from 'express';
 import { logger } from '~config/logger';
 import { GroceryItemService } from '~services';
 import { ResponsePayload, UserRequest } from '~types';
 
-export async function createGroceryItem(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function createGroceryItem(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const groceryItem: GroceryItem = req.body;
     const response: ResponsePayload = {
@@ -18,11 +15,7 @@ export async function createGroceryItem(
     };
 
     try {
-        await GroceryItemService.saveGroceryItem(
-            groceryItem,
-            groceryItem.receiptId,
-            userId,
-        );
+        await GroceryItemService.saveGroceryItem(groceryItem, groceryItem.receiptId, userId);
         response['message'] = 'Successfully created the grocery item.';
         response['success'] = true;
         response['error'] = 'No error occurred.';
@@ -35,10 +28,7 @@ export async function createGroceryItem(
     }
 }
 
-export async function deleteGroceryItem(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function deleteGroceryItem(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const { receiptId, groceryItemId } = req.params;
 
@@ -50,19 +40,13 @@ export async function deleteGroceryItem(
     };
 
     try {
-        await GroceryItemService.removeGroceryItemById(
-            userId,
-            parseInt(receiptId, 10),
-            parseInt(groceryItemId, 10),
-        );
+        await GroceryItemService.removeGroceryItemById(userId, parseInt(receiptId, 10), parseInt(groceryItemId, 10));
         response['message'] = 'Grocery item deleted successfully.';
         response['success'] = true;
         response['error'] = 'No error occurred.';
         res.status(200).json(response);
     } catch (error) {
-        logger.error(
-            `Error deleting grocery item with id ${groceryItemId}: ${error}`,
-        );
+        logger.error(`Error deleting grocery item with id ${groceryItemId}: ${error}`);
         response['message'] = 'Internal server error.';
         response['error'] = 'There was an error deleting the grocery item.';
         res.status(500).json(response);
@@ -79,12 +63,10 @@ export async function getActiveGroceryItems(req: UserRequest, res: Response) {
     };
 
     try {
-        const activeItems =
-            await GroceryItemService.retrieveActiveItems(userId);
+        const activeItems = await GroceryItemService.retrieveActiveItems(userId);
 
         if (activeItems.length > 0) {
-            response['message'] =
-                'Successfully retrieved active grocery items.';
+            response['message'] = 'Successfully retrieved active grocery items.';
             response['data'] = activeItems;
             response['success'] = true;
             response['error'] = 'No error occurred.';
@@ -97,16 +79,12 @@ export async function getActiveGroceryItems(req: UserRequest, res: Response) {
     } catch (error) {
         logger.error(`Error retrieving active grocery items: ${error}`);
         response['message'] = 'Internal server error';
-        response['error'] =
-            'There was an error retrieving the active grocery items';
+        response['error'] = 'There was an error retrieving the active grocery items';
         res.status(500).json(response);
     }
 }
 
-export async function getGroceryItemById(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function getGroceryItemById(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const { receiptId, groceryItemId } = req.params;
     const response: ResponsePayload = {
@@ -124,33 +102,25 @@ export async function getGroceryItemById(
         );
 
         if (groceryItem) {
-            response['message'] =
-                'Successfully retrieved grocery item for the given id.';
+            response['message'] = 'Successfully retrieved grocery item for the given id.';
             response['data'] = groceryItem;
             response['success'] = true;
             response['error'] = 'No error occurred.';
             res.status(200).json(response);
         } else {
             response['message'] = 'No grocery item found for the given id.';
-            response['error'] =
-                'There was an error retrieving the grocery item for the given id.';
+            response['error'] = 'There was an error retrieving the grocery item for the given id.';
             res.status(404).json(response);
         }
     } catch (error) {
-        logger.error(
-            `Error retrieving grocery item with id ${groceryItemId}: ${error}`,
-        );
+        logger.error(`Error retrieving grocery item with id ${groceryItemId}: ${error}`);
         response['message'] = 'Internal server error...';
-        response['error'] =
-            'There was an error retrieving the grocery item for the given id.';
+        response['error'] = 'There was an error retrieving the grocery item for the given id.';
         res.status(500).json(response);
     }
 }
 
-export async function getGroceryItemsByReceiptId(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function getGroceryItemsByReceiptId(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const receiptId = parseInt(req.params.receiptId, 10);
     const response: ResponsePayload = {
@@ -161,38 +131,28 @@ export async function getGroceryItemsByReceiptId(
     };
 
     try {
-        const groceryItems =
-            await GroceryItemService.retrieveGroceryItemsByReceiptId(
-                userId,
-                receiptId,
-            );
+        const groceryItems = await GroceryItemService.retrieveGroceryItemsByReceiptId(userId, receiptId);
 
         if (groceryItems.length > 0) {
-            response['message'] =
-                'Successfully retrieved all grocery items for receipt';
+            response['message'] = 'Successfully retrieved all grocery items for receipt';
             response['data'] = groceryItems;
             response['success'] = true;
             response['error'] = 'No error occurred.';
             res.status(200).json(response);
         } else {
             response['message'] = 'No grocery items found for this receipt';
-            response['error'] =
-                'There was an error retrieving the grocery items for the given receipt';
+            response['error'] = 'There was an error retrieving the grocery items for the given receipt';
             res.status(404).json(response);
         }
     } catch (error) {
         logger.error(`Error retrieving grocery items: ${error}`);
         response['message'] = 'Internal server error';
-        response['error'] =
-            'There was an error retrieving the grocery items for the given receipt';
+        response['error'] = 'There was an error retrieving the grocery items for the given receipt';
         res.status(500).json(response);
     }
 }
 
-export async function updateGroceryItem(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function updateGroceryItem(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const { receiptId, groceryItemId } = req.params;
     const groceryItem = req.body;
@@ -204,8 +164,7 @@ export async function updateGroceryItem(
     };
 
     try {
-        const updatedItem =
-            await GroceryItemService.updateGroceryItems(groceryItem);
+        const updatedItem = await GroceryItemService.updateGroceryItems(groceryItem);
 
         if (updatedItem) {
             response['success'] = true;
@@ -215,8 +174,7 @@ export async function updateGroceryItem(
             res.status(200).json(response);
         } else {
             response['message'] = 'No grocery item found for the given id.';
-            response['error'] =
-                'There was an error retrieving the grocery item for the given id.';
+            response['error'] = 'There was an error retrieving the grocery item for the given id.';
             res.status(404).json(response);
         }
     } catch (error) {

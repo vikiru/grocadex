@@ -21,14 +21,11 @@ export const useReceiptStore = create<ReceiptState>()(
         (set, get) => ({
             receipts: [],
             getReceipts: () => get().receipts,
-            getReceiptById: (receiptId: number) =>
-                get().receipts.find((receipt) => receipt.id === receiptId),
+            getReceiptById: (receiptId: number) => get().receipts.find((receipt) => receipt.id === receiptId),
             getReceiptsByMonthYear: (month: number, year: number) => {
                 return get().receipts.filter((receipt) => {
                     const date = new Date(receipt.purchaseDate);
-                    return (
-                        date.getMonth() === month && date.getFullYear() === year
-                    );
+                    return date.getMonth() === month && date.getFullYear() === year;
                 });
             },
             getReceiptsByYear: (year: number) => {
@@ -38,19 +35,14 @@ export const useReceiptStore = create<ReceiptState>()(
                 });
             },
             setReceipts: (receipts: Receipt[]) => set({ receipts: receipts }),
-            addReceipt: (receipt: Receipt) =>
-                set({ receipts: [...get().receipts, receipt] }),
+            addReceipt: (receipt: Receipt) => set({ receipts: [...get().receipts, receipt] }),
             deleteReceipt: (receiptId: number) => {
-                const updatedReceipts = get().receipts.filter(
-                    (receipt) => receipt.id !== receiptId,
-                );
+                const updatedReceipts = get().receipts.filter((receipt) => receipt.id !== receiptId);
                 set({ receipts: updatedReceipts });
             },
             updateReceipt: (receiptId: number, updatedReceipt: Receipt) => {
                 const currentReceipts = get().receipts;
-                const receiptIndex = currentReceipts.findIndex(
-                    (receipt) => receipt.id === receiptId,
-                );
+                const receiptIndex = currentReceipts.findIndex((receipt) => receipt.id === receiptId);
                 if (receiptIndex === -1) return;
                 const updatedReceipts = [...currentReceipts];
                 updatedReceipts[receiptIndex] = updatedReceipt;

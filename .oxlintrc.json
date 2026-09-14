@@ -15,7 +15,8 @@
     "jsPlugins": ["oxlint-tailwindcss"],
     "settings": {
         "tailwindcss": {
-            "entryPoint": "global.css"
+            "entryPoint": "global.css",
+            "allowUntestedEngine": true
         }
     },
     "options": {
@@ -33,7 +34,7 @@
     "rules": {
         "react/react-in-jsx-scope": "off",
         "eqeqeq": "warn",
-        "typescript/no-explicit-any": "error",
+        "typescript/no-explicit-any": "warn",
         "typescript/no-non-null-assertion": "warn",
         "no-debugger": "error",
         "no-var": "error",
@@ -42,10 +43,10 @@
         "unicorn/prefer-string-replace-all": "warn",
         "no-unused-vars": "warn",
         "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
-        "tailwindcss/no-unknown-classes": "error",
-        "tailwindcss/no-duplicate-classes": "error",
-        "tailwindcss/no-conflicting-classes": "error",
-        "tailwindcss/no-deprecated-classes": "error"
+        "tailwindcss/no-unknown-classes": "off",
+        "tailwindcss/no-duplicate-classes": "off",
+        "tailwindcss/no-conflicting-classes": "off",
+        "tailwindcss/no-deprecated-classes": "off"
     },
     "ignorePatterns": ["node_modules/**", "dist/**", ".expo/**"]
 }

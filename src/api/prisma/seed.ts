@@ -1,9 +1,9 @@
 import 'module-alias/register';
-import { hashPassword } from '~utils/hashPassword';
-import { users } from '~prisma/seed/data/user';
-import { receipts } from '~prisma/seed/data/receipt';
-import { groceries } from '~prisma/seed/data/groceries';
 import { prisma } from '~data/';
+import { groceries } from '~prisma/seed/data/groceries';
+import { receipts } from '~prisma/seed/data/receipt';
+import { users } from '~prisma/seed/data/user';
+import { hashPassword } from '~utils/hashPassword';
 
 async function seedReceiptData(userId: number) {
     receipts.forEach(async (receipt) => {

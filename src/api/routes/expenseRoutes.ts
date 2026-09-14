@@ -7,17 +7,9 @@ const baseUrl = `/${apiVersionString}/expenses`;
 
 const ExpenseRouter = express.Router();
 
-ExpenseRouter.get(
-    `${baseUrl}`,
-    passport.authenticate('jwt', { session: false }),
-    ExpenseController.getExpenses,
-);
+ExpenseRouter.get(`${baseUrl}`, passport.authenticate('jwt', { session: false }), ExpenseController.getExpenses);
 
-ExpenseRouter.post(
-    `${baseUrl}`,
-    passport.authenticate('jwt', { session: false }),
-    ExpenseController.saveExpense,
-);
+ExpenseRouter.post(`${baseUrl}`, passport.authenticate('jwt', { session: false }), ExpenseController.saveExpense);
 
 ExpenseRouter.put(
     `${baseUrl}/:id`,

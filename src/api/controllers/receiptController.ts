@@ -3,10 +3,7 @@ import { logger } from '~config/logger';
 import { GroceryItemService, ReceiptService } from '~services';
 import { ResponsePayload, UserRequest } from '~types';
 
-export async function createReceipt(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function createReceipt(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const data = req.body;
     const { groceryItems, ...receiptData } = data;
@@ -20,15 +17,8 @@ export async function createReceipt(
 
     try {
         const receipt = await ReceiptService.saveReceipt(receiptData);
-        await GroceryItemService.saveGroceryItem(
-            groceryItems,
-            receipt.id,
-            userId,
-        );
-        const updatedReceipt = await ReceiptService.retrieveReceiptByReceiptId(
-            userId,
-            receipt.id,
-        );
+        await GroceryItemService.saveGroceryItem(groceryItems, receipt.id, userId);
+        const updatedReceipt = await ReceiptService.retrieveReceiptByReceiptId(userId, receipt.id);
 
         response['message'] = 'Receipt created successfully.';
         response['data'] = updatedReceipt;
@@ -43,10 +33,7 @@ export async function createReceipt(
     }
 }
 
-export async function deleteReceiptById(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function deleteReceiptById(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const receiptId = parseInt(req.params.id, 10);
     const response: ResponsePayload = {
@@ -70,10 +57,7 @@ export async function deleteReceiptById(
     }
 }
 
-export async function getReceiptById(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function getReceiptById(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const receiptId = parseInt(req.params.id, 10);
     const response: ResponsePayload = {
@@ -84,10 +68,7 @@ export async function getReceiptById(
     };
 
     try {
-        const receipt = await ReceiptService.retrieveReceiptByReceiptId(
-            userId,
-            receiptId,
-        );
+        const receipt = await ReceiptService.retrieveReceiptByReceiptId(userId, receiptId);
 
         if (receipt) {
             response['data'] = receipt;
@@ -108,10 +89,7 @@ export async function getReceiptById(
     }
 }
 
-export async function getReceiptsByMonth(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function getReceiptsByMonth(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const { startMonth, endMonth } = req.params;
     const response: ResponsePayload = {
@@ -122,17 +100,12 @@ export async function getReceiptsByMonth(
     };
 
     try {
-        const monthlyReceipts = await ReceiptService.retrieveReceiptsByMonth(
-            startMonth,
-            endMonth,
-            userId,
-        );
+        const monthlyReceipts = await ReceiptService.retrieveReceiptsByMonth(startMonth, endMonth, userId);
 
         if (monthlyReceipts.length > 0) {
             response['data'] = monthlyReceipts;
             response['success'] = true;
-            response['message'] =
-                `Successfully retrieved ${monthlyReceipts.length} receipts.`;
+            response['message'] = `Successfully retrieved ${monthlyReceipts.length} receipts.`;
             response['error'] = 'No error occurred.';
             res.status(200).json(response);
         } else {
@@ -141,19 +114,14 @@ export async function getReceiptsByMonth(
             res.status(404).json(response);
         }
     } catch (error) {
-        logger.error(
-            `Error retrieving receipts for the months: ${startMonth}, ${endMonth}: ${error}`,
-        );
+        logger.error(`Error retrieving receipts for the months: ${startMonth}, ${endMonth}: ${error}`);
         response['message'] = 'Internal server error.';
         response['error'] = 'Failed to retrieve receipts.';
         res.status(500).json(response);
     }
 }
 
-export async function getReceiptsByUserId(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function getReceiptsByUserId(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const response: ResponsePayload = {
         message: '',
@@ -184,10 +152,7 @@ export async function getReceiptsByUserId(
     }
 }
 
-export async function getReceiptsByYear(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function getReceiptsByYear(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const { year } = req.params;
     const response: ResponsePayload = {
@@ -198,16 +163,12 @@ export async function getReceiptsByYear(
     };
 
     try {
-        const yearlyReceipts = await ReceiptService.retrieveReceiptsByYear(
-            parseInt(year, 10),
-            userId,
-        );
+        const yearlyReceipts = await ReceiptService.retrieveReceiptsByYear(parseInt(year, 10), userId);
 
         if (yearlyReceipts.length > 0) {
             response['data'] = yearlyReceipts;
             response['success'] = true;
-            response['message'] =
-                `Successfully retrieved ${yearlyReceipts.length} receipts.`;
+            response['message'] = `Successfully retrieved ${yearlyReceipts.length} receipts.`;
             response['error'] = 'No error occurred.';
             res.status(200).json(response);
         } else {
@@ -216,19 +177,14 @@ export async function getReceiptsByYear(
             res.status(404).json(response);
         }
     } catch (error) {
-        logger.error(
-            `Error retrieving receipts for the year, ${year}: ${error}`,
-        );
+        logger.error(`Error retrieving receipts for the year, ${year}: ${error}`);
         response['message'] = 'Internal server error.';
         response['error'] = 'Failed to retrieve receipts.';
         res.status(500).json(response);
     }
 }
 
-export async function updateReceipt(
-    req: UserRequest,
-    res: Response,
-): Promise<void> {
+export async function updateReceipt(req: UserRequest, res: Response): Promise<void> {
     const userId = req.user.id;
     const receiptData = req.body;
     const response: ResponsePayload = {
@@ -258,9 +214,7 @@ export async function updateReceipt(
             res.status(404).json(response);
         }
     } catch (error) {
-        logger.error(
-            `Error updating receipt with id ${receiptData.id}: ${error}`,
-        );
+        logger.error(`Error updating receipt with id ${receiptData.id}: ${error}`);
         response['message'] = 'Internal server error.';
         response['error'] = 'Failed to update receipt.';
         res.status(500).json(response);

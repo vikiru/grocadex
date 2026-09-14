@@ -7,25 +7,12 @@ type SearchbarProps = {
     setQuery: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export default function Searchbar({
-    placeholder,
-    query,
-    setQuery,
-}: SearchbarProps) {
+export default function Searchbar({ placeholder, query, setQuery }: SearchbarProps) {
     return (
         <HStack className="mx-4 mb-4 mt-2">
             <Input className="flex w-full items-center bg-background-0">
-                <InputField
-                    className="font-body"
-                    onChangeText={setQuery}
-                    placeholder={placeholder}
-                    value={query}
-                />
-                <MaterialCommunityIcons
-                    className="mr-2"
-                    name="magnify"
-                    size={24}
-                />
+                <InputField className="font-body" onChangeText={setQuery} placeholder={placeholder} value={query} />
+                <MaterialCommunityIcons className="mr-2" name="magnify" size={24} />
             </Input>
         </HStack>
     );

@@ -10,19 +10,13 @@ export function useCreateReceiptMutation() {
     const { addReceipt } = useReceiptStore();
     const { user } = useUserStore();
 
-    return useMutation<
-        ResponsePayload<Receipt>,
-        Error,
-        Receipt | Omit<Receipt, 'id'>
-    >({
+    return useMutation<ResponsePayload<Receipt>, Error, Receipt | Omit<Receipt, 'id'>>({
         mutationFn: async (newReceipt: Receipt | Omit<Receipt, 'id'>) => {
             if (user) {
                 newReceipt.userId = user.id!;
             }
 
-            const response: ResponsePayload = await postData<
-                ResponsePayload<Receipt>
-            >({
+            const response: ResponsePayload = await postData<ResponsePayload<Receipt>>({
                 url: RECEIPT_ROUTE,
                 data: newReceipt,
             });
@@ -61,9 +55,7 @@ export function useDeleteReceiptMutation() {
 
     return useMutation<ResponsePayload<null>, Error, number>({
         mutationFn: async (id: number) => {
-            const response: ResponsePayload = await deleteData<
-                ResponsePayload<null>
-            >({
+            const response: ResponsePayload = await deleteData<ResponsePayload<null>>({
                 url: `${RECEIPT_ROUTE}/${id}`,
             });
 
@@ -74,14 +66,8 @@ export function useDeleteReceiptMutation() {
             return response;
         },
         onSuccess: async (data: ResponsePayload<null>, variables) => {
-            setReceipts(
-                getReceipts().filter((receipt) => receipt.id !== variables),
-            );
-            setGroceryItems(
-                getGroceryItems().filter(
-                    (groceryItem) => groceryItem.receiptId !== variables,
-                ),
-            );
+            setReceipts(getReceipts().filter((receipt) => receipt.id !== variables));
+            setGroceryItems(getGroceryItems().filter((groceryItem) => groceryItem.receiptId !== variables));
             queryClient.invalidateQueries({
                 queryKey: ['dashboard'],
                 refetchType: 'none',
@@ -100,16 +86,12 @@ export function useRetrieveReceiptsQuery() {
     return useQuery<ResponsePayload<Receipt[]>, Error>({
         queryKey: ['receipts'],
         queryFn: async () => {
-            const response: ResponsePayload = await getData<
-                ResponsePayload<Receipt[]>
-            >({
+            const response: ResponsePayload = await getData<ResponsePayload<Receipt[]>>({
                 url: RECEIPT_ROUTE,
             });
 
             if (!response) {
-                throw new Error(
-                    'Failed to retrieve receipts: No response data.',
-                );
+                throw new Error('Failed to retrieve receipts: No response data.');
             }
 
             return response;
@@ -119,15 +101,12 @@ export function useRetrieveReceiptsQuery() {
 
 export function useUpdateReceiptMutation() {
     const queryClient = useQueryClient();
-    const { getGroceryItems, setGroceryItems, addGroceryItem } =
-        useGroceryStore();
+    const { getGroceryItems, setGroceryItems, addGroceryItem } = useGroceryStore();
     const { updateReceipt } = useReceiptStore();
 
     return useMutation<ResponsePayload<Receipt>, Error, Receipt>({
         mutationFn: async (updatedReceipt: Receipt) => {
-            const response: ResponsePayload = await putData<
-                ResponsePayload<Receipt>
-            >({
+            const response: ResponsePayload = await putData<ResponsePayload<Receipt>>({
                 url: `${RECEIPT_ROUTE}/${updatedReceipt.id}`,
                 data: updatedReceipt,
             });
@@ -141,11 +120,7 @@ export function useUpdateReceiptMutation() {
         onSuccess: async (data: ResponsePayload<Receipt>, variables) => {
             updateReceipt(variables.id!, data.data);
             const groceryItems = data.data.groceryItems as GroceryItem[];
-            setGroceryItems(
-                getGroceryItems().filter(
-                    (groceryItem) => groceryItem.receiptId !== variables.id,
-                ),
-            );
+            setGroceryItems(getGroceryItems().filter((groceryItem) => groceryItem.receiptId !== variables.id));
             groceryItems.forEach((groceryItem: GroceryItem) => {
                 addGroceryItem(groceryItem);
             });

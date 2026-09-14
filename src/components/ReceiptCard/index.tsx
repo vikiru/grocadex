@@ -1,14 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import {
-    Button,
-    ButtonText,
-    Card,
-    Divider,
-    Heading,
-    HStack,
-    Text,
-} from '~components/ui';
+import { Button, ButtonText, Card, Divider, Heading, HStack, Text } from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import { FRONTEND_RECEIPT_ROUTE } from '~constants/Routes';
 import { Receipt } from '~types';
@@ -24,9 +16,7 @@ export default function ReceiptCard({ receipt }: ReceiptCardProps) {
     return (
         <Card className="h-fit w-full bg-background-200 p-5" size="md">
             <HStack className="flex items-center justify-between">
-                <Heading className="mb-1 font-heading text-xl text-typography-800">
-                    {receipt.store}
-                </Heading>
+                <Heading className="mb-1 font-heading text-xl text-typography-800">{receipt.store}</Heading>
                 <Text className="mt-auto font-info text-2xl text-typography-950">
                     ${Number(receipt.total).toFixed(2)}
                 </Text>
@@ -45,19 +35,12 @@ export default function ReceiptCard({ receipt }: ReceiptCardProps) {
                 <Button
                     action="primary"
                     className="w-full"
-                    onPress={() =>
-                        router.push(`${FRONTEND_RECEIPT_ROUTE}/${receipt.id}`)
-                    }
+                    onPress={() => router.push(`${FRONTEND_RECEIPT_ROUTE}/${receipt.id}`)}
                     size="md"
                     variant="solid"
                 >
                     <ButtonText className="font-body text-lg">View</ButtonText>
-                    <MaterialCommunityIcons
-                        className="mb-1"
-                        color="white"
-                        name="eye"
-                        size={24}
-                    />
+                    <MaterialCommunityIcons className="mb-1" color="white" name="eye" size={24} />
                 </Button>
             </HStack>
         </Card>

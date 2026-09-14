@@ -1,5 +1,5 @@
-import { Expense, Receipt } from '~types';
 import { Months } from '~constants/Dates';
+import { Expense, Receipt } from '~types';
 import { parseDate } from '~utils/date';
 import { filterReceiptsByMonthYear } from '~utils/receipt';
 
@@ -69,24 +69,13 @@ export const calculateMonthlyStoreBreakdown = (
     year: number,
 ): { store: string; amount: number; percentage: string }[] => {
     const filteredReceipts = filterReceiptsByMonthYear(receipts, month, year);
-    const uniqueStores: Set<string> = new Set(
-        filteredReceipts.map((receipt) => receipt.store),
-    );
-    const total = filteredReceipts.reduce(
-        (total, receipt) => total + receipt.total,
-        0,
-    );
-    const breakdown: { store: string; amount: number; percentage: string }[] =
-        [];
+    const uniqueStores: Set<string> = new Set(filteredReceipts.map((receipt) => receipt.store));
+    const total = filteredReceipts.reduce((total, receipt) => total + receipt.total, 0);
+    const breakdown: { store: string; amount: number; percentage: string }[] = [];
 
     for (const store of uniqueStores) {
-        const storeReceipts = filteredReceipts.filter(
-            (receipt) => receipt.store === store,
-        );
-        const storeAmount = storeReceipts.reduce(
-            (total, receipt) => total + receipt.total,
-            0,
-        );
+        const storeReceipts = filteredReceipts.filter((receipt) => receipt.store === store);
+        const storeAmount = storeReceipts.reduce((total, receipt) => total + receipt.total, 0);
         const percentage = (storeAmount / total) * 100;
         breakdown.push({
             store,

@@ -1,7 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
-
 import compression from 'compression';
 import cors from 'cors';
+import { NextFunction, Request, Response } from 'express';
 import session from 'express-session';
 import { body } from 'express-validator';
 import helmet from 'helmet';
@@ -11,7 +10,7 @@ import { env, secret } from '~config/index';
 import { logger } from '~config/logger';
 
 const morganStream = {
-    write: (message: any) => logger.http(message),
+    write: (message: string) => logger.http(message),
 };
 
 const skip = () => {
@@ -30,12 +29,4 @@ const sessionMiddleware = session({
     cookie: { httpOnly: true, secure: env === 'production' },
 });
 
-export {
-    body,
-    compression,
-    cors,
-    favicon,
-    helmet,
-    morganMiddleware as morgan,
-    sessionMiddleware as session,
-};
+export { body, compression, cors, favicon, helmet, morganMiddleware as morgan, sessionMiddleware as session };

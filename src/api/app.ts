@@ -1,21 +1,12 @@
 import 'module-alias/register';
 import '~strategies/local';
 import '~strategies/jwt';
-
-import * as middlewares from '~middlewares/';
-
-import { apiVersionString, port } from '~config/index';
-import {
-    AuthRouter,
-    ExpenseRouter,
-    GroceryItemRouter,
-    ReceiptRouter,
-    UserRouter,
-} from '~routes/';
-
 import express from 'express';
 import passport from 'passport';
+import { apiVersionString, port } from '~config/index';
 import { logger } from '~config/logger';
+import * as middlewares from '~middlewares/';
+import { AuthRouter, ExpenseRouter, GroceryItemRouter, ReceiptRouter, UserRouter } from '~routes/';
 
 const app = express();
 
@@ -44,10 +35,6 @@ app.use(GroceryItemRouter);
 app.use(ReceiptRouter);
 app.use(UserRouter);
 
-app.listen(port, () =>
-    logger.info(
-        `grocadex-api started on port: http://localhost:${port}/${apiVersionString}.`,
-    ),
-);
+app.listen(port, () => logger.info(`grocadex-api started on port: http://localhost:${port}/${apiVersionString}.`));
 
 export { app };

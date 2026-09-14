@@ -5,8 +5,7 @@ import { useLoginMutation } from '~services';
 
 export default function useLogin() {
     const router = useRouter();
-    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } =
-        useLoginMutation();
+    const { mutateAsync, error, isIdle, isPending, isError, isSuccess } = useLoginMutation();
 
     const login = async (values: { username: string; password: string }) => {
         try {
@@ -40,10 +39,7 @@ export default function useLogin() {
         }
     };
 
-    const handleLogin = async (values: {
-        username: string;
-        password: string;
-    }) => {
+    const handleLogin = async (values: { username: string; password: string }) => {
         await login(values);
     };
 

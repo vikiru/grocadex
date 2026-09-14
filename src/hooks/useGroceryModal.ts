@@ -4,28 +4,16 @@ import { GroceryItem } from '~types';
 
 export default function useGroceryModal() {
     const [createGroceryVisible, setCreateGroceryVisible] = useState(false);
-    const [modifyGroceryItemVisible, setModifyGroceryItemVisible] =
-        useState(false);
+    const [modifyGroceryItemVisible, setModifyGroceryItemVisible] = useState(false);
     const [editItemIndex, setEditItemIndex] = useState<number | null>(null);
 
     const handleGroceryItemSubmit = (
         groceryValues: any,
         index: number = -1,
         values: any,
-        setFieldValue: (
-            field: string,
-            value: any,
-            shouldValidate?: boolean,
-        ) => Promise<void | FormikErrors<any>>,
+        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<any>>,
     ) => {
-        const {
-            name,
-            quantity,
-            unitPrice,
-            totalPrice,
-            purchaseDate,
-            expiryDate,
-        } = groceryValues;
+        const { name, quantity, unitPrice, totalPrice, purchaseDate, expiryDate } = groceryValues;
 
         const newItem: Partial<GroceryItem> = {
             name,

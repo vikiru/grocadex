@@ -26,8 +26,7 @@ export default function TablePagination({
         <HStack className="flex w-full justify-between bg-background-100 py-4">
             <HStack className="mx-4">
                 <Text className="font-info">
-                    Page {page + 1} of {numPages} ({currentItems} of {itemSize}{' '}
-                    items)
+                    Page {page + 1} of {numPages} ({currentItems} of {itemSize} items)
                 </Text>
             </HStack>
 

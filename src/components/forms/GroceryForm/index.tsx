@@ -12,26 +12,11 @@ type GroceryFormProps = {
     receiptId?: number;
     initialValues?: Partial<GroceryItem>;
     onSubmit: (
-        values:
-            | GroceryItem
-            | Pick<
-                  GroceryItem,
-                  | 'name'
-                  | 'expiryDate'
-                  | 'quantity'
-                  | 'unitPrice'
-                  | 'totalPrice'
-              >,
+        values: GroceryItem | Pick<GroceryItem, 'name' | 'expiryDate' | 'quantity' | 'unitPrice' | 'totalPrice'>,
     ) => Promise<void>;
 };
 
-export default function GroceryForm({
-    id,
-    userId,
-    receiptId,
-    initialValues,
-    onSubmit,
-}: GroceryFormProps) {
+export default function GroceryForm({ id, userId, receiptId, initialValues, onSubmit }: GroceryFormProps) {
     return (
         <Formik
             initialValues={{
@@ -60,16 +45,7 @@ export default function GroceryForm({
             }}
             validationSchema={grocerySchema}
         >
-            {({
-                values,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                setFieldValue,
-                errors,
-                touched,
-                isSubmitting,
-            }) => (
+            {({ values, handleChange, handleBlur, handleSubmit, setFieldValue, errors, touched, isSubmitting }) => (
                 <VStack>
                     <FormInput
                         error={errors.name}
@@ -85,13 +61,9 @@ export default function GroceryForm({
                         error={errors.quantity}
                         label="Quantity"
                         onBlur={() => {
-                            handleChange('quantity')(
-                                Number(values.quantity).toFixed(0),
-                            );
+                            handleChange('quantity')(Number(values.quantity).toFixed(0));
                         }}
-                        onChangeText={(value) =>
-                            setFieldValue('quantity', value)
-                        }
+                        onChangeText={(value) => setFieldValue('quantity', value)}
                         placeholder={`${initialValues?.quantity !== undefined ? initialValues.quantity : 'Enter quantity'}`}
                         touched={touched.quantity}
                         value={values.quantity}
@@ -104,10 +76,7 @@ export default function GroceryForm({
                         label="Expiry Date"
                         placeholder={
                             initialValues?.expiryDate
-                                ? formatDate(
-                                      parseDate(initialValues?.expiryDate),
-                                      DateFormat,
-                                  )
+                                ? formatDate(parseDate(initialValues?.expiryDate), DateFormat)
                                 : 'Select a date'
                         }
                         setDate={(date) => setFieldValue('expiryDate', date)}
@@ -117,13 +86,9 @@ export default function GroceryForm({
                         error={errors.unitPrice}
                         label="Unit Price"
                         onBlur={() => {
-                            handleChange('unitPrice')(
-                                Number(values.unitPrice).toFixed(2),
-                            );
+                            handleChange('unitPrice')(Number(values.unitPrice).toFixed(2));
                         }}
-                        onChangeText={(value) =>
-                            setFieldValue('unitPrice', value)
-                        }
+                        onChangeText={(value) => setFieldValue('unitPrice', value)}
                         placeholder="Enter unit price"
                         touched={touched.unitPrice}
                         value={values.unitPrice}
@@ -133,13 +98,9 @@ export default function GroceryForm({
                         error={errors.totalPrice}
                         label="Total Price"
                         onBlur={() => {
-                            handleChange('totalPrice')(
-                                Number(values.totalPrice).toFixed(2),
-                            );
+                            handleChange('totalPrice')(Number(values.totalPrice).toFixed(2));
                         }}
-                        onChangeText={(value) =>
-                            setFieldValue('totalPrice', value)
-                        }
+                        onChangeText={(value) => setFieldValue('totalPrice', value)}
                         placeholder="Enter total price"
                         touched={touched.totalPrice}
                         value={values.totalPrice}
@@ -147,15 +108,8 @@ export default function GroceryForm({
 
                     <HStack className="mx-4 mt-4">
                         <VStack className="w-full gap-3">
-                            <Button
-                                action="primary"
-                                isDisabled={isSubmitting}
-                                onPress={handleSubmit}
-                                variant="solid"
-                            >
-                                <ButtonText className="font-body xs:text-base xl:text-lg">
-                                    Submit
-                                </ButtonText>
+                            <Button action="primary" isDisabled={isSubmitting} onPress={handleSubmit} variant="solid">
+                                <ButtonText className="font-body xs:text-base xl:text-lg">Submit</ButtonText>
                             </Button>
                         </VStack>
                     </HStack>

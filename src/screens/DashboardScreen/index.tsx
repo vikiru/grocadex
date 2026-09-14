@@ -34,15 +34,12 @@ export default function DashboardScreen() {
         }
     }, [isSuccess, data]);
 
-    const { filteredGroceryItems, filteredReceipts, expenseTotal } =
-        useDashboardData();
+    const { filteredGroceryItems, filteredReceipts, expenseTotal } = useDashboardData();
 
     return (
         <ScrollView className="w-full bg-background-100">
             <HStack className="mx-4 mb-4 mt-2 flex items-center justify-between">
-                <Heading className="font-semibold xs:text-2xl xl:text-3xl">
-                    Expiring Grocery Items
-                </Heading>
+                <Heading className="font-semibold xs:text-2xl xl:text-3xl">Expiring Grocery Items</Heading>
                 {filteredGroceryItems.length > 0 && (
                     <Button
                         onPress={() => {
@@ -50,9 +47,7 @@ export default function DashboardScreen() {
                         }}
                         variant="link"
                     >
-                        <ButtonText className="text-lg xl:text-xl">
-                            Show All
-                        </ButtonText>
+                        <ButtonText className="text-lg xl:text-xl">Show All</ButtonText>
                     </Button>
                 )}
             </HStack>
@@ -60,38 +55,26 @@ export default function DashboardScreen() {
             {filteredGroceryItems.length > 0 ? (
                 <ScrollView className="mx-4 max-h-[8rem]" horizontal>
                     <HStack className="gap-3">
-                        {filteredGroceryItems.map(
-                            (item: GroceryItem, index: number) => (
-                                <HStack key={index}>
-                                    <GroceryCard
-                                        deletable={false}
-                                        editable={false}
-                                        groceryItem={item}
-                                        markable={false}
-                                    />
-                                </HStack>
-                            ),
-                        )}
+                        {filteredGroceryItems.map((item: GroceryItem, index: number) => (
+                            <HStack key={index}>
+                                <GroceryCard deletable={false} editable={false} groceryItem={item} markable={false} />
+                            </HStack>
+                        ))}
                     </HStack>
                 </ScrollView>
             ) : (
                 <Text className="mx-4 font-body text-lg text-typography-700 xl:text-xl">
-                    You do not have any grocery items. Try creating a receipt to
-                    add items!
+                    You do not have any grocery items. Try creating a receipt to add items!
                 </Text>
             )}
 
             <HStack className="mx-4 mt-4">
-                <Heading className="font-semibold xs:text-2xl xl:text-3xl">
-                    Monthly Expenses
-                </Heading>
+                <Heading className="font-semibold xs:text-2xl xl:text-3xl">Monthly Expenses</Heading>
             </HStack>
 
             <HStack className="mx-4 mt-4">
                 <Card className="w-full max-w-lg rounded-lg bg-background-200 px-6 shadow-sm">
-                    <Text className="mb-2 font-heading text-xl text-typography-600">
-                        Your Expenses
-                    </Text>
+                    <Text className="mb-2 font-heading text-xl text-typography-600">Your Expenses</Text>
                     <Heading className="text-primary mb-2 font-info font-bold text-typography-950 xs:text-3xl xl:text-4xl">
                         ${expenseTotal.toFixed(2)}
                     </Heading>

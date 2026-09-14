@@ -13,28 +13,20 @@ export default function ReceiptViewScreen() {
 
     return (
         <VStack className="min-h-screen bg-background-100">
-            <Searchbar
-                placeholder="Search your receipts"
-                query={query}
-                setQuery={setQuery}
-            />
+            <Searchbar placeholder="Search your receipts" query={query} setQuery={setQuery} />
 
             {filteredReceipts.length > 0 && (
                 <ScrollView className="mx-4 mb-6 pb-16 xs:max-h-[25rem] md:max-h-[40rem] lg:mt-8 lg:max-h-none">
                     <VStack className="mt-4 grid gap-3 xs:grid-cols-1 lg:grid-cols-3">
-                        {filteredReceipts.map(
-                            (receipt: Receipt, index: number) => (
-                                <ReceiptCard key={index} receipt={receipt} />
-                            ),
-                        )}
+                        {filteredReceipts.map((receipt: Receipt, index: number) => (
+                            <ReceiptCard key={index} receipt={receipt} />
+                        ))}
                     </VStack>
                 </ScrollView>
             )}
 
             {filteredReceipts.length === 0 && (
-                <Text className="mx-4 font-body text-lg text-typography-700 xl:text-xl">
-                    No receipts found.
-                </Text>
+                <Text className="mx-4 font-body text-lg text-typography-700 xl:text-xl">No receipts found.</Text>
             )}
         </VStack>
     );

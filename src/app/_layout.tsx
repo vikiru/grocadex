@@ -1,10 +1,6 @@
 import 'react-native-reanimated';
 import '@/global.css';
-import {
-    DarkTheme,
-    DefaultTheme,
-    ThemeProvider,
-} from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 
 import '../../global.css';
 
@@ -45,9 +41,7 @@ export default function RootLayout() {
     return (
         <QueryClientProvider client={queryClient}>
             <GluestackUIProvider mode="light">
-                <ThemeProvider
-                    value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-                >
+                <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
                     <MainNavigation />
                 </ThemeProvider>
             </GluestackUIProvider>

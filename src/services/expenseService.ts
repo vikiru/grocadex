@@ -6,15 +6,9 @@ import { Expense, RequestPayload, ResponsePayload } from '~types';
 export function useCreateExpenseMutation() {
     const queryClient = useQueryClient();
 
-    return useMutation<
-        ResponsePayload<Expense>,
-        Error,
-        RequestPayload<Expense>
-    >({
+    return useMutation<ResponsePayload<Expense>, Error, RequestPayload<Expense>>({
         mutationFn: async (newExpense) => {
-            const response: ResponsePayload = await postData<
-                ResponsePayload<Expense>
-            >({
+            const response: ResponsePayload = await postData<ResponsePayload<Expense>>({
                 url: EXPENSE_ROUTE,
                 data: newExpense,
             });
@@ -39,15 +33,9 @@ export function useCreateExpenseMutation() {
 export function useDeleteExpenseMutation() {
     const queryClient = useQueryClient();
 
-    return useMutation<
-        ResponsePayload<null>,
-        Error,
-        RequestPayload<{ id: string }>
-    >({
+    return useMutation<ResponsePayload<null>, Error, RequestPayload<{ id: string }>>({
         mutationFn: async ({ id }) => {
-            const response: ResponsePayload = await deleteData<
-                ResponsePayload<null>
-            >({
+            const response: ResponsePayload = await deleteData<ResponsePayload<null>>({
                 url: `${EXPENSE_ROUTE}/${id}`,
             });
 
@@ -72,16 +60,12 @@ export function useRetrieveExpensesQuery() {
     return useQuery<ResponsePayload<Expense[]>, Error>({
         queryKey: ['expenses'],
         queryFn: async () => {
-            const response: ResponsePayload = await getData<
-                ResponsePayload<Expense[]>
-            >({
+            const response: ResponsePayload = await getData<ResponsePayload<Expense[]>>({
                 url: EXPENSE_ROUTE,
             });
 
             if (!response) {
-                throw new Error(
-                    'Failed to retrieve expenses: No response data.',
-                );
+                throw new Error('Failed to retrieve expenses: No response data.');
             }
 
             return response;
@@ -92,15 +76,9 @@ export function useRetrieveExpensesQuery() {
 export function useUpdateExpenseMutation() {
     const queryClient = useQueryClient();
 
-    return useMutation<
-        ResponsePayload<Expense>,
-        Error,
-        RequestPayload<Expense>
-    >({
+    return useMutation<ResponsePayload<Expense>, Error, RequestPayload<Expense>>({
         mutationFn: async (updatedExpense) => {
-            const response: ResponsePayload = await putData<
-                ResponsePayload<Expense>
-            >({
+            const response: ResponsePayload = await putData<ResponsePayload<Expense>>({
                 url: `${EXPENSE_ROUTE}/${updatedExpense.data!.id}`,
                 data: updatedExpense.data,
             });

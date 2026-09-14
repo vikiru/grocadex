@@ -25,22 +25,10 @@ export default function MainNavigation() {
             {!user && <AuthStack />}
             {user && (
                 <Stack>
-                    <Stack.Screen
-                        name="auth"
-                        options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                        name="(tabs)"
-                        options={{ headerShown: false, headerTitle: '' }}
-                    />
-                    <Stack.Screen
-                        name="grocery"
-                        options={{ headerShown: false, headerTitle: '' }}
-                    />
-                    <Stack.Screen
-                        name="receipt"
-                        options={{ headerShown: false, headerTitle: '' }}
-                    />
+                    <Stack.Screen name="auth" options={{ headerShown: false }} />
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false, headerTitle: '' }} />
+                    <Stack.Screen name="grocery" options={{ headerShown: false, headerTitle: '' }} />
+                    <Stack.Screen name="receipt" options={{ headerShown: false, headerTitle: '' }} />
                 </Stack>
             )}
         </>

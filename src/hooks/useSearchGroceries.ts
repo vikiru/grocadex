@@ -10,10 +10,7 @@ export default function useSearchReceipts() {
 
     useEffect(() => {
         const filtered = activeGroceries.filter((grocery: GroceryItem) => {
-            return (
-                grocery.name.toLowerCase().includes(query.toLowerCase()) ||
-                grocery.name === query
-            );
+            return grocery.name.toLowerCase().includes(query.toLowerCase()) || grocery.name === query;
         });
         setFilteredGroceries(filtered);
     }, [query, groceries]);

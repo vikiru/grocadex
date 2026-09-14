@@ -7,14 +7,8 @@ export default function AuthStack() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="receipt" options={{ headerShown: false }} />
             <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen
-                name="login"
-                options={{ headerShown: true, headerTitle: '' }}
-            />
-            <Stack.Screen
-                name="signup"
-                options={{ headerShown: true, headerTitle: '' }}
-            />
+            <Stack.Screen name="login" options={{ headerShown: true, headerTitle: '' }} />
+            <Stack.Screen name="signup" options={{ headerShown: true, headerTitle: '' }} />
         </Stack>
     );
 }

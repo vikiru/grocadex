@@ -1,18 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
-import DateTimePicker, {
-    DateType,
-    useDefaultStyles,
-} from 'react-native-ui-datepicker';
-import {
-    Heading,
-    Modal,
-    ModalBackdrop,
-    ModalCloseButton,
-    ModalContent,
-    ModalHeader,
-    VStack,
-} from '~components/ui';
+import DateTimePicker, { DateType, useDefaultStyles } from 'react-native-ui-datepicker';
+import { Heading, Modal, ModalBackdrop, ModalCloseButton, ModalContent, ModalHeader, VStack } from '~components/ui';
 import { DateFormat } from '~constants/Dates';
 import { formatDate } from '~utils/date';
 
@@ -24,12 +13,7 @@ type DateSelectorProps = {
     setDateString: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export default function DateSelector({
-    title,
-    date,
-    setDate,
-    setDateString,
-}: DateSelectorProps) {
+export default function DateSelector({ title, date, setDate, setDateString }: DateSelectorProps) {
     const defaultStyles = useDefaultStyles();
     const [open, setOpenState] = useState(true);
 
@@ -51,12 +35,7 @@ export default function DateSelector({
                 </ModalHeader>
 
                 <VStack className="mt-2">
-                    <DateTimePicker
-                        date={date}
-                        mode="single"
-                        onChange={handleDateChange}
-                        styles={defaultStyles}
-                    />
+                    <DateTimePicker date={date} mode="single" onChange={handleDateChange} styles={defaultStyles} />
                 </VStack>
             </ModalContent>
         </Modal>

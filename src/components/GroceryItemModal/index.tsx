@@ -8,21 +8,9 @@ type GroceryItemModalProps = {
     initialValues:
         | GroceryItem
         | Partial<GroceryItem>
-        | Pick<
-              GroceryItem,
-              'name' | 'expiryDate' | 'quantity' | 'unitPrice' | 'totalPrice'
-          >;
+        | Pick<GroceryItem, 'name' | 'expiryDate' | 'quantity' | 'unitPrice' | 'totalPrice'>;
     onSubmit: (
-        values:
-            | GroceryItem
-            | Pick<
-                  GroceryItem,
-                  | 'name'
-                  | 'expiryDate'
-                  | 'quantity'
-                  | 'unitPrice'
-                  | 'totalPrice'
-              >,
+        values: GroceryItem | Pick<GroceryItem, 'name' | 'expiryDate' | 'quantity' | 'unitPrice' | 'totalPrice'>,
     ) => Promise<void>;
     id?: number;
     receiptId?: number;
